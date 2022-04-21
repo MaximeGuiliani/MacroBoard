@@ -1,0 +1,28 @@
+{
+  "fav": [
+    {
+      "name": "Launch",
+      "Fav": true,
+      "image": "",
+
+      "courses": [ "Lauch", "Calculus1", "CS100", "ML" ]
+    },
+    {
+      "name": "Test",
+      "Fav": true,
+      "image": "",
+      "courses": [ "Lauch", "Calculus1", "CS100", "ML" ]
+    },
+
+    {
+      "name": "NotFav",
+      "Fav": false,
+      "image": "",
+      "courses": [ "Lauch", "Calculus1", "CS100", "ML" ]
+    }
+
+
+
+  ]
+
+}

@@ -10,31 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MacroBoard
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EditionWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EditionWindow : Window
     {
-        public MainWindow()
+        public EditionWindow()
         {
             InitializeComponent();
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            EditionWindow editionWindow = new();
-            editionWindow.Show();
-        }
-
-        private void GetFavoris()
-        {
-
         }
     }
 }
