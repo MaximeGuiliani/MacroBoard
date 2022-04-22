@@ -5,44 +5,91 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="920"
-		 ResizeMode="NoResize"
-		Background="Transparent"
-		AllowsTransparency="True"
+        Title="MainWindow" Height="670" Width="920"
+        ResizeMode="NoResize"
+		
 		
 		>
 
-	<Border Background="WHITE" Margin="10,0,0,0">
-
-
-
-		<Grid VerticalAlignment="Top" HorizontalAlignment="Center" ShowGridLines="True" Height="600" Width="920">
-			<Button Content="Button"
-					HorizontalAlignment="Left"
-					Margin="463,88,0,0"
-					VerticalAlignment="Top"
-					Height="66"
-					Width="90"
-					Click="Button_Click"/>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-
-				<Grid.RowDefinitions>
-					<RowDefinition/>
-					<RowDefinition/>
-				</Grid.RowDefinitions>
-
-			</Grid>
 
 
 
 
-		</Grid>
-	</Border>
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Center"  ShowGridLines="True" Height="650" Width="920">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+                <RowDefinition  Height="20"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+
+            </Grid.RowDefinitions>
+            <Label Grid.Column="1" 
+                       FontSize="27"
+                       FontFamily="FiraCode"
+                       Content="MacroBoard" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Source="/macro.jpg"/>
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"   x:Name="Search"  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Center" Width="290" TextChanged="Search_TextChanged"  />
+
+
+            <Label Content="Favoris" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Grid.Row="1" Width="120" FontSize="20"/>
+
+
+
+            <Button  x:Name="ButtonEdit" Content="Edit" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="80" Background="Green" Click="EditionMode"/>
+
+
+
+
+
+            <ListBox   Height="120" Width="920"  Name="ListFav" Grid.Row="2" >
+                <ListBox.ItemTemplate >
+                    <DataTemplate >
+                        <StackPanel Orientation="Horizontal">
+                            <Button Grid.Column="{Binding Path = place}" HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding Path = BackGround}" Content="{Binding Path = Name}" FontWeight="Bold" Click="Button_Click"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+            <ListBox   Height="120" Width="920"  Name="ListMacro" Grid.Row="4" >
+                <ListBox.ItemTemplate >
+                    <DataTemplate >
+                        <StackPanel Orientation="Horizontal">
+                            <Button  Grid.Column="{Binding Path = place}" HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding Path = BackGround}" Content="{Binding Path = Name}"  FontWeight="Bold"   Click="Button_Click"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+
+
+
+
+
+
+        </Grid>
+
+
+
+
+
+
+
+    </Grid>
 </Window>
