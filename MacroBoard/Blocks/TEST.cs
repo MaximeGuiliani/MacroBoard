@@ -13,10 +13,11 @@ namespace MacroBoard
 {
     internal class TEST : Block
     {
-        public TEST(string Name, string LogoUrl)
+        public TEST(string Name, string LogoUrl, string info)
         {
             base.Name = Name;
             base.LogoUrl = LogoUrl;
+            base.info = info;
         }
 
         public override void Execute()

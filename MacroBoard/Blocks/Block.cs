@@ -11,6 +11,7 @@ namespace MacroBoard{
 
         public string Name { get; set; } = "";
         public string LogoUrl { get; set; } = "";
+        public string info { get; set; } = "";
 
         public abstract void Execute();
 
