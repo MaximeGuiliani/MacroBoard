@@ -11,7 +11,7 @@ using System.Threading;
 
 using System.Runtime.InteropServices;
 
-namespace MacroBoard.Blocks
+namespace MacroBoard
 {
     internal class TEST : Block
     {

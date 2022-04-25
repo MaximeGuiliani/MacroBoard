@@ -22,12 +22,30 @@ namespace MacroBoard
         public WindowTEST()
         {
             InitializeComponent();
+            
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            Block testBlock = new Blocks.B_CreateTextFile("test", "test2", "info", @"C:\Users\Alien\Desktop", "test", ".exe", "Bonsoir ceci est un text heba");
-            testBlock.Execute();
+            //   Block testBlock = new Blocks.B_CreateTextFile("test", "test2", "info", @"\\Mac\Home\Desktop\", "test", ".exe", "Bonsoir ceci est un text heba");
+            //   testBlock.Execute();
+            listTest.Items.Add("hello");
+            
+            listTest.Items.Add(new Button());
+            
+            
+
+        }
+
+        private void OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            mainButton.Background = new SolidColorBrush(Colors.Red);
+        }
+
+        private void OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            mainButton.Background = new SolidColorBrush(Colors.Blue);
+
         }
     }
 }
