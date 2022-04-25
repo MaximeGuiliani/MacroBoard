@@ -2,12 +2,12 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="WindowTEST.xaml.cs">
+    <Compile Update="Blocks\WindowTEST.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="WindowTEST.xaml">
+    <Page Update="Blocks\WindowTEST.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

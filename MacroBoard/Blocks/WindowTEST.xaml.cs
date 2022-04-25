@@ -26,8 +26,8 @@ namespace MacroBoard
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            Block hebamecasselescouilles = new TEST("test", "test2");
-            hebamecasselescouilles.Execute();
+            Block testBlock = new Blocks.B_CreateTextFile("test", "test2", "info", @"C:\Users\Alien\Desktop", "test", ".exe", "Bonsoir ceci est un text heba");
+            testBlock.Execute();
         }
     }
 }
