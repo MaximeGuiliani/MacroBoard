@@ -12,27 +12,30 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class LaunchBrowserFirefox : Block
+    internal class LaunchEdgeBrowser : Block
     {
         String address;
 
-        public LaunchBrowserFirefox(String address)
+        public LaunchEdgeBrowser(String address)
         {
             this.address = address;
-            base.Name = "LaunchBrowser Firefox";
+            base.Name = "LaunchEdgeBrowser";
             base.LogoUrl = "";
-            base.info = "Lancer le navigateur Firefox sur une url";
+            base.info = "Lancer le navigateur Edge sur une url";
         }
 
         public override void Execute()
         {
 
-            ProcessStartInfo startInfo = new ProcessStartInfo(@"C:\Program Files\Mozilla Firefox\firefox.exe");
-            startInfo.WindowStyle = ProcessWindowStyle.Normal;
-            startInfo.Arguments = $"-new-tab {this.address}";
+            ProcessStartInfo startInfo = new ProcessStartInfo(@"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe");
+            //startInfo.WindowStyle = ProcessWindowStyle.Normal;
+            startInfo.Arguments = $"microsoft-edge:{this.address}";
             Process.Start(startInfo);
 
+
         }
+
+
 
 
 
