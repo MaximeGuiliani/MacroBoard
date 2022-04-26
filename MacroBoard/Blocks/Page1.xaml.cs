@@ -20,13 +20,21 @@ namespace MacroBoard
     /// </summary>
     public partial class Page1 : Page
     {
-        public Page Block;
-
+        static string name;
         public Page1()
         {
             InitializeComponent();
+            name = "Hello";
+        }
 
-            Block = PageTest;
+        public void setName(string name)
+        {
+            //name = "Hello";
+        }
+
+        public string getName()
+        {
+            return Label_Name.Content.ToString();
         }
     }
 }

@@ -19,10 +19,24 @@ namespace MacroBoard
     /// </summary>
     public partial class WindowTEST : Window
     {
+        private List<Frame> BlocksFrame = new();
+        
         public WindowTEST()
         {
             InitializeComponent();
             
+            InitBlock();   
+        }
+
+        private void InitBlock()
+        {
+            Frame frame = new Frame();
+            Page1 page = new();
+            page.setName("Yolo");
+
+            frame.Source = new Uri("Blocks/Page1.xaml", UriKind.Relative);
+            //((Page)frame.Content).Content
+            listTest.Items.Add(frame);
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
