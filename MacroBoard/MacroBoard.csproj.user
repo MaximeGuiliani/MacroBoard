@@ -3,6 +3,8 @@
   <PropertyGroup />
   <ItemGroup>
     <Compile Update="EditionWindow.xaml.cs">
+
+    <Compile Update="WindowTEST.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -14,6 +16,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="styles\SearchBoxStyle.xaml">
+
+    <Page Update="WindowTEST.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
