@@ -1,11 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-	<UseWindowsForms>true</UseWindowsForms>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="macro.jpg" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MVVMEssentials.WPF" Version="1.0.2" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="images\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="macro.jpg" />
+	</ItemGroup>
 
 </Project>

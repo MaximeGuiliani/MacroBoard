@@ -3,11 +3,22 @@
   <PropertyGroup />
   <ItemGroup>
     <Compile Update="Blocks\WindowTEST.xaml.cs">
+    <Compile Update="EditionWindow.xaml.cs">
+
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Blocks\WindowTEST.xaml">
+
+    <Page Update="EditionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="styles\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="styles\SearchBoxStyle.xaml">
+
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
