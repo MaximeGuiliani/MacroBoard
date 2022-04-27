@@ -20,16 +20,15 @@ namespace MacroBoard
     /// </summary>
     public partial class Page1 : Page
     {
-        static string name;
         public Page1()
         {
             InitializeComponent();
-            name = "Hello";
+            Label_Name.Content = "Hello";
         }
 
         public void setName(string name)
         {
-            //name = "Hello";
+            Label_Name.Content = name;
         }
 
         public string getName()

@@ -9,7 +9,7 @@
       x:Name="PageTest" Background="White" Width="200" Height="50">
 
     <Grid Margin="5">
-        <Label x:Name="Label_Name" Content="{Binding name}" Height="26" Margin="15,7,15,7" HorizontalAlignment="Center"/>
+        <Label x:Name="Label_Name" Content="Test" Height="26" Margin="15,7,15,7" HorizontalAlignment="Center"/>
         <Button x:Name="Button_Up" Width="15" Height="15" HorizontalAlignment="Left" VerticalAlignment="Top">
             <TextBlock Text="🠕" Margin="0,-3,0,0"/>
         </Button>
