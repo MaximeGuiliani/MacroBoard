@@ -11,53 +11,34 @@ namespace MacroBoard
 {
     internal class ClickG : Block
     {
-        int x;
-        int y;
-        [Flags]
-        public enum MouseEventFlags
+        //int x;
+        //int y;
+        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        public const int MOUSEEVENTF_LEFTUP = 0x04;
+
+        public ClickG()
         {
-            LeftDown = 0x00000002,
-            LeftUp = 0x00000004,
-            MiddleDown = 0x00000020,
-            MiddleUp = 0x00000040,
-            Move = 0x00000001,
-            Absolute = 0x00008000,
-            RightDown = 0x00000008,
-            RightUp = 0x00000010
+            //this.x = x;
+            //this.y = y;
         }
 
 
-        [DllImport("user32.dll")]
-        private static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
+        //[System.Runtime.InteropServices.DllImport("user32.dll")]
+        //static extern bool SetCursorPos(int x, int y);
+
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+
 
         public override void Execute()
         {
-            mouse_event
-                ((int)MouseEventFlags.LeftDown,
-                 this.x,
-                 this.y,
-                 0,
-                 0)
-                ;
-
-            //Thread.Sleep(100);
-
-            mouse_event
-                ((int)MouseEventFlags.LeftUp,
-                 this.x,
-                 this.y,
-                 0,
-                 0)
-                ;
-        }
-
-        public ClickG(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
+            //SetCursorPos(this.x, this.y);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 
         }
-
 
     }
 
