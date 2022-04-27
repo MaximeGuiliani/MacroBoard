@@ -7,17 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="670" Width="920"
         ResizeMode="NoResize"
-		
-		
+        Background="Beige"
 		>
+    <Grid  VerticalAlignment="Top" HorizontalAlignment="Center"  ShowGridLines="True" Height="650" Width="920">
 
-
-
-
-
-    <Grid VerticalAlignment="Top" HorizontalAlignment="Center"  ShowGridLines="True" Height="650" Width="920">
-
-        <Grid>
+        <Grid Margin="10,0,-10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -34,62 +28,67 @@
                 <RowDefinition  Height="20"/>
                 <RowDefinition/>
                 <RowDefinition Height="20"/>
-
             </Grid.RowDefinitions>
             <Label Grid.Column="1" 
                        FontSize="27"
                        FontFamily="FiraCode"
                        Content="MacroBoard" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Source="/macro.jpg"/>
-            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"   x:Name="Search"  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Center" Width="290" TextChanged="Search_TextChanged"  />
-
-
+            <TextBox  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"   x:Name="Search"  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Center" Width="290" TextChanged="Search_TextChanged"  />
             <Label Content="Favoris" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Grid.Row="1" Width="120" FontSize="20"/>
-
-
-
             <Button  x:Name="ButtonEdit" Content="Edit" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="80" Background="Green" Click="EditionMode"/>
-
-
-
-
-
-            <ListBox   Height="120" Width="920"  Name="ListFav" Grid.Row="2" >
-                <ListBox.ItemTemplate >
-                    <DataTemplate >
-                        <StackPanel Orientation="Horizontal">
-                            <Button Grid.Column="{Binding Path = place}" HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding Path = BackGround}" Content="{Binding Path = Name}" FontWeight="Bold" Click="Button_Click"/>
-
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
-
-            <ListBox   Height="120" Width="920"  Name="ListMacro" Grid.Row="4" >
-                <ListBox.ItemTemplate >
-                    <DataTemplate >
-                        <StackPanel Orientation="Horizontal">
-                            <Button  Grid.Column="{Binding Path = place}" HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding Path = BackGround}" Content="{Binding Path = Name}"  FontWeight="Bold"   Click="Button_Click"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
-
-
-
-
-
+            <Button  x:Name="ButtonRemove" Content="Remove" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="80" Background="DarkRed" Click="RemoveMode" Grid.Column="4"/>
+            <Button  x:Name="ButtonAddFav" Content="AddFav" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="80" Background="yellow" Click="AddMode" Grid.Column="2"/>
 
 
         </Grid>
+        <!--         List des favoris   -->
+        <ListBox ItemsSource="{Binding Favmacros}"  Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   Height="120" Width="920"  x:Name="ListFav" Margin="0,129,0,401" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Padding" Value="75,0,0,0"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate >
+                <DataTemplate >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button   HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding BackGround}" Content="{Binding  Path = Name}"   FontWeight="Bold" Click="Button_Fav_Click">
+                        </Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
 
+        <!--         List des macros    -->
 
-
-
-
+        <ListBox  ItemsSource="{Binding AllmacroList}" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="920"  x:Name="ListMacro" Margin="0,325,0,10" BorderBrush="{x:Null}" >
+            <ListBox.Style>
+                <Style/>
+            </ListBox.Style>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="75,0,0,75"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate >
+                <DataTemplate >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button   HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding Path = BackGround}" Content="{Binding Path = Name}" FontWeight="Bold" Click="Button_Click"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
     </Grid>
 </Window>

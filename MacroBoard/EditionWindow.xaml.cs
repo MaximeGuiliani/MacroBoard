@@ -19,6 +19,9 @@ namespace MacroBoard
     /// </summary>
     public partial class EditionWindow : Window
     {
+
+
+        // TODO : Prendra en argument une Macro (List de block) Nom
         public EditionWindow()
         {
             InitializeComponent();
