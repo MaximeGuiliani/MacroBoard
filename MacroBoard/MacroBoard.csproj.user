@@ -2,13 +2,15 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Blocks\WindowTEST.xaml.cs">
     <Compile Update="EditionWindow.xaml.cs">
 
-    <Compile Update="WindowTEST.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Blocks\WindowTEST.xaml">
+
     <Page Update="EditionWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -17,7 +19,6 @@
     </Page>
     <Page Update="styles\SearchBoxStyle.xaml">
 
-    <Page Update="WindowTEST.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
