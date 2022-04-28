@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:MacroBoard"
         mc:Ignorable="d"
         Title="WindowTEST" Height="450" Width="800">
+
     <Grid>
+        
         <ListBox x:Name="listTest" Margin="0,109,0,109" HorizontalAlignment="Center"/>
     </Grid>
 </Window>

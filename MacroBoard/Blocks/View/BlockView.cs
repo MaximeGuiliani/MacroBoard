@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Diagnostics;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace MacroBoard
 {
@@ -98,6 +100,14 @@ namespace MacroBoard
             Content.Margin = thickness;
             Content.Width = 230d;
             Content.Height = 35d;
+
+            BitmapImage bitmapImg = new BitmapImage();
+
+            bitmapImg.BeginInit();
+            bitmapImg.UriSource = new Uri("../../../images/block.png", UriKind.Relative);
+            bitmapImg.EndInit();
+
+            Content.Background = new ImageBrush(bitmapImg);
 
             Content.Children.Add(Lbl_Name);
             Content.Children.Add(Btn_Delete);
