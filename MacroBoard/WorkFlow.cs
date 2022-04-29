@@ -8,9 +8,9 @@ namespace MacroBoard
 {
     public class WorkFlow
     {
-        public string imagePath;
-        public string workflowName;
-        public List<Block> workflowList;
+        public string imagePath { get; set; }
+        public string workflowName { get; set; }
+        public List<Block> workflowList { get; set; }
 
         public WorkFlow(string imagePath, string workflowName, List<Block> workflowList)
         {

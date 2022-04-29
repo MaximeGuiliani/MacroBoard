@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace MacroBoard
 {
@@ -10,6 +13,17 @@ namespace MacroBoard
     /// </summary>
     public partial class EditionWindow : Window
     {
+        WorkFlow workFlow;
+        private string ImagePathValue;
+        public string ImagePath
+        {
+            get { return ImagePathValue; }
+            set { ImagePathValue = ImagePath; }
+        }
+        
+
+
+
 
         private List<BlockView> BlockViews = new();
         // TODO : Prendra en argument une Macro (List de block) Nom
@@ -17,14 +31,44 @@ namespace MacroBoard
         {
             InitializeComponent();
             InitBlock();
+            workFlow = new WorkFlow(null,null,null);
+            changeImage("../Images/block.png");
+            DataContext = this;
         }
+
+        public EditionWindow(WorkFlow workFlow)
+        {
+            InitializeComponent();
+            this.workFlow = workFlow;
+            changeImage(workFlow.imagePath);
+            
+        }
+
+        public void changeImage(string path)
+        {
+            Image img = new Image();
+            BitmapImage bitmapImg = new BitmapImage();
+
+            bitmapImg.BeginInit();
+            bitmapImg.UriSource = new Uri(@"..\Images\Block.png", UriKind.Relative);
+            bitmapImg.EndInit();
+            
+            img.Source = bitmapImg;
+
+            TextBlock txt =new TextBlock();
+            txt.Text = path;
+            GridEdit.Children.Add(img);
+        }
+
+        
+
 
         private void save(object sender, RoutedEventArgs e)
         {
             // TODO add Img attribute, check existing Names
-            Macro macro = new Macro();
-            macro.Name = Name_Box.Text;
-            //macro.img = Image_Selected.Text;
+      
+            ImagePath = Image_Selected.Text;
+            
 
         }
 
@@ -46,8 +90,8 @@ namespace MacroBoard
                 string filename = dlg.FileName;
 
                 Image_Selected.Text = filename;
-                //Macro_Image.Source = Uri.EscapeDataString(filename);
-
+                ImagePath = filename;
+                
 
             }
 
