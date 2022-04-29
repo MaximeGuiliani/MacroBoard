@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -23,10 +23,21 @@ using System.IO;
 
 namespace MacroBoard
 {
-    internal class Recognation : Block
+    internal class Recognition : Block
     {
 
-        int screenNumber = 0;
+        int screenNumber;
+        string imagePath;
+        int offSetX;
+        int offSetY;
+
+        public Recognition(string ImagePath, int offSetX=0, int offSetY=0, int screenNumber=0)
+        {
+            this.imagePath = ImagePath;
+            this.offSetX = offSetX;
+            this.offSetY = offSetY;
+            this.screenNumber = screenNumber;
+        }
 
         private Rectangle searchBitmap(Bitmap smallBmp, Bitmap bigBmp, double tolerance)
         {
@@ -145,7 +156,7 @@ namespace MacroBoard
 
         public override void Execute()
         {
-            Bitmap bitmap1 = new Bitmap(@"C:\Users\leopaul\Desktop\test_reco_1\button.jpg");
+            Bitmap bitmap1 = new Bitmap(this.imagePath);
             Bitmap bitmap2 = capture();
             double tolerance;
             bool found = false;
@@ -155,8 +166,8 @@ namespace MacroBoard
                 if (location.Width != 0)
                 {
                     found = true;
-                   //MessageBox.Show($"Tolerance:{tolerance}    w:{location.Width}    h:{location.Height}    X: {location.X}   Y: {location.Y}");
-                    SetCursorPos(location.X+ location.Width/2, location.Y+ location.Height/2);
+                    SetCursorPos(location.X+(location.Width/2)+this.offSetX, location.Y+(location.Height/2)+this.offSetY);
+                    //MessageBox.Show($"Tolerance:{tolerance}    w:{location.Width}    h:{location.Height}    X: {location.X}   Y: {location.Y}");
                     break;
                 }
             }
