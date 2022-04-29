@@ -35,9 +35,11 @@
             <TextBlock
                 Grid.Row="0"
                 FontSize="24"
-                
                 Text="MACRO EDITION" />
-            <Grid HorizontalAlignment="Center" Height="146" Grid.Row="1" VerticalAlignment="Top" Margin="0,441,0,0" Width="819" >
+            
+            <ListBox x:Name="listTest" Margin="0,109,0,109" HorizontalAlignment="Center"/>
+            
+            <Grid HorizontalAlignment="Center" Height="146" Grid.Row="1" VerticalAlignment="Bottom" Width="820" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="27*"/>
                     <RowDefinition Height="119*"/>
