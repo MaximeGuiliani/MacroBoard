@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MacroBoard
 {
@@ -25,6 +15,50 @@ namespace MacroBoard
         public EditionWindow()
         {
             InitializeComponent();
+        }
+
+        private void save(object sender, RoutedEventArgs e)
+        {
+            // TODO add Img attribute, check existing Names
+            Macro macro = new Macro();
+            macro.Name = Name_Box.Text;
+            //macro.img = Image_Selected.Text;
+
+        }
+
+
+
+        private void selectImage(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "PNG Files (*.png) |JPEG Files (*.jpeg)|*.jpeg|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+
+                Image_Selected.Text = filename;
+                //Macro_Image.Source = Uri.EscapeDataString(filename);
+
+
+            }
+
+        }
+
+        private void Name_Box_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Name_Box.Text = "";
+        }
+
+        private void Name_Box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
