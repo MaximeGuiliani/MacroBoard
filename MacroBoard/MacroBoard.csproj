@@ -10,16 +10,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="macro.jpg" />
+	  <Compile Remove="App.xaml.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MVVMEssentials.WPF" Version="1.0.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="images\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Resource Include="macro.jpg" />
+	  <Folder Include="Images\" />
 	</ItemGroup>
 
 </Project>
