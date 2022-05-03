@@ -9,7 +9,7 @@ namespace MacroBoard
 {
     public class WorkFlow
     {
-
+        public string destinationPath = @"~\Documents\MacroBoard";
         public string imagePath { get; set; }
         public string workflowName { get; set; }
         public List<Block> workflowList { get; set; }
