@@ -7,9 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 
 namespace MacroBoard{
-    public abstract class Block{
-        
-		public Block()
+    public abstract class Block  {
+        public Block()
         {
             this.BlockType = this.GetType().Name;
         }
@@ -21,7 +20,7 @@ namespace MacroBoard{
 
         public abstract void Execute();
 
-
-
+        public abstract void Accept(Visitor visitor);
+        
     }
 }

@@ -17,6 +17,7 @@ namespace MacroBoard
         public Button Btn_Edit { get; } = new();
         public Button Btn_Up { get; } = new();
         public Button Btn_Down { get; } = new();
+
         private Label Lbl_Name = new();
         public Grid Content { get; } = new();
         public Block Block { get; set; }
@@ -27,6 +28,17 @@ namespace MacroBoard
             Setup_Btns();
             Setup_Name(Name);
             Setup_Grid();
+        }
+
+        public BlockView(Block block)
+        {
+            this.Block = block;
+            Setup_Block_Creating_Window();
+        }
+
+        private void Setup_Block_Creating_Window()
+        {
+            throw new NotImplementedException();
         }
 
         private void Setup_Name(string Name)
@@ -104,7 +116,7 @@ namespace MacroBoard
             BitmapImage bitmapImg = new BitmapImage();
 
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri("../../../Resources/block.png", UriKind.Relative);
+            bitmapImg.UriSource = new Uri("./Resources/block.png", UriKind.Relative);
             bitmapImg.EndInit();
 
             Content.Background = new ImageBrush(bitmapImg);
@@ -115,6 +127,9 @@ namespace MacroBoard
             Content.Children.Add(Btn_Up);
             Content.Children.Add(Btn_Down);
         }
+
+
+
 
     }
 }

@@ -14,11 +14,9 @@ using System.Drawing.Imaging;
 using System.Drawing;
 
 
-namespace MacroBoard
-{
-    class Capture : Block
+namespace MacroBoard{
+    public class Capture : Block
     {
-
         string fileName, format, path;
         ImageFormat imageFormat = ImageFormat.Jpeg;
         int screenNumber;
@@ -47,6 +45,10 @@ namespace MacroBoard
             }
         }
 
+        public override void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
 
         public override void Execute()
         {
