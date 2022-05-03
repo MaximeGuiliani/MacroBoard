@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -25,15 +26,23 @@ namespace MacroBoard
 
 
 
+
         private List<BlockView> BlockViews = new();
         // TODO : Prendra en argument une Macro (List de block) Nom
         public EditionWindow()
         {
             InitializeComponent();
             InitBlock();
-            workFlow = new WorkFlow("", "", null);
-            changeImage("../Images/block.png");
+            //workFlow = new WorkFlow("", "", null);
+            //changeImage("../Images/block.png");
             DataContext = this;
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+            //MessageBox.Show(Directory.GetCurrentDirectory());
+            Macro_Image.Source = new BitmapImage(new Uri("/Resources/macro_img.png", UriKind.Relative));
+            //changeImage(Directory.GetCurrentDirectory() + "/../../../Resources/macro_img.png");
+            //ImagePathValue = Directory.GetCurrentDirectory() + "/../../../Resources/macro_img.png";          
+
+
         }
 
         public EditionWindow(WorkFlow workFlow)
@@ -46,18 +55,8 @@ namespace MacroBoard
 
         public void changeImage(string path)
         {
-            Image img = new Image();
-            BitmapImage bitmapImg = new BitmapImage();
+            ImagePathValue = path;
 
-            bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri(@"..\Images\Block.png", UriKind.Relative);
-            bitmapImg.EndInit();
-
-            img.Source = bitmapImg;
-
-            TextBlock txt = new TextBlock();
-            txt.Text = path;
-            GridEdit.Children.Add(img);
         }
 
 
@@ -65,9 +64,9 @@ namespace MacroBoard
 
         private void save(object sender, RoutedEventArgs e)
         {
-            // TODO add Img attribute, check existing Names
 
-            ImagePath = Image_Selected.Text;
+            changeImage(Image_Selected.Text);
+           
 
 
         }
@@ -78,7 +77,7 @@ namespace MacroBoard
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-            dlg.DefaultExt = ".png";
+            dlg.DefaultExt = ".jpeg";
             dlg.Filter = "PNG Files (*.png) |JPEG Files (*.jpeg)|*.jpeg|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
 
 
@@ -91,6 +90,7 @@ namespace MacroBoard
 
                 Image_Selected.Text = filename;
                 ImagePath = filename;
+                changeImage(filename);
 
 
             }

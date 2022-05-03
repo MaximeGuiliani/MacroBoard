@@ -48,7 +48,7 @@
                 <TextBox Foreground="Gray" VerticalContentAlignment="Center" x:Name="Image_Selected" HorizontalAlignment="Left" Height="28" Margin="378,3,0,0" TextWrapping="Wrap" Text="no file selected" VerticalAlignment="Top" Width="274" Focusable="False" Grid.Row="1"/>
                 <TextBox Foreground="Gray" VerticalContentAlignment="Center" x:Name="Name_Box" HorizontalAlignment="Left" Height="28" Margin="300,63,0,0" Grid.Row="1" Text="select name" TextWrapping="Wrap" VerticalAlignment="Top" Width="352" GotFocus="Name_Box_GotFocus" TextChanged="Name_Box_TextChanged"/>
                 <Button x:Name="Select_Image"  Content=" Select Image" HorizontalAlignment="Left" Height="28" Margin="300,3,0,0" Grid.Row="1" VerticalAlignment="Top" Width="78" Click="selectImage"/>
-                <Image x:Name="Macro_Image" Source="{Binding ImagePath}" HorizontalAlignment="Left" Height="100" Margin="120,0,0,0" VerticalAlignment="Top" Width="100" Grid.Row="1"/>
+                <Image x:Name="Macro_Image" HorizontalAlignment="Left" Height="100" Margin="120,0,0,0" VerticalAlignment="Top" Width="100" Grid.Row="1"/>
             </Grid>
 
 
