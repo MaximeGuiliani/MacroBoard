@@ -43,7 +43,7 @@
 
         </Grid>
         <!--         List des favoris   -->
-        <ListBox ItemsSource="{Binding Favmacros}"  Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   Height="120" Width="920"  x:Name="ListFav" Margin="0,129,0,401" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <ListBox ItemsSource="{Binding ListFav}"  Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   Height="120" Width="920"  x:Name="ListFav" Margin="0,129,0,401" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Padding" Value="75,0,0,0"/>
@@ -57,7 +57,7 @@
             <ListBox.ItemTemplate >
                 <DataTemplate >
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button   HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding BackGround}" Content="{Binding  Path = Name}"   FontWeight="Bold" Click="Button_Fav_Click">
+                        <Button   HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding imagePath }" Content="{Binding  workflowName}"   FontWeight="Bold" Click="Button_Fav_Click">
                         </Button>
                     </StackPanel>
                 </DataTemplate>
@@ -67,7 +67,7 @@
 
         <!--         List des macros    -->
 
-        <ListBox  ItemsSource="{Binding AllmacroList}" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="920"  x:Name="ListMacro" Margin="0,325,0,10" BorderBrush="{x:Null}" >
+        <ListBox  Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="920" Margin="0,325,0,10" BorderBrush="{x:Null}" >
             <ListBox.Style>
                 <Style/>
             </ListBox.Style>
@@ -84,7 +84,7 @@
             <ListBox.ItemTemplate >
                 <DataTemplate >
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Button   HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding Path = BackGround}" Content="{Binding Path = Name}" FontWeight="Bold" Click="Button_Click"/>
+                        <Button   HorizontalAlignment="center" Height="100" Width="100"  Grid.Row="2"  VerticalAlignment="Center" Foreground="White" Background="{Binding imagePath }" Content="{Binding  workflowName}" FontWeight="Bold" Click="Button_Click"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

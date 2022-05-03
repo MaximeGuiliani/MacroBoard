@@ -26,12 +26,12 @@ namespace MacroBoard
         bool isEdition = false;
         bool isRemove = false;
         bool isAddFav = false;
-        WorkFlow macro0 = new WorkFlow("Test0", "Blue", new List<Block>());
-        WorkFlow macro1 = new WorkFlow("Test1", "Blue", new List<Block>());
-        WorkFlow macro2 = new WorkFlow("Test2", "Blue", new List<Block>());
-        WorkFlow macro3 = new WorkFlow("Test3", "Blue", new List<Block>());
-        WorkFlow macro4 = new WorkFlow("Test4", "Blue", new List<Block>());
-        WorkFlow macro5 = new WorkFlow("Test5", "Blue", new List<Block>());
+        WorkFlow macro0 = new WorkFlow("Blue", "Test0", new List<Block>());
+        WorkFlow macro1 = new WorkFlow("Blue", "Test1", new List<Block>());
+        WorkFlow macro2 = new WorkFlow("Blue", "Test2", new List<Block>());
+        WorkFlow macro3 = new WorkFlow("Blue", "Test3", new List<Block>());
+        WorkFlow macro4 = new WorkFlow("Blue", "Test4", new List<Block>());
+        WorkFlow macro5 = new WorkFlow("Blue", "Test5", new List<Block>());
 
 
         public MainWindow()
