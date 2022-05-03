@@ -33,7 +33,7 @@
                        FontSize="27"
                        FontFamily="FiraCode"
                        Content="MacroBoard" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Source="/macro.jpg"/>
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Source="../images/macro.jpg"/>
             <TextBox  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"   x:Name="Search"  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Center" Width="290" TextChanged="Search_TextChanged"  />
             <Label Content="Favoris" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Grid.Row="1" Width="120" FontSize="20"/>
             <Button  x:Name="ButtonEdit" Content="Edit" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="80" Background="Green" Click="EditionMode"/>
@@ -89,8 +89,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-     
-    
+
+
 
     </Grid>
 </Window>
