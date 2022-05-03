@@ -20,7 +20,18 @@
 		<PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.5.5.20211231" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Images\" />
+	  <Compile Update="View\EditionWindow.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="View\EditionWindow.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
+	  <Page Update="View\MainWindow.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  </Page>
 	</ItemGroup>
 
 </Project>

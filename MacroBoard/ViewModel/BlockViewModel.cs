@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows;
+using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace MacroBoard.View
+namespace MacroBoard
 {
-    internal class WorkflowView
+    internal class BlockView
     {
         public Button Btn_Delete { get; } = new();
-        public Image ImageWorkflow { get; } = new();
-
         public Button Btn_Edit { get; } = new();
-
+        public Button Btn_Up { get; } = new();
+        public Button Btn_Down { get; } = new();
         private Label Lbl_Name = new();
         public Grid Content { get; } = new();
-        public WorkFlow workFlow { get; set; }
+        public Block Block { get; set; }
 
-        public WorkflowView(string Name, WorkFlow workFlow)
+        public BlockView(string Name, Block Block)
         {
-
-            this.workFlow = workFlow;
+            this.Block = Block;
             Setup_Btns();
             Setup_Name(Name);
             Setup_Grid();
-
         }
-
 
         private void Setup_Name(string Name)
         {
@@ -35,7 +35,6 @@ namespace MacroBoard.View
             Lbl_Name.HorizontalAlignment = HorizontalAlignment.Center;
             Lbl_Name.VerticalAlignment = VerticalAlignment.Center;
         }
-
 
         private void Setup_Btns()
         {
@@ -52,8 +51,31 @@ namespace MacroBoard.View
             Btn_Delete.HorizontalAlignment = HorizontalAlignment.Right;
             Btn_Delete.VerticalAlignment = VerticalAlignment.Top;
 
+            //Up Button
+            txtBlock = new();
+            txtBlock.Text = "🠕";
+            thickness = new Thickness();
+            thickness.Top = -3d;
+            txtBlock.Margin = thickness;
+            Btn_Up.Content = txtBlock;
 
+            Btn_Up.Width = 15d;
+            Btn_Up.Height = 15d;
+            Btn_Up.HorizontalAlignment = HorizontalAlignment.Left;
+            Btn_Up.VerticalAlignment = VerticalAlignment.Top;
 
+            //Down Button
+            txtBlock = new();
+            txtBlock.Text = "🠗";
+            thickness = new Thickness();
+            thickness.Top = -3d;
+            txtBlock.Margin = thickness;
+            Btn_Down.Content = txtBlock;
+
+            Btn_Down.Width = 15d;
+            Btn_Down.Height = 15d;
+            Btn_Down.HorizontalAlignment = HorizontalAlignment.Left;
+            Btn_Down.VerticalAlignment = VerticalAlignment.Bottom;
 
             //Edit Button
             txtBlock = new();
@@ -82,7 +104,7 @@ namespace MacroBoard.View
             BitmapImage bitmapImg = new BitmapImage();
 
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri("../../../images/macro.png", UriKind.Relative);
+            bitmapImg.UriSource = new Uri("../../../Resources/block.png", UriKind.Relative);
             bitmapImg.EndInit();
 
             Content.Background = new ImageBrush(bitmapImg);
@@ -90,8 +112,9 @@ namespace MacroBoard.View
             Content.Children.Add(Lbl_Name);
             Content.Children.Add(Btn_Delete);
             Content.Children.Add(Btn_Edit);
+            Content.Children.Add(Btn_Up);
+            Content.Children.Add(Btn_Down);
         }
-
 
     }
 }
