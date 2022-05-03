@@ -21,17 +21,17 @@ namespace MacroBoard
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Macro> macros = new();
-        List<Macro> Favmacros = new();
+        List<WorkFlow> macros = new();
+        List<WorkFlow> Favmacros = new();
         bool isEdition = false;
         bool isRemove = false;
         bool isAddFav = false;
-        Macro macro0 = new Macro { Name = "Test0", BackGround = "Blue" };
-        Macro macro1 = new Macro { Name = "Test1", BackGround = "Red" };
-        Macro macro2 = new Macro { Name = "Test2", BackGround = "Yellow" };
-        Macro macro3 = new Macro { Name = "Test3", BackGround = "White" };
-        Macro macro4 = new Macro { Name = "Test4", BackGround = "Pink" };
-        Macro macro5 = new Macro { Name = "Test5", BackGround = "Green" };
+        WorkFlow macro0 = new WorkFlow("Test0", "Blue", new List<Block>());
+        WorkFlow macro1 = new WorkFlow("Test1", "Blue", new List<Block>());
+        WorkFlow macro2 = new WorkFlow("Test2", "Blue", new List<Block>());
+        WorkFlow macro3 = new WorkFlow("Test3", "Blue", new List<Block>());
+        WorkFlow macro4 = new WorkFlow("Test4", "Blue", new List<Block>());
+        WorkFlow macro5 = new WorkFlow("Test5", "Blue", new List<Block>());
 
 
         public MainWindow()
@@ -52,12 +52,12 @@ namespace MacroBoard
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             string txt = Search.Text;
-            List<Macro> macrosSearch = new List<Macro>();
+            List<WorkFlow> macrosSearch = new List<WorkFlow>();
             if (txt != "")
             {
-                foreach (Macro m in macros)
+                foreach (WorkFlow m in macros)
                 {
-                    if (m.Name.Contains(txt))
+                    if (m.workflowName.Contains(txt))
                         macrosSearch.Add(m);
                 }
             }
@@ -133,9 +133,9 @@ namespace MacroBoard
         {
             if (Favmacros.Count < 5)
             {
-                foreach (Macro macro in macros)
+                foreach (WorkFlow macro in macros)
                 {
-                    if (macro.Name.Equals(buttonName))
+                    if (macro.workflowName.Equals(buttonName))
                     {
                         if (!IsInList(Favmacros, buttonName))
                         {
@@ -153,12 +153,12 @@ namespace MacroBoard
 
 
 
-        private bool IsInList(List<Macro> lm, string content)
+        private bool IsInList(List<WorkFlow> lm, string content)
         {
             bool result = false;
-            foreach (Macro m in lm)
+            foreach (WorkFlow m in lm)
             {
-                if (m.Name.Equals(content))
+                if (m.workflowName.Equals(content))
                 {
                     result = true;
                 }
@@ -170,9 +170,9 @@ namespace MacroBoard
         private void RemoveFav(string content)
         {
 
-            foreach (Macro favmacro in Favmacros)
+            foreach (WorkFlow favmacro in Favmacros)
             {
-                if (favmacro.Name.Equals(content))
+                if (favmacro.workflowName.Equals(content))
                 {
                     Favmacros.Remove(favmacro);
                     break;
@@ -182,10 +182,10 @@ namespace MacroBoard
         }
         private void RemoveMacro(string content)
         {
-            Macro toremove = null;
-            foreach (Macro macro in macros)
+            WorkFlow toremove = null;
+            foreach (WorkFlow macro in macros)
             {
-                if (macro.Name.Equals(content))
+                if (macro.workflowName.Equals(content))
                 {
                     toremove = macro;
                     break;
@@ -262,8 +262,8 @@ namespace MacroBoard
 
         private void UpdateFav()
         {
-            List<Macro> macrosListtest = new List<Macro>();
-            foreach (Macro m in Favmacros)
+            List<WorkFlow> macrosListtest = new List<WorkFlow>();
+            foreach (WorkFlow m in Favmacros)
             {
                 macrosListtest.Add(m);
             }
@@ -272,36 +272,13 @@ namespace MacroBoard
         }
         private void UpdateAllMacro()
         {
-            List<Macro> macrosListtest = new();
-            foreach (Macro m in macros)
+            List<WorkFlow> macrosListtest = new();
+            foreach (WorkFlow m in macros)
             {
                 macrosListtest.Add(m);
             }
             macros = macrosListtest;
             ListMacro.ItemsSource = macrosListtest;
-        }
-    }
-}
-
-
-public class Macro
-{
-    private string nameValue;
-    public string Name
-    {
-        get { return nameValue; }
-        set { nameValue = value; }
-    }
-    private string BackGroundValue;
-    public string BackGround
-    {
-        get { return BackGroundValue; }
-        set
-        {
-            if (value != BackGroundValue)
-            {
-                BackGroundValue = value;
-            }
         }
     }
 }
