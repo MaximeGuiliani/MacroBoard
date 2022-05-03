@@ -20,7 +20,7 @@ namespace MacroBoard
             get { return ImagePathValue; }
             set { ImagePathValue = ImagePath; }
         }
-        
+
 
 
 
@@ -31,7 +31,7 @@ namespace MacroBoard
         {
             InitializeComponent();
             InitBlock();
-            workFlow = new WorkFlow(null,null,null);
+            workFlow = new WorkFlow("", "", null);
             changeImage("../Images/block.png");
             DataContext = this;
         }
@@ -41,7 +41,7 @@ namespace MacroBoard
             InitializeComponent();
             this.workFlow = workFlow;
             changeImage(workFlow.imagePath);
-            
+
         }
 
         public void changeImage(string path)
@@ -52,23 +52,23 @@ namespace MacroBoard
             bitmapImg.BeginInit();
             bitmapImg.UriSource = new Uri(@"..\Images\Block.png", UriKind.Relative);
             bitmapImg.EndInit();
-            
+
             img.Source = bitmapImg;
 
-            TextBlock txt =new TextBlock();
+            TextBlock txt = new TextBlock();
             txt.Text = path;
             GridEdit.Children.Add(img);
         }
 
-        
+
 
 
         private void save(object sender, RoutedEventArgs e)
         {
             // TODO add Img attribute, check existing Names
-      
+
             ImagePath = Image_Selected.Text;
-            
+
 
         }
 
@@ -91,7 +91,7 @@ namespace MacroBoard
 
                 Image_Selected.Text = filename;
                 ImagePath = filename;
-                
+
 
             }
 

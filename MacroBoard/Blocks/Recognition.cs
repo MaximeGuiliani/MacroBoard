@@ -16,58 +16,58 @@ namespace MacroBoard
     internal class Recognition : Block
     {
 
-        int    widthScreen;
-        int    heightScreen; 
+        int widthScreen;
+        int heightScreen;
         string templatePath;
-        Rect   rectOfInterest;
-        int    offSetX, offSetY;
+        Rect rectOfInterest;
+        int offSetX, offSetY;
         IEnumerable<double> tryScales;
-        bool   debugMode;
+        bool debugMode;
         string debugDirPath;
         TemplateMatchModes matchModes;
 
 
-        public Recognition( string templatePath,
-                      int xInterest=0, int yInterest=0, int heightInterest=0, int widthInterest=0,
-                      int screenNumber=0,
-                      int offSetX=0, int offSetY=0,
-                      double scale=1, bool loop=false,
-                      bool debugMode=false,
-                      TemplateMatchModes matchModes=TemplateMatchModes.CCoeffNormed)
+        public Recognition(string templatePath,
+                      int xInterest = 0, int yInterest = 0, int heightInterest = 0, int widthInterest = 0,
+                      int screenNumber = 0,
+                      int offSetX = 0, int offSetY = 0,
+                      double scale = 1, bool loop = false,
+                      bool debugMode = false,
+                      TemplateMatchModes matchModes = TemplateMatchModes.CCoeffNormed)
         {
-            this.widthScreen    = Screen.AllScreens[screenNumber].Bounds.Width;
-            this.heightScreen   = Screen.AllScreens[screenNumber].Bounds.Height;
-            this.templatePath   = templatePath;
-            this.rectOfInterest = new Rect(xInterest, yInterest, widthInterest==0? this.widthScreen-xInterest:widthInterest, heightInterest==0? this.heightScreen-yInterest:heightInterest);            
-            this.offSetX        = offSetX;
-            this.offSetY        = offSetY;
-            int[] pourcentages  = {100, 125, 150, 175, 200};
-            var scales = (from p1 in pourcentages from p2 in pourcentages where p1!=p2 select (double)p1/(double)p2).Append(1);
-            this.tryScales      = (loop)? scales:new double[]{scale};
-            this.matchModes     = matchModes;
-            this.debugMode      = debugMode ;
-            this.debugDirPath   = $@"C:\Users\{Environment.GetEnvironmentVariable("USERNAME")}\Documents\";
+            this.widthScreen = Screen.AllScreens[screenNumber].Bounds.Width;
+            this.heightScreen = Screen.AllScreens[screenNumber].Bounds.Height;
+            this.templatePath = templatePath;
+            this.rectOfInterest = new Rect(xInterest, yInterest, widthInterest == 0 ? this.widthScreen - xInterest : widthInterest, heightInterest == 0 ? this.heightScreen - yInterest : heightInterest);
+            this.offSetX = offSetX;
+            this.offSetY = offSetY;
+            int[] pourcentages = { 100, 125, 150, 175, 200 };
+            var scales = (from p1 in pourcentages from p2 in pourcentages where p1 != p2 select (double)p1 / (double)p2).Append(1);
+            this.tryScales = (loop) ? scales : new double[] { scale };
+            this.matchModes = matchModes;
+            this.debugMode = debugMode;
+            this.debugDirPath = $@"C:\Users\{Environment.GetEnvironmentVariable("USERNAME")}\Documents\";
         }
 
 
         //NOTE: les valeurs affichées correspondent au nombre de pixels sans l'échelonnage appliqué (ex:150%)
         public override void Execute()
         {
-            Mat image    = (debugMode)? new Mat(FileScreenShot()) : BitmapConverter.ToMat(BitmapScreenShot());
+            Mat image = (debugMode) ? new Mat(FileScreenShot()) : BitmapConverter.ToMat(BitmapScreenShot());
             Mat template = new Mat(templatePath);
 
             (double maxVal, OpenCvSharp.Point? maxLoc, double scale) found = find(image, template);
 
 
-            OpenCvSharp.Point rectPt1 = new OpenCvSharp.Point( (found.maxLoc?.X * ((0 < found.scale && found.scale < 1) ? (1 / found.scale) : 1) + rectOfInterest.X).GetValueOrDefault(),
-                                                               (found.maxLoc?.Y * ((0 < found.scale && found.scale < 1) ? (1 / found.scale) : 1) + rectOfInterest.Y).GetValueOrDefault() );
+            OpenCvSharp.Point rectPt1 = new OpenCvSharp.Point((found.maxLoc?.X * ((0 < found.scale && found.scale < 1) ? (1 / found.scale) : 1) + rectOfInterest.X).GetValueOrDefault(),
+                                                               (found.maxLoc?.Y * ((0 < found.scale && found.scale < 1) ? (1 / found.scale) : 1) + rectOfInterest.Y).GetValueOrDefault());
             OpenCvSharp.Point rectPt2 = new OpenCvSharp.Point(rectPt1.X + ((1 < found.scale) ? template.Width / found.scale : template.Width),
                                                               rectPt1.Y + ((1 < found.scale) ? template.Height / found.scale : template.Height));
             Cv2.Rectangle(image, rectPt1, rectPt2, Scalar.Red, 1);
 
 
-            OpenCvSharp.Point CirclePt = new OpenCvSharp.Point( rectPt1.X + ( (1<found.scale)? template.Width/found.scale:template.Width )/2 + offSetX,
-                                                                rectPt1.Y + ( (1<found.scale)? template.Height/found.scale:template.Height ) /2 + offSetY );
+            OpenCvSharp.Point CirclePt = new OpenCvSharp.Point(rectPt1.X + ((1 < found.scale) ? template.Width / found.scale : template.Width) / 2 + offSetX,
+                                                                rectPt1.Y + ((1 < found.scale) ? template.Height / found.scale : template.Height) / 2 + offSetY);
             Cv2.Circle(image, CirclePt, 1, Scalar.Purple, 5);
             SetCursorPos(CirclePt.X, CirclePt.Y);
 
@@ -118,7 +118,7 @@ namespace MacroBoard
 
         private Bitmap BitmapScreenShot()
         {
-            Bitmap screenShotBitmap = new Bitmap(widthScreen, heightScreen, PixelFormat.Format32bppRgb );
+            Bitmap screenShotBitmap = new Bitmap(widthScreen, heightScreen, PixelFormat.Format32bppRgb);
             Graphics screenShotGraphics = Graphics.FromImage(screenShotBitmap);
             screenShotGraphics.CopyFromScreen(0, 0, 0, 0, new System.Drawing.Size(widthScreen, heightScreen));
             return screenShotBitmap;

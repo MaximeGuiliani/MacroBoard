@@ -9,14 +9,14 @@ namespace MacroBoard
 {
     public class WorkFlow
     {
-        public string destinationPath = @"~\Documents\MacroBoard";
+        public string destinationPath = $@"C:\Users{Environment.GetEnvironmentVariable("USERNAME")}\Documents";
         public string imagePath { get; set; }
         public string workflowName { get; set; }
         public List<Block> workflowList { get; set; }
 
         public WorkFlow(string imagePath, string workflowName, List<Block> workflowList)
         {
-            saveImage();
+            //saveImage();
             this.imagePath = imagePath;
             this.workflowName = workflowName;
             this.workflowList = workflowList;
