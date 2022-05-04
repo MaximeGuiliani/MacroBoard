@@ -33,17 +33,30 @@
                        FontSize="27"
                        FontFamily="FiraCode"
                        Content="MacroBoard" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Source="../images/macro.jpg"/>
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Source="/Resources/macro.jpg"/>
             <TextBox  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"   x:Name="Search"  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Center" Width="290" TextChanged="Search_TextChanged"  />
             <Label Content="Favoris" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Grid.Row="1" Width="120" FontSize="20"/>
             <Button  x:Name="ButtonEdit" Content="Edit" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="80" Background="Green" Click="EditionMode"/>
-            <Button  x:Name="ButtonRemove" Content="Remove" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="80" Background="DarkRed" Click="RemoveMode" Grid.Column="4"/>
-            <Button  x:Name="ButtonAddFav" Content="AddFav" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="80" Background="yellow" Click="AddMode" Grid.Column="2"/>
 
 
         </Grid>
         <!--         List des favoris   -->
-        <ListBox ItemsSource="{Binding ListFav}"  Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   Height="120" Width="920"  x:Name="ListFav" Margin="0,129,0,401" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+
+        <ListBox  Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   Height="120" Width="920"  x:Name="ListFav" Margin="0,129,0,401" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Padding" Value="75,0,0,0"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+        </ListBox>
+
+        <!--<ListBox ItemsSource="{Binding ListFav}"  Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   Height="120" Width="920"  x:Name="ListFav" Margin="0,129,0,401" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Padding" Value="75,0,0,0"/>
@@ -62,11 +75,30 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListBox>
+        </ListBox>-->
 
 
         <!--         List des macros    -->
 
+
+
+        <ListBox  x:Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="920" Margin="0,325,0,10" BorderBrush="{x:Null}" >
+            <ListBox.Style>
+                <Style/>
+            </ListBox.Style>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="75,0,0,75"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <!--
         <ListBox  Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="920" Margin="0,325,0,10" BorderBrush="{x:Null}" >
             <ListBox.Style>
                 <Style/>
@@ -89,6 +121,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        -->
 
 
 
