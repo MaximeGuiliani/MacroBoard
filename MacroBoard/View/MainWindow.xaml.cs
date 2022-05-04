@@ -250,7 +250,7 @@ namespace MacroBoard
         {
             if (isEdition)
             {
-                ButtonEdit.Foreground = Brushes.Green;
+                ButtonEdit.Foreground = Brushes.Black;
                 isEdition = false;
             }
             else
