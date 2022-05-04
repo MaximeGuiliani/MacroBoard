@@ -26,13 +26,6 @@ namespace MacroBoard
         private List<WorkflowView> WorkflowsSearch = new();
         bool isEdition = false;
         bool isInsearch = false;
-        WorkFlow macro0 = new("", "Test0", new List<Block>());
-        WorkFlow macro1 = new("", "Test1", new List<Block>());
-        WorkFlow macro2 = new("", "Test2", new List<Block>());
-        WorkFlow macro3 = new("", "Test3", new List<Block>());
-        WorkFlow macro4 = new("", "Test4", new List<Block>());
-        WorkFlow macro5 = new("", "Test5", new List<Block>());
-
 
 
         public MainWindow()
@@ -43,11 +36,23 @@ namespace MacroBoard
 
         private void InitBlock()
         {
-            FavWorkflows.Add(new(macro0));
+            List<Block> macroNotePads = new();
+            WorkFlow macroNotePad = new("", "Test0", macroNotePads);
+            macroNotePads.Add(new Blocks.B_RunApp("Run Application", "", "", "notepad.exe"));
+            macroNotePad = new("", "macroNotePads", macroNotePads);
+
+
+            WorkFlow macro1 = new("", "Test1", new List<Block>());
+            WorkFlow macro2 = new("", "Test2", new List<Block>());
+            WorkFlow macro3 = new("", "Test3", new List<Block>());
+            WorkFlow macro4 = new("", "Test4", new List<Block>());
+            WorkFlow macro5 = new("", "Test5", new List<Block>());
+
+            FavWorkflows.Add(new(macroNotePad));
             FavWorkflows.Add(new(macro1));
             FavWorkflows.Add(new(macro2));
             FavWorkflows.Add(new(macro3));
-            Workflows.Add(new(macro0));
+            Workflows.Add(new(macroNotePad));
             Workflows.Add(new(macro1));
             Workflows.Add(new(macro2));
             Workflows.Add(new(macro3));
