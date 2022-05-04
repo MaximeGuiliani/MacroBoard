@@ -8,50 +8,56 @@
         Title="EditionWindow" Height="675" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="113*" />
+            <ColumnDefinition Width="200*" />
             <ColumnDefinition Width="287*" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Margin="20,20,20,20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+        </Grid>
 
-            <TextBlock
-                Grid.Row="0"
-                FontSize="24"
-                Text="BLOCKS" />
-
-
+        <Grid Margin="20,20,20,20">
+            <ListBox x:Name="ListBlock_All" VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="0,0,0,0"/>
         </Grid>
 
         <Grid Grid.Column="1" Margin="20,20,20,20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                FontSize="24"
-                Text="MACRO EDITION" />
-            
-            <ListBox x:Name="listTest" Margin="0,109,0,109" HorizontalAlignment="Center"/>
-            
-            <Grid x:Name="GridEdit" HorizontalAlignment="Center" Height="146" Grid.Row="1" VerticalAlignment="Bottom" Width="820" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="27*"/>
-                    <RowDefinition Height="119*"/>
-                </Grid.RowDefinitions>
-                <Button x:Name="Save" Content="Save" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Bottom" Height="68" Width="86" Click="save" Margin="0,0,33,34"/>
-                <TextBox Foreground="Gray" VerticalContentAlignment="Center" x:Name="Image_Selected" HorizontalAlignment="Left" Height="28" Margin="378,3,0,0" TextWrapping="Wrap" Text="no file selected" VerticalAlignment="Top" Width="274" Focusable="False" Grid.Row="1"/>
-                <TextBox Foreground="Gray" VerticalContentAlignment="Center" x:Name="Name_Box" HorizontalAlignment="Left" Height="28" Margin="300,63,0,0" Grid.Row="1" Text="select name" TextWrapping="Wrap" VerticalAlignment="Top" Width="352" GotFocus="Name_Box_GotFocus" TextChanged="Name_Box_TextChanged"/>
-                <Button x:Name="Select_Image"  Content=" Select Image" HorizontalAlignment="Left" Height="28" Margin="300,3,0,0" Grid.Row="1" VerticalAlignment="Top" Width="78" Click="selectImage"/>
-                <Image x:Name="Macro_Image" HorizontalAlignment="Left" Height="100" Margin="120,0,0,0" VerticalAlignment="Top" Width="100" Grid.Row="1"/>
+            <ListBox x:Name="ListBlock_Workflow" VerticalAlignment="Top" HorizontalAlignment="Center" Height="350" Margin="0,100,0,0" BorderThickness="0,0,0,0"/>
+
+            <Grid HorizontalAlignment="Stretch" Height="146" VerticalAlignment="Bottom">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="20" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Border.Background>
+                            <ImageBrush x:Name="Img_WorkFlowImage" Stretch="Fill"/>
+                        </Border.Background>
+                    </Border>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <TextBox x:Name="TextBox_WorkFlowName" Foreground="Gray" VerticalContentAlignment="Center"  HorizontalAlignment="Center" Height="28" Margin="0,85,0,0" Text="Select name" TextWrapping="NoWrap" VerticalAlignment="Top" Width="350" GotFocus="Name_Box_GotFocus" TextChanged="Name_Box_TextChanged"/>
+                    <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Height="28" Width="350" Margin="0,40">
+                        <TextBox x:Name="TextBox_WorkFlowImage" Text="Select folder" TextWrapping="NoWrap" Foreground="Gray" Width="270" HorizontalAlignment="Right" VerticalContentAlignment="Center" Focusable="False"/>
+                        <Button x:Name="Btn_WorkFlowImage" Width="80" HorizontalAlignment="Left" Content="Select Image" Click="selectImage"/>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Button x:Name="Btn_Save" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="86" Click="Button_Save" />
+                </Grid>
+
             </Grid>
 
-
         </Grid>
+
     </Grid>
 </Window>
