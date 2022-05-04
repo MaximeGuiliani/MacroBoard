@@ -57,9 +57,9 @@ namespace MacroBoard
 
             foreach (WorkflowView FavWorkflow in FavWorkflows)
             {
-                FavWorkflow.Btn_Delete.Click += OnClick_Delete_Fav;
+                FavWorkflow.Btn_Delete.Visibility = Visibility.Hidden;
                 FavWorkflow.Btn_Main.Click += Button_Click_Fav;
-                FavWorkflow.Btn_Fav.Visibility = Visibility.Hidden;
+                FavWorkflow.Btn_Fav.Click += OnClick_Delete_Fav;
                 ListFav.Items.Add(FavWorkflow.Content);
             }
             foreach (WorkflowView Workflow in Workflows)
@@ -147,14 +147,37 @@ namespace MacroBoard
 
         private void AddFav(WorkflowView newFav)
         {
-            newFav.Btn_Delete.Click += OnClick_Delete_Fav;
-            newFav.Btn_Main.Click += Button_Click_Fav;
-            newFav.Btn_Fav.Visibility = Visibility.Hidden;
-            ListFav.Items.Add(newFav.Content);
-            FavWorkflows.Add(newFav);
+            WorkFlow wf = newFav.CurrentworkFlow;
+            if (FavWorkflows.Count < 5)
+            {
+                if (!ListContains(FavWorkflows, wf))
+                {
+                    newFav.Btn_Fav.Click += OnClick_Delete_Fav;
+                    newFav.Btn_Main.Click += Button_Click_Fav;
+                    newFav.Btn_Delete.Visibility = Visibility.Hidden;
+                    ListFav.Items.Add(newFav.Content);
+                    FavWorkflows.Add(newFav);
+                }
+
+            }
+
 
         }
 
+        private bool ListContains(List<WorkflowView> wfls, WorkFlow wf)
+        {
+            bool result = false;
+            foreach (WorkflowView wfItem in wfls)
+            {
+                if (wfItem.CurrentworkFlow.Equals(wf))
+                {
+                    return true;
+                }
+
+            }
+
+            return result;
+        }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -184,49 +207,55 @@ namespace MacroBoard
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
+
+            if (isInsearch)
+            {
+                executeWorkflow((WorkflowsSearch[currentItemPos].CurrentworkFlow));
+            }
+            else
+            {
+                executeWorkflow((Workflows[currentItemPos].CurrentworkFlow));
+            }
+
+        }
+
+
+
+        private void Button_Click_Fav(object sender, RoutedEventArgs e)
+        {
+            int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
+            executeWorkflow(FavWorkflows[currentItemPos].CurrentworkFlow);
+
+        }
+
+        private void executeWorkflow(WorkFlow wf)
+        {
+
             if (isEdition)
             {
-                EditionWindow editionWindow = new(Workflows[currentItemPos].CurrentworkFlow);
+                EditionWindow editionWindow = new(wf);
                 editionWindow.Show();
             }
             else
             {
-                foreach (Block m in Workflows[currentItemPos].CurrentworkFlow.workflowList)
+                foreach (Block m in wf.workflowList)
                 {
                     m.Execute();
                 }
 
             }
+
         }
-        private void Button_Click_Fav(object sender, RoutedEventArgs e)
-        {
-            int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
-
-            if (isEdition)
-            {
-
-                new EditionWindow();
-            }
-            else
-            {
-                foreach (Block m in FavWorkflows[currentItemPos].CurrentworkFlow.workflowList)
-                {
-                    m.Execute();
-                }
-
-            }
-        }
-
         private void EditionMode(object sender, RoutedEventArgs e)
         {
             if (isEdition)
             {
-                ButtonEdit.Background = Brushes.Green;
+                ButtonEdit.Foreground = Brushes.Green;
                 isEdition = false;
             }
             else
             {
-                ButtonEdit.Background = Brushes.Red;
+                ButtonEdit.Foreground = Brushes.Green;
                 isEdition = true;
             }
         }
