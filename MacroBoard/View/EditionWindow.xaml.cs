@@ -56,11 +56,34 @@ namespace MacroBoard
         }
         private void OnClick_Add(object sender, RoutedEventArgs e)
         {
-            Grid currentBlockContent = (Grid)((Button)sender).Parent;
+            Grid CurrentBlockContent = (Grid)((Button)sender).Parent;
+            Block CurrentBlock = new Blocks.B_Restart();
 
-            ListBlock_All.Items.Remove(currentBlockContent);
+            ListBlock_All.Items.Remove(CurrentBlockContent);
 
-            ListBlock_Workflow.Items.Add(currentBlockContent);
+            foreach (BlockViewModel_All blockView in BlockViewModels)
+                if (blockView.Lbl_Name.Content == ((Label)CurrentBlockContent.Children[0]).Content)
+                    CurrentBlock = blockView.Block;
+
+            WorkFlow.workflowList.Add(CurrentBlock);
+            
+            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(CurrentBlock.Name, CurrentBlock);
+            CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
+            CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
+            CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
+            CurrentBlockViewModel.Btn_Down.Click += OnClick_Down;
+
+            if (WorkFlow.workflowList.Count <= 1)
+            {
+                CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Hidden;
+                CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+            }
+            if(WorkFlow.workflowList.Count == 2)
+                CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+
+
+
+            ListBlock_Workflow.Items.Add(CurrentBlockViewModel.Content);
         }
 
         private void OnClick_Delete(object sender, RoutedEventArgs e)
