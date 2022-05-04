@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MacroBoard.View;
 
 namespace MacroBoard
 {
@@ -50,7 +51,7 @@ namespace MacroBoard
             BitmapImage bitmapImg = new BitmapImage();
 
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri(@"..\Images\Block.png", UriKind.Relative);
+            bitmapImg.UriSource = new Uri(@".\Resources\Block.png", UriKind.Relative);
             bitmapImg.EndInit();
 
             img.Source = bitmapImg;
@@ -112,7 +113,7 @@ namespace MacroBoard
             BlockViews.Add(new BlockView("Restart Computer", new Blocks.B_Restart()));
             BlockViews.Add(new BlockView("Run Application", new Blocks.B_RunApp("Run Application", "", "", "notepad.exe")));
             BlockViews.Add(new BlockView("Wait", new Blocks.B_Wait("Wait", "", "", 0, 0, 0)));
-            BlockViews.Add(new BlockView("Capture", new Capture("Capture", "", "", 1)));
+            BlockViews.Add(new BlockView("Capture", new Capture("Capture", 1)));
 
             foreach (BlockView blockView in BlockViews)
             {
@@ -210,6 +211,13 @@ namespace MacroBoard
             {
                 nextItem.Children[3].Visibility = Visibility.Hidden;
             }
+
+        }
+
+        private void create(object sender, RoutedEventArgs e)
+        {
+           Window window = new BlockCreator(BlockViews, new Capture("",0));
+           window.Show();
 
         }
     }

@@ -12,6 +12,16 @@
 	<ItemGroup>
 	  <Compile Remove="App.xaml.cs" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Block.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Block.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MVVMEssentials.WPF" Version="1.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

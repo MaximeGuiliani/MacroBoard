@@ -17,10 +17,9 @@ namespace MacroBoard
         {
             Process.Start("powershell.exe", "shutdown -s");
 
-
-
-
         }
+
+
     }
 }
 

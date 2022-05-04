@@ -18,6 +18,8 @@ namespace MacroBoard.Blocks
             base.info = info;
             this._shortCut = ShortCut;
         }
+
+
         public override void Execute()
         {
             SendKeys.SendWait(_shortCut);

@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace MacroBoard
 {
-    internal class BlockView
+    public class BlockView
     {
         public Button Btn_Delete { get; } = new();
         public Button Btn_Edit { get; } = new();
@@ -33,12 +33,14 @@ namespace MacroBoard
         public BlockView(Block block)
         {
             this.Block = block;
-            Setup_Block_Creating_Window();
+            //block.Execute();
+            Setup_Name(block.BlockType);
+            Setup_Block_Creating_Window(block);
         }
 
-        private void Setup_Block_Creating_Window()
+        private void Setup_Block_Creating_Window(Block block)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void Setup_Name(string Name)

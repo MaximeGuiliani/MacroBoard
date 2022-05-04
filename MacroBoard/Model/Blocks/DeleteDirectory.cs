@@ -17,5 +17,7 @@ namespace MacroBoard
         {
           Directory.Delete(path, true);
         }
+
+
     }
 }

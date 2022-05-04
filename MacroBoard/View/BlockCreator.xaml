@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard.View"
         mc:Ignorable="d"
-        Title="BlockCreator" Height="450" Width="800">
-    <ListBox x:Name="userInput"  Margin="88,112,164,97"/>
+        Title="Window1" Height="450" Width="800">
+    <Grid Margin="232,186,337,57">
+        <ListBox x:Name="Controls" Margin="-215,-146,-321,0"/>
 
+    </Grid>
 </Window>

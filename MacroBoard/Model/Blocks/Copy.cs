@@ -41,10 +41,7 @@ namespace MacroBoard
             }
         }
 
-        public override void Accept(Visitor visitor)
-        {
-            visitor.Visit(this);    
-        }
+        
 
         public override void Execute()
         {

@@ -17,38 +17,16 @@ using System.Drawing;
 namespace MacroBoard{
     public class Capture : Block
     {
-        string fileName, format, path;
-        ImageFormat imageFormat = ImageFormat.Jpeg;
+        string fileName;
         int screenNumber;
 
 
-        public Capture(string fileName, string format, string path, int screenNumber)
+        public Capture(string fileName, int screenNumber)
         {
-            this.path = path;
             this.fileName = fileName;
-            this.format = format;
             this.screenNumber = screenNumber;
-            switch (format)
-            {
-                case ("jpeg"):
-                case ("jpg"):
-                    this.imageFormat = ImageFormat.Jpeg;
-                    break;
-                case ("tiff"):
-                    this.imageFormat = ImageFormat.Tiff;
-                    break;
-                case ("png"):
-                    this.imageFormat = ImageFormat.Png;
-                    break;
-                default:
-                    break;
-            }
         }
 
-        public override void Accept(Visitor visitor)
-        {
-            visitor.Visit(this);
-        }
 
         public override void Execute()
         {
@@ -57,7 +35,7 @@ namespace MacroBoard{
             Bitmap captureBitmap = new Bitmap(width, height);
             Graphics captureGraphics = Graphics.FromImage(captureBitmap);
             captureGraphics.CopyFromScreen(0, 0, 0, 0, new System.Drawing.Size(width, height));
-            captureBitmap.Save(this.path + (this.path.EndsWith(@"\") ? "" : @"\") + this.fileName + "." + this.format);
+            captureBitmap.Save (this.fileName);
             
             //MessageBox.Show( this.path + (this.path.EndsWith(@"\")? "":@"\") + this.fileName + "." + this.format);
             //Rectangle captureRectangle = Screen.AllScreens[0].Bounds;

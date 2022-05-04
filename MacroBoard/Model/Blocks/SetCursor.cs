@@ -35,8 +35,7 @@ namespace MacroBoard
         {
                 SetCursorPos(this.x, this.y);
         }
-
-
+       
 
 
 

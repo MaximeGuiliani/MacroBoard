@@ -4,6 +4,11 @@
     <_LastSelectedProfileId>C:\Users\user\source\Repos\MacroBoard\MacroBoard\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="View\BlockCreator.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="View\EditionWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -14,6 +19,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\SearchBoxStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\BlockCreator.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

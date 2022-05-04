@@ -18,10 +18,9 @@ namespace MacroBoard.Blocks
         {
             
             Process.Start("powershell.exe", "shutdown -r");
-            
-
-           
 
         }
+
+       
     }
 }
