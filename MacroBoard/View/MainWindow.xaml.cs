@@ -24,21 +24,14 @@ namespace MacroBoard
         private List<WorkflowView> FavWorkflows = new();
         private List<WorkflowView> Workflows = new();
         private List<WorkflowView> WorkflowsSearch = new();
-
-
-
-        List<WorkFlow> macros = new();
-        List<WorkFlow> Favmacros = new();
         bool isEdition = false;
-        bool isRemove = false;
-        bool isAddFav = false;
         bool isInsearch = false;
-        WorkFlow macro0 = new("Blue", "Test0", new List<Block>());
-        WorkFlow macro1 = new("Red", "Test1", new List<Block>());
-        WorkFlow macro2 = new("Green", "Test2", new List<Block>());
-        WorkFlow macro3 = new("Yellow", "Test3", new List<Block>());
-        WorkFlow macro4 = new("Pink", "Test4", new List<Block>());
-        WorkFlow macro5 = new("Purple", "Test5", new List<Block>());
+        WorkFlow macro0 = new("", "Test0", new List<Block>());
+        WorkFlow macro1 = new("", "Test1", new List<Block>());
+        WorkFlow macro2 = new("", "Test2", new List<Block>());
+        WorkFlow macro3 = new("", "Test3", new List<Block>());
+        WorkFlow macro4 = new("", "Test4", new List<Block>());
+        WorkFlow macro5 = new("", "Test5", new List<Block>());
 
 
 
@@ -65,7 +58,7 @@ namespace MacroBoard
             foreach (WorkflowView FavWorkflow in FavWorkflows)
             {
                 FavWorkflow.Btn_Delete.Click += OnClick_Delete_Fav;
-                FavWorkflow.Btn_Main.Click += Button_Click;
+                FavWorkflow.Btn_Main.Click += Button_Click_Fav;
                 FavWorkflow.Btn_Fav.Visibility = Visibility.Hidden;
                 ListFav.Items.Add(FavWorkflow.Content);
             }
@@ -155,7 +148,7 @@ namespace MacroBoard
         private void AddFav(WorkflowView newFav)
         {
             newFav.Btn_Delete.Click += OnClick_Delete_Fav;
-            newFav.Btn_Main.Click += Button_Click;
+            newFav.Btn_Main.Click += Button_Click_Fav;
             newFav.Btn_Fav.Visibility = Visibility.Hidden;
             ListFav.Items.Add(newFav.Content);
             FavWorkflows.Add(newFav);
@@ -163,12 +156,8 @@ namespace MacroBoard
         }
 
 
-
-
-
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
-
             string txt = Search.Text;
             WorkflowsSearch = new();
             if (txt != "")
@@ -189,37 +178,44 @@ namespace MacroBoard
             foreach (WorkflowView mac in WorkflowsSearch)
             {
                 ListMacro.Items.Add(mac.Content);
-
             }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
+            if (isEdition)
+            {
+                EditionWindow editionWindow = new(Workflows[currentItemPos].CurrentworkFlow);
+                editionWindow.Show();
+            }
+            else
+            {
+                foreach (Block m in Workflows[currentItemPos].CurrentworkFlow.workflowList)
+                {
+                    m.Execute();
+                }
 
-            MessageBox.Show("Do Job");
-
-
-
-
-
+            }
         }
+        private void Button_Click_Fav(object sender, RoutedEventArgs e)
+        {
+            int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
 
+            if (isEdition)
+            {
 
+                new EditionWindow();
+            }
+            else
+            {
+                foreach (Block m in FavWorkflows[currentItemPos].CurrentworkFlow.workflowList)
+                {
+                    m.Execute();
+                }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+        }
 
         private void EditionMode(object sender, RoutedEventArgs e)
         {
