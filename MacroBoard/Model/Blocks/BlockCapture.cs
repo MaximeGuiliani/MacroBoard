@@ -15,14 +15,15 @@ using System.Drawing;
 
 
 namespace MacroBoard{
-    public class Capture : Block
+    public class BlockCapture : Block
     {
         string fileName;
         int screenNumber;
 
 
-        public Capture(string fileName, int screenNumber)
+        public BlockCapture(string fileName, int screenNumber)
         {
+            base.Name = "Screenshot";
             this.fileName = fileName;
             this.screenNumber = screenNumber;
         }
