@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class LaunchBrowserChrome : Block
+    internal class BlockLaunchBrowserChrome : Block
     {
         String address;
 
