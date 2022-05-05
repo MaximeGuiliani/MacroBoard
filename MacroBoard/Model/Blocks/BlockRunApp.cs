@@ -8,14 +8,12 @@ using System.Diagnostics;
 
 namespace MacroBoard.Blocks
 {
-    internal class B_RunApp : Block
+    internal class BlockRunApp : Block
     {
         private string _url;
-        public B_RunApp(string Name, string LogoUrl, string info, string Url)
+        public BlockRunApp(string Url)
         {
-            base.Name = Name;
-            base.LogoUrl = LogoUrl;
-            base.info = info;
+            base.Name = "Run App";
             _url = Url;
         }
 
