@@ -22,6 +22,7 @@ namespace MacroBoard
 
         public SetCursor(int x, int y)
         {
+        base.Name = "Set Cursor"
         this.x = x;
         this.y = y;
         }
