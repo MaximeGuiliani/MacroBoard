@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace MacroBoard.Blocks
+namespace MacroBoard
 {
-    internal class B_KeyBoardShortCut : Block
+    internal class BlockKeyBoard : Block
     {
         private string _shortCut;
-        public B_KeyBoardShortCut(string Name, string LogoUrl, string info, string ShortCut)
+        public BlockKeyBoard(string ShortCut)
         {
             base.Name = Name;
-            base.LogoUrl = LogoUrl;
-            base.info = info;
             this._shortCut = ShortCut;
         }
 
