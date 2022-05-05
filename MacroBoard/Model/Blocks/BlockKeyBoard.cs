@@ -13,7 +13,7 @@ namespace MacroBoard
         private string _shortCut;
         public BlockKeyBoard(string ShortCut)
         {
-            base.Name = Name;
+            base.Name = "Keyboard";
             this._shortCut = ShortCut;
         }
 
