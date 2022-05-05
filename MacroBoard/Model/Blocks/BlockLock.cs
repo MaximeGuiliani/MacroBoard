@@ -7,8 +7,13 @@ using System.Runtime.InteropServices;
 
 namespace MacroBoard
 {
-    internal class Lock : Block
+    internal class BlockLock : Block
     {
+        
+        public BlockLock()
+        {
+            base.Name = "Lock";
+        }
         public override void Execute()
         {
             [DllImport("user32")]
