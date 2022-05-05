@@ -7,12 +7,14 @@ using System.IO;
 
 namespace MacroBoard
 {
-    public class Copy : Block
+    public class BlockCopy : Block
     {
         String source;
         String destination;
-        public Copy(String source, String destination)
+        
+        public BlockCopy(String source, String destination)
         {
+            base.Name = " Copy";
             this.source = source;
             this.destination = destination;
         }
