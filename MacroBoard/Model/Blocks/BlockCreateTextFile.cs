@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MacroBoard.Blocks
+namespace MacroBoard
 {
-    public class B_CreateTextFile : Block
+    public class BlockCreateTextFile : Block
     {
         private string _filePath, _fileName, _fileType, _text;
-        public B_CreateTextFile(string Name, string LogoUrl, string info, string filePath, string fileName, string fileType, string text)
+        public BlockCreateTextFile(string Name, string LogoUrl, string info, string filePath, string fileName, string fileType, string text)
         {
             base.Name = Name;
             base.LogoUrl = LogoUrl;
