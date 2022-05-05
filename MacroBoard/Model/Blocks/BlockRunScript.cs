@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace MacroBoard.Blocks
+namespace MacroBoard
 {
-    internal class B_RunScript : Block
+    internal class BlockRunScript : Block
     {
         private string _script;
-        public B_RunScript(string Name, string LogoUrl, string info, string script)
+        public BlockRunScript(string Name, string LogoUrl, string info, string script)
         {
-            base.Name = Name;
-            base.LogoUrl = LogoUrl;
-            base.info = info;
+            base.Name = "Run Script";
             this._script = script;
         }
 
