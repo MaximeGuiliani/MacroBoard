@@ -23,39 +23,57 @@ namespace MacroBoard
     {
         private List<WorkflowView> FavWorkflows = new();
         private List<WorkflowView> Workflows = new();
-        private List<WorkflowView> WorkflowsSearch = new();
+        private List<WorkflowView> WorkflowsSearchs = new();
         bool isEdition = false;
         bool isInsearch = false;
-
 
         public MainWindow()
         {
             InitializeComponent();
-            InitBlock();
+            InitWorkflows();
         }
 
-        private void InitBlock()
+        private void InitWorkflows()
         {
             List<Block> macroNotePads = new();
-            WorkFlow macroNotePad = new("", "Test0", macroNotePads);
             macroNotePads.Add(new Blocks.B_RunApp("Run Application", "", "", "notepad.exe"));
-            macroNotePad = new("", "macroNotePads", macroNotePads);
+            macroNotePads.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
+            macroNotePads.Add(new Blocks.B_KeyBoardShortCut("", "", "", "hello world ^s "));
+            WorkFlow macroNotePad = new("", "macroNotePads", macroNotePads);
+
+            List<Block> machromes = new();
+            machromes.Add(new LaunchBrowserChromeCopy("https://royaleapi.com/player/2GPUV2Y0"));
+            machromes.Add(new Blocks.B_Wait("", "", "", 0, 0, 5));
+            machromes.Add(new Capture("test", "png", $@"C:\Users\maxim\OneDrive\Bureau", 1));
+            WorkFlow machrome = new("", "machrome", machromes);
 
 
-            WorkFlow macro1 = new("", "Test1", new List<Block>());
-            WorkFlow macro2 = new("", "Test2", new List<Block>());
-            WorkFlow macro3 = new("", "Test3", new List<Block>());
+            List<Block> mailcro = new();
+            mailcro.Add(new SendEmail("test", "lpmusardo@gmail.com", "Subject"));
+            mailcro.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
+            mailcro.Add(new Recognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png", debugMode: true));
+            mailcro.Add(new ClickG());
+            mailcro.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
+            mailcro.Add(new Recognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg", debugMode: true));
+            mailcro.Add(new ClickG());
+            WorkFlow macro2 = new("", "mailcro", mailcro);
+
+
+            WorkFlow lpmacro = new("", "lpmacro", new List<Block>());
+
+
+
             WorkFlow macro4 = new("", "Test4", new List<Block>());
             WorkFlow macro5 = new("", "Test5", new List<Block>());
 
             FavWorkflows.Add(new(macroNotePad));
-            FavWorkflows.Add(new(macro1));
+            FavWorkflows.Add(new(machrome));
             FavWorkflows.Add(new(macro2));
-            FavWorkflows.Add(new(macro3));
+            FavWorkflows.Add(new(lpmacro));
             Workflows.Add(new(macroNotePad));
-            Workflows.Add(new(macro1));
+            Workflows.Add(new(machrome));
             Workflows.Add(new(macro2));
-            Workflows.Add(new(macro3));
+            Workflows.Add(new(lpmacro));
             Workflows.Add(new(macro4));
             Workflows.Add(new(macro5));
 
@@ -95,8 +113,8 @@ namespace MacroBoard
             }
             else
             {
-                removeWorkflow(WorkflowsSearch, currentItemPos);
-                WorkflowsSearch.RemoveAt(currentItemPos);
+                removeWorkflow(WorkflowsSearchs, currentItemPos);
+                WorkflowsSearchs.RemoveAt(currentItemPos);
             }
 
         }
@@ -145,7 +163,7 @@ namespace MacroBoard
             }
             else
             {
-                AddFav(new WorkflowView(WorkflowsSearch[currentItemPos].CurrentworkFlow));
+                AddFav(new WorkflowView(WorkflowsSearchs[currentItemPos].CurrentworkFlow));
             }
 
         }
@@ -187,23 +205,23 @@ namespace MacroBoard
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             string txt = Search.Text;
-            WorkflowsSearch = new();
+            WorkflowsSearchs = new();
             if (txt != "")
             {
                 isInsearch = true;
                 foreach (WorkflowView m in Workflows)
                 {
                     if (m.CurrentworkFlow.workflowName.Contains(txt))
-                        WorkflowsSearch.Add(m);
+                        WorkflowsSearchs.Add(m);
                 }
             }
             else
             {
                 isInsearch = false;
-                WorkflowsSearch = Workflows;
+                WorkflowsSearchs = Workflows;
             }
             ListMacro.Items.Clear();
-            foreach (WorkflowView mac in WorkflowsSearch)
+            foreach (WorkflowView mac in WorkflowsSearchs)
             {
                 ListMacro.Items.Add(mac.Content);
             }
@@ -215,7 +233,7 @@ namespace MacroBoard
 
             if (isInsearch)
             {
-                executeWorkflow((WorkflowsSearch[currentItemPos].CurrentworkFlow));
+                executeWorkflow((WorkflowsSearchs[currentItemPos].CurrentworkFlow));
             }
             else
             {
