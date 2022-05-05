@@ -21,264 +21,267 @@ namespace MacroBoard
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<WorkFlow> macros = new();
-        List<WorkFlow> Favmacros = new();
+        private List<WorkflowView> FavWorkflows = new();
+        private List<WorkflowView> Workflows = new();
+        private List<WorkflowView> WorkflowsSearchs = new();
         bool isEdition = false;
-        bool isRemove = false;
-        bool isAddFav = false;
-        WorkFlow macro0 = new WorkFlow("Test0", "Blue", new List<Block>());
-        WorkFlow macro1 = new WorkFlow("Test1", "Blue", new List<Block>());
-        WorkFlow macro2 = new WorkFlow("Test2", "Blue", new List<Block>());
-        WorkFlow macro3 = new WorkFlow("Test3", "Blue", new List<Block>());
-        WorkFlow macro4 = new WorkFlow("Test4", "Blue", new List<Block>());
-        WorkFlow macro5 = new WorkFlow("Test5", "Blue", new List<Block>());
-
+        bool isInsearch = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            macros.Add(macro0);
-            macros.Add(macro1);
-            macros.Add(macro2);
-            macros.Add(macro3);
-            macros.Add(macro4);
-            macros.Add(macro5);
-            Favmacros.Add(macro0);
-            Favmacros.Add(macro4);
-            ListFav.ItemsSource = Favmacros;
-            ListMacro.ItemsSource = macros;
+            InitWorkflows();
+        }
+
+        private void InitWorkflows()
+        {
+            List<Block> macroNotePads = new();
+            macroNotePads.Add(new Blocks.B_RunApp("Run Application", "", "", "notepad.exe"));
+            macroNotePads.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
+            macroNotePads.Add(new Blocks.B_KeyBoardShortCut("", "", "", "hello world ^s "));
+            WorkFlow macroNotePad = new("", "macroNotePads", macroNotePads);
+
+            List<Block> machromes = new();
+            machromes.Add(new LaunchBrowserChromeCopy("https://royaleapi.com/player/2GPUV2Y0"));
+            machromes.Add(new Blocks.B_Wait("", "", "", 0, 0, 5));
+            machromes.Add(new Capture("test", "png", $@"C:\Users\maxim\OneDrive\Bureau", 1));
+            WorkFlow machrome = new("", "machrome", machromes);
+
+
+            List<Block> mailcro = new();
+            mailcro.Add(new SendEmail("test", "lpmusardo@gmail.com", "Subject"));
+            mailcro.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
+            mailcro.Add(new Recognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png", debugMode: true));
+            mailcro.Add(new ClickG());
+            mailcro.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
+            mailcro.Add(new Recognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg", debugMode: true));
+            mailcro.Add(new ClickG());
+            WorkFlow macro2 = new("", "mailcro", mailcro);
+
+
+            WorkFlow lpmacro = new("", "lpmacro", new List<Block>());
+
+
+
+            WorkFlow macro4 = new("", "Test4", new List<Block>());
+            WorkFlow macro5 = new("", "Test5", new List<Block>());
+
+            FavWorkflows.Add(new(macroNotePad));
+            FavWorkflows.Add(new(machrome));
+            FavWorkflows.Add(new(macro2));
+            FavWorkflows.Add(new(lpmacro));
+            Workflows.Add(new(macroNotePad));
+            Workflows.Add(new(machrome));
+            Workflows.Add(new(macro2));
+            Workflows.Add(new(lpmacro));
+            Workflows.Add(new(macro4));
+            Workflows.Add(new(macro5));
+
+
+            foreach (WorkflowView FavWorkflow in FavWorkflows)
+            {
+                FavWorkflow.Btn_Delete.Visibility = Visibility.Hidden;
+                FavWorkflow.Btn_Main.Click += Button_Click_Fav;
+                FavWorkflow.Btn_Fav.Click += OnClick_Delete_Fav;
+                ListFav.Items.Add(FavWorkflow.Content);
+            }
+            foreach (WorkflowView Workflow in Workflows)
+            {
+                Workflow.Btn_Delete.Click += OnClick_Delete;
+                Workflow.Btn_Fav.Click += OnClick_Fav;
+                Workflow.Btn_Main.Click += Button_Click;
+                ListMacro.Items.Add(Workflow.Content);
+            }
+        }
+
+
+        private void OnClick_Delete_Fav(object sender, RoutedEventArgs e)
+        {
+            int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
+            ListFav.Items.RemoveAt(currentItemPos);
+            FavWorkflows.RemoveAt(currentItemPos);
+        }
+
+
+        private void OnClick_Delete(object sender, RoutedEventArgs e)
+        {
+            int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
+
+            if (!isInsearch)
+            {
+                removeWorkflow(Workflows, currentItemPos);
+            }
+            else
+            {
+                removeWorkflow(WorkflowsSearchs, currentItemPos);
+                WorkflowsSearchs.RemoveAt(currentItemPos);
+            }
+
+        }
+
+
+
+
+
+        private void removeWorkflow(List<WorkflowView> wfs, int index)
+        {
+            int currentItemPosFav = 0;
+            bool test = false;
+            while (currentItemPosFav < FavWorkflows.Count)
+            {
+                if (!wfs[index].CurrentworkFlow.Equals(FavWorkflows[currentItemPosFav].CurrentworkFlow))
+                {
+                    currentItemPosFav++;
+                }
+                else
+                {
+                    test = true;
+                    break;
+                }
+
+            }
+            if (test)
+            {
+                FavWorkflows.RemoveAt(currentItemPosFav);
+                ListFav.Items.RemoveAt(currentItemPosFav);
+            }
+
+            ListMacro.Items.RemoveAt(index);
+            Workflows.RemoveAt(index);
+
+        }
+
+
+
+        private void OnClick_Fav(object sender, RoutedEventArgs e)
+        {
+            int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
+
+            if (!isInsearch)
+            {
+                AddFav(new WorkflowView(Workflows[currentItemPos].CurrentworkFlow));
+            }
+            else
+            {
+                AddFav(new WorkflowView(WorkflowsSearchs[currentItemPos].CurrentworkFlow));
+            }
+
+        }
+
+        private void AddFav(WorkflowView newFav)
+        {
+            WorkFlow wf = newFav.CurrentworkFlow;
+            if (FavWorkflows.Count < 5)
+            {
+                if (!ListContains(FavWorkflows, wf))
+                {
+                    newFav.Btn_Fav.Click += OnClick_Delete_Fav;
+                    newFav.Btn_Main.Click += Button_Click_Fav;
+                    newFav.Btn_Delete.Visibility = Visibility.Hidden;
+                    ListFav.Items.Add(newFav.Content);
+                    FavWorkflows.Add(newFav);
+                }
+
+            }
+
+
+        }
+
+        private bool ListContains(List<WorkflowView> wfls, WorkFlow wf)
+        {
+            bool result = false;
+            foreach (WorkflowView wfItem in wfls)
+            {
+                if (wfItem.CurrentworkFlow.Equals(wf))
+                {
+                    return true;
+                }
+
+            }
+
+            return result;
         }
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             string txt = Search.Text;
-            List<WorkFlow> macrosSearch = new List<WorkFlow>();
+            WorkflowsSearchs = new();
             if (txt != "")
             {
-                foreach (WorkFlow m in macros)
+                isInsearch = true;
+                foreach (WorkflowView m in Workflows)
                 {
-                    if (m.workflowName.Contains(txt))
-                        macrosSearch.Add(m);
+                    if (m.CurrentworkFlow.workflowName.Contains(txt))
+                        WorkflowsSearchs.Add(m);
                 }
             }
             else
             {
-                macrosSearch = macros;
+                isInsearch = false;
+                WorkflowsSearchs = Workflows;
             }
-            ListMacro.ItemsSource = macrosSearch;
-
+            ListMacro.Items.Clear();
+            foreach (WorkflowView mac in WorkflowsSearchs)
+            {
+                ListMacro.Items.Add(mac.Content);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string buttonName = (sender as Button).Content.ToString();
-            if (buttonName != null)
+            int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
+
+            if (isInsearch)
             {
-                if (isEdition)
-                {
-                    EditionWindow editionWindow = new();
-                    editionWindow.Show();
-                }
-                else if (isAddFav)
-                {
-                    AddFav(buttonName);
-                }
-
-                else if (isRemove)
-                {
-                    RemoveMacro(buttonName);
-                }
-                else
-                {
-                    MessageBox.Show("Do Job");
-                }
+                executeWorkflow((WorkflowsSearchs[currentItemPos].CurrentworkFlow));
             }
-            UpdateAllMacro();
-            UpdateFav();
-
+            else
+            {
+                executeWorkflow((Workflows[currentItemPos].CurrentworkFlow));
+            }
 
         }
 
 
-        private void Button_Fav_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click_Fav(object sender, RoutedEventArgs e)
         {
-            string buttonName = (sender as Button).Content.ToString();
-
-            if (buttonName != null)
-            {
-                if (isEdition)
-                {
-                    EditionWindow editionWindow = new();
-                    editionWindow.Show();
-                }
-                else if (isAddFav)
-                {
-                    AddFav(buttonName);
-                }
-                else if (isRemove)
-                {
-                    RemoveFav(buttonName);
-                }
-                else
-                {
-                    MessageBox.Show("Do Job");
-                }
-            }
-            UpdateAllMacro();
-            UpdateFav();
-        }
-
-
-        private void AddFav(string buttonName)
-        {
-            if (Favmacros.Count < 5)
-            {
-                foreach (WorkFlow macro in macros)
-                {
-                    if (macro.workflowName.Equals(buttonName))
-                    {
-                        if (!IsInList(Favmacros, buttonName))
-                        {
-                            Favmacros.Add(macro);
-                        }
-
-                    }
-                }
-
-
-            }
-
+            int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
+            executeWorkflow(FavWorkflows[currentItemPos].CurrentworkFlow);
 
         }
 
-
-
-        private bool IsInList(List<WorkFlow> lm, string content)
-        {
-            bool result = false;
-            foreach (WorkFlow m in lm)
-            {
-                if (m.workflowName.Equals(content))
-                {
-                    result = true;
-                }
-            }
-            return result;
-        }
-
-
-        private void RemoveFav(string content)
+        private void executeWorkflow(WorkFlow wf)
         {
 
-            foreach (WorkFlow favmacro in Favmacros)
+            if (isEdition)
             {
-                if (favmacro.workflowName.Equals(content))
+                EditionWindow editionWindow = new(wf);
+                editionWindow.Show();
+            }
+            else
+            {
+                foreach (Block m in wf.workflowList)
                 {
-                    Favmacros.Remove(favmacro);
-                    break;
+                    m.Execute();
                 }
+
             }
 
         }
-        private void RemoveMacro(string content)
-        {
-            WorkFlow toremove = null;
-            foreach (WorkFlow macro in macros)
-            {
-                if (macro.workflowName.Equals(content))
-                {
-                    toremove = macro;
-                    break;
-                }
-            }
-            if (toremove != null)
-            {
-                Favmacros.Remove(toremove);
-                macros.Remove(toremove);
-            }
-        }
-
-
-
-
-
-
         private void EditionMode(object sender, RoutedEventArgs e)
         {
             if (isEdition)
             {
-                ButtonEdit.Background = Brushes.Green;
-                ButtonRemove.Visibility = Visibility.Visible;
-                ButtonAddFav.Visibility = Visibility.Visible;
+                ButtonEdit.Foreground = Brushes.Black;
                 isEdition = false;
             }
             else
             {
-                ButtonEdit.Background = Brushes.Red;
-                ButtonRemove.Visibility = Visibility.Hidden;
-                ButtonAddFav.Visibility = Visibility.Hidden;
+                ButtonEdit.Foreground = Brushes.Green;
                 isEdition = true;
             }
         }
-
-        private void AddMode(object sender, RoutedEventArgs e)
-        {
-            if (isAddFav)
-            {
-                ButtonAddFav.Background = Brushes.Green;
-                ButtonEdit.Visibility = Visibility.Visible;
-                ButtonRemove.Visibility = Visibility.Visible;
-                isAddFav = false;
-            }
-            else
-            {
-                ButtonAddFav.Background = Brushes.Yellow;
-                ButtonEdit.Visibility = Visibility.Hidden;
-                ButtonRemove.Visibility = Visibility.Hidden;
-                isAddFav = true;
-            }
-        }
-
-
-
-
-        private void RemoveMode(object sender, RoutedEventArgs e)
-        {
-            if (isRemove)
-            {
-                ButtonRemove.Background = Brushes.Red;
-                ButtonEdit.Visibility = Visibility.Visible;
-                ButtonAddFav.Visibility = Visibility.Visible;
-                isRemove = false;
-            }
-            else
-            {
-                ButtonRemove.Background = Brushes.Yellow;
-                ButtonEdit.Visibility = Visibility.Hidden;
-                ButtonAddFav.Visibility = Visibility.Hidden;
-                isRemove = true;
-            }
-        }
-
-        private void UpdateFav()
-        {
-            List<WorkFlow> macrosListtest = new List<WorkFlow>();
-            foreach (WorkFlow m in Favmacros)
-            {
-                macrosListtest.Add(m);
-            }
-            Favmacros = macrosListtest;
-            ListFav.ItemsSource = Favmacros;
-        }
-        private void UpdateAllMacro()
-        {
-            List<WorkFlow> macrosListtest = new();
-            foreach (WorkFlow m in macros)
-            {
-                macrosListtest.Add(m);
-            }
-            macros = macrosListtest;
-            ListMacro.ItemsSource = macrosListtest;
-        }
     }
+
 }
