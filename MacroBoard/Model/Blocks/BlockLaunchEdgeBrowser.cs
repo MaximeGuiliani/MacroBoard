@@ -12,11 +12,11 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class LaunchEdgeBrowser : Block
+    internal class BlockLaunchEdgeBrowser : Block
     {
         String address;
 
-        public LaunchEdgeBrowser(String address)
+        public BlockLaunchEdgeBrowser(String address)
         {
             this.address = address;
             base.Name = "LaunchEdgeBrowser";
