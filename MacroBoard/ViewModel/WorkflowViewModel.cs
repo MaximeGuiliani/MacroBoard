@@ -12,18 +12,20 @@ namespace MacroBoard
         public Button Btn_Delete { get; } = new();
         public Image ImageWorkflow { get; } = new();
 
-        public Button Btn_Edit { get; } = new();
+        public Button Btn_Fav { get; } = new();
+        public Button Btn_Main { get; } = new();
+
 
         private Label Lbl_Name = new();
         public Grid Content { get; } = new();
-        public WorkFlow workFlow { get; set; }
+        public WorkFlow CurrentworkFlow { get; set; }
 
-        public WorkflowView(string Name, WorkFlow workFlow)
+        public WorkflowView(WorkFlow workFlow)
         {
 
-            this.workFlow = workFlow;
+            this.CurrentworkFlow = workFlow;
             Setup_Btns();
-            Setup_Name(Name);
+            Setup_Name(workFlow.workflowName);
             Setup_Grid();
 
         }
@@ -39,17 +41,31 @@ namespace MacroBoard
 
         private void Setup_Btns()
         {
-            TextBlock txtBlock = new();
-            //Delete Button
-            txtBlock.Text = "-";
-            Thickness thickness = new Thickness();
-            thickness.Top = -6d;
-            txtBlock.Margin = thickness;
-            Btn_Delete.Content = txtBlock;
 
-            Btn_Delete.Width = 15d;
-            Btn_Delete.Height = 11d;
-            Btn_Delete.HorizontalAlignment = HorizontalAlignment.Right;
+            //Main Button
+
+
+            Btn_Main.Background = Brushes.Transparent;
+            Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
+
+            Btn_Main.Width = 100d;
+            Btn_Main.Height = 100d;
+
+
+
+            //Delete Button
+            TextBlock txtBlock = new();
+
+            txtBlock.Text = "🚫";
+            txtBlock.Foreground = Brushes.Red;
+
+
+            Btn_Delete.Content = txtBlock;
+            Btn_Delete.Background = Brushes.Transparent;
+            Btn_Delete.BorderThickness = new Thickness(0, 0, 0, 0);
+            Btn_Delete.Width = 30d;
+            Btn_Delete.Height = 30d;
+            Btn_Delete.HorizontalAlignment = HorizontalAlignment.Left;
             Btn_Delete.VerticalAlignment = VerticalAlignment.Top;
 
 
@@ -57,39 +73,43 @@ namespace MacroBoard
 
             //Edit Button
             txtBlock = new();
-            txtBlock.Text = "edit";
-            thickness = new Thickness();
-            thickness.Top = -3d;
-            txtBlock.Margin = thickness;
-            Btn_Edit.Content = txtBlock;
+            txtBlock.Text = "★";
+            txtBlock.Foreground = Brushes.Yellow;
 
-            Btn_Edit.Width = 30d;
-            Btn_Edit.Height = 15d;
-            Btn_Edit.HorizontalAlignment = HorizontalAlignment.Right;
-            Btn_Edit.VerticalAlignment = VerticalAlignment.Bottom;
+            Btn_Fav.Content = txtBlock;
+            Btn_Fav.Background = Brushes.Transparent;
+            Btn_Fav.BorderThickness = new Thickness(0, 0, 0, 0);
+
+            Btn_Fav.Width = 30d;
+            Btn_Fav.Height = 30d;
+            Btn_Fav.HorizontalAlignment = HorizontalAlignment.Right;
+            Btn_Fav.VerticalAlignment = VerticalAlignment.Top;
         }
 
         private void Setup_Grid()
         {
-            Thickness thickness = new Thickness();
-            thickness.Left = 8d;
-            thickness.Right = 8d;
-            thickness.Bottom = 8d;
-            Content.Margin = thickness;
-            Content.Width = 230d;
-            Content.Height = 35d;
+
+            Content.Width = 100d;
+            Content.Height = 100d;
 
             BitmapImage bitmapImg = new BitmapImage();
 
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri("../../../Resources/macro.png", UriKind.Relative);
+
+            bitmapImg.UriSource = new Uri("../../../Resources/Button_WorkFlow.png", UriKind.Relative);
+
             bitmapImg.EndInit();
+            ImageWorkflow.Source = bitmapImg;
 
             Content.Background = new ImageBrush(bitmapImg);
 
             Content.Children.Add(Lbl_Name);
+            Content.Children.Add(Btn_Main);
             Content.Children.Add(Btn_Delete);
-            Content.Children.Add(Btn_Edit);
+            Content.Children.Add(Btn_Fav);
+
+
+
         }
 
 
