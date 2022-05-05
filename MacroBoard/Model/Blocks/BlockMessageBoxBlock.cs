@@ -8,14 +8,15 @@ using System.Windows;
 
 namespace MacroBoard
 {
-    internal class MessageBoxBlock : Block
+    internal class BlockMessageBoxBlock : Block
     {
 
         string param1 = "param1_default";
         string param2 = "param2_default";
 
-        public MessageBoxBlock(string param1, string param2)
+        public BlockMessageBoxBlock(string param1, string param2)
         {
+            base.Name = "Pop Up";
             this.param1 = param1;
             this.param2 = param2;
         }
