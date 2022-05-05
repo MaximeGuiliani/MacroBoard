@@ -12,11 +12,11 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class LaunchBrowserFirefox : Block
+    internal class BlockLaunchBrowserFirefox : Block
     {
         String address;
 
-        public LaunchBrowserFirefox(String address)
+        public BlockLaunchBrowserFirefox(String address)
         {
             this.address = address;
             base.Name = "LaunchBrowser Firefox";
