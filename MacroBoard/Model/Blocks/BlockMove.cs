@@ -7,12 +7,13 @@ using System.IO;
 
 namespace MacroBoard
 {
-    internal class Move : Block
+    internal class BlockMove : Block
     {
         String source;
         String destination;
-        public Move(String source, String destination)
+        public BlockMove(String source, String destination)
         {
+            base.Name = "Move Folder/File"
             this.source = source;
             this.destination = destination;
         }
