@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,135 +14,95 @@ namespace MacroBoard
     /// </summary>
     public partial class EditionWindow : Window
     {
-        WorkFlow workFlow;
-        private string ImagePathValue;
-        public string ImagePath
-        {
-            get { return ImagePathValue; }
-            set { ImagePathValue = ImagePath; }
-        }
+        WorkFlow WorkFlow = new WorkFlow("", "", new());
 
-
-
-
-
-        private List<BlockView> BlockViews = new();
-        // TODO : Prendra en argument une Macro (List de block) Nom
+        private List<BlockViewModel_All> BlockViewModels_All = new();
+        private List<BlockViewModel_Workflow> BlockViewModels_Workflow = new();
         public EditionWindow()
         {
             InitializeComponent();
-            InitBlock();
-            workFlow = new WorkFlow("", "", null);
-            changeImage("../Images/block.png");
+            InitListBlock_All();
             DataContext = this;
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+            Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/macro_img.png", UriKind.Absolute));     
         }
 
         public EditionWindow(WorkFlow workFlow)
         {
             InitializeComponent();
-            this.workFlow = workFlow;
-            changeImage(workFlow.imagePath);
-
+            this.WorkFlow = workFlow;
+            Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(workFlow.imagePath, UriKind.Absolute));
         }
 
-        public void changeImage(string path)
+        private void InitListBlock_All()
         {
-            Image img = new Image();
-            BitmapImage bitmapImg = new BitmapImage();
+            BlockViewModels_All.Add(new BlockViewModel_All("Restart Computer", new Blocks.B_Restart()));
+            BlockViewModels_All.Add(new BlockViewModel_All("Run Application", new Blocks.B_RunApp("Run Application", "", "", "notepad.exe")));
+            BlockViewModels_All.Add(new BlockViewModel_All("Wait", new Blocks.B_Wait("Wait", "", "", 0, 0, 0)));
+            BlockViewModels_All.Add(new BlockViewModel_All("Capture", new Capture("Capture", "", "", 1)));
 
-            bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri(@"..\Images\Block.png", UriKind.Relative);
-            bitmapImg.EndInit();
-
-            img.Source = bitmapImg;
-
-            TextBlock txt = new TextBlock();
-            txt.Text = path;
-            GridEdit.Children.Add(img);
-        }
-
-
-
-
-        private void save(object sender, RoutedEventArgs e)
-        {
-            // TODO add Img attribute, check existing Names
-
-            ImagePath = Image_Selected.Text;
-
-
-        }
-
-
-
-        private void selectImage(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            dlg.DefaultExt = ".png";
-            dlg.Filter = "PNG Files (*.png) |JPEG Files (*.jpeg)|*.jpeg|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-
-
-            Nullable<bool> result = dlg.ShowDialog();
-
-            if (result == true)
+            foreach (BlockViewModel_All blockView in BlockViewModels_All)
             {
-                // Open document 
-                string filename = dlg.FileName;
-
-                Image_Selected.Text = filename;
-                ImagePath = filename;
-
-
+                blockView.Btn_Add.Click += OnClick_Add;
+                ListBlock_All.Items.Add(blockView.Content);
             }
 
         }
 
-        private void Name_Box_GotFocus(object sender, RoutedEventArgs e)
+        private void InitListBlock_Workflow()
         {
-            Name_Box.Text = "";
+            //BlockViews_Workflow[0].Content.Children[3].Visibility = Visibility.Hidden;
+            //BlockViews_Workflow[BlockViews_Workflow.Count - 1].Content.Children[4].Visibility = Visibility.Hidden;
         }
-
-        private void Name_Box_TextChanged(object sender, TextChangedEventArgs e)
+        private void OnClick_Add(object sender, RoutedEventArgs e)
         {
+            Grid CurrentBlockContent = (Grid)((Button)sender).Parent;
+            int currentItemPos = ListBlock_All.Items.IndexOf(((Button)sender).Parent);
 
-        }
+            BlockViewModel_Workflow CurrentBlockViewModel
+                = new BlockViewModel_Workflow(BlockViewModels_All[currentItemPos].Block.Name, BlockViewModels_All[currentItemPos].Block);
+            CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
+            CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
+            CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
+            CurrentBlockViewModel.Btn_Down.Click += OnClick_Down;
 
-        private void InitBlock()
-        {
-            BlockViews.Add(new BlockView("Restart Computer", new Blocks.B_Restart()));
-            BlockViews.Add(new BlockView("Run Application", new Blocks.B_RunApp("Run Application", "", "", "notepad.exe")));
-            BlockViews.Add(new BlockView("Wait", new Blocks.B_Wait("Wait", "", "", 0, 0, 0)));
-            BlockViews.Add(new BlockView("Capture", new Capture("Capture", "", "", 1)));
+            WorkFlow.workflowList.Add(BlockViewModels_All[currentItemPos].Block);
+            ListBlock_Workflow.Items.Add(CurrentBlockViewModel.Content);
 
-            foreach (BlockView blockView in BlockViews)
+            if (WorkFlow.workflowList.Count <= 1)
             {
-                blockView.Btn_Delete.Click += OnClick_Delete;
-                blockView.Btn_Edit.Click += OnClick_Edit;
-                blockView.Btn_Up.Click += OnClick_Up;
-                blockView.Btn_Down.Click += OnClick_Down;
-                listTest.Items.Add(blockView.Content);
-            }
-            BlockViews[0].Content.Children[3].Visibility = Visibility.Hidden;
-            BlockViews[BlockViews.Count - 1].Content.Children[4].Visibility = Visibility.Hidden;
-        }
+                CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Hidden;
+                CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+            }else CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Visible;
 
+            if (WorkFlow.workflowList.Count == 2)
+            {
+                ((Grid)ListBlock_Workflow.Items[0]).Children[4].Visibility = Visibility.Visible;
+            }
+
+            if(WorkFlow.workflowList.Count > 2)
+                ((Grid)ListBlock_Workflow.Items[ListBlock_Workflow.Items.Count-2]).Children[4].Visibility = Visibility.Visible;
+
+            CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+        }
         private void OnClick_Delete(object sender, RoutedEventArgs e)
         {
-            int currentItemPos = listTest.Items.IndexOf(((Button)sender).Parent);
-            if (listTest.Items.Count > 1 && currentItemPos == 0)
+            Grid CurrentBlockContent = (Grid)((Button)sender).Parent;
+            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
+            if (ListBlock_Workflow.Items.Count > 1 && currentItemPos == 0)
             {
-                Grid nextItem = (Grid)listTest.Items.GetItemAt(currentItemPos + 1);
+                Grid nextItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos + 1);
                 nextItem.Children[3].Visibility = Visibility.Hidden;
             }
 
-            if (listTest.Items.Count > 1 && currentItemPos == listTest.Items.Count - 1)
+            if (ListBlock_Workflow.Items.Count > 1 && currentItemPos == ListBlock_Workflow.Items.Count - 1)
             {
-                Grid previousItem = (Grid)listTest.Items.GetItemAt(currentItemPos - 1);
+                Grid previousItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos - 1);
                 previousItem.Children[4].Visibility = Visibility.Hidden;
             }
 
-            listTest.Items.RemoveAt(currentItemPos);
+            ListBlock_Workflow.Items.RemoveAt(currentItemPos);
+            WorkFlow.workflowList.RemoveAt(currentItemPos);
         }
         private void OnClick_Edit(object sender, RoutedEventArgs e)
         {
@@ -149,35 +110,35 @@ namespace MacroBoard
         }
         private void OnClick_Up(object sender, RoutedEventArgs e)
         {
-            int currentItemPos = listTest.Items.IndexOf(((Button)sender).Parent);
-            Grid previousItem = (Grid)listTest.Items.GetItemAt(currentItemPos - 1);
+            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
+            Grid previousItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos - 1);
 
             SetHiddenOrVisibleBtnUp(sender, previousItem);
 
-            listTest.Items.Remove(((Button)sender).Parent);
-            listTest.Items.Remove(previousItem);
+            ListBlock_Workflow.Items.Remove(((Button)sender).Parent);
+            ListBlock_Workflow.Items.Remove(previousItem);
 
-            listTest.Items.Insert(currentItemPos - 1, ((Button)sender).Parent);
-            listTest.Items.Insert(currentItemPos, previousItem);
+            ListBlock_Workflow.Items.Insert(currentItemPos - 1, ((Button)sender).Parent);
+            ListBlock_Workflow.Items.Insert(currentItemPos, previousItem);
         }
         private void OnClick_Down(object sender, RoutedEventArgs e)
         {
-            int currentItemPos = listTest.Items.IndexOf(((Button)sender).Parent);
-            Grid nextItem = (Grid)listTest.Items.GetItemAt(currentItemPos + 1);
+            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
+            Grid nextItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos + 1);
 
             SetHiddenOrVisibleBtnDown(sender, nextItem);
 
-            listTest.Items.Remove(((Button)sender).Parent);
-            listTest.Items.Remove(nextItem);
+            ListBlock_Workflow.Items.Remove(((Button)sender).Parent);
+            ListBlock_Workflow.Items.Remove(nextItem);
 
-            listTest.Items.Insert(currentItemPos, nextItem);
-            listTest.Items.Insert(currentItemPos + 1, ((Button)sender).Parent);
+            ListBlock_Workflow.Items.Insert(currentItemPos, nextItem);
+            ListBlock_Workflow.Items.Insert(currentItemPos + 1, ((Button)sender).Parent);
         }
 
         private void SetHiddenOrVisibleBtnUp(object sender, Grid previousItem)
         {
-            int currentItemPos = listTest.Items.IndexOf(((Button)sender).Parent);
-            Grid currentItem = (Grid)listTest.Items.GetItemAt(currentItemPos);
+            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
+            Grid currentItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos);
 
             currentItem.Children[4].Visibility = Visibility.Visible;
             previousItem.Children[3].Visibility = Visibility.Visible;
@@ -187,7 +148,7 @@ namespace MacroBoard
                 currentItem.Children[3].Visibility = Visibility.Hidden;
             }
 
-            if (currentItemPos == listTest.Items.Count - 1)
+            if (currentItemPos == ListBlock_Workflow.Items.Count - 1)
             {
                 previousItem.Children[4].Visibility = Visibility.Hidden;
             }
@@ -195,13 +156,13 @@ namespace MacroBoard
 
         private void SetHiddenOrVisibleBtnDown(object sender, Grid nextItem)
         {
-            int currentItemPos = listTest.Items.IndexOf(((Button)sender).Parent);
-            Grid currentItem = (Grid)listTest.Items.GetItemAt(currentItemPos);
+            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
+            Grid currentItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos);
 
             currentItem.Children[3].Visibility = Visibility.Visible;
             nextItem.Children[4].Visibility = Visibility.Visible;
 
-            if (currentItemPos + 1 == listTest.Items.Count - 1)
+            if (currentItemPos + 1 == ListBlock_Workflow.Items.Count - 1)
             {
                 currentItem.Children[4].Visibility = Visibility.Hidden;
             }
@@ -212,5 +173,42 @@ namespace MacroBoard
             }
 
         }
+
+
+        private void Button_Save(object sender, RoutedEventArgs e)
+        {
+            this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
+            this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
+        }
+
+        private void selectImage(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            dlg.DefaultExt = ".jpeg";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|JPG Files (*.jpg)|*.jpg|" +
+                "All Files (.jpeg .jpg .png .gif)|*.jpeg;*.jpg;*.png;*.gif|PNG Files (*.png)|*.png|GIF Files (*.gif)|*.gif";
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(dlg.FileName, UriKind.Absolute));
+                TextBox_WorkFlowImage.Text = dlg.FileName;
+            }
+
+        }
+
+        private void Name_Box_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox_WorkFlowName.Text = "";
+            TextBox_WorkFlowName.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        private void Name_Box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        
     }
 }
