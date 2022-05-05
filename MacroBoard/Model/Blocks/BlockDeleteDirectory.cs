@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.IO;
 namespace MacroBoard
 {
-    internal class DeleteDirectory : Block
+    internal class BlockDeleteDirectory : Block
     {
         String path;
-        public DeleteDirectory(String path)
+        public BlockDeleteDirectory(String path)
         {
+            base.Name = "Delete Directory";
             this.path = path;   
         }
         public override void Execute()
