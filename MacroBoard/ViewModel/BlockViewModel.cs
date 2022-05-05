@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace MacroBoard
 {
+
     internal abstract class BlockViewModel
     {
         public Label Lbl_Name = new();
@@ -25,6 +26,19 @@ namespace MacroBoard
             Setup_Grid();
         }
 
+        public BlockView(Block block)
+        {
+            this.Block = block;
+            //block.Execute();
+            Setup_Name(block.BlockType);
+            Setup_Block_Creating_Window(block);
+        }
+
+        private void Setup_Block_Creating_Window(Block block)
+        {
+            
+        }
+
         private void Setup_Name(string Name)
         {
             Lbl_Name.Content = Name;
@@ -34,7 +48,12 @@ namespace MacroBoard
 
         public abstract void Setup_Btns();
 
+
         public abstract void Setup_Grid();
+
+
+
+
 
     }
 }

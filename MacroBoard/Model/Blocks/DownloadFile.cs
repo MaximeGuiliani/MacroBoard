@@ -25,6 +25,5 @@ namespace MacroBoard
             wc.DownloadFile(address,fileName);
         }
 
-
     }
 }

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace MacroBoard
 {
-    internal class Copy : Block
+    public class Copy : Block
     {
         String source;
         String destination;
@@ -40,6 +40,9 @@ namespace MacroBoard
                 }
             }
         }
+
+        
+
         public override void Execute()
         {
             FileAttributes attr = File.GetAttributes(source);

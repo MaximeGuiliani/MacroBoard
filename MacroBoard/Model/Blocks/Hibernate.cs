@@ -14,5 +14,6 @@ namespace MacroBoard
             static extern bool SetSuspendState(bool hiberate, bool forceCritical, bool disableWakeEvent);
             SetSuspendState(false, true, true);
         }
+
     }
 }

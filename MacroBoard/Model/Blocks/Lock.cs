@@ -15,5 +15,6 @@ namespace MacroBoard
             static extern void LockWorkStation();
             LockWorkStation();
         }
+        
     }
 }

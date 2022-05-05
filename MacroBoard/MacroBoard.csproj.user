@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\Users\user\source\Repos\MacroBoard\MacroBoard\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="View\BlockCreator.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Page Update="View\EditionWindow.xaml">
       <SubType>Designer</SubType>
@@ -12,6 +19,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\SearchBoxStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\BlockCreator.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

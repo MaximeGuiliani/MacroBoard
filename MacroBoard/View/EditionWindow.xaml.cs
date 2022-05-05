@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MacroBoard.View;
 
 namespace MacroBoard
 {
@@ -40,6 +41,7 @@ namespace MacroBoard
             BlockViewModels_All.Add(new BlockViewModel_All("Run Application", new Blocks.B_RunApp("Run Application", "", "", "notepad.exe")));
             BlockViewModels_All.Add(new BlockViewModel_All("Wait", new Blocks.B_Wait("Wait", "", "", 0, 0, 0)));
             BlockViewModels_All.Add(new BlockViewModel_All("Capture", new Capture("Capture", "", "", 1)));
+
 
             foreach (BlockViewModel_All blockView in BlockViewModels_All)
             {
@@ -210,5 +212,6 @@ namespace MacroBoard
         }
 
         
+
     }
 }

@@ -25,5 +25,6 @@ namespace MacroBoard
             mailto = Uri.EscapeUriString(mailto);
             Process.Start(new ProcessStartInfo(mailto) { UseShellExecute = true });
         }
+
     }
 }

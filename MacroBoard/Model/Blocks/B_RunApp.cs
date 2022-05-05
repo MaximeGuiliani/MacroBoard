@@ -23,5 +23,7 @@ namespace MacroBoard.Blocks
         {
             Process.Start(_url);
         }
+
+        
     }
 }
