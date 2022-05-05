@@ -9,12 +9,13 @@ using System.Windows.Automation;
 
 namespace MacroBoard
 {
-    internal class InvokeAutomationId : Block
+    internal class BlockInvokeAutomationId : Block
     {
 
         string automationID;
         public InvokeAutomationId(string automationID)
         {
+            base.Name = "BlockInvokeAutomationId";
             this.automationID = automationID;
         }
 
