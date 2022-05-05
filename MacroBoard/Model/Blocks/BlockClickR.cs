@@ -9,14 +9,14 @@ using System.Threading;
 
 namespace MacroBoard
 {
-     public class BlockRightClick : Block
+    public class BlockClickR : Block
     {
-    
-    public BlockRightClick()
-    {
-    base.Name = "Right Click"
-    }
-        
+
+        public BlockClickR()
+        {
+            base.Name = "Right Click";
+        }
+
         [Flags]
         public enum MouseEventFlags
         {

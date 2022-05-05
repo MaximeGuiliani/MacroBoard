@@ -18,7 +18,7 @@ namespace MacroBoard
 
         public BlockClickL()
         {
-            base.Name = "Left Click"
+            base.Name = "Left Click";
             //this.x = x;
             //this.y = y;
         }

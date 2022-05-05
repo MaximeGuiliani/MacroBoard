@@ -22,9 +22,9 @@ namespace MacroBoard
 
         public BlockSetCursor(int x, int y)
         {
-        base.Name = "Set Cursor"
-        this.x = x;
-        this.y = y;
+            base.Name = "Set Cursor";
+            this.x = x;
+            this.y = y;
         }
 
 
@@ -34,9 +34,9 @@ namespace MacroBoard
 
         public override void Execute()
         {
-                SetCursorPos(this.x, this.y);
+            SetCursorPos(this.x, this.y);
         }
-       
+
 
 
 

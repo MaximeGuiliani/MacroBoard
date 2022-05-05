@@ -25,22 +25,22 @@ namespace MacroBoard
             InitListBlock_All();
             DataContext = this;
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-            Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/macro_img.png", UriKind.Absolute));     
+            Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/macro_img.png", UriKind.Absolute));
         }
 
         public EditionWindow(WorkFlow workFlow)
         {
             InitializeComponent();
             this.WorkFlow = workFlow;
-            Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(workFlow.imagePath, UriKind.Absolute));
+            //Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(workFlow.imagePath, UriKind.Absolute));
         }
 
         private void InitListBlock_All()
         {
-            BlockViewModels_All.Add(new BlockViewModel_All("Restart Computer", new Blocks.B_Restart()));
-            BlockViewModels_All.Add(new BlockViewModel_All("Run Application", new Blocks.B_RunApp("Run Application", "", "", "notepad.exe")));
-            BlockViewModels_All.Add(new BlockViewModel_All("Wait", new Blocks.B_Wait("Wait", "", "", 0, 0, 0)));
-            BlockViewModels_All.Add(new BlockViewModel_All("Capture", new Capture("Capture", "", "", 1)));
+            BlockViewModels_All.Add(new BlockViewModel_All("Restart Computer", new BlockRestart()));
+            BlockViewModels_All.Add(new BlockViewModel_All("Run Application", new BlockRunApp("notepad.exe")));
+            BlockViewModels_All.Add(new BlockViewModel_All("Wait", new BlockWait(0, 0, 0)));
+            BlockViewModels_All.Add(new BlockViewModel_All("Capture", new BlockScreenshot("", 1)));
 
 
             foreach (BlockViewModel_All blockView in BlockViewModels_All)
@@ -75,15 +75,16 @@ namespace MacroBoard
             {
                 CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Hidden;
                 CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
-            }else CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Visible;
+            }
+            else CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Visible;
 
             if (WorkFlow.workflowList.Count == 2)
             {
                 ((Grid)ListBlock_Workflow.Items[0]).Children[4].Visibility = Visibility.Visible;
             }
 
-            if(WorkFlow.workflowList.Count > 2)
-                ((Grid)ListBlock_Workflow.Items[ListBlock_Workflow.Items.Count-2]).Children[4].Visibility = Visibility.Visible;
+            if (WorkFlow.workflowList.Count > 2)
+                ((Grid)ListBlock_Workflow.Items[ListBlock_Workflow.Items.Count - 2]).Children[4].Visibility = Visibility.Visible;
 
             CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
         }
@@ -211,7 +212,7 @@ namespace MacroBoard
 
         }
 
-        
+
 
     }
 }

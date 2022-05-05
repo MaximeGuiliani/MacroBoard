@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         Background="DarkGray"
 		>
-	 <Window.Resources>
+    <Window.Resources>
         <Style TargetType="{x:Type Button}"
            >
             <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -57,7 +57,7 @@
                        FontFamily="Calibri"
                        Content="MacroBoard" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Source="/Resources/macro.jpg" Margin="32,0,0,0"/>
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Source="/Resources/Icon.png" Margin="32,0,0,0" Stretch="UniformToFill"/>
 
 
             <TextBox Background="Gray"   Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"   x:Name="Search"  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Center" Width="290" TextChanged="Search_TextChanged"  >
@@ -79,9 +79,9 @@
 
 
 
-            <Button BorderThickness="0"      RenderTransformOrigin="0.5,0.5"
-  x:Name="ButtonEdit" Content="⚙" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="84"  
-                         TextBlock.FontSize="30" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Margin="20,147,0,0" Grid.RowSpan="3" Grid.Row="2" Height="48">
+            <Button BorderThickness="0"      RenderTransformOrigin="0.5,0.541"
+  x:Name="ButtonEdit" Content="⚙" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="50"  
+                         TextBlock.FontSize="30" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Margin="20,147,0,0" Grid.RowSpan="3" Grid.Row="2" Height="50">
                 <Button.RenderTransform>
                     <RotateTransform x:Name="MyAnimatedTransform" Angle="0" />
                 </Button.RenderTransform>

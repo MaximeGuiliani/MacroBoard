@@ -13,7 +13,7 @@ namespace MacroBoard
         String destination;
         public BlockMove(String source, String destination)
         {
-            base.Name = "Move Folder/File"
+            base.Name = "Move Folder/File";
             this.source = source;
             this.destination = destination;
         }

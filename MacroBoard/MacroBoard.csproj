@@ -15,27 +15,27 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Button_WorkFlow.png" />
-		<None Remove="Resources\macro.jpg" />
+		<None Remove="Resources\Icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\macro_img.png" />
+		<None Remove="Resources\macro_img.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Resources\macro_img.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="Resources\macro_img.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Block.png" />
+		<None Remove="Resources\Block.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Resources\Block.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="Resources\Block.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MVVMEssentials.WPF" Version="1.0.2" />
@@ -46,10 +46,10 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Resource Include="Resources\Button_WorkFlow.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\macro.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icon.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 	</ItemGroup>
 	<ItemGroup>

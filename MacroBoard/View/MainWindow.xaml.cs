@@ -36,26 +36,26 @@ namespace MacroBoard
         private void InitWorkflows()
         {
             List<Block> macroNotePads = new();
-            macroNotePads.Add(new Blocks.B_RunApp("Run Application", "", "", "notepad.exe"));
-            macroNotePads.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
-            macroNotePads.Add(new Blocks.B_KeyBoardShortCut("", "", "", "hello world ^s "));
+            macroNotePads.Add(new BlockRunApp("notepad.exe"));
+            macroNotePads.Add(new BlockWait(0, 0, 2));
+            macroNotePads.Add(new BlockKeyBoard("hello world ^s "));
             WorkFlow macroNotePad = new("", "macroNotePads", macroNotePads);
 
             List<Block> machromes = new();
-            machromes.Add(new LaunchBrowserChromeCopy("https://royaleapi.com/player/2GPUV2Y0"));
-            machromes.Add(new Blocks.B_Wait("", "", "", 0, 0, 5));
-            machromes.Add(new Capture("test", "png", $@"C:\Users\maxim\OneDrive\Bureau", 1));
+            machromes.Add(new BlockLaunchBrowserChromex86("https://royaleapi.com/player/2GPUV2Y0"));
+            machromes.Add(new BlockWait(0, 0, 2));
+            machromes.Add(new BlockScreenshot($@"C:\Users\maxim\OneDrive\Bureau\test.png", 1));
             WorkFlow machrome = new("", "machrome", machromes);
 
 
             List<Block> mailcro = new();
-            mailcro.Add(new SendEmail("test", "lpmusardo@gmail.com", "Subject"));
-            mailcro.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
-            mailcro.Add(new Recognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png", debugMode: true));
-            mailcro.Add(new ClickG());
-            mailcro.Add(new Blocks.B_Wait("", "", "", 0, 0, 2));
-            mailcro.Add(new Recognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg", debugMode: true));
-            mailcro.Add(new ClickG());
+            mailcro.Add(new BlockSendEmail("test", "lpmusardo@gmail.com", "Subject"));
+            mailcro.Add(new BlockWait(0, 0, 5));
+            mailcro.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png", debugMode: true));
+            mailcro.Add(new BlockClickL());
+            mailcro.Add(new BlockWait(0, 0, 5));
+            mailcro.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg"));
+            mailcro.Add(new BlockClickL());
             WorkFlow macro2 = new("", "mailcro", mailcro);
 
 

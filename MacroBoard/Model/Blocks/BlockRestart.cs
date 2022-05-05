@@ -11,7 +11,7 @@ namespace MacroBoard
     {
         public BlockRestart()
         {
-            base.Name = "Restart"
+            base.Name = "Restart";
         }
 
         public override void Execute()

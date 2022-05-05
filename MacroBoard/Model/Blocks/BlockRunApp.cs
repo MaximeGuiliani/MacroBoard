@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 
 
-namespace MacroBoard.Blocks
+namespace MacroBoard
 {
     internal class BlockRunApp : Block
     {
@@ -22,6 +22,6 @@ namespace MacroBoard.Blocks
             Process.Start(_url);
         }
 
-        
+
     }
 }

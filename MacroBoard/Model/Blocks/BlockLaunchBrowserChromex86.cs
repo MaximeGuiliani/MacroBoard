@@ -12,11 +12,11 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class LaunchBrowserChromeCopy : Block
+    internal class BlockLaunchBrowserChromex86 : Block
     {
         String address;
 
-        public LaunchBrowserChromeCopy(String address)
+        public BlockLaunchBrowserChromex86(String address)
         {
             this.address = address;
             base.Name = "LaunchBrowserChrome";

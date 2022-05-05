@@ -26,7 +26,7 @@ namespace MacroBoard
             Setup_Grid();
         }
 
-        public BlockView(Block block)
+        public BlockViewModel(Block block)
         {
             this.Block = block;
             //block.Execute();
@@ -36,7 +36,7 @@ namespace MacroBoard
 
         private void Setup_Block_Creating_Window(Block block)
         {
-            
+
         }
 
         private void Setup_Name(string Name)
