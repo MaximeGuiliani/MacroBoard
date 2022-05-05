@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MacroBoard.Blocks
+namespace MacroBoard
 {
-    internal class B_Restart : Block
+    internal class BlockRestart : Block
     {
-        public B_Restart()
+        public BlockRestart()
         {
-    
+            base.Name = "Restart"
         }
 
         public override void Execute()
