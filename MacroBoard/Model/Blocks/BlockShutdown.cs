@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace MacroBoard
 {
-    internal class B_Shutdown : Block
+    internal class BlockShutdown : Block
     {
-        public B_Shutdown()
+        public BlockShutdown()
         {
+        base.Name = "Shut Down";
         }
 
         public override void Execute()
