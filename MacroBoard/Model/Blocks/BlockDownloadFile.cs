@@ -8,13 +8,14 @@ using System.IO;
 
 namespace MacroBoard
 {
-    internal class DownloadFile : Block
+    internal class BlockDownloadFile : Block
     {
         String address;
         String fileName;
 
-        public DownloadFile(String address)
+        public BlockDownloadFile(String address)
         {
+            base.Name = "DownloadFile";
             this.address = address;
             this.fileName = @"C:\Users\user\Downloads\" + Path.GetFileName(address);
         }
