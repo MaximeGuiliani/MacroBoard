@@ -5,20 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace MacroBoard.Blocks
+namespace MacroBoard
 {
-    internal class B_Wait : Block
+    internal class BlockWait : Block
     {
         private int hour, min, sec, sum;
-        public B_Wait(string Name, string LogoUrl, string info, int hour, int min, int sec)
+        public BlockWait(int hour, int min, int sec)
         {
-            base.Name = Name;
-            base.LogoUrl = LogoUrl;
-            base.info = info;
-
+            base.Name = "Wait";
             this.hour = hour;
-            this.min = min;
-            this.sec = sec;
+            this.min  = min;
+            this.sec  = sec;
         }
 
         public override void Execute()
