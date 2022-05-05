@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 namespace MacroBoard 
 {
-    internal class Hibernate : Block
+    internal class BlockHibernate : Block
     {
+        public BlockHibernate()
+        {
+            base.Name = "Hibernate";
+        }
         public override void Execute()
         {
             [DllImport("PowrProf.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
