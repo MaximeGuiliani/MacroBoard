@@ -13,7 +13,7 @@ namespace MacroBoard
     {
 
         string automationID;
-        public InvokeAutomationId(string automationID)
+        public BlockInvokeAutomationId(string automationID)
         {
             base.Name = "BlockInvokeAutomationId";
             this.automationID = automationID;
