@@ -16,8 +16,8 @@ namespace MacroBoard
     {
         WorkFlow WorkFlow = new WorkFlow("", "", new());
 
-        private List<BlockViewModel> BlockViewModels = new();
-
+        private List<BlockViewModel_All> BlockViewModels_All = new();
+        private List<BlockViewModel_Workflow> BlockViewModels_Workflow = new();
         public EditionWindow()
         {
             InitializeComponent();
@@ -36,12 +36,12 @@ namespace MacroBoard
 
         private void InitListBlock_All()
         {
-            BlockViewModels.Add(new BlockViewModel_All("Restart Computer", new Blocks.B_Restart()));
-            BlockViewModels.Add(new BlockViewModel_All("Run Application", new Blocks.B_RunApp("Run Application", "", "", "notepad.exe")));
-            BlockViewModels.Add(new BlockViewModel_All("Wait", new Blocks.B_Wait("Wait", "", "", 0, 0, 0)));
-            BlockViewModels.Add(new BlockViewModel_All("Capture", new Capture("Capture", "", "", 1)));
+            BlockViewModels_All.Add(new BlockViewModel_All("Restart Computer", new Blocks.B_Restart()));
+            BlockViewModels_All.Add(new BlockViewModel_All("Run Application", new Blocks.B_RunApp("Run Application", "", "", "notepad.exe")));
+            BlockViewModels_All.Add(new BlockViewModel_All("Wait", new Blocks.B_Wait("Wait", "", "", 0, 0, 0)));
+            BlockViewModels_All.Add(new BlockViewModel_All("Capture", new Capture("Capture", "", "", 1)));
 
-            foreach (BlockViewModel_All blockView in BlockViewModels)
+            foreach (BlockViewModel_All blockView in BlockViewModels_All)
             {
                 blockView.Btn_Add.Click += OnClick_Add;
                 ListBlock_All.Items.Add(blockView.Content);
@@ -57,37 +57,37 @@ namespace MacroBoard
         private void OnClick_Add(object sender, RoutedEventArgs e)
         {
             Grid CurrentBlockContent = (Grid)((Button)sender).Parent;
-            Block CurrentBlock = new Blocks.B_Restart();
+            int currentItemPos = ListBlock_All.Items.IndexOf(((Button)sender).Parent);
 
-            ListBlock_All.Items.Remove(CurrentBlockContent);
-
-            foreach (BlockViewModel_All blockView in BlockViewModels)
-                if (blockView.Lbl_Name.Content == ((Label)CurrentBlockContent.Children[0]).Content)
-                    CurrentBlock = blockView.Block;
-
-            WorkFlow.workflowList.Add(CurrentBlock);
-            
-            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(CurrentBlock.Name, CurrentBlock);
+            BlockViewModel_Workflow CurrentBlockViewModel
+                = new BlockViewModel_Workflow(BlockViewModels_All[currentItemPos].Block.Name, BlockViewModels_All[currentItemPos].Block);
             CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
             CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
             CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
             CurrentBlockViewModel.Btn_Down.Click += OnClick_Down;
 
+            WorkFlow.workflowList.Add(BlockViewModels_All[currentItemPos].Block);
+            ListBlock_Workflow.Items.Add(CurrentBlockViewModel.Content);
+
             if (WorkFlow.workflowList.Count <= 1)
             {
                 CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Hidden;
                 CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+            }else CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Visible;
+
+            if (WorkFlow.workflowList.Count == 2)
+            {
+                ((Grid)ListBlock_Workflow.Items[0]).Children[4].Visibility = Visibility.Visible;
             }
-            if(WorkFlow.workflowList.Count == 2)
-                CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
 
+            if(WorkFlow.workflowList.Count > 2)
+                ((Grid)ListBlock_Workflow.Items[ListBlock_Workflow.Items.Count-2]).Children[4].Visibility = Visibility.Visible;
 
-
-            ListBlock_Workflow.Items.Add(CurrentBlockViewModel.Content);
+            CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
         }
-
         private void OnClick_Delete(object sender, RoutedEventArgs e)
         {
+            Grid CurrentBlockContent = (Grid)((Button)sender).Parent;
             int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
             if (ListBlock_Workflow.Items.Count > 1 && currentItemPos == 0)
             {
@@ -102,6 +102,7 @@ namespace MacroBoard
             }
 
             ListBlock_Workflow.Items.RemoveAt(currentItemPos);
+            WorkFlow.workflowList.RemoveAt(currentItemPos);
         }
         private void OnClick_Edit(object sender, RoutedEventArgs e)
         {
@@ -172,8 +173,6 @@ namespace MacroBoard
             }
 
         }
-
-
 
 
         private void Button_Save(object sender, RoutedEventArgs e)
