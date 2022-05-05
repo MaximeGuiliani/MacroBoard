@@ -8,11 +8,12 @@ using System.ComponentModel;
 
 namespace MacroBoard
 {
-    internal class CloseDesiredApplication : Block
+    internal class BlockCloseDesiredApplication : Block
     {
         String appName;
-        public CloseDesiredApplication(String appName)
+        public BlockCloseDesiredApplication(String appName)
         {
+            base.Name = "CloseDesiredApplication";
             this.appName = appName;
 
         }
