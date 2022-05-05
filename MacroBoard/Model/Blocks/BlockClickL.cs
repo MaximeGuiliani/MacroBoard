@@ -9,15 +9,16 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class ClickG : Block
+    internal class BlockClickL : Block
     {
         //int x;
         //int y;
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
 
-        public ClickG()
+        public BlockClickL()
         {
+            base.Name = "Left Click"
             //this.x = x;
             //this.y = y;
         }
