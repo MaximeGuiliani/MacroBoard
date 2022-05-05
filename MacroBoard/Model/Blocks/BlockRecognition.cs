@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class Recognition : Block
+    internal class BlockRecognition : Block
     {
 
         int widthScreen;
@@ -27,7 +27,7 @@ namespace MacroBoard
         TemplateMatchModes matchModes;
 
 
-        public Recognition(string templatePath,
+        public BlockRecognition(string templatePath,
                       int xInterest = 0, int yInterest = 0, int heightInterest = 0, int widthInterest = 0,
                       int screenNumber = 0,
                       int offSetX = 0, int offSetY = 0,
@@ -35,6 +35,7 @@ namespace MacroBoard
                       bool debugMode = false,
                       TemplateMatchModes matchModes = TemplateMatchModes.CCoeffNormed)
         {
+            base.Name = "Recognize image";
             this.widthScreen = Screen.AllScreens[screenNumber].Bounds.Width;
             this.heightScreen = Screen.AllScreens[screenNumber].Bounds.Height;
             this.templatePath = templatePath;
