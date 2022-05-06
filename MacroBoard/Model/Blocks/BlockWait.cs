@@ -9,7 +9,7 @@ namespace MacroBoard
 {
     internal class BlockWait : Block
     {
-        private int hour, min, sec, sum, mili;
+        public int hour, min, sec, sum, mili;
         public BlockWait(int mili, int sec=0, int min=0, int hour=0)
         {
             base.Name = "Wait";

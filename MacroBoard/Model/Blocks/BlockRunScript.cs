@@ -10,7 +10,8 @@ namespace MacroBoard
 {
     internal class BlockRunScript : Block
     {
-        private string _script;
+        public string _script;
+
         public BlockRunScript(string Name, string LogoUrl, string info, string script)
         {
             base.Name = "Run Script";

@@ -13,18 +13,18 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class BlockRecognition : Block
+    class BlockRecognition : Block
     {
 
-        int widthScreen;
-        int heightScreen;
-        string templatePath;
-        Rect rectOfInterest;
-        int offSetX, offSetY;
-        IEnumerable<double> tryScales;
-        bool debugMode;
-        string debugDirPath;
-        TemplateMatchModes matchModes;
+        public int widthScreen;
+        public int heightScreen;
+        public string templatePath;
+        public Rect rectOfInterest;
+        public int offSetX, offSetY;
+        public IEnumerable<double> tryScales;
+        public bool debugMode;
+        public string debugDirPath;
+        public TemplateMatchModes matchModes;
 
 
         public BlockRecognition(string templatePath,

@@ -10,7 +10,7 @@ namespace MacroBoard
 {
     internal class BlockRunApp : Block
     {
-        private string _url;
+        public string _url;
         public BlockRunApp(string Url)
         {
             base.Name = "Run App";

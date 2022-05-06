@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace MacroBoard
 {
-    internal class BlockSendEmail : Block
+    class BlockSendEmail : Block
     {
-        string body;
-        string to;
-        string subject;
+        public string body;
+        public string to;
+        public string subject;
+
         public BlockSendEmail(string body, string to, string subject)
         {
             base.Name = "Send Email";
@@ -19,6 +20,7 @@ namespace MacroBoard
             this.to = to;       
             this.subject = subject; 
         }
+
 
         public override void Execute()
         {
