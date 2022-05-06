@@ -40,32 +40,23 @@ namespace MacroBoard
             macroNotePads.Add(new BlockWait(0, 0, 2));
             macroNotePads.Add(new BlockKeyBoard("hello world ^s "));
             WorkFlow macroNotePad = new("", "macroNotePads", macroNotePads);
-
             List<Block> machromes = new();
             machromes.Add(new BlockLaunchBrowserChromex86("https://royaleapi.com/player/2GPUV2Y0"));
             machromes.Add(new BlockWait(0, 0, 2));
-            machromes.Add(new BlockScreenshot($@"C:\Users\maxim\OneDrive\Bureau\test.png", 1));
+            machromes.Add(new BlockScreenshot($@"C:\Users\maxim\OneDrive\Bureau\test.png", 0));
             WorkFlow machrome = new("", "machrome", machromes);
-
-
             List<Block> mailcro = new();
             mailcro.Add(new BlockSendEmail("test", "lpmusardo@gmail.com", "Subject"));
-            mailcro.Add(new BlockWait(0, 0, 5));
+            mailcro.Add(new BlockWait(0, 0, 1));
             mailcro.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png", debugMode: true));
             mailcro.Add(new BlockClickL());
-            mailcro.Add(new BlockWait(0, 0, 5));
+            mailcro.Add(new BlockWait(0, 0, 1));
             mailcro.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg"));
             mailcro.Add(new BlockClickL());
             WorkFlow macro2 = new("", "mailcro", mailcro);
-
-
             WorkFlow lpmacro = new("", "lpmacro", new List<Block>());
-
-
-
             WorkFlow macro4 = new("", "Test4", new List<Block>());
             WorkFlow macro5 = new("", "Test5", new List<Block>());
-
             FavWorkflows.Add(new(macroNotePad));
             FavWorkflows.Add(new(machrome));
             FavWorkflows.Add(new(macro2));
@@ -76,8 +67,6 @@ namespace MacroBoard
             Workflows.Add(new(lpmacro));
             Workflows.Add(new(macro4));
             Workflows.Add(new(macro5));
-
-
             foreach (WorkflowView FavWorkflow in FavWorkflows)
             {
                 FavWorkflow.Btn_Delete.Visibility = Visibility.Hidden;
@@ -92,8 +81,48 @@ namespace MacroBoard
                 Workflow.Btn_Main.Click += Button_Click;
                 ListMacro.Items.Add(Workflow.Content);
             }
+
+            //add buton initialization
+
+            WorkFlow addButton = new("", "", null);
+            Workflows.Add(new(addButton));
+            Workflows[^1].Btn_Delete.Visibility = Visibility.Hidden;
+            Workflows[^1].Btn_Fav.Visibility = Visibility.Hidden;
+            Workflows[^1].Btn_Main.Click += AddWorkFlow;
+            BitmapImage bitmapImg = new BitmapImage();
+            bitmapImg.BeginInit();
+            bitmapImg.UriSource = new Uri("../../../Resources/add.png", UriKind.Relative);
+            bitmapImg.EndInit();
+            Workflows[^1].Content.Background = new ImageBrush(bitmapImg);
+            ListMacro.Items.Add(Workflows[^1].Content);
         }
 
+        private void AddWorkFlow(object sender, RoutedEventArgs e)
+        {
+            EditionWindow editW = new();
+            editW.ShowDialog();
+            WorkFlow macroAddTest = new("", "Test6", new List<Block>());
+            Workflows.Insert(Workflows.Count - 1, new(macroAddTest));
+            Workflows[^2].Btn_Delete.Click += OnClick_Delete;
+            Workflows[^2].Btn_Fav.Click += OnClick_Fav;
+            Workflows[^2].Btn_Main.Click += Button_Click;
+            if (Workflows.Count <= 10)
+            {
+                if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                {
+                    ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
+                }
+            }
+            if (Workflows.Count == 11)
+            {
+                if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                {
+                    ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
+                    ListMacro.Items.RemoveAt(Workflows.Count - 1);
+                    Workflows.RemoveAt(Workflows.Count - 1);
+                }
+            }
+        }
 
         private void OnClick_Delete_Fav(object sender, RoutedEventArgs e)
         {
@@ -115,6 +144,21 @@ namespace MacroBoard
             {
                 removeWorkflow(WorkflowsSearchs, currentItemPos);
                 WorkflowsSearchs.RemoveAt(currentItemPos);
+            }
+
+            if (Workflows.Count == 9 && !Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+            {
+                WorkFlow addButton = new("", "", null);
+                Workflows.Add(new(addButton));
+                Workflows[^1].Btn_Delete.Visibility = Visibility.Hidden;
+                Workflows[^1].Btn_Fav.Visibility = Visibility.Hidden;
+                Workflows[^1].Btn_Main.Click += AddWorkFlow;
+                BitmapImage bitmapImg = new BitmapImage();
+                bitmapImg.BeginInit();
+                bitmapImg.UriSource = new Uri("../../../Resources/add.png", UriKind.Relative);
+                bitmapImg.EndInit();
+                Workflows[^1].Content.Background = new ImageBrush(bitmapImg);
+                ListMacro.Items.Add(Workflows[^1].Content);
             }
 
         }
@@ -211,8 +255,11 @@ namespace MacroBoard
                 isInsearch = true;
                 foreach (WorkflowView m in Workflows)
                 {
-                    if (m.CurrentworkFlow.workflowName.Contains(txt))
+                    if (m.CurrentworkFlow.workflowName.ToLower().Contains(txt.ToLower()))
+                    {
                         WorkflowsSearchs.Add(m);
+
+                    }
                 }
             }
             else

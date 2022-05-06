@@ -14,6 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\add.png" />
 		<None Remove="Resources\Button_WorkFlow.png" />
 		<None Remove="Resources\Icon.png" />
 	</ItemGroup>
@@ -45,6 +46,9 @@
 		<PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.5.5.20211231" />
 	</ItemGroup>
 	<ItemGroup>
+		<Resource Include="Resources\add.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
 		<Resource Include="Resources\Button_WorkFlow.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
