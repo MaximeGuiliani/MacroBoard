@@ -10,7 +10,7 @@ namespace MacroBoard
 {
     internal class BlockCloseDesiredApplication : Block
     {
-        String appName;
+        public String appName { get; set; } = "";
         public BlockCloseDesiredApplication(String appName)
         {
             base.Name = "CloseDesiredApplication";

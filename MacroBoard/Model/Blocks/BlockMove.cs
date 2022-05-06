@@ -9,8 +9,8 @@ namespace MacroBoard
 {
     internal class BlockMove : Block
     {
-        String source;
-        String destination;
+        public String source;
+        public String destination;
         public BlockMove(String source, String destination)
         {
             base.Name = "Move Folder/File";

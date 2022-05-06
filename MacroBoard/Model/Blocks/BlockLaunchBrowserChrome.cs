@@ -14,7 +14,7 @@ namespace MacroBoard
 {
     internal class BlockLaunchBrowserChrome : Block
     {
-        String address;
+        public String address;
 
         public BlockLaunchBrowserChrome(String address)
         {

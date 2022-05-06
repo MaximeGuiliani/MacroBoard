@@ -10,7 +10,7 @@ namespace MacroBoard
 {
     internal class BlockKeyBoard : Block
     {
-        private string _shortCut;
+        public string _shortCut;
         public BlockKeyBoard(string ShortCut)
         {
             base.Name = "Keyboard";

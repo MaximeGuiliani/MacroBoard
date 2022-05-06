@@ -40,7 +40,7 @@ namespace MacroBoard.View
         private void create()
         {
             switch (model.BlockType)
-            { 
+            {
                 case nameof(BlockCopy)                   : create(model as BlockCopy);                    break;
                 case nameof(BlockScreenshot)             : create(model as BlockScreenshot);              break;
                 case nameof(BlockClickL)                 : create(model as BlockClickL);                  break;
@@ -79,6 +79,140 @@ namespace MacroBoard.View
 
 //---------------------------------------------------------------------------
 
+        private void create(BlockClickR? blockClickR)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockClickL? blockClickL)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockCloseDesiredApplication? blockCloseDesiredApplication)
+        {
+            (TextBox, Button) appName = newBrowse("path to save", ((BlockScreenshot)model).Name);
+
+        }
+
+        private void create(BlockCreateTextFile? blockCreateTextFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockDeleteDirectory? blockDeleteDirectory)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockDownloadFile? blockDownloadFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockHibernate? blockHibernate)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockInvokeAutomationId? blockInvokeAutomationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockKeyBoard? blockKeyBoard)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLaunchBrowserChrome? blockLaunchBrowserChrome)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLaunchBrowserChromex86? blockLaunchBrowserChromex86)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLaunchBrowserFirefox? blockLaunchBrowserFirefox)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLaunchEdgeBrowser? blockLaunchEdgeBrowser)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLock? blockLock)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockMove? blockMove)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockMessageBoxBlock? blockMessageBoxBlock)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockRecognition? blockRecognition)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockRestart? blockRestart)
+        {
+        }
+
+        private void create(BlockRunApp? blockRunApp)
+        {
+            (TextBox, Button) url = newBrowse("chemin de l'app", blockRunApp.url);
+            newBlock = () => new BlockRunApp(url.Item1.Text);
+        }
+
+        private void create(BlockRunScript? blockRunScript)
+        {
+            (Label, TextBox) script = newTextBox("script", blockRunScript.script);
+            newBlock = () => new BlockRunScript(script.Item2.Text);
+
+        }
+
+        private void create(BlockSendEmail? blockSendEmail)
+        {
+            (Label, TextBox) body    = newTextBox("body", blockSendEmail.body);
+            (Label, TextBox) to      = newTextBox("to", blockSendEmail.to);
+            (Label, TextBox) subject = newTextBox("subject", blockSendEmail.subject);
+            newBlock = () => new BlockSendEmail(body.Item2.Text, to.Item2.Text, subject.Item2.Text);
+        }
+
+
+        private void create(BlockSetCursor? blockSetCursor)
+        {
+            (Label, TextBox) x = newTextBox("x", blockSetCursor.x.ToString());
+            (Label, TextBox) y = newTextBox("y", blockSetCursor.y.ToString());
+            newBlock = () => new BlockSetCursor(int.Parse(x.Item2.Text), int.Parse(y.Item2.Text) );
+        }
+
+
+        private void create(BlockShutdown? blockShutdown)
+        {
+        }
+
+        private void create(BlockWait? blockWait)
+        {
+            (Label, TextBox) mili = newTextBox("milisecondes", blockWait.mili.ToString());
+            (Label, TextBox) sec  = newTextBox("secondes", blockWait.sec.ToString());
+            (Label, TextBox) min  = newTextBox("minutes", blockWait.min.ToString());
+            (Label, TextBox) hour = newTextBox("heures", blockWait.hour.ToString());
+            newBlock = () => new BlockWait(int.Parse(mili.Item2.Text), int.Parse(sec.Item2.Text), int.Parse(min.Item2.Text), int.Parse(hour.Item2.Text)) ;
+        }
+
+
 
         private void create(BlockCopy? b)
         {
@@ -86,20 +220,19 @@ namespace MacroBoard.View
             (TextBox, Button) src = newBrowse("source", ((BlockCopy)model).source);
             (TextBox, Button) dest = newBrowse("destination", ((BlockCopy)model).destination);
             newBlock = () => new BlockCopy(src.Item1.Text, dest.Item1.Text);
-
         }
 
         private void create(BlockScreenshot? b)
         {
-        (TextBox, Button) filePath = newBrowse("path to save", ((BlockScreenshot)model).fileName);
-        (Label, TextBox) screenNumber = newTextBox("screenNumber", ((BlockScreenshot)model).screenNumber.ToString());
-        //newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0");
-        newBlock = () => new BlockScreenshot(filePath.Item1.Text, Int32.Parse(screenNumber.Item2.Text));
+            (TextBox, Button) filePath = newBrowse("path to save", ((BlockScreenshot)model).fileName);
+            (Label, TextBox) screenNumber = newTextBox("screenNumber", ((BlockScreenshot)model).screenNumber.ToString());
+            //newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0");
+            newBlock = () => new BlockScreenshot(filePath.Item1.Text, Int32.Parse(screenNumber.Item2.Text));
         }
 
 
 
-
+//-----------------------------------------------------------------------------------
 
         private void AddHandlerToValiderBtn()
         {

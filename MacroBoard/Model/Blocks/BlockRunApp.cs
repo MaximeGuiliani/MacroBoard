@@ -10,16 +10,16 @@ namespace MacroBoard
 {
     internal class BlockRunApp : Block
     {
-        public string _url;
-        public BlockRunApp(string Url)
+        public string url;
+        public BlockRunApp(string url)
         {
             base.Name = "Run App";
-            _url = Url;
+            url = url;
         }
 
         public override void Execute()
         {
-            Process.Start(_url);
+            Process.Start(url);
         }
 
 
