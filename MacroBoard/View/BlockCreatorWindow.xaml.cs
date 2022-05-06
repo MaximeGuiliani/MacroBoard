@@ -40,26 +40,33 @@ namespace MacroBoard.View
         private void create()
         {
             switch (model.BlockType)
-            {
-                case nameof(BlockCopy)                   : create(model as BlockCopy); break;
-                case nameof(BlockScreenshot)             : create(model as BlockScreenshot); break;
-                case nameof(BlockClickL)                 : create(model as BlockClickL); break;
-                case nameof(BlockClickR)                 : create(model as BlockClickR); break;
+            { 
+                case nameof(BlockCopy)                   : create(model as BlockCopy);                    break;
+                case nameof(BlockScreenshot)             : create(model as BlockScreenshot);              break;
+                case nameof(BlockClickL)                 : create(model as BlockClickL);                  break;
+                case nameof(BlockClickR)                 : create(model as BlockClickR);                  break;
                 case nameof(BlockCloseDesiredApplication): create(model as BlockCloseDesiredApplication); break;
-                case nameof(BlockCreateTextFile)         : create(model as BlockCreateTextFile); break;
-                case nameof(BlockDeleteDirectory)        : create(model as BlockDeleteDirectory); break;
-                case nameof(BlockDownloadFile)           : create(model as BlockDownloadFile); break;
-                case nameof(BlockHibernate)              : create(model as BlockHibernate); break;
-                case nameof(BlockInvokeAutomationId)     : create(model as BlockInvokeAutomationId); break;
-                case nameof(BlockKeyBoard)               : create(model as BlockKeyBoard); break;
-                case nameof(BlockLaunchBrowserChrome)    : create(model as BlockLaunchBrowserChrome); break;
-                case nameof(BlockLaunchBrowserChromex86) : create(model as BlockLaunchBrowserChromex86); break;
-                case nameof(BlockLaunchBrowserFirefox)   : create(model as BlockLaunchBrowserFirefox); break;
-                case nameof(BlockLaunchEdgeBrowser)      : create(model as BlockLaunchEdgeBrowser); break;
-                case nameof(BlockLock): create(model as BlockLock); break;
-                case nameof(BlockMessageBoxBlock): create(model as BlockMessageBoxBlock); break;
-                case nameof(BlockMove): create(model as BlockMove); break;
-                case nameof(BlockLock): create(model as BlockLock); break;
+                case nameof(BlockCreateTextFile)         : create(model as BlockCreateTextFile);          break;
+                case nameof(BlockDeleteDirectory)        : create(model as BlockDeleteDirectory);         break;
+                case nameof(BlockDownloadFile)           : create(model as BlockDownloadFile);            break;
+                case nameof(BlockHibernate)              : create(model as BlockHibernate);               break;
+                case nameof(BlockInvokeAutomationId)     : create(model as BlockInvokeAutomationId);      break;
+                case nameof(BlockKeyBoard)               : create(model as BlockKeyBoard);                break;
+                case nameof(BlockLaunchBrowserChrome)    : create(model as BlockLaunchBrowserChrome);     break;
+                case nameof(BlockLaunchBrowserChromex86) : create(model as BlockLaunchBrowserChromex86);  break;
+                case nameof(BlockLaunchBrowserFirefox)   : create(model as BlockLaunchBrowserFirefox);    break;
+                case nameof(BlockLaunchEdgeBrowser)      : create(model as BlockLaunchEdgeBrowser);       break;
+                case nameof(BlockLock)                   : create(model as BlockLock);                    break;
+                case nameof(BlockMessageBoxBlock)        : create(model as BlockMessageBoxBlock);         break;
+                case nameof(BlockMove)                   : create(model as BlockMove);                    break;
+                case nameof(BlockRecognition)            : create(model as BlockRecognition);             break;
+                case nameof(BlockRestart)                : create(model as BlockRestart);                 break;
+                case nameof(BlockRunApp)                 : create(model as BlockRunApp);                  break;
+                case nameof(BlockRunScript)              : create(model as BlockRunScript);               break;
+                case nameof(BlockSendEmail)              : create(model as BlockSendEmail);               break;
+                case nameof(BlockSetCursor)              : create(model as BlockSetCursor);               break;
+                case nameof(BlockShutdown)               : create(model as BlockShutdown);                break;
+                case nameof(BlockWait)                   : create(model as BlockWait);                    break;
 
 
 
