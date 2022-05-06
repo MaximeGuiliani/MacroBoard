@@ -56,13 +56,29 @@ namespace MacroBoard
             //BlockViews_Workflow[0].Content.Children[3].Visibility = Visibility.Hidden;
             //BlockViews_Workflow[BlockViews_Workflow.Count - 1].Content.Children[4].Visibility = Visibility.Hidden;
         }
+
+
         private void OnClick_Add(object sender, RoutedEventArgs e)
         {
-            Grid CurrentBlockContent = (Grid)((Button)sender).Parent;
             int currentItemPos = ListBlock_All.Items.IndexOf(((Button)sender).Parent);
 
-            BlockViewModel_Workflow CurrentBlockViewModel
-                = new BlockViewModel_Workflow(BlockViewModels_All[currentItemPos].Block.Name, BlockViewModels_All[currentItemPos].Block);
+            //---------------------------------------------------------------------------
+            Block[] res = new Block[1];
+            Block model = BlockViewModels_All[currentItemPos].Block;
+            Window blockCreatorWindow = new BlockCreatorWindow(res, model);
+            blockCreatorWindow.ShowDialog();
+            Block? newBlock = null;
+            if (blockCreatorWindow.DialogResult==true)
+            {
+                newBlock= res[0];
+                MessageBox.Show($"{(newBlock as BlockScreenshot).screenNumber}");
+
+            //---------------------------------------------------------------------------
+
+
+
+
+            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(BlockViewModels_All[currentItemPos].Block.Name, newBlock); //wrapper de block à droite
             CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
             CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
             CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
@@ -87,7 +103,18 @@ namespace MacroBoard
                 ((Grid)ListBlock_Workflow.Items[ListBlock_Workflow.Items.Count - 2]).Children[4].Visibility = Visibility.Visible;
 
             CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+
+//----------------------
+            }
+            else
+            {
+
+            }
+//-----------------------
         }
+
+
+
         private void OnClick_Delete(object sender, RoutedEventArgs e)
         {
             Grid CurrentBlockContent = (Grid)((Button)sender).Parent;

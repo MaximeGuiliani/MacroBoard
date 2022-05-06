@@ -9,18 +9,19 @@ namespace MacroBoard
 {
     internal class BlockWait : Block
     {
-        private int hour, min, sec, sum;
-        public BlockWait(int hour, int min, int sec)
+        private int hour, min, sec, sum, mili;
+        public BlockWait(int mili, int sec=0, int min=0, int hour=0)
         {
             base.Name = "Wait";
-            this.hour = hour;
-            this.min  = min;
+            this.mili = mili;
             this.sec  = sec;
+            this.min  = min;
+            this.hour = hour;
         }
 
         public override void Execute()
         {
-            sum = sec * 1_000 + min * 60_000 + hour * 3_600_000;
+            sum = mili + sec * 1_000 + min * 60_000 + hour * 3_600_000;
             Thread.Sleep(sum);
         }
 
