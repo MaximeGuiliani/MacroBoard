@@ -12,7 +12,7 @@ namespace MacroBoard
     internal class BlockInvokeAutomationId : Block
     {
 
-        string automationID;
+        public string automationID;
         public BlockInvokeAutomationId(string automationID)
         {
             base.Name = "BlockInvokeAutomationId";

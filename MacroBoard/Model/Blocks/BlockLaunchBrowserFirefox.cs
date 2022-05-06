@@ -14,7 +14,7 @@ namespace MacroBoard
 {
     internal class BlockLaunchBrowserFirefox : Block
     {
-        String address;
+        public String address;
 
         public BlockLaunchBrowserFirefox(String address)
         {

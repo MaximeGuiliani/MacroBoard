@@ -77,7 +77,128 @@ namespace MacroBoard.View
             AddHandlerToValiderBtn();
         }
 
-//---------------------------------------------------------------------------
+        private void create(BlockClickR? blockClickR)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockClickL? blockClickL)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockCloseDesiredApplication? blockCloseDesiredApplication)
+        {
+            (TextBox, Button) appName = newBrowse("path to save", ((BlockScreenshot)model).Name);
+
+        }
+
+        private void create(BlockCreateTextFile? blockCreateTextFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockDeleteDirectory? blockDeleteDirectory)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockDownloadFile? blockDownloadFile)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockHibernate? blockHibernate)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockInvokeAutomationId? blockInvokeAutomationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockKeyBoard? blockKeyBoard)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLaunchBrowserChrome? blockLaunchBrowserChrome)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLaunchBrowserChromex86? blockLaunchBrowserChromex86)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLaunchBrowserFirefox? blockLaunchBrowserFirefox)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLaunchEdgeBrowser? blockLaunchEdgeBrowser)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockLock? blockLock)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockMove? blockMove)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockMessageBoxBlock? blockMessageBoxBlock)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockRecognition? blockRecognition)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockRestart? blockRestart)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockRunApp? blockRunApp)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockRunScript? blockRunScript)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockSendEmail? blockSendEmail)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockSetCursor? blockSetCursor)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockShutdown? blockShutdown)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void create(BlockWait? blockWait)
+        {
+            throw new NotImplementedException();
+        }
+
+        //---------------------------------------------------------------------------
 
 
         private void create(BlockCopy? b)

@@ -14,7 +14,7 @@ namespace MacroBoard
 {
     internal class BlockLaunchEdgeBrowser : Block
     {
-        String address;
+        public String address;
 
         public BlockLaunchEdgeBrowser(String address)
         {

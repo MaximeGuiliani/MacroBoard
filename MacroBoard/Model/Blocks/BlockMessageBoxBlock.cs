@@ -11,8 +11,8 @@ namespace MacroBoard
     internal class BlockMessageBoxBlock : Block
     {
 
-        string param1 = "param1_default";
-        string param2 = "param2_default";
+        public string param1 = "param1_default";
+        public string param2 = "param2_default";
 
         public BlockMessageBoxBlock(string param1, string param2)
         {

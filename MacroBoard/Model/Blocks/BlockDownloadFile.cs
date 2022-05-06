@@ -10,8 +10,8 @@ namespace MacroBoard
 {
     internal class BlockDownloadFile : Block
     {
-        String address;
-        String fileName;
+        public String address;
+        public String fileName;
 
         public BlockDownloadFile(String address)
         {

@@ -17,8 +17,8 @@ using System.Drawing;
 namespace MacroBoard{
     public class BlockScreenshot : Block
     {
-        string fileName;
-        int screenNumber;
+        public string fileName { get; set; } = "";
+        public int screenNumber;
 
 
         public BlockScreenshot(string fileName, int screenNumber)
