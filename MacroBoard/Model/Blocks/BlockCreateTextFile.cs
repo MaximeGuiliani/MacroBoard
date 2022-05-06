@@ -10,7 +10,7 @@ namespace MacroBoard
     public class BlockCreateTextFile : Block
     {
         public string _filePath, _fileName, _fileType, _text;
-        public BlockCreateTextFile(string Name, string LogoUrl, string info, string filePath, string fileName, string fileType, string text)
+        public BlockCreateTextFile(string filePath, string fileName, string fileType, string text)
         {
             base.Name = Name;
             base.LogoUrl = LogoUrl;

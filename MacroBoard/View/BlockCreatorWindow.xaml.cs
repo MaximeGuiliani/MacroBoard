@@ -89,23 +89,32 @@ namespace MacroBoard.View
 
         private void create(BlockCloseDesiredApplication? blockCloseDesiredApplication)
         {
-            (TextBox, Button) appName = newBrowse("path to save", ((BlockScreenshot)model).Name);
-
+            (TextBox, Button) appName = newBrowse("App Name", ((BlockScreenshot)model).Name);
+            newBlock = () => new BlockCloseDesiredApplication(appName.Item1.Text);
         }
 
         private void create(BlockCreateTextFile? blockCreateTextFile)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) filePath = newBrowse("File Path", blockCreateTextFile._filePath); 
+            (Label, TextBox) fileName = newTextBox("File Name", blockCreateTextFile._fileName);
+            (Label, TextBox) fileType = newTextBox("File Type", blockCreateTextFile._fileType);
+            (Label, TextBox) text = newTextBox("Text", blockCreateTextFile._text);
+            newBlock = () => new BlockCreateTextFile(filePath.Item1.Text, fileName.Item2.Text, fileType.Item2.Text, text.Item2.Text);
         }
 
         private void create(BlockDeleteDirectory? blockDeleteDirectory)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) filePath = newBrowse("File Path", blockDeleteDirectory.path);
+            newBlock = () => new BlockDeleteDirectory(filePath.Item1.Text);
         }
+
+        //TODO
 
         private void create(BlockDownloadFile? blockDownloadFile)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) fileName = newBrowse("File Path", blockDownloadFile.fileName);
+            (TextBox, Button) address = newBrowse("File Path", blockDownloadFile.address);
+            newBlock = () => new BlockDownloadFile(address.Item1.Text,fileName.Item1.Text);
         }
 
         private void create(BlockHibernate? blockHibernate)
@@ -115,32 +124,39 @@ namespace MacroBoard.View
 
         private void create(BlockInvokeAutomationId? blockInvokeAutomationId)
         {
-            throw new NotImplementedException();
+            (Label, TextBox) automationId = newTextBox("Automation Id", blockInvokeAutomationId.automationID);
+            newBlock = () => new BlockInvokeAutomationId(automationId.Item2.Text);  
         }
 
         private void create(BlockKeyBoard? blockKeyBoard)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) shortcut = newBrowse("Shortcut", blockKeyBoard._shortCut);
+            newBlock = () => new BlockKeyBoard(shortcut.Item1.Text);
         }
 
         private void create(BlockLaunchBrowserChrome? blockLaunchBrowserChrome)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) address = newBrowse("Chrome address", blockLaunchBrowserChrome.address);
+            newBlock = () => new BlockKeyBoard(address.Item1.Text);
+
         }
 
         private void create(BlockLaunchBrowserChromex86? blockLaunchBrowserChromex86)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) address = newBrowse("Chrome86 address", blockLaunchBrowserChromex86.address);
+            newBlock = () => new BlockKeyBoard(address.Item1.Text);
         }
 
         private void create(BlockLaunchBrowserFirefox? blockLaunchBrowserFirefox)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) address = newBrowse("FireFox address", blockLaunchBrowserFirefox.address);
+            newBlock = () => new BlockKeyBoard(address.Item1.Text);
         }
 
         private void create(BlockLaunchEdgeBrowser? blockLaunchEdgeBrowser)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) address = newBrowse("Edge address", blockLaunchEdgeBrowser.address);
+            newBlock = () => new BlockKeyBoard(address.Item1.Text);
         }
 
         private void create(BlockLock? blockLock)
@@ -150,17 +166,22 @@ namespace MacroBoard.View
 
         private void create(BlockMove? blockMove)
         {
-            throw new NotImplementedException();
+            (Label, TextBox) src = newTextBox("Automation Id", blockMove.source);
+            (Label, TextBox) dest = newTextBox("Automation Id", blockMove.destination);
+            newBlock = () => new BlockMessageBoxBlock(src.Item2.Text, dest.Item2.Text);
         }
 
         private void create(BlockMessageBoxBlock? blockMessageBoxBlock)
         {
-            throw new NotImplementedException();
-        }
-
+            (Label, TextBox) param1 = newTextBox("Automation Id", blockMessageBoxBlock.param1);
+            (Label, TextBox) param2 = newTextBox("Automation Id", blockMessageBoxBlock.param2);
+            newBlock = () => new BlockMessageBoxBlock(param1.Item2.Text, param2.Item2.Text);
+       }
         private void create(BlockRecognition? blockRecognition)
         {
-            throw new NotImplementedException();
+            (TextBox, Button) templatePath = newBrowse("FireFox address", blockRecognition.templatePath);
+            newBlock = () => new BlockRecognition(templatePath.Item1.Text);
+
         }
 
         private void create(BlockRestart? blockRestart)
