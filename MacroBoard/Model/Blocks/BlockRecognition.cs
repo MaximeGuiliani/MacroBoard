@@ -15,16 +15,21 @@ namespace MacroBoard
 {
     class BlockRecognition : Block
     {
-
+        //direct from constructor
+        public string templatePath;
+        public int xInterest, yInterest, heightInterest, widthInterest;
+        public int screenNumber;
+        public int offSetX, offSetY;
+        public double scale;
+        public bool loop;
+        public bool debugMode;
+        public TemplateMatchModes matchModes;
+        //computed from constructor
         public int widthScreen;
         public int heightScreen;
-        public string templatePath;
         public Rect rectOfInterest;
-        public int offSetX, offSetY;
         public IEnumerable<double> tryScales;
-        public bool debugMode;
         public string debugDirPath;
-        public TemplateMatchModes matchModes;
 
 
         public BlockRecognition(string templatePath,
@@ -35,19 +40,29 @@ namespace MacroBoard
                       bool debugMode = false,
                       TemplateMatchModes matchModes = TemplateMatchModes.CCoeffNormed)
         {
+            //heritage
             base.Name = "Recognize image";
-            this.widthScreen = Screen.AllScreens[screenNumber].Bounds.Width;
-            this.heightScreen = Screen.AllScreens[screenNumber].Bounds.Height;
-            this.templatePath = templatePath;
-            this.rectOfInterest = new Rect(xInterest, yInterest, widthInterest == 0 ? this.widthScreen - xInterest : widthInterest, heightInterest == 0 ? this.heightScreen - yInterest : heightInterest);
-            this.offSetX = offSetX;
-            this.offSetY = offSetY;
-            int[] pourcentages = { 100, 125, 150, 175, 200 };
-            var scales = (from p1 in pourcentages from p2 in pourcentages where p1 != p2 select (double)p1 / (double)p2).Append(1);
-            this.tryScales = (loop) ? scales : new double[] { scale };
-            this.matchModes = matchModes;
-            this.debugMode = debugMode;
-            this.debugDirPath = $@"C:\Users\{Environment.GetEnvironmentVariable("USERNAME")}\Documents\";
+            //direct from constructor
+            this.templatePath   = templatePath;
+            this.xInterest      = xInterest;
+            this.yInterest      = yInterest;
+            this.heightInterest = heightInterest;
+            this.widthInterest  = widthInterest;
+            this.screenNumber   = screenNumber;
+            this.offSetX        = offSetX;
+            this.offSetY        = offSetY;
+            this.scale          = scale;
+            this.loop           = loop;
+            this.debugMode      = debugMode;
+            this.matchModes     = matchModes;
+            //computed from constructor
+            this.heightScreen   = Screen.AllScreens[screenNumber].Bounds.Height;
+            this.widthScreen    = Screen.AllScreens[screenNumber].Bounds.Width;
+            this.rectOfInterest = new Rect(xInterest, yInterest, widthInterest <= 0 ? this.widthScreen - xInterest : widthInterest, heightInterest <= 0 ? this.heightScreen - yInterest : heightInterest);
+            int[] pourcentages  = { 100, 125, 150, 175, 200 };
+            var scales          = (from p1 in pourcentages from p2 in pourcentages where p1 != p2 select (double)p1 / (double)p2).Append(1);
+            this.tryScales      = (loop) ? scales : new double[] { scale };
+            this.debugDirPath   = $@"C:\Users\{Environment.GetEnvironmentVariable("USERNAME")}\Documents\";
         }
 
 
