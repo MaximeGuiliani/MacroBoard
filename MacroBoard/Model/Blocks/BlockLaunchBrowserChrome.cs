@@ -28,9 +28,7 @@ namespace MacroBoard
         {
 
             ProcessStartInfo startInfo = new ProcessStartInfo(@"C:\Program Files\Google\Chrome\Application\chrome.exe");
-            startInfo.WindowStyle = ProcessWindowStyle.Normal
-
-                ;
+            startInfo.WindowStyle = ProcessWindowStyle.Normal;
             startInfo.Arguments = $"-d {this.address}";
             Process.Start(startInfo);
 
