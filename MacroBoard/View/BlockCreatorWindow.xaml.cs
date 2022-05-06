@@ -18,9 +18,9 @@ namespace MacroBoard.View
     public partial class BlockCreatorWindow : Window
     {
 
-        Func<Block> newBlock;
-        Block[] res;
-        Block   model;
+        Func<Block> newBlock;   // lambda-expression appelée lors du click "valider", qui défini comment créer un block
+        Block[]     res;        // tableau de taille=1 pour renvoyer le nouveau Block
+        Block       model;
 
 
  //---------------------------------------------------------------------------
@@ -30,12 +30,13 @@ namespace MacroBoard.View
             InitializeComponent();
             this.res   = res;
             this.model = model;
+            this.newBlock = () => null;
             create();
 
         }
 
 
-        //---------------------------------------------------------------------------
+ //---------------------------------------------------------------------------
 
         private void create()
         {
@@ -67,12 +68,7 @@ namespace MacroBoard.View
                 case nameof(BlockSetCursor)              : create(model as BlockSetCursor);               break;
                 case nameof(BlockShutdown)               : create(model as BlockShutdown);                break;
                 case nameof(BlockWait)                   : create(model as BlockWait);                    break;
-
-
-
-
-
-                default: break;
+                default: MessageBox.Show("block pas impléménté"); break;
             }
             AddHandlerToValiderBtn();
         }
@@ -81,48 +77,53 @@ namespace MacroBoard.View
 
         private void create(BlockClickR? blockClickR)
         {
-            throw new NotImplementedException();
+            newBlock = () => new BlockClickR();
         }
+
 
         private void create(BlockClickL? blockClickL)
         {
-            throw new NotImplementedException();
+            newBlock = () => new BlockClickL();
         }
+
 
         private void create(BlockCloseDesiredApplication? blockCloseDesiredApplication)
         {
-            (TextBox, Button) appName = newBrowse("App Name", ((BlockScreenshot)model).Name);
-            newBlock = () => new BlockCloseDesiredApplication(appName.Item1.Text);
+            (Label, TextBox) appName = newTextBox("App Name", blockCloseDesiredApplication.appName);
+            newBlock = () => new BlockCloseDesiredApplication(appName.Item2.Text);
         }
+
 
         private void create(BlockCreateTextFile? blockCreateTextFile)
         {
             (TextBox, Button) filePath = newBrowse("File Path", blockCreateTextFile._filePath); 
-            (Label, TextBox) fileName = newTextBox("File Name", blockCreateTextFile._fileName);
-            (Label, TextBox) fileType = newTextBox("File Type", blockCreateTextFile._fileType);
-            (Label, TextBox) text = newTextBox("Text", blockCreateTextFile._text);
+            (Label, TextBox) fileName  = newTextBox("File Name", blockCreateTextFile._fileName);
+            (Label, TextBox) fileType  = newTextBox("extension", blockCreateTextFile._fileType);
+            (Label, TextBox) text      = newTextBox("texte", blockCreateTextFile._text);
             newBlock = () => new BlockCreateTextFile(filePath.Item1.Text, fileName.Item2.Text, fileType.Item2.Text, text.Item2.Text);
         }
 
+
         private void create(BlockDeleteDirectory? blockDeleteDirectory)
         {
-            (TextBox, Button) filePath = newBrowse("File Path", blockDeleteDirectory.path);
+            (TextBox, Button) filePath = newBrowse("element à supprimer", blockDeleteDirectory.path);
             newBlock = () => new BlockDeleteDirectory(filePath.Item1.Text);
         }
 
-        //TODO
 
         private void create(BlockDownloadFile? blockDownloadFile)
         {
-            (TextBox, Button) fileName = newBrowse("File Path", blockDownloadFile.fileName);
+            (Label, TextBox) fileName = newTextBox("File name", blockDownloadFile.fileName);
             (TextBox, Button) address = newBrowse("File Path", blockDownloadFile.address);
-            newBlock = () => new BlockDownloadFile(address.Item1.Text,fileName.Item1.Text);
+            newBlock = () => new BlockDownloadFile(address.Item1.Text, fileName.Item2.Text);
         }
+
 
         private void create(BlockHibernate? blockHibernate)
         {
-            throw new NotImplementedException();
+            newBlock = () => new BlockHibernate();
         }
+
 
         private void create(BlockInvokeAutomationId? blockInvokeAutomationId)
         {
@@ -130,65 +131,86 @@ namespace MacroBoard.View
             newBlock = () => new BlockInvokeAutomationId(automationId.Item2.Text);  
         }
 
+
         private void create(BlockKeyBoard? blockKeyBoard)
         {
-            (TextBox, Button) shortcut = newBrowse("Shortcut", blockKeyBoard._shortCut);
-            newBlock = () => new BlockKeyBoard(shortcut.Item1.Text);
+            (Label, TextBox) shortcut = newTextBox("shortcut", blockKeyBoard._shortCut);
+            newBlock = () => new BlockKeyBoard(shortcut.Item2.Text);
         }
+
 
         private void create(BlockLaunchBrowserChrome? blockLaunchBrowserChrome)
         {
-            (TextBox, Button) address = newBrowse("Chrome address", blockLaunchBrowserChrome.address);
-            newBlock = () => new BlockKeyBoard(address.Item1.Text);
-
+            (Label, TextBox) address = newTextBox("adresse web", blockLaunchBrowserChrome.address);
+            newBlock = () => new BlockLaunchBrowserChrome(address.Item2.Text);
         }
+
 
         private void create(BlockLaunchBrowserChromex86? blockLaunchBrowserChromex86)
         {
-            (TextBox, Button) address = newBrowse("Chrome86 address", blockLaunchBrowserChromex86.address);
-            newBlock = () => new BlockKeyBoard(address.Item1.Text);
+            (Label, TextBox) address = newTextBox("adresse web", blockLaunchBrowserChromex86.address);
+            newBlock = () => new BlockLaunchBrowserChromex86(address.Item2.Text);
         }
+
 
         private void create(BlockLaunchBrowserFirefox? blockLaunchBrowserFirefox)
         {
-            (TextBox, Button) address = newBrowse("FireFox address", blockLaunchBrowserFirefox.address);
-            newBlock = () => new BlockKeyBoard(address.Item1.Text);
+            (Label, TextBox) address = newTextBox("adresse web", blockLaunchBrowserFirefox.address);
+            newBlock = () => new BlockLaunchBrowserFirefox(address.Item2.Text);
         }
+
 
         private void create(BlockLaunchEdgeBrowser? blockLaunchEdgeBrowser)
         {
-            (TextBox, Button) address = newBrowse("Edge address", blockLaunchEdgeBrowser.address);
-            newBlock = () => new BlockKeyBoard(address.Item1.Text);
+            (Label, TextBox) address = newTextBox("adresse web", blockLaunchEdgeBrowser.address);
+            newBlock = () => new BlockLaunchEdgeBrowser(address.Item2.Text);
         }
+
 
         private void create(BlockLock? blockLock)
         {
-            throw new NotImplementedException();
+            newBlock = () => new BlockLock();
         }
+
 
         private void create(BlockMove? blockMove)
         {
-            (Label, TextBox) src = newTextBox("Automation Id", blockMove.source);
-            (Label, TextBox) dest = newTextBox("Automation Id", blockMove.destination);
-            newBlock = () => new BlockMessageBoxBlock(src.Item2.Text, dest.Item2.Text);
+            (TextBox, Button) source = newBrowse("source", blockMove.source);
+            (TextBox, Button) destination = newBrowse("source", blockMove.destination);
+            newBlock = () => new BlockMove(source.Item1.Text, destination.Item1.Text);
         }
+
 
         private void create(BlockMessageBoxBlock? blockMessageBoxBlock)
         {
-            (Label, TextBox) param1 = newTextBox("Automation Id", blockMessageBoxBlock.param1);
-            (Label, TextBox) param2 = newTextBox("Automation Id", blockMessageBoxBlock.param2);
+            (Label, TextBox) param1 = newTextBox("param 1", blockMessageBoxBlock.param1);
+            (Label, TextBox) param2 = newTextBox("param 2", blockMessageBoxBlock.param2);
             newBlock = () => new BlockMessageBoxBlock(param1.Item2.Text, param2.Item2.Text);
-       }
+        }
+
+
         private void create(BlockRecognition? blockRecognition)
         {
-            (TextBox, Button) templatePath = newBrowse("FireFox address", blockRecognition.templatePath);
-            newBlock = () => new BlockRecognition(templatePath.Item1.Text);
-
+            (TextBox, Button) templatePath  = newBrowse("Template path", blockRecognition.templatePath);
+            (Label, TextBox) xInterest      = newTextBox("X en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.xInterest.ToString());
+            (Label, TextBox) yInterest      = newTextBox("Y en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.yInterest.ToString());
+            (Label, TextBox) heightInterest = newTextBox("Hauteur de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.heightInterest.ToString());
+            (Label, TextBox) widthInterest  = newTextBox("Largeur de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.widthInterest.ToString());
+            (Label, TextBox) screenNumber   = newTextBox("Numero de l'ecran de recherche", blockRecognition.screenNumber.ToString());
+            (Label, TextBox) offSetX        = newTextBox("Décalge horizontal de la souris", blockRecognition.offSetX.ToString());
+            (Label, TextBox) offSetY        = newTextBox("Décalge vertical de la souris", blockRecognition.offSetY.ToString());
+            (Label, TextBox) scale          = newTextBox("Scale de l'image\n[0,1[ rétrecir\t]1,+inf] agrandir", blockRecognition.scale.ToString());
+            ComboBox loop                   = newComboBoxBool("Essayer plusieurs scale", blockRecognition.loop); 
+            ComboBox debugMode              = newComboBoxBool("DebugMode", blockRecognition.debugMode); 
+            newBlock = () => new BlockRecognition(templatePath.Item1.Text, xInterest:((xInterest.Item2.Text=="*") ? 0:int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest:int.Parse(heightInterest.Item2.Text), widthInterest:int.Parse(widthInterest.Item2.Text), screenNumber:int.Parse(screenNumber.Item2.Text), offSetX:int.Parse(offSetX.Item2.Text), offSetY:int.Parse(offSetY.Item2.Text), scale:int.Parse(scale.Item2.Text), loop:(bool)loop.SelectedItem, debugMode:(bool)debugMode.SelectedItem);
         }
+
 
         private void create(BlockRestart? blockRestart)
         {
+            newBlock = () => new BlockRestart();
         }
+
 
         private void create(BlockRunApp? blockRunApp)
         {
@@ -196,12 +218,14 @@ namespace MacroBoard.View
             newBlock = () => new BlockRunApp(url.Item1.Text);
         }
 
+
         private void create(BlockRunScript? blockRunScript)
         {
             (Label, TextBox) script = newTextBox("script", blockRunScript.script);
             newBlock = () => new BlockRunScript(script.Item2.Text);
 
         }
+
 
         private void create(BlockSendEmail? blockSendEmail)
         {
@@ -222,7 +246,9 @@ namespace MacroBoard.View
 
         private void create(BlockShutdown? blockShutdown)
         {
+            newBlock = () => new BlockShutdown();
         }
+
 
         private void create(BlockWait? blockWait)
         {
@@ -234,23 +260,21 @@ namespace MacroBoard.View
         }
 
 
-
         private void create(BlockCopy? b)
         {
-            Label label = newLabel("block copy");
-            (TextBox, Button) src = newBrowse("source", ((BlockCopy)model).source);
+            Label label            = newLabel("block copy");
+            (TextBox, Button) src  = newBrowse("source", ((BlockCopy)model).source);
             (TextBox, Button) dest = newBrowse("destination", ((BlockCopy)model).destination);
             newBlock = () => new BlockCopy(src.Item1.Text, dest.Item1.Text);
         }
 
+
         private void create(BlockScreenshot? b)
         {
-            (TextBox, Button) filePath = newBrowse("path to save", ((BlockScreenshot)model).fileName);
+            (TextBox, Button) filePath    = newBrowse("path to save", ((BlockScreenshot)model).fileName);
             (Label, TextBox) screenNumber = newTextBox("screenNumber", ((BlockScreenshot)model).screenNumber.ToString());
-            //newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0");
             newBlock = () => new BlockScreenshot(filePath.Item1.Text, Int32.Parse(screenNumber.Item2.Text));
         }
-
 
 
 //-----------------------------------------------------------------------------------
@@ -260,10 +284,13 @@ namespace MacroBoard.View
             validerBtn.Click += (object sender, RoutedEventArgs e) => {  res[0]=newBlock(); this.DialogResult = true; /*MessageBox.Show($"{Controls.Width}");*/ };
         }
 
+ //---------------------------------------------------------------------------
+
 
         private (Label,TextBox) newTextBox(string labelTxt, string defaultText = "")
         {
             Label label = newLabel(labelTxt); // pas de add() car fct 
+            label.Margin = new Thickness(0, 10, 0, 0);
             TextBox textBox = new TextBox();
             textBox.Height = 20;
             textBox.Width = (98d/100d)*Controls.Width;
@@ -288,15 +315,19 @@ namespace MacroBoard.View
         private Label newLabel(string content)
         {
             Label label = new Label();
+            label.Margin = new Thickness(0, 10, 0, 0);
             label.Content = content;
             Controls.Children.Add(label);
             return label;
         }
 
+
         private (TextBox, Button) newBrowse(string labelTxt, string defaultPath)
         {
             (Label label, TextBox txtBox) = newTextBox(labelTxt, defaultPath);
-            Button  browse   = newButton("browse"); //pas de Controls.Items.Add() car fct le fait deja
+            label.Margin = new Thickness(0, 10, 0, 0);
+            Button browse   = newButton("browse"); //pas de Controls.Items.Add() car fct le fait deja
+            browse.Margin = new Thickness(0,5,0,0);
             browse.Click += (object sender, RoutedEventArgs e) =>
             {
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -317,13 +348,26 @@ namespace MacroBoard.View
             return (txtBox, browse);
         }
 
-        private void validerBtn_Click(object sender, RoutedEventArgs e)
-        {
 
+        private ComboBox newComboBoxBool(string labelTxt, bool value)
+        {
+            Label label = newLabel(labelTxt);
+            label.Margin = new Thickness(0,10,0,0);
+            ComboBox cb = new ComboBox();
+            cb.ItemsSource = new bool[]{ true, false };
+            cb.SelectedIndex = (value)? 0:1 ;
+            //cb.Height = 20;
+            cb.Width = (98d / 100d) * Controls.Width;
+            Controls.Children.Add(cb);
+            return cb;
         }
 
 
-        //---------------------------------------------------------------------------
+ //---------------------------------------------------------------------------
+
+
+
+
 
 
 
