@@ -17,7 +17,7 @@ namespace MacroBoard
         public Button Btn_Edit { get; } = new();
         public Button Btn_Up { get; } = new();
         public Button Btn_Down { get; } = new();
-        public BlockViewModel_Workflow(string Name, Block Block) : base(Name, Block) { }
+        public BlockViewModel_Workflow(Block Block) : base(Block) { }
 
         public override void Setup_Btns()
         {
