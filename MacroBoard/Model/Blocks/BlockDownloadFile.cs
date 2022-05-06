@@ -13,11 +13,11 @@ namespace MacroBoard
         public String address;
         public String fileName;
 
-        public BlockDownloadFile(String address)
+        public BlockDownloadFile(String address, string fileName)
         {
             base.Name = "DownloadFile";
             this.address = address;
-            this.fileName = @"C:\Users\user\Downloads\" + Path.GetFileName(address);
+            this.fileName = fileName;
         }
 
         public override void Execute()
