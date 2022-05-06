@@ -26,13 +26,11 @@ namespace MacroBoard
         private List<WorkflowView> WorkflowsSearchs = new();
         bool isEdition = false;
         bool isInsearch = false;
-
         public MainWindow()
         {
             InitializeComponent();
             InitWorkflows();
         }
-
         private void InitWorkflows()
         {
             List<Block> macroNotePads = new();
@@ -47,10 +45,10 @@ namespace MacroBoard
             WorkFlow machrome = new("", "machrome", machromes);
             List<Block> mailcro = new();
             mailcro.Add(new BlockSendEmail("test", "lpmusardo@gmail.com", "Subject"));
-            mailcro.Add(new BlockWait(0, 0, 1));
+            mailcro.Add(new BlockWait(0, 0, 2));
             mailcro.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png", debugMode: true));
             mailcro.Add(new BlockClickL());
-            mailcro.Add(new BlockWait(0, 0, 1));
+            mailcro.Add(new BlockWait(0, 0, 2));
             mailcro.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg"));
             mailcro.Add(new BlockClickL());
             WorkFlow macro2 = new("", "mailcro", mailcro);
@@ -81,13 +79,9 @@ namespace MacroBoard
                 Workflow.Btn_Main.Click += Button_Click;
                 ListMacro.Items.Add(Workflow.Content);
             }
-
             //add buton initialization
-
             AddAddButton(Workflows);
         }
-
-
         private void AddWorkFlowWhileSearch(object sender, RoutedEventArgs e)
         {
             EditionWindow editW = new();
@@ -97,10 +91,10 @@ namespace MacroBoard
             Workflows[^2].Btn_Delete.Click += OnClick_Delete;
             Workflows[^2].Btn_Fav.Click += OnClick_Fav;
             Workflows[^2].Btn_Main.Click += Button_Click;
-         
+
             if (Workflows.Count == 11 && Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
             {
-                    Workflows.RemoveAt(Workflows.Count - 1);  
+                Workflows.RemoveAt(Workflows.Count - 1);
             }
         }
 
@@ -108,35 +102,35 @@ namespace MacroBoard
         {
             if (isInsearch)
             {
-                AddWorkFlowWhileSearch(sender,e);
+                AddWorkFlowWhileSearch(sender, e);
             }
             else
             {
 
-            
-            EditionWindow editW = new();
-            editW.ShowDialog();
-            WorkFlow macroAddTest = new("", "Test6", new List<Block>());
-            Workflows.Insert(Workflows.Count - 1, new(macroAddTest));
-            Workflows[^2].Btn_Delete.Click += OnClick_Delete;
-            Workflows[^2].Btn_Fav.Click += OnClick_Fav;
-            Workflows[^2].Btn_Main.Click += Button_Click;
-            if (Workflows.Count <= 10)
-            {
-                if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+
+                EditionWindow editW = new();
+                editW.ShowDialog();
+                WorkFlow macroAddTest = new("", "Test6", new List<Block>());
+                Workflows.Insert(Workflows.Count - 1, new(macroAddTest));
+                Workflows[^2].Btn_Delete.Click += OnClick_Delete;
+                Workflows[^2].Btn_Fav.Click += OnClick_Fav;
+                Workflows[^2].Btn_Main.Click += Button_Click;
+                if (Workflows.Count <= 10)
                 {
-                    ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
+                    if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                    {
+                        ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
+                    }
                 }
-            }
-            if (Workflows.Count == 11)
-            {
-                if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                if (Workflows.Count == 11)
                 {
-                    ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
-                    ListMacro.Items.RemoveAt(Workflows.Count - 1);
-                    Workflows.RemoveAt(Workflows.Count - 1);
+                    if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                    {
+                        ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
+                        ListMacro.Items.RemoveAt(Workflows.Count - 1);
+                        Workflows.RemoveAt(Workflows.Count - 1);
+                    }
                 }
-            }
             }
         }
 
