@@ -14,10 +14,10 @@ using System.Net;
 
 namespace MacroBoard
 {
-    internal class BlockSetCursor : Block
+    class BlockSetCursor : Block
     {
-        int x;
-        int y;
+        public int x;
+        public int y;
 
 
         public BlockSetCursor(int x, int y)

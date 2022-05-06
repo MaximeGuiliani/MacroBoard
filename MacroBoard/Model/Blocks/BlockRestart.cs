@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MacroBoard
 {
-    internal class BlockRestart : Block
+    class BlockRestart : Block
     {
         public BlockRestart()
         {

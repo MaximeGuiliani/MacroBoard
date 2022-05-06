@@ -10,16 +10,17 @@ namespace MacroBoard
 {
     internal class BlockRunScript : Block
     {
-        private string _script;
-        public BlockRunScript(string Name, string LogoUrl, string info, string script)
+        public string script;
+
+        public BlockRunScript(string script)
         {
             base.Name = "Run Script";
-            this._script = script;
+            this.script = script;
         }
 
         public override void Execute()
         {
-            Process.Start("powershell.exe", _script);
+            Process.Start("powershell.exe", script);
         }
 
 
