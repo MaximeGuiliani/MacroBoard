@@ -142,7 +142,8 @@ namespace MacroBoard
             }
             else
             {
-                removeWorkflow(WorkflowsSearchs, currentItemPos);
+
+                removeWorkflowWhileSearch(WorkflowsSearchs, currentItemPos);
                 WorkflowsSearchs.RemoveAt(currentItemPos);
             }
 
@@ -163,7 +164,48 @@ namespace MacroBoard
 
         }
 
+        private void removeWorkflowWhileSearch(List<WorkflowView> wfs, int index)
+        {
+            int currentItemPosFav = 0;
+            bool test = false;
+            while (currentItemPosFav < FavWorkflows.Count)
+            {
+                if (!wfs[index].CurrentworkFlow.Equals(FavWorkflows[currentItemPosFav].CurrentworkFlow))
+                {
+                    currentItemPosFav++;
+                }
+                else
+                {
+                    test = true;
+                    break;
+                }
 
+            }
+            if (test)
+            {
+                FavWorkflows.RemoveAt(currentItemPosFav);
+                ListFav.Items.RemoveAt(currentItemPosFav);
+            }
+
+
+            int currentItemPos = 0;
+            while (currentItemPos < Workflows.Count)
+            {
+                if (!wfs[index].CurrentworkFlow.Equals(Workflows[currentItemPos].CurrentworkFlow))
+                {
+                    currentItemPos++;
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+            Workflows.RemoveAt(currentItemPos);
+            ListMacro.Items.RemoveAt(index);
+
+        }
 
 
 
@@ -190,8 +232,8 @@ namespace MacroBoard
                 ListFav.Items.RemoveAt(currentItemPosFav);
             }
 
-            ListMacro.Items.RemoveAt(index);
-            Workflows.RemoveAt(index);
+            ListMacro.Items.RemoveAt(currentItemPosFav);
+            Workflows.RemoveAt(currentItemPosFav);
 
         }
 
@@ -250,7 +292,7 @@ namespace MacroBoard
         {
             string txt = Search.Text;
             WorkflowsSearchs = new();
-            if (txt != "")
+            if (!txt.Equals(""))
             {
                 isInsearch = true;
                 foreach (WorkflowView m in Workflows)
