@@ -17,8 +17,8 @@ namespace MacroBoard
     {
         WorkFlow WorkFlow = new WorkFlow("", "", new());
 
-        private List<BlockViewModel_All> BlockViewModels_All = new();
-        private List<BlockViewModel_Workflow> BlockViewModels_Workflow = new();
+        private List<BlockViewModel_All> BlockViewModels_Left = new();
+        private List<BlockViewModel_Workflow> BlockViewModels_Right = new();
         public EditionWindow()
         {
             InitializeComponent();
@@ -37,16 +37,16 @@ namespace MacroBoard
 
         private void InitListBlock_All()
         {
-            BlockViewModels_All.Add(new BlockViewModel_All("Restart Computer", new BlockRestart()));
-            BlockViewModels_All.Add(new BlockViewModel_All("Run Application", new BlockRunApp("notepad.exe")));
-            BlockViewModels_All.Add(new BlockViewModel_All("Wait", new BlockWait(0, 0, 0)));
-            BlockViewModels_All.Add(new BlockViewModel_All("Capture", new BlockScreenshot("", 1)));
+            BlockViewModels_Left.Add(new BlockViewModel_All("Restart Computer", new BlockRestart()));
+            BlockViewModels_Left.Add(new BlockViewModel_All("Run Application", new BlockRunApp("notepad.exe")));
+            BlockViewModels_Left.Add(new BlockViewModel_All("Wait", new BlockWait(0, 0, 0)));
+            BlockViewModels_Left.Add(new BlockViewModel_All("Capture", new BlockScreenshot("", 1)));
 
 
-            foreach (BlockViewModel_All blockView in BlockViewModels_All)
+            foreach (BlockViewModel_All blockView in BlockViewModels_Left)
             {
                 blockView.Btn_Add.Click += OnClick_Add;
-                ListBlock_All.Items.Add(blockView.Content);
+                ListBlock_Left_XAML.Items.Add(blockView.Content);
             }
 
         }
@@ -60,32 +60,32 @@ namespace MacroBoard
 
         private void OnClick_Add(object sender, RoutedEventArgs e)
         {
-            int currentItemPos = ListBlock_All.Items.IndexOf(((Button)sender).Parent);
+            int currentItemPos = ListBlock_Left_XAML.Items.IndexOf(((Button)sender).Parent);
 
             //---------------------------------------------------------------------------
             Block[] res = new Block[1];
-            Block model = BlockViewModels_All[currentItemPos].Block;
+            Block model = BlockViewModels_Left[currentItemPos].Block;
             Window blockCreatorWindow = new BlockCreatorWindow(res, model);
             blockCreatorWindow.ShowDialog();
             Block? newBlock = null;
-            if (blockCreatorWindow.DialogResult==true)
-            {
-                newBlock= res[0];
-                MessageBox.Show($"{(newBlock as BlockScreenshot).screenNumber}");
+
+            if (blockCreatorWindow.DialogResult == false)
+                return;
+            newBlock= res[0];
+                //MessageBox.Show($"{(newBlock as BlockScreenshot).screenNumber}");
 
             //---------------------------------------------------------------------------
 
 
-
-
-            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(BlockViewModels_All[currentItemPos].Block.Name, newBlock); //wrapper de block à droite
+            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(BlockViewModels_Left[currentItemPos].Block.Name, newBlock); //wrapper de block à droite
             CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
             CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
             CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
             CurrentBlockViewModel.Btn_Down.Click += OnClick_Down;
 
-            WorkFlow.workflowList.Add(BlockViewModels_All[currentItemPos].Block);
-            ListBlock_Workflow.Items.Add(CurrentBlockViewModel.Content);
+            WorkFlow.workflowList.Add(BlockViewModels_Left[currentItemPos].Block);
+            ListBlock_Right_XAML.Items.Add(CurrentBlockViewModel.Content);
+            BlockViewModels_Right.Add(CurrentBlockViewModel);
 
             if (WorkFlow.workflowList.Count <= 1)
             {
@@ -96,21 +96,14 @@ namespace MacroBoard
 
             if (WorkFlow.workflowList.Count == 2)
             {
-                ((Grid)ListBlock_Workflow.Items[0]).Children[4].Visibility = Visibility.Visible;
+                ((Grid)ListBlock_Right_XAML.Items[0]).Children[4].Visibility = Visibility.Visible;
             }
 
             if (WorkFlow.workflowList.Count > 2)
-                ((Grid)ListBlock_Workflow.Items[ListBlock_Workflow.Items.Count - 2]).Children[4].Visibility = Visibility.Visible;
+                ((Grid)ListBlock_Right_XAML.Items[ListBlock_Right_XAML.Items.Count - 2]).Children[4].Visibility = Visibility.Visible;
 
             CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
 
-//----------------------
-            }
-            else
-            {
-
-            }
-//-----------------------
         }
 
 
@@ -118,57 +111,100 @@ namespace MacroBoard
         private void OnClick_Delete(object sender, RoutedEventArgs e)
         {
             Grid CurrentBlockContent = (Grid)((Button)sender).Parent;
-            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
-            if (ListBlock_Workflow.Items.Count > 1 && currentItemPos == 0)
+            int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
+            if (ListBlock_Right_XAML.Items.Count > 1 && currentItemPos == 0)
             {
-                Grid nextItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos + 1);
+                Grid nextItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos + 1);
                 nextItem.Children[3].Visibility = Visibility.Hidden;
             }
 
-            if (ListBlock_Workflow.Items.Count > 1 && currentItemPos == ListBlock_Workflow.Items.Count - 1)
+            if (ListBlock_Right_XAML.Items.Count > 1 && currentItemPos == ListBlock_Right_XAML.Items.Count - 1)
             {
-                Grid previousItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos - 1);
+                Grid previousItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos - 1);
                 previousItem.Children[4].Visibility = Visibility.Hidden;
             }
 
-            ListBlock_Workflow.Items.RemoveAt(currentItemPos);
+            ListBlock_Right_XAML.Items.RemoveAt(currentItemPos);
             WorkFlow.workflowList.RemoveAt(currentItemPos);
+            BlockViewModels_Right.RemoveAt(currentItemPos);
         }
         private void OnClick_Edit(object sender, RoutedEventArgs e)
         {
+            int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
+            Block[] res = new Block[1];
+            
+            Block model = BlockViewModels_Right[currentItemPos].Block;
+
+
+            Window blockCreatorWindow = new BlockCreatorWindow(res, model);
+            blockCreatorWindow.ShowDialog();
+
+            Block? newBlock = null;
+
+            if (blockCreatorWindow.DialogResult == false)
+                return;
+          
+            newBlock = res[0];
+
+                
+            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(BlockViewModels_Right[currentItemPos].Block.Name, newBlock); //wrapper de block à droite
+                
+            WorkFlow.workflowList.RemoveAt(currentItemPos); 
+            WorkFlow.workflowList.Insert(currentItemPos, CurrentBlockViewModel.Block);
+
+            BlockViewModels_Right.RemoveAt(currentItemPos);
+            BlockViewModels_Right.Insert(currentItemPos, CurrentBlockViewModel);
+
+            if (WorkFlow.workflowList.Count <= 1)
+            {
+                CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Hidden;
+                CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+            }
+            else CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Visible;
+
+            if (WorkFlow.workflowList.Count == 2)
+            {
+                ((Grid)ListBlock_Right_XAML.Items[0]).Children[4].Visibility = Visibility.Visible;
+            }
+
+            if (WorkFlow.workflowList.Count > 2)
+                ((Grid)ListBlock_Right_XAML.Items[ListBlock_Right_XAML.Items.Count - 2]).Children[4].Visibility = Visibility.Visible;
+
+            CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+
 
         }
         private void OnClick_Up(object sender, RoutedEventArgs e)
         {
-            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
-            Grid previousItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos - 1);
+            int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
+            Grid previousItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos - 1);
 
             SetHiddenOrVisibleBtnUp(sender, previousItem);
 
-            ListBlock_Workflow.Items.Remove(((Button)sender).Parent);
-            ListBlock_Workflow.Items.Remove(previousItem);
+            ListBlock_Right_XAML.Items.Remove(((Button)sender).Parent);
+            ListBlock_Right_XAML.Items.Remove(previousItem);
 
-            ListBlock_Workflow.Items.Insert(currentItemPos - 1, ((Button)sender).Parent);
-            ListBlock_Workflow.Items.Insert(currentItemPos, previousItem);
+            ListBlock_Right_XAML.Items.Insert(currentItemPos - 1, ((Button)sender).Parent);
+            ListBlock_Right_XAML.Items.Insert(currentItemPos, previousItem);
         }
         private void OnClick_Down(object sender, RoutedEventArgs e)
         {
-            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
-            Grid nextItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos + 1);
+            int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
+            Grid nextItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos + 1);
 
             SetHiddenOrVisibleBtnDown(sender, nextItem);
 
-            ListBlock_Workflow.Items.Remove(((Button)sender).Parent);
-            ListBlock_Workflow.Items.Remove(nextItem);
+            ListBlock_Right_XAML.Items.Remove(((Button)sender).Parent);
+            ListBlock_Right_XAML.Items.Remove(nextItem);
 
-            ListBlock_Workflow.Items.Insert(currentItemPos, nextItem);
-            ListBlock_Workflow.Items.Insert(currentItemPos + 1, ((Button)sender).Parent);
+            ListBlock_Right_XAML.Items.Insert(currentItemPos, nextItem);
+            ListBlock_Right_XAML.Items.Insert(currentItemPos + 1, ((Button)sender).Parent);
         }
 
         private void SetHiddenOrVisibleBtnUp(object sender, Grid previousItem)
         {
-            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
-            Grid currentItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos);
+            int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
+            Grid currentItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos);
 
             currentItem.Children[4].Visibility = Visibility.Visible;
             previousItem.Children[3].Visibility = Visibility.Visible;
@@ -178,7 +214,7 @@ namespace MacroBoard
                 currentItem.Children[3].Visibility = Visibility.Hidden;
             }
 
-            if (currentItemPos == ListBlock_Workflow.Items.Count - 1)
+            if (currentItemPos == ListBlock_Right_XAML.Items.Count - 1)
             {
                 previousItem.Children[4].Visibility = Visibility.Hidden;
             }
@@ -186,13 +222,13 @@ namespace MacroBoard
 
         private void SetHiddenOrVisibleBtnDown(object sender, Grid nextItem)
         {
-            int currentItemPos = ListBlock_Workflow.Items.IndexOf(((Button)sender).Parent);
-            Grid currentItem = (Grid)ListBlock_Workflow.Items.GetItemAt(currentItemPos);
+            int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
+            Grid currentItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos);
 
             currentItem.Children[3].Visibility = Visibility.Visible;
             nextItem.Children[4].Visibility = Visibility.Visible;
 
-            if (currentItemPos + 1 == ListBlock_Workflow.Items.Count - 1)
+            if (currentItemPos + 1 == ListBlock_Right_XAML.Items.Count - 1)
             {
                 currentItem.Children[4].Visibility = Visibility.Hidden;
             }
