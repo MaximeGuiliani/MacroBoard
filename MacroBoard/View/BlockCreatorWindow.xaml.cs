@@ -48,14 +48,19 @@ namespace MacroBoard.View
                 case nameof(BlockCloseDesiredApplication): create(model as BlockCloseDesiredApplication); break;
                 case nameof(BlockCreateTextFile)         : create(model as BlockCreateTextFile); break;
                 case nameof(BlockDeleteDirectory)        : create(model as BlockDeleteDirectory); break;
-                case nameof(BlockDownloadFile)             : create(model as BlockDownloadFile); break;
-                case nameof(BlockHibernate)             : create(model as BlockHibernate); break;
-                case nameof(BlockInvokeAutomationId)             : create(model as BlockInvokeAutomationId); break;
-                case nameof(BlockKeyBoard)             : create(model as BlockKeyBoard); break;
-                case nameof(BlockLaunchBrowserChrome): create(model as BlockLaunchBrowserChrome); break;
-                case nameof(BlockLaunchBrowserChromex86): create(model as BlockLaunchBrowserChromex86); break;
-                case nameof(BlockLaunchBrowserFirefox): create(model as BlockLaunchBrowserFirefox); break;
-                case nameof(BlockLaunchEdgeBrowser): create(model as BlockLaunchEdgeBrowser); break;
+                case nameof(BlockDownloadFile)           : create(model as BlockDownloadFile); break;
+                case nameof(BlockHibernate)              : create(model as BlockHibernate); break;
+                case nameof(BlockInvokeAutomationId)     : create(model as BlockInvokeAutomationId); break;
+                case nameof(BlockKeyBoard)               : create(model as BlockKeyBoard); break;
+                case nameof(BlockLaunchBrowserChrome)    : create(model as BlockLaunchBrowserChrome); break;
+                case nameof(BlockLaunchBrowserChromex86) : create(model as BlockLaunchBrowserChromex86); break;
+                case nameof(BlockLaunchBrowserFirefox)   : create(model as BlockLaunchBrowserFirefox); break;
+                case nameof(BlockLaunchEdgeBrowser)      : create(model as BlockLaunchEdgeBrowser); break;
+                case nameof(BlockLock): create(model as BlockLock); break;
+                case nameof(BlockMessageBoxBlock): create(model as BlockMessageBoxBlock); break;
+                case nameof(BlockMove): create(model as BlockMove); break;
+                case nameof(BlockLock): create(model as BlockLock); break;
+
 
 
 
