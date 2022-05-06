@@ -84,21 +84,36 @@ namespace MacroBoard
 
             //add buton initialization
 
-            WorkFlow addButton = new("", "", null);
-            Workflows.Add(new(addButton));
-            Workflows[^1].Btn_Delete.Visibility = Visibility.Hidden;
-            Workflows[^1].Btn_Fav.Visibility = Visibility.Hidden;
-            Workflows[^1].Btn_Main.Click += AddWorkFlow;
-            BitmapImage bitmapImg = new BitmapImage();
-            bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri("../../../Resources/add.png", UriKind.Relative);
-            bitmapImg.EndInit();
-            Workflows[^1].Content.Background = new ImageBrush(bitmapImg);
-            ListMacro.Items.Add(Workflows[^1].Content);
+            AddAddButton(Workflows);
+        }
+
+
+        private void AddWorkFlowWhileSearch(object sender, RoutedEventArgs e)
+        {
+            EditionWindow editW = new();
+            editW.ShowDialog();
+            WorkFlow macroAddTest = new("", "Test6", new List<Block>());
+            Workflows.Insert(Workflows.Count - 1, new(macroAddTest));
+            Workflows[^2].Btn_Delete.Click += OnClick_Delete;
+            Workflows[^2].Btn_Fav.Click += OnClick_Fav;
+            Workflows[^2].Btn_Main.Click += Button_Click;
+         
+            if (Workflows.Count == 11 && Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+            {
+                    Workflows.RemoveAt(Workflows.Count - 1);  
+            }
         }
 
         private void AddWorkFlow(object sender, RoutedEventArgs e)
         {
+            if (isInsearch)
+            {
+                AddWorkFlowWhileSearch(sender,e);
+            }
+            else
+            {
+
+            
             EditionWindow editW = new();
             editW.ShowDialog();
             WorkFlow macroAddTest = new("", "Test6", new List<Block>());
@@ -122,6 +137,7 @@ namespace MacroBoard
                     Workflows.RemoveAt(Workflows.Count - 1);
                 }
             }
+            }
         }
 
         private void OnClick_Delete_Fav(object sender, RoutedEventArgs e)
@@ -138,33 +154,38 @@ namespace MacroBoard
 
             if (!isInsearch)
             {
-                removeWorkflow(Workflows, currentItemPos);
+                RemoveWorkflow(Workflows, currentItemPos);
             }
             else
             {
 
-                removeWorkflowWhileSearch(WorkflowsSearchs, currentItemPos);
+                RemoveWorkflowWhileSearch(WorkflowsSearchs, currentItemPos);
                 WorkflowsSearchs.RemoveAt(currentItemPos);
             }
 
             if (Workflows.Count == 9 && !Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
             {
-                WorkFlow addButton = new("", "", null);
-                Workflows.Add(new(addButton));
-                Workflows[^1].Btn_Delete.Visibility = Visibility.Hidden;
-                Workflows[^1].Btn_Fav.Visibility = Visibility.Hidden;
-                Workflows[^1].Btn_Main.Click += AddWorkFlow;
-                BitmapImage bitmapImg = new BitmapImage();
-                bitmapImg.BeginInit();
-                bitmapImg.UriSource = new Uri("../../../Resources/add.png", UriKind.Relative);
-                bitmapImg.EndInit();
-                Workflows[^1].Content.Background = new ImageBrush(bitmapImg);
-                ListMacro.Items.Add(Workflows[^1].Content);
+                AddAddButton(Workflows);
             }
-
         }
 
-        private void removeWorkflowWhileSearch(List<WorkflowView> wfs, int index)
+        private void AddAddButton(List<WorkflowView> workflowViews)
+        {
+            WorkFlow addButton = new("", "", null);
+            workflowViews.Add(new(addButton));
+            workflowViews[^1].Btn_Delete.Visibility = Visibility.Hidden;
+
+            workflowViews[^1].Btn_Fav.Visibility = Visibility.Hidden;
+            workflowViews[^1].Btn_Main.Click += AddWorkFlow;
+            BitmapImage bitmapImg = new BitmapImage();
+            bitmapImg.BeginInit();
+            bitmapImg.UriSource = new Uri("../../../Resources/add.png", UriKind.Relative);
+            bitmapImg.EndInit();
+            workflowViews[^1].Content.Background = new ImageBrush(bitmapImg);
+            ListMacro.Items.Add(workflowViews[^1].Content);
+        }
+
+        private void RemoveWorkflowWhileSearch(List<WorkflowView> wfs, int index)
         {
             int currentItemPosFav = 0;
             bool test = false;
@@ -179,15 +200,12 @@ namespace MacroBoard
                     test = true;
                     break;
                 }
-
             }
             if (test)
             {
                 FavWorkflows.RemoveAt(currentItemPosFav);
                 ListFav.Items.RemoveAt(currentItemPosFav);
             }
-
-
             int currentItemPos = 0;
             while (currentItemPos < Workflows.Count)
             {
@@ -199,17 +217,11 @@ namespace MacroBoard
                 {
                     break;
                 }
-
             }
-
             Workflows.RemoveAt(currentItemPos);
             ListMacro.Items.RemoveAt(index);
-
         }
-
-
-
-        private void removeWorkflow(List<WorkflowView> wfs, int index)
+        private void RemoveWorkflow(List<WorkflowView> wfs, int index)
         {
             int currentItemPosFav = 0;
             bool test = false;
@@ -224,25 +236,18 @@ namespace MacroBoard
                     test = true;
                     break;
                 }
-
             }
             if (test)
             {
                 FavWorkflows.RemoveAt(currentItemPosFav);
                 ListFav.Items.RemoveAt(currentItemPosFav);
             }
-
             ListMacro.Items.RemoveAt(currentItemPosFav);
             Workflows.RemoveAt(currentItemPosFav);
-
         }
-
-
-
         private void OnClick_Fav(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
-
             if (!isInsearch)
             {
                 AddFav(new WorkflowView(Workflows[currentItemPos].CurrentworkFlow));
@@ -251,9 +256,7 @@ namespace MacroBoard
             {
                 AddFav(new WorkflowView(WorkflowsSearchs[currentItemPos].CurrentworkFlow));
             }
-
         }
-
         private void AddFav(WorkflowView newFav)
         {
             WorkFlow wf = newFav.CurrentworkFlow;
@@ -267,10 +270,7 @@ namespace MacroBoard
                     ListFav.Items.Add(newFav.Content);
                     FavWorkflows.Add(newFav);
                 }
-
             }
-
-
         }
 
         private bool ListContains(List<WorkflowView> wfls, WorkFlow wf)
@@ -282,9 +282,7 @@ namespace MacroBoard
                 {
                     return true;
                 }
-
             }
-
             return result;
         }
 
@@ -303,6 +301,9 @@ namespace MacroBoard
 
                     }
                 }
+
+                AddAddButton(WorkflowsSearchs);
+
             }
             else
             {
@@ -314,35 +315,29 @@ namespace MacroBoard
             {
                 ListMacro.Items.Add(mac.Content);
             }
-        }
 
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
 
             if (isInsearch)
             {
-                executeWorkflow((WorkflowsSearchs[currentItemPos].CurrentworkFlow));
+                ExecuteWorkflow((WorkflowsSearchs[currentItemPos].CurrentworkFlow));
             }
             else
             {
-                executeWorkflow((Workflows[currentItemPos].CurrentworkFlow));
+                ExecuteWorkflow((Workflows[currentItemPos].CurrentworkFlow));
             }
-
         }
-
-
-
         private void Button_Click_Fav(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
-            executeWorkflow(FavWorkflows[currentItemPos].CurrentworkFlow);
-
+            ExecuteWorkflow(FavWorkflows[currentItemPos].CurrentworkFlow);
         }
 
-        private void executeWorkflow(WorkFlow wf)
+        private void ExecuteWorkflow(WorkFlow wf)
         {
-
             if (isEdition)
             {
                 EditionWindow editionWindow = new(wf);
@@ -354,9 +349,7 @@ namespace MacroBoard
                 {
                     m.Execute();
                 }
-
             }
-
         }
         private void EditionMode(object sender, RoutedEventArgs e)
         {
@@ -372,5 +365,4 @@ namespace MacroBoard
             }
         }
     }
-
 }
