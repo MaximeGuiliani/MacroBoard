@@ -9,8 +9,8 @@ namespace MacroBoard
 {
     public class BlockCopy : Block
     {
-        String source;
-        String destination;
+        public String source { get; set; } = "";
+        public String destination { get; set; } = "";
         
         public BlockCopy(String source, String destination)
         {

@@ -8,7 +8,7 @@ namespace MacroBoard
 {
     internal class BlockDeleteDirectory : Block
     {
-        String path;
+        public String path;
         public BlockDeleteDirectory(String path)
         {
             base.Name = "Delete Directory";
