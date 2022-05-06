@@ -41,28 +41,53 @@ namespace MacroBoard.View
         {
             switch (model.BlockType)
             {
-                case nameof(BlockCopy):
-                    Label label            = newLabel("block copy");
-                    (TextBox, Button) src  = newBrowse("source", @"C:\");
-                    (TextBox, Button) dest = newBrowse("destination", @"C:\");
-                    newBlock               = ()=>new BlockCopy(src.Item1.Text, dest.Item1.Text);
-                    break;
+                case nameof(BlockCopy)                   : create(model as BlockCopy); break;
+                case nameof(BlockScreenshot)             : create(model as BlockScreenshot); break;
+                case nameof(BlockClickL)                 : create(model as BlockClickL); break;
+                case nameof(BlockClickR)                 : create(model as BlockClickR); break;
+                case nameof(BlockCloseDesiredApplication): create(model as BlockCloseDesiredApplication); break;
+                case nameof(BlockCreateTextFile)         : create(model as BlockCreateTextFile); break;
+                case nameof(BlockDeleteDirectory)        : create(model as BlockDeleteDirectory); break;
+                case nameof(BlockDownloadFile)             : create(model as BlockDownloadFile); break;
+                case nameof(BlockHibernate)             : create(model as BlockHibernate); break;
+                case nameof(BlockInvokeAutomationId)             : create(model as BlockInvokeAutomationId); break;
+                case nameof(BlockKeyBoard)             : create(model as BlockKeyBoard); break;
+                case nameof(BlockLaunchBrowserChrome): create(model as BlockLaunchBrowserChrome); break;
+                case nameof(BlockLaunchBrowserChromex86): create(model as BlockLaunchBrowserChromex86); break;
+                case nameof(BlockLaunchBrowserFirefox): create(model as BlockLaunchBrowserFirefox); break;
+                case nameof(BlockLaunchEdgeBrowser): create(model as BlockLaunchEdgeBrowser); break;
 
-                case nameof(BlockScreenshot):
-                    (TextBox, Button) filePath     = newBrowse("path to save", @"C:\");
-                    (Label, TextBox)  screenNumber = newTextBox("screenNumber", "0");
-                    //newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0");
-                    newBlock = () => new BlockScreenshot(filePath.Item1.Text, Int32.Parse(screenNumber.Item2.Text));
-                    break;
-                
-                default:
-                    break;
+
+
+
+                default: break;
             }
-
             AddHandlerToValiderBtn();
         }
 
 //---------------------------------------------------------------------------
+
+
+        private void create(BlockCopy? b)
+        {
+            Label label = newLabel("block copy");
+            (TextBox, Button) src = newBrowse("source", ((BlockCopy)model).source);
+            (TextBox, Button) dest = newBrowse("destination", ((BlockCopy)model).destination);
+            newBlock = () => new BlockCopy(src.Item1.Text, dest.Item1.Text);
+
+        }
+
+        private void create(BlockScreenshot? b)
+        {
+        (TextBox, Button) filePath = newBrowse("path to save", ((BlockScreenshot)model).fileName);
+        (Label, TextBox) screenNumber = newTextBox("screenNumber", ((BlockScreenshot)model).screenNumber.ToString());
+        //newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0"); newBrowse("path to save", @"C:\");newTextBox("screenNumber", "0");
+        newBlock = () => new BlockScreenshot(filePath.Item1.Text, Int32.Parse(screenNumber.Item2.Text));
+        }
+
+
+
+
 
         private void AddHandlerToValiderBtn()
         {
@@ -113,7 +138,7 @@ namespace MacroBoard.View
                 dlg.DefaultExt = ".jpeg";
                 dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|" +
                              "JPG Files  (*.jpg)|*.jpg|"   +
-                             "All Files  (.jpeg .jpg .png .gif)|*.jpeg;*.jpg;*.png;*.gif|" +
+                             "All Files  (*)|*|" +
                              "PNG Files  (*.png)|*.png|" +
                              "GIF Files  (*.gif)|*.gif";
                 Nullable<bool> result = dlg.ShowDialog();
