@@ -32,6 +32,7 @@ namespace MacroBoard
         {
             InitializeComponent();
             this.WorkFlow = workFlow;
+            InitListBlock_Workflow();
             //Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(workFlow.imagePath, UriKind.Absolute));
         }
 
@@ -53,8 +54,20 @@ namespace MacroBoard
 
         private void InitListBlock_Workflow()
         {
-            //BlockViews_Workflow[0].Content.Children[3].Visibility = Visibility.Hidden;
-            //BlockViews_Workflow[BlockViews_Workflow.Count - 1].Content.Children[4].Visibility = Visibility.Hidden;
+            foreach(Block Block in WorkFlow.workflowList)
+            {
+                BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(Block.Name, Block); //wrapper de block à droite
+                CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
+                CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
+                CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
+                CurrentBlockViewModel.Btn_Down.Click += OnClick_Down;
+
+                ListBlock_Right_XAML.Items.Add(CurrentBlockViewModel.Content);
+                BlockViewModels_Right.Add(CurrentBlockViewModel);
+            }
+            MessageBox.Show(BlockViewModels_Right[0].Content.Children.Count.ToString());
+            BlockViewModels_Right[0].Content.Children[3].Visibility = Visibility.Hidden;
+            BlockViewModels_Right[^1].Content.Children[4].Visibility = Visibility.Hidden;
         }
 
 
@@ -245,6 +258,12 @@ namespace MacroBoard
         {
             this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
             this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
+
+            string JsonPath = AppDomain.CurrentDomain.BaseDirectory + "/BLOCK_JSON_TEST.json";
+
+            Serialization serialization = new Serialization(JsonPath);
+
+            serialization.Serialize(WorkFlow);
         }
 
         private void selectImage(object sender, RoutedEventArgs e)
