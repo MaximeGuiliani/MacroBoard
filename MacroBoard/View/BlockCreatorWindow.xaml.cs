@@ -19,16 +19,16 @@ namespace MacroBoard.View
     {
 
         Func<Block> newBlock;   // lambda-expression appelée lors du click "valider", qui défini comment créer un block
-        Block[]     res;        // tableau de taille=1 pour renvoyer le nouveau Block
-        Block       model;
+        Block[] res;        // tableau de taille=1 pour renvoyer le nouveau Block
+        Block model;
 
 
- //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
         public BlockCreatorWindow(Block[] res, Block model)
         {
             InitializeComponent();
-            this.res   = res;
+            this.res = res;
             this.model = model;
             this.newBlock = () => null;
             create();
@@ -36,44 +36,44 @@ namespace MacroBoard.View
         }
 
 
- //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
         private void create()
         {
             switch (model.BlockType)
             {
-                case nameof(BlockCopy)                   : create(model as BlockCopy);                    break;
-                case nameof(BlockScreenshot)             : create(model as BlockScreenshot);              break;
-                case nameof(BlockClickL)                 : create(model as BlockClickL);                  break;
-                case nameof(BlockClickR)                 : create(model as BlockClickR);                  break;
+                case nameof(BlockCopy): create(model as BlockCopy); break;
+                case nameof(BlockScreenshot): create(model as BlockScreenshot); break;
+                case nameof(BlockClickL): create(model as BlockClickL); break;
+                case nameof(BlockClickR): create(model as BlockClickR); break;
                 case nameof(BlockCloseDesiredApplication): create(model as BlockCloseDesiredApplication); break;
-                case nameof(BlockCreateTextFile)         : create(model as BlockCreateTextFile);          break;
-                case nameof(BlockDeleteDirectory)        : create(model as BlockDeleteDirectory);         break;
-                case nameof(BlockDownloadFile)           : create(model as BlockDownloadFile);            break;
-                case nameof(BlockHibernate)              : create(model as BlockHibernate);               break;
-                case nameof(BlockInvokeAutomationId)     : create(model as BlockInvokeAutomationId);      break;
-                case nameof(BlockKeyBoard)               : create(model as BlockKeyBoard);                break;
-                case nameof(BlockLaunchBrowserChrome)    : create(model as BlockLaunchBrowserChrome);     break;
-                case nameof(BlockLaunchBrowserChromex86) : create(model as BlockLaunchBrowserChromex86);  break;
-                case nameof(BlockLaunchBrowserFirefox)   : create(model as BlockLaunchBrowserFirefox);    break;
-                case nameof(BlockLaunchEdgeBrowser)      : create(model as BlockLaunchEdgeBrowser);       break;
-                case nameof(BlockLock)                   : create(model as BlockLock);                    break;
-                case nameof(BlockMessageBoxBlock)        : create(model as BlockMessageBoxBlock);         break;
-                case nameof(BlockMove)                   : create(model as BlockMove);                    break;
-                case nameof(BlockRecognition)            : create(model as BlockRecognition);             break;
-                case nameof(BlockRestart)                : create(model as BlockRestart);                 break;
-                case nameof(BlockRunApp)                 : create(model as BlockRunApp);                  break;
-                case nameof(BlockRunScript)              : create(model as BlockRunScript);               break;
-                case nameof(BlockSendEmail)              : create(model as BlockSendEmail);               break;
-                case nameof(BlockSetCursor)              : create(model as BlockSetCursor);               break;
-                case nameof(BlockShutdown)               : create(model as BlockShutdown);                break;
-                case nameof(BlockWait)                   : create(model as BlockWait);                    break;
+                case nameof(BlockCreateTextFile): create(model as BlockCreateTextFile); break;
+                case nameof(BlockDeleteDirectory): create(model as BlockDeleteDirectory); break;
+                case nameof(BlockDownloadFile): create(model as BlockDownloadFile); break;
+                case nameof(BlockHibernate): create(model as BlockHibernate); break;
+                case nameof(BlockInvokeAutomationId): create(model as BlockInvokeAutomationId); break;
+                case nameof(BlockKeyBoard): create(model as BlockKeyBoard); break;
+                case nameof(BlockLaunchBrowserChrome): create(model as BlockLaunchBrowserChrome); break;
+                case nameof(BlockLaunchBrowserChromex86): create(model as BlockLaunchBrowserChromex86); break;
+                case nameof(BlockLaunchBrowserFirefox): create(model as BlockLaunchBrowserFirefox); break;
+                case nameof(BlockLaunchEdgeBrowser): create(model as BlockLaunchEdgeBrowser); break;
+                case nameof(BlockLock): create(model as BlockLock); break;
+                case nameof(BlockMessageBoxBlock): create(model as BlockMessageBoxBlock); break;
+                case nameof(BlockMove): create(model as BlockMove); break;
+                case nameof(BlockRecognition): create(model as BlockRecognition); break;
+                case nameof(BlockRestart): create(model as BlockRestart); break;
+                case nameof(BlockRunApp): create(model as BlockRunApp); break;
+                case nameof(BlockRunScript): create(model as BlockRunScript); break;
+                case nameof(BlockSendEmail): create(model as BlockSendEmail); break;
+                case nameof(BlockSetCursor): create(model as BlockSetCursor); break;
+                case nameof(BlockShutdown): create(model as BlockShutdown); break;
+                case nameof(BlockWait): create(model as BlockWait); break;
                 default: MessageBox.Show("block pas impléménté"); break;
             }
             AddHandlerToValiderBtn();
         }
 
-//---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
         private void create(BlockClickR? blockClickR)
         {
@@ -96,10 +96,10 @@ namespace MacroBoard.View
 
         private void create(BlockCreateTextFile? blockCreateTextFile)
         {
-            (TextBox, Button) filePath = newBrowse("File Path", blockCreateTextFile._filePath); 
-            (Label, TextBox) fileName  = newTextBox("File Name", blockCreateTextFile._fileName);
-            (Label, TextBox) fileType  = newTextBox("extension", blockCreateTextFile._fileType);
-            (Label, TextBox) text      = newTextBox("texte", blockCreateTextFile._text);
+            (TextBox, Button) filePath = newBrowse("File Path", blockCreateTextFile._filePath);
+            (Label, TextBox) fileName = newTextBox("File Name", blockCreateTextFile._fileName);
+            (Label, TextBox) fileType = newTextBox("extension", blockCreateTextFile._fileType);
+            (Label, TextBox) text = newTextBox("texte", blockCreateTextFile._text);
             newBlock = () => new BlockCreateTextFile(filePath.Item1.Text, fileName.Item2.Text, fileType.Item2.Text, text.Item2.Text);
         }
 
@@ -128,7 +128,7 @@ namespace MacroBoard.View
         private void create(BlockInvokeAutomationId? blockInvokeAutomationId)
         {
             (Label, TextBox) automationId = newTextBox("Automation Id", blockInvokeAutomationId.automationID);
-            newBlock = () => new BlockInvokeAutomationId(automationId.Item2.Text);  
+            newBlock = () => new BlockInvokeAutomationId(automationId.Item2.Text);
         }
 
 
@@ -191,18 +191,18 @@ namespace MacroBoard.View
 
         private void create(BlockRecognition? blockRecognition)
         {
-            (TextBox, Button) templatePath  = newBrowse("Template path", blockRecognition.templatePath);
-            (Label, TextBox) xInterest      = newTextBox("X en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.xInterest.ToString());
-            (Label, TextBox) yInterest      = newTextBox("Y en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.yInterest.ToString());
+            (TextBox, Button) templatePath = newBrowse("Template path", blockRecognition.templatePath);
+            (Label, TextBox) xInterest = newTextBox("X en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.xInterest.ToString());
+            (Label, TextBox) yInterest = newTextBox("Y en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.yInterest.ToString());
             (Label, TextBox) heightInterest = newTextBox("Hauteur de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.heightInterest.ToString());
-            (Label, TextBox) widthInterest  = newTextBox("Largeur de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.widthInterest.ToString());
-            (Label, TextBox) screenNumber   = newTextBox("Numero de l'ecran de recherche", blockRecognition.screenNumber.ToString());
-            (Label, TextBox) offSetX        = newTextBox("Décalge horizontal de la souris", blockRecognition.offSetX.ToString());
-            (Label, TextBox) offSetY        = newTextBox("Décalge vertical de la souris", blockRecognition.offSetY.ToString());
-            (Label, TextBox) scale          = newTextBox("Scale de l'image\n[0,1[ rétrecir\t]1,+inf] agrandir", blockRecognition.scale.ToString());
-            ComboBox loop                   = newComboBoxBool("Essayer plusieurs scale", blockRecognition.loop); 
-            ComboBox debugMode              = newComboBoxBool("DebugMode", blockRecognition.debugMode); 
-            newBlock = () => new BlockRecognition(templatePath.Item1.Text, xInterest:((xInterest.Item2.Text=="*") ? 0:int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest:int.Parse(heightInterest.Item2.Text), widthInterest:int.Parse(widthInterest.Item2.Text), screenNumber:int.Parse(screenNumber.Item2.Text), offSetX:int.Parse(offSetX.Item2.Text), offSetY:int.Parse(offSetY.Item2.Text), scale:int.Parse(scale.Item2.Text), loop:(bool)loop.SelectedItem, debugMode:(bool)debugMode.SelectedItem);
+            (Label, TextBox) widthInterest = newTextBox("Largeur de la zone de recherche\n(0 pour tout l'écran)", blockRecognition.widthInterest.ToString());
+            (Label, TextBox) screenNumber = newTextBox("Numero de l'ecran de recherche", blockRecognition.screenNumber.ToString());
+            (Label, TextBox) offSetX = newTextBox("Décalge horizontal de la souris", blockRecognition.offSetX.ToString());
+            (Label, TextBox) offSetY = newTextBox("Décalge vertical de la souris", blockRecognition.offSetY.ToString());
+            (Label, TextBox) scale = newTextBox("Scale de l'image\n[0,1[ rétrecir\t]1,+inf] agrandir", blockRecognition.scale.ToString());
+            ComboBox loop = newComboBoxBool("Essayer plusieurs scale", blockRecognition.loop);
+            ComboBox debugMode = newComboBoxBool("DebugMode", blockRecognition.debugMode);
+            newBlock = () => new BlockRecognition(templatePath.Item1.Text, xInterest: ((xInterest.Item2.Text == "*") ? 0 : int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest: int.Parse(heightInterest.Item2.Text), widthInterest: int.Parse(widthInterest.Item2.Text), screenNumber: int.Parse(screenNumber.Item2.Text), offSetX: int.Parse(offSetX.Item2.Text), offSetY: int.Parse(offSetY.Item2.Text), scale: int.Parse(scale.Item2.Text), loop: (bool)loop.SelectedItem, debugMode: (bool)debugMode.SelectedItem);
         }
 
 
@@ -229,8 +229,8 @@ namespace MacroBoard.View
 
         private void create(BlockSendEmail? blockSendEmail)
         {
-            (Label, TextBox) body    = newTextBox("body", blockSendEmail.body);
-            (Label, TextBox) to      = newTextBox("to", blockSendEmail.to);
+            (Label, TextBox) body = newTextBox("body", blockSendEmail.body);
+            (Label, TextBox) to = newTextBox("to", blockSendEmail.to);
             (Label, TextBox) subject = newTextBox("subject", blockSendEmail.subject);
             newBlock = () => new BlockSendEmail(body.Item2.Text, to.Item2.Text, subject.Item2.Text);
         }
@@ -240,7 +240,7 @@ namespace MacroBoard.View
         {
             (Label, TextBox) x = newTextBox("x", blockSetCursor.x.ToString());
             (Label, TextBox) y = newTextBox("y", blockSetCursor.y.ToString());
-            newBlock = () => new BlockSetCursor(int.Parse(x.Item2.Text), int.Parse(y.Item2.Text) );
+            newBlock = () => new BlockSetCursor(int.Parse(x.Item2.Text), int.Parse(y.Item2.Text));
         }
 
 
@@ -253,17 +253,17 @@ namespace MacroBoard.View
         private void create(BlockWait? blockWait)
         {
             (Label, TextBox) mili = newTextBox("milisecondes", blockWait.mili.ToString());
-            (Label, TextBox) sec  = newTextBox("secondes", blockWait.sec.ToString());
-            (Label, TextBox) min  = newTextBox("minutes", blockWait.min.ToString());
+            (Label, TextBox) sec = newTextBox("secondes", blockWait.sec.ToString());
+            (Label, TextBox) min = newTextBox("minutes", blockWait.min.ToString());
             (Label, TextBox) hour = newTextBox("heures", blockWait.hour.ToString());
-            newBlock = () => new BlockWait(int.Parse(mili.Item2.Text), int.Parse(sec.Item2.Text), int.Parse(min.Item2.Text), int.Parse(hour.Item2.Text)) ;
+            newBlock = () => new BlockWait(int.Parse(mili.Item2.Text), int.Parse(sec.Item2.Text), int.Parse(min.Item2.Text), int.Parse(hour.Item2.Text));
         }
 
 
         private void create(BlockCopy? b)
         {
-            Label label            = newLabel("block copy");
-            (TextBox, Button) src  = newBrowse("source", ((BlockCopy)model).source);
+            Label label = newLabel("block copy");
+            (TextBox, Button) src = newBrowse("source", ((BlockCopy)model).source);
             (TextBox, Button) dest = newBrowse("destination", ((BlockCopy)model).destination);
             newBlock = () => new BlockCopy(src.Item1.Text, dest.Item1.Text);
         }
@@ -271,29 +271,29 @@ namespace MacroBoard.View
 
         private void create(BlockScreenshot? b)
         {
-            (TextBox, Button) filePath    = newBrowse("path to save", ((BlockScreenshot)model).fileName);
+            (TextBox, Button) filePath = newBrowse("path to save", ((BlockScreenshot)model).fileName);
             (Label, TextBox) screenNumber = newTextBox("screenNumber", ((BlockScreenshot)model).screenNumber.ToString());
             newBlock = () => new BlockScreenshot(filePath.Item1.Text, Int32.Parse(screenNumber.Item2.Text));
         }
 
 
-//-----------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
 
         private void AddHandlerToValiderBtn()
         {
-            validerBtn.Click += (object sender, RoutedEventArgs e) => {  res[0]=newBlock(); this.DialogResult = true; /*MessageBox.Show($"{Controls.Width}");*/ };
+            validerBtn.Click += (object sender, RoutedEventArgs e) => { res[0] = newBlock(); this.DialogResult = true; /*MessageBox.Show($"{Controls.Width}");*/ };
         }
 
- //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
 
-        private (Label,TextBox) newTextBox(string labelTxt, string defaultText = "")
+        private (Label, TextBox) newTextBox(string labelTxt, string defaultText = "")
         {
             Label label = newLabel(labelTxt); // pas de add() car fct 
             label.Margin = new Thickness(0, 10, 0, 0);
             TextBox textBox = new TextBox();
             textBox.Height = 20;
-            textBox.Width = (98d/100d)*Controls.Width;
+            textBox.Width = (98d / 100d) * Controls.Width;
             textBox.HorizontalAlignment = HorizontalAlignment.Center;
             textBox.Text = defaultText;
             Controls.Children.Add(textBox);
@@ -326,15 +326,15 @@ namespace MacroBoard.View
         {
             (Label label, TextBox txtBox) = newTextBox(labelTxt, defaultPath);
             label.Margin = new Thickness(0, 10, 0, 0);
-            Button browse   = newButton("browse"); //pas de Controls.Items.Add() car fct le fait deja
-            browse.Margin = new Thickness(0,5,0,0);
+            Button browse = newButton("browse"); //pas de Controls.Items.Add() car fct le fait deja
+            browse.Margin = new Thickness(0, 5, 0, 0);
             browse.Click += (object sender, RoutedEventArgs e) =>
             {
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
                 dlg.DefaultExt = ".jpeg";
                 dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|" +
-                             "JPG Files  (*.jpg)|*.jpg|"   +
+                             "JPG Files  (*.jpg)|*.jpg|" +
                              "All Files  (*)|*|" +
                              "PNG Files  (*.png)|*.png|" +
                              "GIF Files  (*.gif)|*.gif";
@@ -352,10 +352,10 @@ namespace MacroBoard.View
         private ComboBox newComboBoxBool(string labelTxt, bool value)
         {
             Label label = newLabel(labelTxt);
-            label.Margin = new Thickness(0,10,0,0);
+            label.Margin = new Thickness(0, 10, 0, 0);
             ComboBox cb = new ComboBox();
-            cb.ItemsSource = new bool[]{ true, false };
-            cb.SelectedIndex = (value)? 0:1 ;
+            cb.ItemsSource = new bool[] { true, false };
+            cb.SelectedIndex = (value) ? 0 : 1;
             //cb.Height = 20;
             cb.Width = (98d / 100d) * Controls.Width;
             Controls.Children.Add(cb);
@@ -363,7 +363,7 @@ namespace MacroBoard.View
         }
 
 
- //---------------------------------------------------------------------------
+        //---------------------------------------------------------------------------
 
 
 

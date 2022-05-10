@@ -10,11 +10,11 @@ using System.Windows.Media.Imaging;
 
 namespace MacroBoard
 {
-    internal class BlockViewModel_All : BlockViewModel
+    internal class BlockViewModel_Left : BlockViewModel
     {
         public Button Btn_Add { get; } = new();
 
-        public BlockViewModel_All(Block Block) : base(Block){}
+        public BlockViewModel_Left(Block Block) : base(Block) { }
 
         override public void Setup_Btns()
         {

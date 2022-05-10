@@ -11,13 +11,13 @@ using System.Windows.Media.Imaging;
 
 namespace MacroBoard
 {
-    internal class BlockViewModel_Workflow : BlockViewModel
+    internal class BlockViewModel_Right : BlockViewModel
     {
         public Button Btn_Delete { get; } = new();
         public Button Btn_Edit { get; } = new();
         public Button Btn_Up { get; } = new();
         public Button Btn_Down { get; } = new();
-        public BlockViewModel_Workflow(Block Block) : base(Block) { }
+        public BlockViewModel_Right(Block Block) : base(Block) { }
 
         public override void Setup_Btns()
         {
