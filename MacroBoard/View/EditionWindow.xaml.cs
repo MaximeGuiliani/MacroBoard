@@ -65,9 +65,12 @@ namespace MacroBoard
                 ListBlock_Right_XAML.Items.Add(CurrentBlockViewModel.Content);
                 BlockViewModels_Right.Add(CurrentBlockViewModel);
             }
-            MessageBox.Show(BlockViewModels_Right[0].Content.Children.Count.ToString());
-            BlockViewModels_Right[0].Content.Children[3].Visibility = Visibility.Hidden;
-            BlockViewModels_Right[^1].Content.Children[4].Visibility = Visibility.Hidden;
+            if(BlockViewModels_Right.Count > 0)
+            {
+                BlockViewModels_Right[0].Content.Children[3].Visibility = Visibility.Hidden;
+                BlockViewModels_Right[^1].Content.Children[4].Visibility = Visibility.Hidden;
+            }
+            
         }
 
 
