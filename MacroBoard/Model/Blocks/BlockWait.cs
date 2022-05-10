@@ -10,12 +10,12 @@ namespace MacroBoard
     internal class BlockWait : Block
     {
         public int hour, min, sec, sum, mili;
-        public BlockWait(int mili, int sec=0, int min=0, int hour=0)
+        public BlockWait(int mili, int sec = 0, int min = 0, int hour = 0)
         {
             base.Name = "Wait";
             this.mili = mili;
-            this.sec  = sec;
-            this.min  = min;
+            this.sec = sec;
+            this.min = min;
             this.hour = hour;
         }
 

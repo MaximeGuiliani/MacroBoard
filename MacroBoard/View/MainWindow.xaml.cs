@@ -26,23 +26,23 @@ namespace MacroBoard
         {
             List<Block> macroNotePads = new();
             macroNotePads.Add(new BlockRunApp("notepad.exe"));
-            macroNotePads.Add(new BlockWait(0, 0, 2));
+            macroNotePads.Add(new BlockWait(0, 2, 0, 0));
             macroNotePads.Add(new BlockKeyBoard("hello world ^s "));
             WorkFlow macroNotePad = new("", "macroNotePads", macroNotePads);
 
             List<Block> machromes = new();
             machromes.Add(new BlockLaunchBrowserChromex86("https://royaleapi.com/player/2GPUV2Y0"));
-            machromes.Add(new BlockWait(0, 0, 2));
+            machromes.Add(new BlockWait(0, 2, 0, 0));
             machromes.Add(new BlockScreenshot($@"C:\Users\maxim\OneDrive\Bureau\test.png", 0));
             WorkFlow machrome = new("", "machrome", machromes);
 
             List<Block> mailcros = new();
             mailcros.Add(new BlockSendEmail("test", "lpmusardo@gmail.com", "Subject"));
-            mailcros.Add(new BlockWait(0, 0, 2));
-            mailcros.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png"));
+            mailcros.Add(new BlockWait(0, 2, 0, 0));
+            mailcros.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png", loop: true, debugMode: true));
             mailcros.Add(new BlockClickL());
-            mailcros.Add(new BlockWait(0, 0, 2));
-            mailcros.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg"));
+            mailcros.Add(new BlockWait(0, 2, 0, 0));
+            mailcros.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg", loop: true));
             mailcros.Add(new BlockClickL());
 
             WorkFlow mailcro = new("", "mailcro", mailcros);
@@ -101,7 +101,7 @@ namespace MacroBoard
         private void AddWorkFlowWhileSearch(object sender, RoutedEventArgs e)
         {
             EditionWindow editionWindow = new();
-            editionWindow.ShowDialog();
+            editionWindow.Show();
             WorkFlow macroAddTest = new("", "Test6", new List<Block>());
 
             //AddWorkFLowToJSON(editionWindow.workFlow);
@@ -128,7 +128,7 @@ namespace MacroBoard
 
 
                 EditionWindow editionWindow = new();
-                editionWindow.ShowDialog();
+                editionWindow.Show();
                 WorkFlow macroAddTest = new("", "Test6", new List<Block>());
                 Workflows.Insert(Workflows.Count - 1, new(macroAddTest));
                 Workflows[^2].Btn_Delete.Click += OnClick_DeleteWorkflow;
