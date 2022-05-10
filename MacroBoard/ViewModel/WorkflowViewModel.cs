@@ -13,7 +13,7 @@ namespace MacroBoard
         public Image ImageWorkflow { get; } = new();
 
         public Button Btn_Fav { get; } = new();
-        public Button Btn_Main { get; } = new();
+        public Button Btn_Main { get; set; } = new();
 
 
         private Label Lbl_Name = new();
@@ -35,7 +35,7 @@ namespace MacroBoard
         {
             Lbl_Name.Content = Name;
             Lbl_Name.HorizontalAlignment = HorizontalAlignment.Center;
-            Lbl_Name.VerticalAlignment = VerticalAlignment.Center;
+            Lbl_Name.VerticalAlignment = VerticalAlignment.Bottom;
         }
 
 
@@ -43,7 +43,12 @@ namespace MacroBoard
         {
 
             //Main Button
-
+            Btn_Main.Content = new Image
+            {
+                Source = new BitmapImage(new Uri("../../../Resources/Button_WorkFlow.png", UriKind.Relative))
+            };
+            Btn_Main.HorizontalAlignment = HorizontalAlignment.Center;
+            Btn_Main.VerticalAlignment = VerticalAlignment.Top;
 
             Btn_Main.Background = Brushes.Transparent;
             Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
@@ -90,18 +95,7 @@ namespace MacroBoard
         {
 
             Content.Width = 100d;
-            Content.Height = 100d;
-
-            BitmapImage bitmapImg = new BitmapImage();
-
-            bitmapImg.BeginInit();
-
-            bitmapImg.UriSource = new Uri("../../../Resources/Button_WorkFlow.png", UriKind.Relative);
-
-            bitmapImg.EndInit();
-            ImageWorkflow.Source = bitmapImg;
-
-            Content.Background = new ImageBrush(bitmapImg);
+            Content.Height = 125d;
 
             Content.Children.Add(Lbl_Name);
             Content.Children.Add(Btn_Main);

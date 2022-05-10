@@ -14,46 +14,40 @@ namespace MacroBoard
 
     internal class Serialization
     {
-        WorkFlow wf;
-        public Serialization(WorkFlow wf)
+        string jsonPath;
+        public Serialization(string jsonPath)
         {
-            this.wf = wf;
+            this.jsonPath = jsonPath;
         }
 
-
-        public void Serialize(string filePath)
+        public void Serialize(WorkFlow wf)
         {
-            using (StreamWriter sw = new StreamWriter(filePath))
+            using (StreamWriter sw = new StreamWriter(jsonPath))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(writer, this.wf);
+                serializer.Serialize(writer, wf);
             }
+                
         }
 
-
-        public WorkFlow Deserialize(string filePath)
+        public WorkFlow Deserialize()
         {
-            JObject WFjson = JObject.Parse(File.ReadAllText(filePath));
-            string WFName = (string)WFjson["wf_name"]!;
-            JArray WFList = (JArray)WFjson["wf_list"]!;
+            JObject WFJson = JObject.Parse(File.ReadAllText(jsonPath));
+            string WFName = (string)WFJson["workflowName"]!;
+            string WFImgPath = (string)WFJson["imagePath"]!;
+            JArray WFList = (JArray)WFJson["workflowList"]!;
+
             int WFListSize = WFList.Count;
-            List<Block> blocks = new List<Block>();
+            List<Block> Blocks = new List<Block>();
+
             for (int i = 0; i < WFListSize; i++)
             {
                 Type BlockType = Type.GetType("MacroBoard." + (string)WFList[i]!["BlockType"]!)!;
-                blocks.Add((Block)WFList[i]!.ToObject(BlockType)!);
+                Blocks.Add((Block)WFList[i]!.ToObject(BlockType)!);
             }
-            return new WorkFlow("", WFName, blocks);
+            return new WorkFlow(WFImgPath, WFName, Blocks);
         }
-
-
-
-
-
-
-
-
 
     }
 
