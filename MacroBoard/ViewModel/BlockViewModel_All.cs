@@ -45,7 +45,7 @@ namespace MacroBoard
             BitmapImage bitmapImg = new BitmapImage();
 
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri("../../../Resources/block.png", UriKind.Relative);
+            bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Block_V2.png", UriKind.Absolute);
             bitmapImg.EndInit();
 
             Content.Background = new ImageBrush(bitmapImg);

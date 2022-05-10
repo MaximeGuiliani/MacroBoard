@@ -96,7 +96,7 @@ namespace MacroBoard
 
             bitmapImg.BeginInit();
 
-            bitmapImg.UriSource = new Uri("../../../Resources/Button_WorkFlow.png", UriKind.Relative);
+            bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
 
             bitmapImg.EndInit();
             ImageWorkflow.Source = bitmapImg;
@@ -109,7 +109,38 @@ namespace MacroBoard
             Content.Children.Add(Btn_Fav);
 
 
+            Content.MouseEnter += OnMouseEnter;
+            Content.MouseLeave += OnMouseLeave;
+        }
 
+        private void OnMouseEnter(object sender, RoutedEventArgs e)
+        {
+            BitmapImage bitmapImg = new BitmapImage();
+
+            bitmapImg.BeginInit();
+            if (CurrentworkFlow.workflowName.Equals(""))
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add_MouseOver.png", UriKind.Absolute);
+            else
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_MouseOver.png", UriKind.Absolute);
+            bitmapImg.EndInit();
+            ImageWorkflow.Source = bitmapImg;
+
+            Content.Background = new ImageBrush(bitmapImg);
+        }
+
+        private void OnMouseLeave(object sender, RoutedEventArgs e)
+        {
+            BitmapImage bitmapImg = new BitmapImage();
+
+            bitmapImg.BeginInit();
+            if (CurrentworkFlow.workflowName.Equals(""))
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add.png", UriKind.Absolute);
+            else
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
+            bitmapImg.EndInit();
+            ImageWorkflow.Source = bitmapImg;
+
+            Content.Background = new ImageBrush(bitmapImg);
         }
 
 

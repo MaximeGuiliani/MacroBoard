@@ -16,7 +16,14 @@
 
 	<ItemGroup>
 		<None Remove="Resources\add.png" />
+		<None Remove="Resources\Block_V2.png" />
 		<None Remove="Resources\Button_WorkFlow.png" />
+		<None Remove="Resources\Button_WorkFlow_Add.png" />
+		<None Remove="Resources\Button_WorkFlow_Add_MouseOver.png" />
+		<None Remove="Resources\Button_WorkFlow_Add_V3.png" />
+		<None Remove="Resources\Button_WorkFlow_MouseOver.png" />
+		<None Remove="Resources\Button_WorkFlow_V2.png" />
+		<None Remove="Resources\Button_WorkFlow_V3.png" />
 		<None Remove="Resources\Icon.png" />
 	</ItemGroup>
 
@@ -26,6 +33,21 @@
 
 	<ItemGroup>
 		<Content Include="icone2.ico" />
+		<Content Include="Resources\Block_V2.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_Add.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_MouseOver.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_V2.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_V3.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Include="Resources\macro_img.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
@@ -39,6 +61,12 @@
 		<Content Include="Resources\Block.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Button_WorkFlow_Add_MouseOver.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MVVMEssentials.WPF" Version="1.0.2" />

@@ -173,7 +173,7 @@ namespace MacroBoard
             workflowViews[^1].Btn_Main.Click += AddWorkFlow;
             BitmapImage bitmapImg = new BitmapImage();
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri("../../../Resources/add.png", UriKind.Relative);
+            bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add.png", UriKind.Absolute);
             bitmapImg.EndInit();
             workflowViews[^1].Content.Background = new ImageBrush(bitmapImg);
             ListMacro.Items.Add(workflowViews[^1].Content);
