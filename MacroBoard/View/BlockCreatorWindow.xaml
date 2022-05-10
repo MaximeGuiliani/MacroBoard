@@ -15,13 +15,8 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel  Name="Controls"  VerticalAlignment="Top" Width="300" HorizontalAlignment="Center" Margin="0,40,0,0" Grid.Row="0">
-                    <StackPanel.Resources>
-                        <Style TargetType="Button">
-                            <Setter Property="Margin" Value="15"/>
-                        </Style>
-                    </StackPanel.Resources>
                 </StackPanel>
-                <Button  Name="validerBtn" IsDefault="True" Margin="0,30,80,0" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Right" Click="validerBtn_Click" Grid.Row="1" >Valider</Button>
+                <Button  Name="validerBtn" IsDefault="True" Margin="0,30,80,0" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="1" >Valider</Button>
                 <Button  Name="annluer" IsCancel="True"  Height="30" Margin="80,30,0,0" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.794,0.418" Grid.Row="1"  >Annuler</Button>
             </Grid>
         </ScrollViewer>

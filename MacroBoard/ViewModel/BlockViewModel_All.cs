@@ -14,7 +14,7 @@ namespace MacroBoard
     {
         public Button Btn_Add { get; } = new();
 
-        public BlockViewModel_All(string Name, Block Block) : base(Name, Block){}
+        public BlockViewModel_All(Block Block) : base(Block){}
 
         override public void Setup_Btns()
         {

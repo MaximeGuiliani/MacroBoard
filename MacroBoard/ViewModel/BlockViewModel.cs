@@ -18,26 +18,15 @@ namespace MacroBoard
         public Grid Content { get; } = new();
         public Block Block { get; set; }
 
-        public BlockViewModel(string Name, Block Block)
+
+        public BlockViewModel(Block Block)
         {
             this.Block = Block;
             Setup_Btns();
-            Setup_Name(Name);
+            Setup_Name(Block.Name);
             Setup_Grid();
         }
 
-        public BlockViewModel(Block block)
-        {
-            this.Block = block;
-            //block.Execute();
-            Setup_Name(block.BlockType);
-            Setup_Block_Creating_Window(block);
-        }
-
-        private void Setup_Block_Creating_Window(Block block)
-        {
-
-        }
 
         private void Setup_Name(string Name)
         {

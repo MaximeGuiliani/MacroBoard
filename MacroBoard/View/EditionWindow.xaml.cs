@@ -38,10 +38,38 @@ namespace MacroBoard
 
         private void InitListBlock_All()
         {
-            BlockViewModels_Left.Add(new BlockViewModel_All("Restart Computer", new BlockRestart()));
-            BlockViewModels_Left.Add(new BlockViewModel_All("Run Application", new BlockRunApp("notepad.exe")));
-            BlockViewModels_Left.Add(new BlockViewModel_All("Wait", new BlockWait(0, 0, 0)));
-            BlockViewModels_Left.Add(new BlockViewModel_All("Capture", new BlockScreenshot("", 1)));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockClickL()));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockClickR()));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockCloseDesiredApplication("")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockCopy(@"C:\",@"C:\")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockCreateTextFile("","fileName",".txt","blabla")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockDeleteDirectory(@"C:\")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockDownloadFile(@"http:\\", "fileName")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockHibernate()));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockInvokeAutomationId("")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockKeyBoard("")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockLaunchBrowserChrome(@"https:\\")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockLaunchBrowserChromex86(@"https:\\")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockLaunchBrowserFirefox(@"https:\\")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockLaunchEdgeBrowser(@"https:\\")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockLock()));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockMessageBoxBlock("a", "b")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockMove(@"C:\", @"C:\")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockRecognition("")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockRestart()));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockRunApp("")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockRunScript("")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockScreenshot("", 0)));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockSendEmail("","","")));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockSetCursor(0,0)));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockShutdown()));
+            BlockViewModels_All.Add(new BlockViewModel_All(new BlockWait(0, 0, 0)));
+
+
+
+
+
+
 
 
             foreach (BlockViewModel_All blockView in BlockViewModels_Left)
@@ -85,6 +113,7 @@ namespace MacroBoard
             blockCreatorWindow.ShowDialog();
             Block? newBlock = null;
 
+
             if (blockCreatorWindow.DialogResult == false)
                 return;
             newBlock= res[0];
@@ -93,7 +122,8 @@ namespace MacroBoard
             //---------------------------------------------------------------------------
 
 
-            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(BlockViewModels_Left[currentItemPos].Block.Name, newBlock); //wrapper de block à droite
+            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(newBlock); //wrapper de block à droite
+
             CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
             CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
             CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
