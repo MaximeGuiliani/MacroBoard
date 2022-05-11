@@ -23,6 +23,7 @@ namespace MacroBoard{
 
         public BlockScreenshot(string fileName, int screenNumber)
         {
+            base.info = "Take a screenshot.";
             base.Name = "Screenshot";
             this.fileName = fileName;
             this.screenNumber = screenNumber;

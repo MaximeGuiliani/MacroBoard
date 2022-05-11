@@ -15,6 +15,7 @@ namespace MacroBoard
 
         public BlockSendEmail(string body, string to, string subject)
         {
+            base.info = "Preparation for an email send.";
             base.Name = "Send Email";
             this.body = body;   
             this.to = to;       

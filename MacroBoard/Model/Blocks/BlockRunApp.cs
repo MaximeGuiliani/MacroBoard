@@ -13,8 +13,9 @@ namespace MacroBoard
         public string url;
         public BlockRunApp(string url)
         {
+            base.info = "Launch the given application.";
             base.Name = "Run App";
-            url = url;
+            this.url = url;
         }
 
         public override void Execute()

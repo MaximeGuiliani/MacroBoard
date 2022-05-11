@@ -11,6 +11,7 @@ namespace MacroBoard
     {
         public BlockRestart()
         {
+            base.info = "Restart the computer.";
             base.Name = "Restart";
         }
 

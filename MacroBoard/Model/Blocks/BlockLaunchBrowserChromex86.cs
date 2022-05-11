@@ -21,7 +21,7 @@ namespace MacroBoard
             this.address = address;
             base.Name = "LaunchBrowserChrome";
             base.LogoUrl = "";
-            base.info = "Lancer le navigateur Chrome sur une url";
+            base.info = "Start the browser Chrome (.exe in folder x86) on a new tab with the specified address.";
         }
 
         public override void Execute()

@@ -12,6 +12,7 @@ namespace MacroBoard
         public int hour, min, sec, sum, mili;
         public BlockWait(int mili, int sec = 0, int min = 0, int hour = 0)
         {
+            base.info = "Wait the specified time.";
             base.Name = "Wait";
             this.mili = mili;
             this.sec = sec;
@@ -22,7 +23,9 @@ namespace MacroBoard
         public override void Execute()
         {
             sum = mili + sec * 1_000 + min * 60_000 + hour * 3_600_000;
-            Thread.Sleep(sum);
+            //Thread.Sleep(sum);
+            Task.Delay(sum).Wait();
+
         }
 
 

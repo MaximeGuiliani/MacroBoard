@@ -11,7 +11,8 @@ namespace MacroBoard
     {
         public BlockShutdown()
         {
-        base.Name = "Shut Down";
+            base.info = "Shutdown the computer.";
+            base.Name = "Shut Down";
         }
 
         public override void Execute()

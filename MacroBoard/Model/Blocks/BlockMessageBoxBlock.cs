@@ -17,6 +17,7 @@ namespace MacroBoard
         public BlockMessageBoxBlock(string param1, string param2)
         {
             base.Name = "Pop Up";
+            base.info = "Block useful for debugging.";
             this.param1 = param1;
             this.param2 = param2;
         }

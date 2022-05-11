@@ -12,6 +12,7 @@ namespace MacroBoard
         
         public BlockLock()
         {
+            base.info = "Lock the screen of the computer.";
             base.Name = "Lock";
         }
         public override void Execute()

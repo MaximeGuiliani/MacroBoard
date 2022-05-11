@@ -19,9 +19,9 @@ namespace MacroBoard
         public BlockLaunchEdgeBrowser(String address)
         {
             this.address = address;
+            base.info = "Start the Edge browser on a new tab with the specifiedaddress.";
             base.Name = "LaunchEdgeBrowser";
             base.LogoUrl = "";
-            base.info = "Lancer le navigateur Edge sur une url";
         }
 
         public override void Execute()

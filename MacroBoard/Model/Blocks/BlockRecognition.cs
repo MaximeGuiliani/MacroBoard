@@ -42,6 +42,7 @@ namespace MacroBoard
         {
             //heritage
             base.Name = "Recognize image";
+            base.info = "Recognize a given control screenshot in the current screen and set the cursor position in its center.";
             //direct from constructor
             this.templatePath   = templatePath;
             this.xInterest      = xInterest;

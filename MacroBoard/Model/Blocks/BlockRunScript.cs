@@ -14,6 +14,7 @@ namespace MacroBoard
 
         public BlockRunScript(string script)
         {
+            base.info = "Execute a script with powershell.";
             base.Name = "Run Script";
             this.script = script;
         }
