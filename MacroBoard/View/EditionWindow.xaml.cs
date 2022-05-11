@@ -327,7 +327,27 @@ namespace MacroBoard
 
         }
 
+       
+
+ 
+
+        private void enter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Grid grid = new Grid();
+            grid.Height = 50;
+            grid.Width = 50;
+            grid.Background = new SolidColorBrush(Colors.Black);
+            grid.Name = "heba";
+            test.Children.Add(grid);
+            
 
 
+        }
+
+        private void leave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            test.Children.RemoveAt(test.Children.Count-1);
+            
+        }
     }
 }
