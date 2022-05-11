@@ -14,6 +14,7 @@ namespace MacroBoard
         public BlockCloseDesiredApplication(String appName)
         {
             base.Name = "CloseDesiredApplication";
+            base.info = "Close desired application.";
             this.appName = appName;
 
         }

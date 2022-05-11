@@ -11,6 +11,7 @@ namespace MacroBoard
         public BlockHibernate()
         {
             base.Name = "Hibernate";
+            base.info = "Sleep/hibernate the computer.";
         }
         public override void Execute()
         {

@@ -13,6 +13,7 @@ namespace MacroBoard
         public BlockCreateTextFile(string filePath, string fileName, string fileType, string text)
         {
             base.Name = "Create text file";
+            base.info = "Create a text file of any type.";
             _filePath = filePath;
             _fileName = fileName;
             _fileType = fileType;
