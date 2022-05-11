@@ -16,6 +16,7 @@ namespace MacroBoard
         public BlockDownloadFile(String address, string fileName)
         {
             base.Name = "DownloadFile";
+            base.info = "Downloads the resource with the specified URI to a local file.";
             this.address = address;
             this.fileName = fileName;
         }

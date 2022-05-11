@@ -12,6 +12,7 @@ namespace MacroBoard
         public BlockDeleteDirectory(String path)
         {
             base.Name = "Delete Directory";
+            base.info = "Deletes the specified directory.";
             this.path = path;   
         }
         public override void Execute()

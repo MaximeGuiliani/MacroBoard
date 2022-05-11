@@ -15,7 +15,9 @@ namespace MacroBoard
         public BlockClickR()
         {
             base.Name = "Right Click";
+            base.info = "Simulate a Right mouse click in the current position of the mouse pointer.";
         }
+
 
         [Flags]
         public enum MouseEventFlags
