@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -24,41 +26,8 @@ namespace MacroBoard
         }
         private void InitWorkflows()
         {
-            List<Block> macroNotePads = new();
-            macroNotePads.Add(new BlockRunApp("notepad.exe"));
-            macroNotePads.Add(new BlockWait(0, 2, 0, 0));
-            macroNotePads.Add(new BlockKeyBoard("hello world ^s "));
-            WorkFlow macroNotePad = new("", "macroNotePads", macroNotePads);
-
-            List<Block> machromes = new();
-            machromes.Add(new BlockLaunchBrowserChromex86("https://royaleapi.com/player/2GPUV2Y0"));
-            machromes.Add(new BlockWait(0, 2, 0, 0));
-            machromes.Add(new BlockScreenshot($@"C:\Users\maxim\OneDrive\Bureau\test.png", 0));
-            WorkFlow machrome = new("", "machrome", machromes);
-
-            List<Block> mailcros = new();
-            mailcros.Add(new BlockSendEmail("test", "lpmusardo@gmail.com", "Subject"));
-            mailcros.Add(new BlockWait(0, 2, 0, 0));
-            mailcros.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\gmail.png", loop: true, debugMode: true));
-            mailcros.Add(new BlockClickL());
-            mailcros.Add(new BlockWait(0, 2, 0, 0));
-            mailcros.Add(new BlockRecognition($@"C:\Users\maxim\OneDrive\Bureau\send.jpeg", loop: true));
-            mailcros.Add(new BlockClickL());
-
-            WorkFlow mailcro = new("", "mailcro", mailcros);
-            WorkFlow lpmacro = new("", "lpmacro", new List<Block>());
-            WorkFlow macro4 = new("", "Test4", new List<Block>());
-            WorkFlow macro5 = new("", "Test5", new List<Block>());
-            FavWorkflows.Add(new(macroNotePad));
-            FavWorkflows.Add(new(machrome));
-            FavWorkflows.Add(new(mailcro));
-            FavWorkflows.Add(new(lpmacro));
-            Workflows.Add(new(macroNotePad));
-            Workflows.Add(new(machrome));
-            Workflows.Add(new(mailcro));
-            Workflows.Add(new(lpmacro));
-            Workflows.Add(new(macro4));
-            Workflows.Add(new(macro5));
+            getWorkFlowsFromJson();
+            getFavsFromJson();
 
             foreach (WorkflowView FavWorkflow in FavWorkflows)
             {
@@ -70,7 +39,7 @@ namespace MacroBoard
                     FavWorkflow.Btn_Main.Content =
                         new Image
                         {
-                            Source = new BitmapImage(new Uri(FavWorkflow.CurrentworkFlow.imagePath, UriKind.Relative))
+                            Source = new BitmapImage(new Uri(FavWorkflow.CurrentworkFlow.imagePath, UriKind.Absolute))
                         };
                 }
                 ListFav.Items.Add(FavWorkflow.Content);
@@ -84,33 +53,34 @@ namespace MacroBoard
                 {
                     workflowView.Btn_Main.Content = new Image
                     {
-                        Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.Relative))
+                        Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.Absolute))
                     };
                 }
                 ListMacro.Items.Add(workflowView.Content);
             }
+
             //add buton initialization
             AddAddButton(Workflows);
-        }
-
-        private void AddWorkFLowToJSON(WorkFlow workFlow)
-        {
-
         }
 
         private void AddWorkFlowWhileSearch(object sender, RoutedEventArgs e)
         {
             EditionWindow editionWindow = new();
-            editionWindow.Show();
-            WorkFlow macroAddTest = new("", "Test6", new List<Block>());
+            editionWindow.ShowDialog();
+
+            WorkFlow wf = editionWindow.WorkFlow;
+            // WorkFlow macroAddTest = new("", "Test6", new List<Block>());
 
             //AddWorkFLowToJSON(editionWindow.workFlow);
 
-            Workflows.Insert(Workflows.Count - 1, new(macroAddTest));
+            Workflows.Insert(Workflows.Count - 1, new(wf));
             Workflows[^2].Btn_Delete.Click += OnClick_DeleteWorkflow;
             Workflows[^2].Btn_Fav.Click += OnClick_Fav;
             Workflows[^2].Btn_Main.Click += Button_Click;
-
+            Workflows[^2].Btn_Main.Content = new Image
+            {
+                Source = new BitmapImage(new Uri(wf.imagePath, UriKind.Absolute))
+            };
             if (Workflows.Count == 11 && Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
             {
                 Workflows.RemoveAt(Workflows.Count - 1);
@@ -125,21 +95,19 @@ namespace MacroBoard
             }
             else
             {
-
-
                 EditionWindow editionWindow = new();
-                editionWindow.Show();
-                WorkFlow macroAddTest = new("", "Test6", new List<Block>());
-                Workflows.Insert(Workflows.Count - 1, new(macroAddTest));
+                editionWindow.ShowDialog();
+                WorkFlow wf = editionWindow.WorkFlow;
+                Workflows.Insert(Workflows.Count - 1, new(wf));
                 Workflows[^2].Btn_Delete.Click += OnClick_DeleteWorkflow;
                 Workflows[^2].Btn_Fav.Click += OnClick_Fav;
                 Workflows[^2].Btn_Main.Click += Button_Click;
-                if (!Workflows[^2].CurrentworkFlow.imagePath.Equals(""))
+                if (!Workflows[^2].CurrentworkFlow.imagePath.Equals("") && !Workflows[^2].CurrentworkFlow.imagePath.Equals("Select folder"))
                 {
                     Workflows[^2].Btn_Main.Content
                  = new Image
                  {
-                     Source = new BitmapImage(new Uri(Workflows[^2].CurrentworkFlow.imagePath, UriKind.Relative))
+                     Source = new BitmapImage(new Uri(Workflows[^2].CurrentworkFlow.imagePath, UriKind.Absolute))
                  };
 
 
@@ -163,20 +131,15 @@ namespace MacroBoard
             }
         }
 
-        private void InitWorkflows(List<WorkFlow> workflows)
-        {
 
-        }
-        private void InitFavWorkflows(List<WorkFlow> workflows)
-        {
-
-        }
 
         private void OnClick_Delete_Fav(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
+            Serialization.DeleteFAV(FavWorkflows[currentItemPos].CurrentworkFlow.workflowName);
             ListFav.Items.RemoveAt(currentItemPos);
             FavWorkflows.RemoveAt(currentItemPos);
+
         }
 
 
@@ -186,7 +149,7 @@ namespace MacroBoard
 
             if (!isInsearch)
             {
-                RemoveWorkflow(Workflows, currentItemPos);
+                RemoveWorkflow(currentItemPos);
             }
             else
             {
@@ -222,7 +185,7 @@ namespace MacroBoard
             bool test = false;
             while (currentItemPosFav < FavWorkflows.Count)
             {
-                if (!wfs[buttonClickedPos].CurrentworkFlow.Equals(FavWorkflows[currentItemPosFav].CurrentworkFlow))
+                if (!wfs[buttonClickedPos].CurrentworkFlow.workflowName.Equals(FavWorkflows[currentItemPosFav].CurrentworkFlow.workflowName))
                 {
                     currentItemPosFav++;
                 }
@@ -234,6 +197,7 @@ namespace MacroBoard
             }
             if (test)
             {
+                Serialization.DeleteFAV(FavWorkflows[currentItemPosFav].CurrentworkFlow.workflowName);
                 FavWorkflows.RemoveAt(currentItemPosFav);
                 ListFav.Items.RemoveAt(currentItemPosFav);
             }
@@ -249,16 +213,17 @@ namespace MacroBoard
                     break;
                 }
             }
+            Serialization.DeleteWF(Workflows[currentItemPos].CurrentworkFlow.workflowName);
             Workflows.RemoveAt(currentItemPos);
             ListMacro.Items.RemoveAt(buttonClickedPos);
         }
-        private void RemoveWorkflow(List<WorkflowView> wfs, int buttonCLickedPos)
+        private void RemoveWorkflow(int buttonCLickedPos)
         {
             int currentItemPosFav = 0;
             bool test = false;
             while (currentItemPosFav < FavWorkflows.Count)
             {
-                if (!wfs[buttonCLickedPos].CurrentworkFlow.Equals(FavWorkflows[currentItemPosFav].CurrentworkFlow))
+                if (!Workflows[buttonCLickedPos].CurrentworkFlow.workflowName.Equals(FavWorkflows[currentItemPosFav].CurrentworkFlow.workflowName))
                 {
                     currentItemPosFav++;
                 }
@@ -270,11 +235,13 @@ namespace MacroBoard
             }
             if (test)
             {
+                Serialization.DeleteFAV(FavWorkflows[currentItemPosFav].CurrentworkFlow.workflowName);
                 FavWorkflows.RemoveAt(currentItemPosFav);
                 ListFav.Items.RemoveAt(currentItemPosFav);
             }
-            ListMacro.Items.RemoveAt(currentItemPosFav);
-            Workflows.RemoveAt(currentItemPosFav);
+            Serialization.DeleteWF(Workflows[buttonCLickedPos].CurrentworkFlow.workflowName);
+            ListMacro.Items.RemoveAt(buttonCLickedPos);
+            Workflows.RemoveAt(buttonCLickedPos);
         }
         private void OnClick_Fav(object sender, RoutedEventArgs e)
         {
@@ -303,10 +270,11 @@ namespace MacroBoard
                         newFav.Btn_Main.Content
                             = new Image
                             {
-                                Source = new BitmapImage(new Uri(newFav.CurrentworkFlow.imagePath, UriKind.Relative))
+                                Source = new BitmapImage(new Uri(newFav.CurrentworkFlow.imagePath, UriKind.Absolute))
                             };
                     }
-
+                    Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + wf.workflowName + ".json");
+                    serialization.Serialize(wf);
                     ListFav.Items.Add(newFav.Content);
                     FavWorkflows.Add(newFav);
                 }
@@ -318,7 +286,7 @@ namespace MacroBoard
             bool contains = false;
             foreach (WorkflowView workflowView in workflowViews)
             {
-                if (workflowView.CurrentworkFlow.Equals(workFlow))
+                if (workflowView.CurrentworkFlow.workflowName.Equals(workFlow.workflowName))
                 {
                     return true;
                 }
@@ -385,7 +353,8 @@ namespace MacroBoard
             if (isEdition)
             {
                 EditionWindow editionWindow = new(wf);
-                editionWindow.Show();
+                editionWindow.ShowDialog();
+
             }
             else
             {
@@ -408,5 +377,33 @@ namespace MacroBoard
                 isEdition = true;
             }
         }
+
+
+        private void getFavsFromJson()
+        {
+            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON", "*", SearchOption.TopDirectoryOnly).Length;
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON");
+            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+            foreach (FileInfo file in files)
+            {
+                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + file.Name);
+                FavWorkflows.Add(new(serialization.Deserialize()));
+            }
+        }
+
+        private void getWorkFlowsFromJson()
+        {
+            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON", "*", SearchOption.TopDirectoryOnly).Length;
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON");
+            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+            foreach (FileInfo file in files)
+            {
+                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + file.Name);
+                Workflows.Add(new(serialization.Deserialize()));
+            }
+        }
     }
+
+
+
 }

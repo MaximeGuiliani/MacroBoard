@@ -15,7 +15,7 @@ namespace MacroBoard
     /// </summary>
     public partial class EditionWindow : Window
     {
-        WorkFlow WorkFlow = new WorkFlow("", "", new());
+        public WorkFlow WorkFlow = new WorkFlow("", "", new());
 
         private List<BlockViewModel_Left> BlockViewModels_Left = new();
         private List<BlockViewModel_Right> BlockViewModels_Right = new();
@@ -292,11 +292,11 @@ namespace MacroBoard
             this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
             this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
 
-            string JsonPath = AppDomain.CurrentDomain.BaseDirectory + "/BLOCK_JSON_TEST.json";
-
+            string JsonPath = AppDomain.CurrentDomain.BaseDirectory + @"Resources\WFJSON\" + WorkFlow.workflowName + ".json";
             Serialization serialization = new Serialization(JsonPath);
 
             serialization.Serialize(WorkFlow);
+            this.Close();
         }
 
         private void selectImage(object sender, RoutedEventArgs e)

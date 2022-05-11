@@ -28,7 +28,7 @@ namespace MacroBoard
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(writer, wf);
             }
-                
+
         }
 
         public WorkFlow Deserialize()
@@ -47,6 +47,18 @@ namespace MacroBoard
                 Blocks.Add((Block)WFList[i]!.ToObject(BlockType)!);
             }
             return new WorkFlow(WFImgPath, WFName, Blocks);
+        }
+
+
+        public static void DeleteFAV(string WorkFlowName)
+        {
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + WorkFlowName + ".json");
+        }
+
+        public static void DeleteWF(string WorkFlowName)
+        {
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + WorkFlowName + ".json");
+
         }
 
     }

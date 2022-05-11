@@ -52,7 +52,7 @@
                 </Grid>
 
                 <Grid Grid.Column="2">
-                    <Button x:Name="Btn_Save" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="86" Click="Button_Save" />
+                    <Button ToolTip="KEKW"  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="86" Click="Button_Save" />
                 </Grid>
 
             </Grid>
