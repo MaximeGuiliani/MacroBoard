@@ -43,8 +43,6 @@ namespace MacroBoard
         {
 
             //Main Button
-
-
             Btn_Main.Background = Brushes.Transparent;
             Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
 
@@ -52,12 +50,12 @@ namespace MacroBoard
             Btn_Main.Height = 100d;
 
 
-
             //Delete Button
             TextBlock txtBlock = new();
 
             txtBlock.Text = "🚫";
             txtBlock.Foreground = Brushes.Red;
+            txtBlock.FontSize = 25d;
 
 
             Btn_Delete.Content = txtBlock;
@@ -69,12 +67,11 @@ namespace MacroBoard
             Btn_Delete.VerticalAlignment = VerticalAlignment.Top;
 
 
-
-
             //Edit Button
             txtBlock = new();
             txtBlock.Text = "★";
             txtBlock.Foreground = Brushes.Yellow;
+            txtBlock.FontSize = 25d;
 
             Btn_Fav.Content = txtBlock;
             Btn_Fav.Background = Brushes.Transparent;
@@ -136,7 +133,7 @@ namespace MacroBoard
             if (CurrentworkFlow.workflowName.Equals(""))
                 bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add.png", UriKind.Absolute);
             else
-                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V2.png", UriKind.Absolute);
             bitmapImg.EndInit();
             ImageWorkflow.Source = bitmapImg;
 
