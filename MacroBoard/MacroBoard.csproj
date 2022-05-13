@@ -25,6 +25,10 @@
 		<None Remove="Resources\Button_WorkFlow_V2.png" />
 		<None Remove="Resources\Button_WorkFlow_V3.png" />
 		<None Remove="Resources\Icon.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockClickL.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockClickR.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockSendMail.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -46,6 +50,18 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\Button_WorkFlow_V3.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Logo_Blocks\Logo_BlockClickL.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Logo_Blocks\Logo_BlockClickR.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Logo_Blocks\Logo_BlockSendMail.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\macro_img.png">

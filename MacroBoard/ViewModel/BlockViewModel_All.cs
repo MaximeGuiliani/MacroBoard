@@ -14,7 +14,7 @@ namespace MacroBoard
     {
         public Button Btn_Add { get; } = new();
 
-        public BlockViewModel_All(string Name, Block Block) : base(Name, Block){}
+        public BlockViewModel_All(Block Block) : base(Block){}
 
         override public void Setup_Btns()
         {
@@ -40,12 +40,12 @@ namespace MacroBoard
             thickness.Bottom = 8d;
             Content.Margin = thickness;
             Content.Width = 330d;
-            Content.Height = 45d;
+            Content.Height = 60d;
 
             BitmapImage bitmapImg = new BitmapImage();
 
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Block_V2.png", UriKind.Absolute);
+            bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Block.png", UriKind.Absolute);
             bitmapImg.EndInit();
 
             Content.Background = new ImageBrush(bitmapImg);

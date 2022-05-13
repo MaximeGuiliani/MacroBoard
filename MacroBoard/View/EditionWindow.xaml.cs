@@ -37,10 +37,10 @@ namespace MacroBoard
 
         private void InitListBlock_All()
         {
-            BlockViewModels_Left.Add(new BlockViewModel_All("Restart Computer", new BlockRestart()));
-            BlockViewModels_Left.Add(new BlockViewModel_All("Run Application", new BlockRunApp("notepad.exe")));
-            BlockViewModels_Left.Add(new BlockViewModel_All("Wait", new BlockWait(0, 0, 0)));
-            BlockViewModels_Left.Add(new BlockViewModel_All("Capture", new BlockScreenshot("", 1)));
+            BlockViewModels_Left.Add(new BlockViewModel_All(new BlockRestart()));
+            BlockViewModels_Left.Add(new BlockViewModel_All(new BlockRunApp("notepad.exe")));
+            BlockViewModels_Left.Add(new BlockViewModel_All(new BlockWait(0, 0, 0)));
+            BlockViewModels_Left.Add(new BlockViewModel_All(new BlockScreenshot("", 1)));
 
 
             foreach (BlockViewModel_All blockView in BlockViewModels_Left)
@@ -77,7 +77,7 @@ namespace MacroBoard
             //---------------------------------------------------------------------------
 
 
-            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(BlockViewModels_Left[currentItemPos].Block.Name, newBlock); //wrapper de block à droite
+            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(newBlock); //wrapper de block à droite
             CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
             CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
             CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
@@ -147,7 +147,7 @@ namespace MacroBoard
             newBlock = res[0];
 
                 
-            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(BlockViewModels_Right[currentItemPos].Block.Name, newBlock); //wrapper de block à droite
+            BlockViewModel_Workflow CurrentBlockViewModel = new BlockViewModel_Workflow(newBlock); //wrapper de block à droite
                 
             WorkFlow.workflowList.RemoveAt(currentItemPos); 
             WorkFlow.workflowList.Insert(currentItemPos, CurrentBlockViewModel.Block);
