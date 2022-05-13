@@ -1,14 +1,14 @@
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using OpenCvSharp;
-using OpenCvSharp.Extensions;
 using System.Drawing.Imaging;
+using OpenCvSharp.Extensions;
+using System.Windows.Forms;
+using System.Drawing;
+using OpenCvSharp;
+using System.Linq;
+using System;
+using System.Threading.Tasks;
 using System.Threading;
+using System.Text;
 
 
 namespace MacroBoard
@@ -67,10 +67,9 @@ namespace MacroBoard
         }
 
 
-        //NOTE: les valeurs affichées correspondent au nombre de pixels sans l'échelonnage appliqué (ex:150%)
         public override void Execute()
         {
-            Mat image = (debugMode) ? new Mat(FileScreenShot()) : BitmapConverter.ToMat(BitmapScreenShot());
+            Mat image    = (debugMode) ? new Mat(FileScreenShot()) : BitmapConverter.ToMat(BitmapScreenShot());
             Mat template = new Mat(templatePath);
 
             (double maxVal, OpenCvSharp.Point? maxLoc, double scale) found = find(image, template);
@@ -80,19 +79,14 @@ namespace MacroBoard
                                                                (found.maxLoc?.Y * ((0 < found.scale && found.scale < 1) ? (1 / found.scale) : 1) + rectOfInterest.Y).GetValueOrDefault());
             OpenCvSharp.Point rectPt2 = new OpenCvSharp.Point(rectPt1.X + ((1 < found.scale) ? template.Width / found.scale : template.Width),
                                                               rectPt1.Y + ((1 < found.scale) ? template.Height / found.scale : template.Height));
-            Cv2.Rectangle(image, rectPt1, rectPt2, Scalar.Red, 1);
-
 
             OpenCvSharp.Point CirclePt = new OpenCvSharp.Point(rectPt1.X + ((1 < found.scale) ? template.Width / found.scale : template.Width) / 2 + offSetX,
                                                                 rectPt1.Y + ((1 < found.scale) ? template.Height / found.scale : template.Height) / 2 + offSetY);
-            Cv2.Circle(image, CirclePt, 1, Scalar.Purple, 5);
             SetCursorPos(CirclePt.X, CirclePt.Y);
 
 
-            if (debugMode) image.SaveImage(this.debugDirPath + @$"macroboard_{GetType().Name}_screenshot_annotated.png");
-            //Cv2.ImShow("resizedImageCrop", resizedImageCrop);
-            //Cv2.ImShow("resizedTemplate", resizedTemplate);
-            //Cv2.ImShow("image", image);
+            if (debugMode) Debug(image, rectPt1, rectPt2, CirclePt, found);
+
         }
 
 
@@ -114,7 +108,6 @@ namespace MacroBoard
                 }
                 else if (1 < scale)
                 {
-                    //MessageBox.Show($"wo:{template.Width} w:{template.Width / scale}  ho:{template.Height}  h:{template.Height / scale}  scale: {scale}");
                     Cv2.Resize(template, resizedTemplate, new OpenCvSharp.Size(template.Width / scale, template.Height / scale));
                     result = imageCrop.MatchTemplate(resizedTemplate, this.matchModes);
                 }
@@ -137,7 +130,8 @@ namespace MacroBoard
         {
             Bitmap screenShotBitmap = new Bitmap(widthScreen, heightScreen, PixelFormat.Format32bppRgb);
             Graphics screenShotGraphics = Graphics.FromImage(screenShotBitmap);
-            screenShotGraphics.CopyFromScreen(0, 0, 0, 0, new System.Drawing.Size(widthScreen, heightScreen));
+            // NOTE: CopyFromScreen() possede un overload avec gestion des couleurs si besoin
+            screenShotGraphics.CopyFromScreen(Screen.AllScreens[screenNumber].Bounds.X, Screen.AllScreens[screenNumber].Bounds.Y, 0, 0, new System.Drawing.Size(widthScreen, heightScreen));
             return screenShotBitmap;
         }
 
@@ -150,13 +144,37 @@ namespace MacroBoard
         }
 
 
+        private void Debug(Mat image, OpenCvSharp.Point rectPt1, OpenCvSharp.Point rectPt2, OpenCvSharp.Point CirclePt, (double, OpenCvSharp.Point?, double scale) found)
+        {
+            Mat overlay = image.Clone();
+            double alpha = 0.4d;
+            Cv2.Rectangle(overlay, new OpenCvSharp.Point(0, 0), new OpenCvSharp.Point(850, 112), Scalar.White, -1);
+            Cv2.Rectangle(overlay, rectPt1, rectPt2, Scalar.Red, -1);
+            Cv2.AddWeighted(overlay, alpha, image, 1 - alpha, 0, image);
+            //
+            Cv2.Rectangle(image, rectPt1, rectPt2, Scalar.Red, 1);
+            Cv2.Circle(image, CirclePt, 1, Scalar.Purple, 5);
+            //
+            Cv2.PutText(image, $"screenNumber: {screenNumber}; x_interest: {xInterest}; y_interest: {yInterest}; w_Interest: {widthInterest}; h_Interest: {heightInterest}; scale: {scale}", new OpenCvSharp.Point(2, 20), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
+            Cv2.PutText(image, $"Loop: {loop}; DebugMode: {debugMode}; Method: {matchModes}", new OpenCvSharp.Point(2, 40), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
+            Cv2.PutText(image, $"w_screen: {widthScreen}; h_screen: {heightScreen}", new OpenCvSharp.Point(2, 70), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
+            Cv2.PutText(image, $"rect_interest_x: {rectOfInterest.X}; rect_interest_y: {rectOfInterest.Y}; rect_interest_w: {rectOfInterest.Width}; rect_interest_h: {rectOfInterest.Height}", new OpenCvSharp.Point(2, 90), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
+            Cv2.PutText(image, $"nb_tried_scales: {tryScales.Count()} found_scale: {found.scale}", new OpenCvSharp.Point(2, 110), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
+            //
+            image.SaveImage(this.debugDirPath + @$"macroboard_{GetType().Name}_screenshot_annotated.png");
+            //Cv2.ImShow("resizedImageCrop", resizedImageCrop);
+            //Cv2.ImShow("resizedTemplate", resizedTemplate);
+            //Cv2.ImShow("image", image);
+        }
+
+
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern bool SetCursorPos(int x, int y);
 
 
 
+
+
     }
 }
-
-
 //TODO: check rect of interest ne dépasse pas de l'image
