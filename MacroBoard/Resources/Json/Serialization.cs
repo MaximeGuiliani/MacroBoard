@@ -61,6 +61,38 @@ namespace MacroBoard
 
         }
 
+
+        public static List<WorkflowView> getFavsFromJson()
+        {
+            List<WorkflowView> FavWorkflows = new();
+            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON", "*", SearchOption.TopDirectoryOnly).Length;
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON");
+            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+            foreach (FileInfo file in files)
+            {
+                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + file.Name);
+                FavWorkflows.Add(new(serialization.Deserialize()));
+            }
+
+            return FavWorkflows;
+        }
+
+
+        public static List<WorkflowView> getWorkFlowsFromJson()
+        {
+            List<WorkflowView> Workflows = new();
+
+            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON", "*", SearchOption.TopDirectoryOnly).Length;
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON");
+            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+            foreach (FileInfo file in files)
+            {
+                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + file.Name);
+                Workflows.Add(new(serialization.Deserialize()));
+            }
+            return Workflows;
+        }
+
     }
 
 }

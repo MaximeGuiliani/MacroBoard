@@ -26,41 +26,86 @@ namespace MacroBoard
         }
         private void InitWorkflows()
         {
-            getWorkFlowsFromJson();
-            getFavsFromJson();
-
-            foreach (WorkflowView FavWorkflow in FavWorkflows)
-            {
-                FavWorkflow.Btn_Delete.Visibility = Visibility.Hidden;
-                FavWorkflow.Btn_Main.Click += Button_Click_Fav;
-                FavWorkflow.Btn_Fav.Click += OnClick_Delete_Fav;
-                if (!FavWorkflow.CurrentworkFlow.imagePath.Equals(""))
-                {
-                    FavWorkflow.Btn_Main.Content =
-                        new Image
-                        {
-                            Source = new BitmapImage(new Uri(FavWorkflow.CurrentworkFlow.imagePath, UriKind.Absolute))
-                        };
-                }
-                ListFav.Items.Add(FavWorkflow.Content);
-            }
+            Workflows = Serialization.getWorkFlowsFromJson();
+            FavWorkflows = Serialization.getFavsFromJson();
             foreach (WorkflowView workflowView in Workflows)
+            {
+                CreateButton(workflowView, false);
+
+            }
+            foreach (WorkflowView FavWorkflows in FavWorkflows)
+            {
+                CreateButton(FavWorkflows, true);
+
+            }
+            if (Workflows.Count < 10)
+            {
+                AddAddButton(Workflows);
+
+            }
+        }
+        private void CreateButton(WorkflowView workflowView, bool isFav)
+        {
+            if (isFav)
+            {
+                workflowView.Btn_Delete.Visibility = Visibility.Hidden;
+                workflowView.Btn_Main.Click += Button_Click_Fav;
+                workflowView.Btn_Fav.Click += OnClick_Delete_Fav;
+            }
+            else
             {
                 workflowView.Btn_Delete.Click += OnClick_DeleteWorkflow;
                 workflowView.Btn_Fav.Click += OnClick_Fav;
                 workflowView.Btn_Main.Click += Button_Click;
-                if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
+            }
+            if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
+            {
+                workflowView.Btn_Main.Content = new Image
                 {
-                    workflowView.Btn_Main.Content = new Image
-                    {
-                        Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.Absolute))
-                    };
-                }
+                    Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.Absolute))
+                };
+            }
+            if (isFav)
+            {
+                ListFav.Items.Add(workflowView.Content);
+            }
+            else
+            {
                 ListMacro.Items.Add(workflowView.Content);
             }
 
-            //add buton initialization
-            AddAddButton(Workflows);
+        }
+
+        private void CreateButton(WorkflowView workflowView, bool isFav, int pos)
+        {
+            if (isFav)
+            {
+                workflowView.Btn_Delete.Visibility = Visibility.Hidden;
+                workflowView.Btn_Main.Click += Button_Click_Fav;
+                workflowView.Btn_Fav.Click += OnClick_Delete_Fav;
+            }
+            else
+            {
+                workflowView.Btn_Delete.Click += OnClick_DeleteWorkflow;
+                workflowView.Btn_Fav.Click += OnClick_Fav;
+                workflowView.Btn_Main.Click += Button_Click;
+            }
+            if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
+            {
+                workflowView.Btn_Main.Content = new Image
+                {
+                    Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.Absolute))
+                };
+            }
+            if (isFav)
+            {
+                ListFav.Items.Insert(pos, workflowView.Content);
+            }
+            else
+            {
+                ListMacro.Items.Insert(pos, workflowView.Content);
+            }
+
         }
 
         private void AddWorkFlowWhileSearch(object sender, RoutedEventArgs e)
@@ -68,23 +113,32 @@ namespace MacroBoard
             EditionWindow editionWindow = new();
             editionWindow.ShowDialog();
 
-            WorkFlow wf = editionWindow.WorkFlow;
-            // WorkFlow macroAddTest = new("", "Test6", new List<Block>());
-
-            //AddWorkFLowToJSON(editionWindow.workFlow);
-
-            Workflows.Insert(Workflows.Count - 1, new(wf));
-            Workflows[^2].Btn_Delete.Click += OnClick_DeleteWorkflow;
-            Workflows[^2].Btn_Fav.Click += OnClick_Fav;
-            Workflows[^2].Btn_Main.Click += Button_Click;
-            Workflows[^2].Btn_Main.Content = new Image
+            if (editionWindow.ShowDialog() == true)
             {
-                Source = new BitmapImage(new Uri(wf.imagePath, UriKind.Absolute))
-            };
-            if (Workflows.Count == 11 && Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
-            {
-                Workflows.RemoveAt(Workflows.Count - 1);
+                WorkFlow wf = editionWindow.WorkFlow;
+
+
+                string JsonPath = AppDomain.CurrentDomain.BaseDirectory + @"Resources\WFJSON\" + wf.workflowName + ".json";
+                Serialization serialization = new Serialization(JsonPath);
+
+                serialization.Serialize(wf);
+
+
+
+                Workflows.Insert(Workflows.Count - 1, new(wf));
+                Workflows[^2].Btn_Delete.Click += OnClick_DeleteWorkflow;
+                Workflows[^2].Btn_Fav.Click += OnClick_Fav;
+                Workflows[^2].Btn_Main.Click += Button_Click;
+                Workflows[^2].Btn_Main.Content = new Image
+                {
+                    Source = new BitmapImage(new Uri(wf.imagePath, UriKind.Absolute))
+                };
+                if (Workflows.Count == 11 && Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                {
+                    Workflows.RemoveAt(Workflows.Count - 1);
+                }
             }
+
         }
 
         private void AddWorkFlow(object sender, RoutedEventArgs e)
@@ -97,37 +151,47 @@ namespace MacroBoard
             {
                 EditionWindow editionWindow = new();
                 editionWindow.ShowDialog();
-                WorkFlow wf = editionWindow.WorkFlow;
-                Workflows.Insert(Workflows.Count - 1, new(wf));
-                Workflows[^2].Btn_Delete.Click += OnClick_DeleteWorkflow;
-                Workflows[^2].Btn_Fav.Click += OnClick_Fav;
-                Workflows[^2].Btn_Main.Click += Button_Click;
-                if (!Workflows[^2].CurrentworkFlow.imagePath.Equals("") && !Workflows[^2].CurrentworkFlow.imagePath.Equals("Select folder"))
+                if (editionWindow.DialogResult == true)
                 {
-                    Workflows[^2].Btn_Main.Content
-                 = new Image
-                 {
-                     Source = new BitmapImage(new Uri(Workflows[^2].CurrentworkFlow.imagePath, UriKind.Absolute))
-                 };
+                    WorkFlow wf = editionWindow.WorkFlow;
 
 
-                }
-                if (Workflows.Count <= 10)
-                {
-                    if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                    string JsonPath = AppDomain.CurrentDomain.BaseDirectory + @"Resources\WFJSON\" + wf.workflowName + ".json";
+                    Serialization serialization = new Serialization(JsonPath);
+
+                    serialization.Serialize(wf);
+                    Workflows.Insert(Workflows.Count - 1, new(wf));
+                    Workflows[^2].Btn_Delete.Click += OnClick_DeleteWorkflow;
+                    Workflows[^2].Btn_Fav.Click += OnClick_Fav;
+                    Workflows[^2].Btn_Main.Click += Button_Click;
+                    if (!Workflows[^2].CurrentworkFlow.imagePath.Equals("") && !Workflows[^2].CurrentworkFlow.imagePath.Equals("Select folder"))
                     {
-                        ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
+                        Workflows[^2].Btn_Main.Content
+                     = new Image
+                     {
+                         Source = new BitmapImage(new Uri(Workflows[^2].CurrentworkFlow.imagePath, UriKind.Absolute))
+                     };
+
+
+                    }
+                    if (Workflows.Count <= 10)
+                    {
+                        if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                        {
+                            ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
+                        }
+                    }
+                    if (Workflows.Count == 11)
+                    {
+                        if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
+                        {
+                            ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
+                            ListMacro.Items.RemoveAt(Workflows.Count - 1);
+                            Workflows.RemoveAt(Workflows.Count - 1);
+                        }
                     }
                 }
-                if (Workflows.Count == 11)
-                {
-                    if (Workflows[^1].CurrentworkFlow.workflowName.Equals(""))
-                    {
-                        ListMacro.Items.Insert(Workflows.Count - 2, Workflows[^2].Content);
-                        ListMacro.Items.RemoveAt(Workflows.Count - 1);
-                        Workflows.RemoveAt(Workflows.Count - 1);
-                    }
-                }
+
             }
         }
 
@@ -335,25 +399,133 @@ namespace MacroBoard
 
             if (isInsearch)
             {
-                ExecuteWorkflow((WorkflowsSearchs[currentItemPos].CurrentworkFlow));
+                ExecuteWorkflow((WorkflowsSearchs[currentItemPos].CurrentworkFlow), currentItemPos);
             }
             else
             {
-                ExecuteWorkflow((Workflows[currentItemPos].CurrentworkFlow));
+                ExecuteWorkflow((Workflows[currentItemPos].CurrentworkFlow), currentItemPos);
             }
         }
         private void Button_Click_Fav(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
-            ExecuteWorkflow(FavWorkflows[currentItemPos].CurrentworkFlow);
+            ExecuteWorkflowFav(FavWorkflows[currentItemPos].CurrentworkFlow, currentItemPos);
         }
 
-        private void ExecuteWorkflow(WorkFlow wf)
+        private void ExecuteWorkflowFav(WorkFlow wf, int index)
         {
+            string toDelete = wf.workflowName;
             if (isEdition)
             {
                 EditionWindow editionWindow = new(wf);
                 editionWindow.ShowDialog();
+                if (editionWindow.DialogResult == true)
+                {
+                    Serialization.DeleteWF(toDelete);
+                    Serialization.DeleteFAV(toDelete);
+
+                    Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + editionWindow.WorkFlow.workflowName + ".json");
+                    serialization.Serialize(editionWindow.WorkFlow);
+                    serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + editionWindow.WorkFlow.workflowName + ".json");
+                    serialization.Serialize(editionWindow.WorkFlow);
+                    int indexWF = 0;
+                    foreach (WorkflowView wfv in Workflows)
+                    {
+                        if (wfv.CurrentworkFlow.workflowName.Equals(toDelete))
+                        {
+                            Workflows.RemoveAt(indexWF);
+                            ListMacro.Items.RemoveAt(indexWF);
+                            ListFav.Items.RemoveAt(index);
+                            FavWorkflows.RemoveAt(index);
+
+                            Workflows.Insert(indexWF, new(editionWindow.WorkFlow));
+                            CreateButton(new(editionWindow.WorkFlow), false, indexWF);
+                            WorkFlow favWorkflow = Workflows[indexWF].CurrentworkFlow;
+                            WorkflowView favWorkflowView = new(favWorkflow);
+                            FavWorkflows.Insert(index, favWorkflowView);
+                            CreateButton(favWorkflowView, true, index);
+
+                            break;
+                        }
+                        else
+                        {
+                            indexWF++;
+
+                        }
+                    }
+                }
+
+
+
+            }
+            else
+            {
+                foreach (Block block in wf.workflowList)
+                {
+                    block.Execute();
+                }
+            }
+        }
+
+        private void ExecuteWorkflow(WorkFlow wf, int indexWF)
+        {
+
+            string toDelete = wf.workflowName;
+
+            if (isEdition)
+            {
+
+                EditionWindow editionWindow = new(wf);
+                editionWindow.ShowDialog();
+                if (editionWindow.DialogResult == true)
+                {
+                    Serialization.DeleteWF(toDelete);
+
+                    Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + editionWindow.WorkFlow.workflowName + ".json");
+                    serialization.Serialize(editionWindow.WorkFlow);
+
+
+
+                    Workflows.RemoveAt(indexWF);
+                    ListMacro.Items.RemoveAt(indexWF);
+                    Workflows.Insert(indexWF, new(editionWindow.WorkFlow));
+                    CreateButton(new(editionWindow.WorkFlow), false, indexWF);
+
+                    int indexFav = 0;
+                    foreach (WorkflowView wfv in FavWorkflows)
+                    {
+
+                        if (wfv.CurrentworkFlow.workflowName.Equals(toDelete))
+                        {
+                            MessageBox.Show(toDelete);
+                            Serialization.DeleteFAV(toDelete);
+
+                            serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + editionWindow.WorkFlow.workflowName + ".json");
+                            serialization.Serialize(editionWindow.WorkFlow);
+
+
+                            ListFav.Items.RemoveAt(indexFav);
+                            FavWorkflows.RemoveAt(indexFav);
+
+
+                            WorkflowView favWorkflowView = new(editionWindow.WorkFlow);
+                            FavWorkflows.Insert(indexFav, favWorkflowView);
+                            CreateButton(favWorkflowView, true, indexFav);
+
+
+
+
+                            break;
+                        }
+                        else
+                        {
+                            indexFav++;
+
+                        }
+                    }
+                }
+
+
 
             }
             else
@@ -377,33 +549,5 @@ namespace MacroBoard
                 isEdition = true;
             }
         }
-
-
-        private void getFavsFromJson()
-        {
-            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON", "*", SearchOption.TopDirectoryOnly).Length;
-            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON");
-            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
-            foreach (FileInfo file in files)
-            {
-                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + file.Name);
-                FavWorkflows.Add(new(serialization.Deserialize()));
-            }
-        }
-
-        private void getWorkFlowsFromJson()
-        {
-            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON", "*", SearchOption.TopDirectoryOnly).Length;
-            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON");
-            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
-            foreach (FileInfo file in files)
-            {
-                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + file.Name);
-                Workflows.Add(new(serialization.Deserialize()));
-            }
-        }
     }
-
-
-
 }

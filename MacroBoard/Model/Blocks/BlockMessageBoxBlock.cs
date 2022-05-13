@@ -26,7 +26,7 @@ namespace MacroBoard
             MessageBox.Show($"MESSAGEBOX    param1: {this.param1}   param2: {this.param2}");
         }
 
-       
+
 
 
 

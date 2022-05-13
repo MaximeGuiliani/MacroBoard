@@ -33,7 +33,14 @@ namespace MacroBoard
             InitializeComponent();
             this.WorkFlow = workFlow;
             InitListBlock_Workflow();
-            //Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(workFlow.imagePath, UriKind.Absolute));
+            Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(workFlow.imagePath, UriKind.Absolute));
+            if (!workFlow.imagePath.Equals(""))
+            {
+
+                TextBox_WorkFlowImage.Text = workFlow.imagePath;
+            }
+            TextBox_WorkFlowName.Text = workFlow.workflowName;
+
         }
 
         private void InitListBlock_All()
@@ -232,6 +239,14 @@ namespace MacroBoard
 
             ListBlock_Right_XAML.Items.Insert(currentItemPos - 1, ((Button)sender).Parent);
             ListBlock_Right_XAML.Items.Insert(currentItemPos, previousItem);
+
+            Block block = WorkFlow.workflowList[currentItemPos - 1];
+
+
+            WorkFlow.workflowList.RemoveAt(currentItemPos - 1);
+            WorkFlow.workflowList.Insert(currentItemPos, block);
+
+
         }
         private void OnClick_Down(object sender, RoutedEventArgs e)
         {
@@ -245,6 +260,12 @@ namespace MacroBoard
 
             ListBlock_Right_XAML.Items.Insert(currentItemPos, nextItem);
             ListBlock_Right_XAML.Items.Insert(currentItemPos + 1, ((Button)sender).Parent);
+
+            Block block = WorkFlow.workflowList[currentItemPos];
+
+
+            WorkFlow.workflowList.RemoveAt(currentItemPos);
+            WorkFlow.workflowList.Insert(currentItemPos + 1, block);
         }
 
         private void SetHiddenOrVisibleBtnUp(object sender, Grid previousItem)
@@ -286,17 +307,19 @@ namespace MacroBoard
 
         }
 
+        private string placeHolderImagePath = "Select image";
+        private string placeHolderWFName = "Select name";
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-            this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
-            this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
+            if (!(TextBox_WorkFlowImage.Text == placeHolderImagePath || TextBox_WorkFlowName.Text == placeHolderWFName))
+            {
+                this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
+                this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
+                this.DialogResult = true;
+                this.Close();
+            }
 
-            string JsonPath = AppDomain.CurrentDomain.BaseDirectory + @"Resources\WFJSON\" + WorkFlow.workflowName + ".json";
-            Serialization serialization = new Serialization(JsonPath);
-
-            serialization.Serialize(WorkFlow);
-            this.Close();
         }
 
         private void selectImage(object sender, RoutedEventArgs e)
@@ -318,13 +341,12 @@ namespace MacroBoard
 
         private void Name_Box_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox_WorkFlowName.Text = "";
+            if (TextBox_WorkFlowName.Text.Equals(placeHolderWFName))
+            {
+                TextBox_WorkFlowName.Text = "";
+
+            }
             TextBox_WorkFlowName.Foreground = new SolidColorBrush(Colors.Black);
-        }
-
-        private void Name_Box_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
 
