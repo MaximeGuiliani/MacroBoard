@@ -3,7 +3,6 @@
   <PropertyGroup>
     <_LastSelectedProfileId>C:\Users\user\source\Repos\MacroBoard\MacroBoard\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Update="View\EditionWindow.xaml">
       <SubType>Designer</SubType>
@@ -15,6 +14,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\SearchBoxStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Themes\DarkTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Themes\LightTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

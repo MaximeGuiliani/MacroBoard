@@ -10,9 +10,7 @@
 		<ApplicationIcon>icone2.ico</ApplicationIcon>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<Compile Remove="App.xaml.cs" />
-	</ItemGroup>
+	
 
 	<ItemGroup>
 		<None Remove="Resources\add.png" />

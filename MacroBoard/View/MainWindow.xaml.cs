@@ -17,6 +17,8 @@ namespace MacroBoard
         private List<WorkflowView> WorkflowsSearchs = new();
         bool isEdition = false;
         bool isInsearch = false;
+
+        //public App CurrentApplication { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -407,6 +409,33 @@ namespace MacroBoard
                 ButtonEdit.Foreground = Brushes.Green;
                 isEdition = true;
             }
+        }
+
+
+        //-----------------------------------------------------------------------------------------------------------------------------//
+
+        private void ChangeTheme(object sender, RoutedEventArgs e)
+        {
+            switch (int.Parse(((MenuItem)sender).Uid))
+            {
+                case 0:
+                    App.SetTheme(App.ThemeTypes.Light);
+                    break;
+                case 1:
+                    App.SetTheme(App.ThemeTypes.Dark);
+                    break;
+            }
+
+            e.Handled = true;
+        }
+        private void LightMode(object sender, RoutedEventArgs e)
+        {
+
+
+        }
+        private void DarkMode(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
