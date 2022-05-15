@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MacroBoard.View.Themes;
 
 namespace MacroBoard
 {
@@ -18,7 +19,7 @@ namespace MacroBoard
         bool isEdition = false;
         bool isInsearch = false;
 
-        //public App CurrentApplication { get; set; }
+        public App CurrentApplication { get; set; } 
         public MainWindow()
         {
             InitializeComponent();
@@ -419,23 +420,16 @@ namespace MacroBoard
             switch (int.Parse(((MenuItem)sender).Uid))
             {
                 case 0:
-                    App.SetTheme(App.ThemeTypes.Light);
+                    ThemesController.SetTheme(ThemesController.ThemeTypes.Light);
+                    MessageBox.Show("heylight");
                     break;
                 case 1:
-                    App.SetTheme(App.ThemeTypes.Dark);
+                    ThemesController.SetTheme(ThemesController.ThemeTypes.Dark);
+                    MessageBox.Show("heydark");
                     break;
             }
-
             e.Handled = true;
         }
-        private void LightMode(object sender, RoutedEventArgs e)
-        {
-
-
-        }
-        private void DarkMode(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }

@@ -4,16 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
+        
         mc:Ignorable="d"
         Title="Macroboard" Height="670" Width="920"
         ResizeMode="NoResize"
-        Background="White"
         WindowStartupLocation="CenterScreen"
-        
-    >
+        Style="{DynamicResource CustomWindowStyle}">
+
     <Window.Resources>
-        <DropShadowBitmapEffect x:Key="Normal" ShadowDepth="2" Softness="0.2" Opacity="0.64"/>
-        <Style TargetType="{x:Type Button}">
+        <Style TargetType="{x:Type Button}"
+           >
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
@@ -34,13 +34,9 @@
     </Window.Resources>
 
 
-    <Grid  VerticalAlignment="Top" HorizontalAlignment="Center"  ShowGridLines="True" Height="650" Width="920"  >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="95*"/>
-            <ColumnDefinition Width="89*"/>
-        </Grid.ColumnDefinitions>
+    <Grid  VerticalAlignment="Top" HorizontalAlignment="Center"  ShowGridLines="True" Height="650" Width="920">
 
-        <Grid Margin="10,0,-10,0" Grid.ColumnSpan="2">
+        <Grid Margin="10,0,-10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -56,47 +52,47 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
             <Label Grid.Column="1" 
                        FontSize="27"
                        FontFamily="Calibri"
                        Content="MacroBoard" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Source="/Resources/Icon.png" Margin="32,24,0,0" Stretch="UniformToFill" RenderTransformOrigin="0.483,0.553" Grid.RowSpan="2" Height="92"/>
-            <Menu VerticalAlignment="Top" Grid.ColumnSpan="5" Margin="-5,0,19,0">
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Source="/Resources/Icon.png" Margin="32,0,0,0" Stretch="UniformToFill"/>
+            <Menu VerticalAlignment="Top" >
                 <MenuItem Header="Themes" Width="58" Height="19">
-                    <MenuItem Header="Light Mode" Click="LightMode" Uid="0">
+                    <MenuItem Header="Light mode" Click="ChangeTheme" Uid="0">
                         <MenuItem.Icon>
                             <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round"  />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Dark Mode" Click="DarkMode" Uid="1">
+                    <MenuItem Header="Dark mode" Click="ChangeTheme" Uid="1">
                         <MenuItem.Icon>
                             <Rectangle Stroke="#FF404040" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
             </Menu>
-            <TextBox Background="Gray"   Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"   x:Name="Search"  Grid.Column="3" Grid.ColumnSpan="2" BorderBrush="{DynamicResource g.Deep.1.Background.Static}"
-                     Height="30"  VerticalAlignment="Center" TextChanged="Search_TextChanged"  Margin="0,0,78,0" >
+
+            <TextBox Background="Gray"   Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"   x:Name="Search"  Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Center" Width="290" TextChanged="Search_TextChanged"  >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
                         <Setter Property="BorderBrush" Value="Black"/>
+
                         <Setter Property="Padding" Value="10,0,0,0"/>
 
                     </Style>
                 </TextBox.Resources>
             </TextBox>
 
-            <!--<Label Content="Favoris" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Grid.Row="1" Width="120" FontSize="20" Grid.ColumnSpan="2" Margin="138,0,0,0"/>-->
+            <Label Content="Favoris" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Grid.Row="1" Width="120" FontSize="20"/>
 
 
 
 
 
 
-            <Button BorderThickness="0"      RenderTransformOrigin="0.5,0.541" BorderBrush="{DynamicResource g.Deep.1.Background.Static}"
+            <Button BorderThickness="0"      RenderTransformOrigin="0.5,0.541"
   x:Name="ButtonEdit" Content="⚙" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="50"  
                          TextBlock.FontSize="30" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Margin="20,147,0,0" Grid.RowSpan="3" Grid.Row="2" Height="50">
                 <Button.RenderTransform>
@@ -119,7 +115,7 @@
         </Grid>
         <!--         List des favoris   -->
 
-        <ListBox  Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   Height="150" Width="920"  x:Name="ListFav" Margin="0,124,0,376" Grid.ColumnSpan="2" >
+        <ListBox  Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"   Height="150" Width="920"  x:Name="ListFav" Margin="0,124,0,376" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
 
@@ -175,7 +171,7 @@
         <!--         List des macros    -->
 
 
-        <ListBox  x:Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="920" Margin="0,325,0,10" BorderBrush="{x:Null}" Grid.ColumnSpan="2" >
+        <ListBox  x:Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="920" Margin="0,325,0,10" BorderBrush="{x:Null}" >
             <ListBox.Style>
                 <Style/>
             </ListBox.Style>
