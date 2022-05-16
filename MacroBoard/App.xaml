@@ -8,8 +8,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="View/Themes/LightTheme.xaml"/>
-                <ResourceDictionary Source="View/Themes/DarkTheme.xaml"/>
+                <ResourceDictionary Source="/View/Themes/LightTheme.xaml"/>
+                <ResourceDictionary Source="/View/Themes/DarkTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
