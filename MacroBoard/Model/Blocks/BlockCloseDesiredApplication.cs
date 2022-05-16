@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace MacroBoard
 {
-    internal class BlockCloseDesiredApplication : Block
+    public class BlockCloseDesiredApplication : Block
     {
         public String appName { get; set; } = "";
         public BlockCloseDesiredApplication(String appName)
@@ -27,7 +27,12 @@ namespace MacroBoard
             }
         }
 
-       
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+
     }
 
 }

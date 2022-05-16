@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MacroBoard
 {
-    internal class BlockShutdown : Block
+    public class BlockShutdown : Block
     {
         public BlockShutdown()
         {
@@ -19,6 +19,12 @@ namespace MacroBoard
         {
             Process.Start("powershell.exe", "shutdown -s");
 
+        }
+
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
         }
 
 

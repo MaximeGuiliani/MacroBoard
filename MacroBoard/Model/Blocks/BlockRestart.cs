@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MacroBoard
 {
-    class BlockRestart : Block
+    public class BlockRestart : Block
     {
         public BlockRestart()
         {
@@ -22,6 +22,13 @@ namespace MacroBoard
 
         }
 
-       
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+
+
     }
 }

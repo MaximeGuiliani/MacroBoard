@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace MacroBoard
 {
-    internal class BlockRunScript : Block
+    public class BlockRunScript : Block
     {
         public string script;
 
@@ -25,6 +25,11 @@ namespace MacroBoard
         }
 
 
-    
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MacroBoard
 {
-    class BlockSendEmail : Block
+    public class BlockSendEmail : Block
     {
         public string body;
         public string to;
@@ -29,6 +29,13 @@ namespace MacroBoard
             mailto = Uri.EscapeUriString(mailto);
             Process.Start(new ProcessStartInfo(mailto) { UseShellExecute = true });
         }
+
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
 
     }
 }

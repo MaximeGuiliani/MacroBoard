@@ -7,7 +7,7 @@ using System.IO;
 
 namespace MacroBoard
 {
-    internal class BlockMove : Block
+    public class BlockMove : Block
     {
         public String source;
         public String destination;
@@ -27,6 +27,11 @@ namespace MacroBoard
             Directory.Move(sourceDirectory, destinationDirectory);
         }
 
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
 
 
     }
