@@ -31,15 +31,23 @@ namespace MacroBoard
         public EditionWindow(WorkFlow workFlow)
         {
             InitializeComponent();
-            this.WorkFlow = workFlow;
+            this.WorkFlow.workflowList = workFlow.workflowList;
+            this.WorkFlow.imagePath = workFlow.imagePath;
+            this.WorkFlow.workflowName = workFlow.workflowName;
+
+
             InitListBlock_Workflow();
-            Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(workFlow.imagePath, UriKind.Absolute));
-            if (!workFlow.imagePath.Equals(""))
+            if (!WorkFlow.imagePath.Equals(""))
+            {
+                Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(WorkFlow.imagePath, UriKind.Absolute));
+
+            }
+            if (!WorkFlow.imagePath.Equals(""))
             {
 
-                TextBox_WorkFlowImage.Text = workFlow.imagePath;
+                TextBox_WorkFlowImage.Text = WorkFlow.imagePath;
             }
-            TextBox_WorkFlowName.Text = workFlow.workflowName;
+            TextBox_WorkFlowName.Text = WorkFlow.workflowName;
 
         }
 
@@ -307,14 +315,23 @@ namespace MacroBoard
 
         }
 
-        private string placeHolderImagePath = "Select image";
+        private string placeHolderImagePath = "Select folder";
         private string placeHolderWFName = "Select name";
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-            if (!(TextBox_WorkFlowImage.Text == placeHolderImagePath || TextBox_WorkFlowName.Text == placeHolderWFName))
+            if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
             {
-                this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
+                if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
+                {
+                    this.WorkFlow.imagePath = "";
+
+                }
+                else
+                {
+                    this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
+
+                }
                 this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
                 this.DialogResult = true;
                 this.Close();

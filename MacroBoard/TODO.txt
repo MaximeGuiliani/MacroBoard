@@ -1,4 +1,10 @@
 ﻿TODO : 
 
 
-edit name and fav name dont change
+recherche edit name bug crer et fait des trucs bizare
+
+quand on creer un  element les element dans le blocs ne sont pas rempli
+
+edit fav while search
+Block creator is the problem
+
