@@ -82,7 +82,7 @@ namespace MacroBoard
             thickness.Bottom = 8d;
             Content.Margin = thickness;
             Content.Width = 330d;
-            Content.Height = 45d;
+            Content.Height = 60d;
 
             BitmapImage bitmapImg = new BitmapImage();
 

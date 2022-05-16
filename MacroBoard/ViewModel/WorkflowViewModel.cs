@@ -13,7 +13,7 @@ namespace MacroBoard
         public Image ImageWorkflow { get; } = new();
 
         public Button Btn_Fav { get; } = new();
-        public Button Btn_Main { get; set; } = new();
+        public Button Btn_Main { get; } = new();
 
 
         private Label Lbl_Name = new();
@@ -35,7 +35,7 @@ namespace MacroBoard
         {
             Lbl_Name.Content = Name;
             Lbl_Name.HorizontalAlignment = HorizontalAlignment.Center;
-            Lbl_Name.VerticalAlignment = VerticalAlignment.Bottom;
+            Lbl_Name.VerticalAlignment = VerticalAlignment.Center;
         }
 
 
@@ -43,13 +43,6 @@ namespace MacroBoard
         {
 
             //Main Button
-            Btn_Main.Content = new Image
-            {
-                Source = new BitmapImage(new Uri("../../../Resources/Button_WorkFlow.png", UriKind.Relative))
-            };
-            Btn_Main.HorizontalAlignment = HorizontalAlignment.Center;
-            Btn_Main.VerticalAlignment = VerticalAlignment.Top;
-
             Btn_Main.Background = Brushes.Transparent;
             Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
 
@@ -57,12 +50,12 @@ namespace MacroBoard
             Btn_Main.Height = 100d;
 
 
-
             //Delete Button
             TextBlock txtBlock = new();
 
             txtBlock.Text = "🚫";
             txtBlock.Foreground = Brushes.Red;
+            txtBlock.FontSize = 25d;
 
 
             Btn_Delete.Content = txtBlock;
@@ -74,12 +67,11 @@ namespace MacroBoard
             Btn_Delete.VerticalAlignment = VerticalAlignment.Top;
 
 
-
-
             //Edit Button
             txtBlock = new();
             txtBlock.Text = "★";
             txtBlock.Foreground = Brushes.Yellow;
+            txtBlock.FontSize = 25d;
 
             Btn_Fav.Content = txtBlock;
             Btn_Fav.Background = Brushes.Transparent;
@@ -95,7 +87,19 @@ namespace MacroBoard
         {
 
             Content.Width = 100d;
-            Content.Height = 125d;
+            Content.Height = 100d;
+
+            BitmapImage bitmapImg = new BitmapImage();
+
+            bitmapImg.BeginInit();
+
+            bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
+
+            bitmapImg.EndInit();
+
+            ImageWorkflow.Source = bitmapImg;
+
+            Content.Background = new ImageBrush(bitmapImg);
 
             Content.Children.Add(Lbl_Name);
             Content.Children.Add(Btn_Main);
@@ -103,7 +107,38 @@ namespace MacroBoard
             Content.Children.Add(Btn_Fav);
 
 
+            Content.MouseEnter += OnMouseEnter;
+            Content.MouseLeave += OnMouseLeave;
+        }
 
+        private void OnMouseEnter(object sender, RoutedEventArgs e)
+        {
+            BitmapImage bitmapImg = new BitmapImage();
+
+            bitmapImg.BeginInit();
+            if (CurrentworkFlow.workflowName.Equals(""))
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add_MouseOver.png", UriKind.Absolute);
+            else
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_MouseOver.png", UriKind.Absolute);
+            bitmapImg.EndInit();
+            ImageWorkflow.Source = bitmapImg;
+
+            Content.Background = new ImageBrush(bitmapImg);
+        }
+
+        private void OnMouseLeave(object sender, RoutedEventArgs e)
+        {
+            BitmapImage bitmapImg = new BitmapImage();
+
+            bitmapImg.BeginInit();
+            if (CurrentworkFlow.workflowName.Equals(""))
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add.png", UriKind.Absolute);
+            else
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V2.png", UriKind.Absolute);
+            bitmapImg.EndInit();
+            ImageWorkflow.Source = bitmapImg;
+
+            Content.Background = new ImageBrush(bitmapImg);
         }
 
 

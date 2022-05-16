@@ -57,24 +57,24 @@ namespace MacroBoard
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockClickR()));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockCloseDesiredApplication("")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockCopy(@"C:\", @"C:\")));
-            BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockCreateTextFile("", "fileName", ".txt", "blabla")));
+            //BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockCreateTextFile("", "fileName", ".txt", "blabla")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockDeleteDirectory(@"C:\")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockDownloadFile(@"http:\\", "fileName")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockHibernate()));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockInvokeAutomationId("")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockKeyBoard("")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockLaunchBrowserChrome(@"https:\\")));
-            BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockLaunchBrowserChromex86(@"https:\\")));
+            //BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockLaunchBrowserChromex86(@"https:\\")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockLaunchBrowserFirefox(@"https:\\")));
-            BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockLaunchEdgeBrowser(@"https:\\")));
+            //BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockLaunchEdgeBrowser(@"https:\\")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockLock()));
-            BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockMessageBoxBlock("a", "b")));
+            //BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockMessageBoxBlock("a", "b")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockMove(@"C:\", @"C:\")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockRecognition("")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockRestart()));
-            BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockRunApp("")));
+            //BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockRunApp("")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockRunScript("")));
-            BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockScreenshot("", 0)));
+            //BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockScreenshot("", 0)));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockSendEmail("", "", "")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockSetCursor(0, 0)));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockShutdown()));
@@ -124,7 +124,7 @@ namespace MacroBoard
             //---------------------------------------------------------------------------
             Block[] res = new Block[1];
             Block model = BlockViewModels_Left[currentItemPos].Block;
-            Window blockCreatorWindow = new BlockCreatorWindow(res, model);
+            Window blockCreatorWindow = new BlockCreatorWindow(model);
             blockCreatorWindow.ShowDialog();
             Block? newBlock = null;
 
@@ -197,7 +197,7 @@ namespace MacroBoard
             Block model = BlockViewModels_Right[currentItemPos].Block;
 
 
-            Window blockCreatorWindow = new BlockCreatorWindow(res, model);
+            Window blockCreatorWindow = new BlockCreatorWindow(model);
             blockCreatorWindow.ShowDialog();
 
             Block? newBlock = null;

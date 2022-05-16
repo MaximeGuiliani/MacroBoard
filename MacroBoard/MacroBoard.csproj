@@ -14,19 +14,24 @@
 
 	<ItemGroup>
 		<None Remove="Resources\add.png" />
+		<None Remove="Resources\Block_V2.png" />
 		<None Remove="Resources\Button_WorkFlow.png" />
+		<None Remove="Resources\Button_WorkFlow_Add.png" />
+		<None Remove="Resources\Button_WorkFlow_Add_MouseOver.png" />
+		<None Remove="Resources\Button_WorkFlow_MouseOver.png" />
+		<None Remove="Resources\Button_WorkFlow_V2.png" />
+		<None Remove="Resources\Button_WorkFlow_V3.png" />
+		<None Remove="Resources\config\config.json" />
 		<None Remove="Resources\Icon.png" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<None Remove="Resources\Logo_Blocks\Logo_BlockClickL.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockClickR.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockSendMail.png" />
 		<None Remove="Resources\macro_img.png" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Content Include="icone2.ico" />
-		<Content Include="Resources\macro_img.png">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -37,6 +42,42 @@
 		<Content Include="Resources\Block.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Resources\Block_V2.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_Add.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_Add_MouseOver.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_MouseOver.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_V2.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow_V3.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\config\config.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Logo_Blocks\Logo_BlockClickL.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Logo_Blocks\Logo_BlockClickR.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Logo_Blocks\Logo_BlockSendMail.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\macro_img.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MVVMEssentials.WPF" Version="1.0.2" />
@@ -46,15 +87,15 @@
 		<PackageReference Include="OpenCvSharp4.WpfExtensions" Version="4.5.5.20211231" />
 	</ItemGroup>
 	<ItemGroup>
-		<Resource Include="Resources\add.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Button_WorkFlow.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<Resource Include="Resources\Icon.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
+		<Content Include="Resources\add.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Button_WorkFlow.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\Icon.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="View\EditionWindow.xaml.cs">
@@ -74,5 +115,6 @@
 	  <Folder Include="Resources\FavWorkFlowsJSON\" />
 	  <Folder Include="Resources\WorkFlowsJSON\" />
 	</ItemGroup>
+	<ProjectExtensions><VisualStudio><UserProperties resources_4config_4config_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
