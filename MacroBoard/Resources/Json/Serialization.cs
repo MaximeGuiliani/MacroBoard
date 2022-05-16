@@ -65,9 +65,9 @@ namespace MacroBoard
         public static List<WorkflowView> getFavsFromJson()
         {
             List<WorkflowView> FavWorkflows = new();
-            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON", "*", SearchOption.TopDirectoryOnly).Length;
-            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON");
-            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\");
+            FileInfo[] files = info.GetFiles("*.json").OrderBy(p => p.CreationTime).ToArray();
             foreach (FileInfo file in files)
             {
                 Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + file.Name);
@@ -82,9 +82,8 @@ namespace MacroBoard
         {
             List<WorkflowView> Workflows = new();
 
-            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON", "*", SearchOption.TopDirectoryOnly).Length;
             DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON");
-            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+            FileInfo[] files = info.GetFiles("*.json").OrderBy(p => p.CreationTime).ToArray();
             foreach (FileInfo file in files)
             {
                 Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + file.Name);

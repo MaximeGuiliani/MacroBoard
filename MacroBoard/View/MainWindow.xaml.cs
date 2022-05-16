@@ -21,7 +21,7 @@ namespace MacroBoard
         bool isEdition = false;
         bool isInsearch = false;
 
-        public App CurrentApplication { get; set; } 
+        public App CurrentApplication { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -198,7 +198,7 @@ namespace MacroBoard
             workflowViews[^1].Btn_Main.Content
                             = new Image
                             {
-                                Source = new BitmapImage(new Uri("../../../Resources/add.png", UriKind.Relative))
+                                Source = new BitmapImage(new Uri("../../../Resources/Button_WorkFlow_Add.png", UriKind.Relative))
                             };
             ListMacro.Items.Add(workflowViews[^1].Content);
         }
@@ -649,15 +649,15 @@ namespace MacroBoard
             {
                 case 0:
                     ThemesController.SetTheme(ThemesController.ThemeTypes.Light);
-                    
+
                     break;
                 case 1:
                     ThemesController.SetTheme(ThemesController.ThemeTypes.Dark);
-                    
+
                     break;
             }
             e.Handled = true;
         }
-       
+
     }
 }

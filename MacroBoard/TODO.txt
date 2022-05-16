@@ -1,10 +1,7 @@
 ﻿TODO : 
-
-
-recherche edit name bug crer et fait des trucs bizare
-
-quand on creer un  element les element dans le blocs ne sont pas rempli
-
-edit fav while search
-Block creator is the problem
+recuperer les data du edit (new ou update)
+update le json :
+pour les favoris 
+pour les remove
+Pour les new 
 

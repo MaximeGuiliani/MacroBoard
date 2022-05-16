@@ -45,6 +45,10 @@ namespace MacroBoard
             //Main Button
             Btn_Main.Background = Brushes.Transparent;
             Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
+            Btn_Main.Content = new Image
+            {
+                Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute))
+            };
 
             Btn_Main.Width = 100d;
             Btn_Main.Height = 100d;
@@ -89,17 +93,7 @@ namespace MacroBoard
             Content.Width = 100d;
             Content.Height = 100d;
 
-            BitmapImage bitmapImg = new BitmapImage();
 
-            bitmapImg.BeginInit();
-
-            bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
-
-            bitmapImg.EndInit();
-
-            ImageWorkflow.Source = bitmapImg;
-
-            Content.Background = new ImageBrush(bitmapImg);
 
             Content.Children.Add(Lbl_Name);
             Content.Children.Add(Btn_Main);
