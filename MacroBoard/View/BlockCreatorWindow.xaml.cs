@@ -70,7 +70,7 @@ namespace MacroBoard.View
 
         public void Visit(BlockCreateTextFile b)
         {
-            (TextBox, Button) filePath = newSave("File Path", concatPathWithFileName(b.filePath, b.fileName) );
+            (TextBox, Button) filePath = newSave("File Path", concatPathWithFileName(b.filePath, b.fileName));
             (Label, TextBox) text = newTextBox("texte", b.text);
             newBlock = () => new BlockCreateTextFile(System.IO.Path.GetDirectoryName(filePath.Item1.Text), System.IO.Path.GetFileName(filePath.Item1.Text), text.Item2.Text);
         }
@@ -85,7 +85,7 @@ namespace MacroBoard.View
 
         public void Visit(BlockDownloadFile b)
         {
-            (Label, TextBox)  address    = newTextBox("Web address", b.address);
+            (Label, TextBox) address = newTextBox("Web address", b.address);
             (TextBox, Button) folderPath = newFolderSelector("Folder Path", b.folderPath);
             newBlock = () => new BlockDownloadFile(address.Item2.Text, folderPath.Item1.Text);
         }
@@ -114,16 +114,16 @@ namespace MacroBoard.View
         //TODO: ajouter check nombre sur les TextBox des 3 navigateurs
         public void Visit(BlockLaunchBrowserChrome b)
         {
-            (Label, TextBox) address  = newTextBox("adresse web", b.address);
-            (Label, TextBox) delay    = newTextBox("Delay before applying window style (ms)", b.delay.ToString());
-            ComboBox         comboBox = newComboBoxList( "Affichage", Enum.GetValues(typeof(WindowStyle)), b.windowStyle);
+            (Label, TextBox) address = newTextBox("adresse web", b.address);
+            (Label, TextBox) delay = newTextBox("Delay before applying window style (ms)", b.delay.ToString());
+            ComboBox comboBox = newComboBoxList("Affichage", Enum.GetValues(typeof(WindowStyle)), b.windowStyle);
             newBlock = () => new BlockLaunchBrowserChrome(address.Item2.Text, (WindowStyle)comboBox.SelectedItem, int.Parse(delay.Item2.Text));
         }
 
 
         public void Visit(BlockLaunchBrowserFirefox b)
         {
-            (Label, TextBox) address  = newTextBox("Adresse web", b.address);
+            (Label, TextBox) address = newTextBox("Adresse web", b.address);
             (Label, TextBox) delay = newTextBox("Delay before applying window style (ms)", b.delay.ToString());
             ComboBox comboBox = newComboBoxList("Affichage", Enum.GetValues(typeof(WindowStyle)), b.windowStyle);
             newBlock = () => new BlockLaunchBrowserFirefox(address.Item2.Text, (WindowStyle)comboBox.SelectedItem, int.Parse(delay.Item2.Text));
@@ -132,7 +132,7 @@ namespace MacroBoard.View
 
         public void Visit(BlockLaunchBrowserEdge b)
         {
-            (Label, TextBox) address  = newTextBox("Adresse web", b.address);
+            (Label, TextBox) address = newTextBox("Adresse web", b.address);
             (Label, TextBox) delay = newTextBox("Delay before applying window style (ms)", b.delay.ToString());
             ComboBox comboBox = newComboBoxList("Affichage", Enum.GetValues(typeof(WindowStyle)), b.windowStyle);
             newBlock = () => new BlockLaunchBrowserEdge(address.Item2.Text, (WindowStyle)comboBox.SelectedItem, int.Parse(delay.Item2.Text));
@@ -186,10 +186,10 @@ namespace MacroBoard.View
 
         public void Visit(BlockLaunchApp b)
         {
-            (TextBox, Button) appPath   = newFileSelector("Chemin de l'app", b.appPath);
-            (Label, TextBox)  arguments = newTextBox("arguments", b.arguments);
-            (Label, TextBox) delay      = newTextBox("delay before applying window style (ms)", b.delay.ToString());
-            ComboBox comboBox           = newComboBoxList("Affichage", Enum.GetValues(typeof(WindowStyle)), b.windowStyle);
+            (TextBox, Button) appPath = newFileSelector("Chemin de l'app", b.appPath);
+            (Label, TextBox) arguments = newTextBox("arguments", b.arguments);
+            (Label, TextBox) delay = newTextBox("delay before applying window style (ms)", b.delay.ToString());
+            ComboBox comboBox = newComboBoxList("Affichage", Enum.GetValues(typeof(WindowStyle)), b.windowStyle);
             newBlock = () => new BlockLaunchApp(appPath.Item1.Text, arguments.Item2.Text, (WindowStyle)comboBox.SelectedItem, int.Parse(delay.Item2.Text));
         }
 
@@ -236,7 +236,7 @@ namespace MacroBoard.View
 
         public void Visit(BlockCopy b)
         {
-            (TextBox, Button) src  = newFolderSelector("Source directory", b.source);
+            (TextBox, Button) src = newFolderSelector("Source directory", b.source);
             (TextBox, Button) dest = newFolderSelector("Destination directory", b.destination);
             newBlock = () => new BlockCopy(src.Item1.Text, dest.Item1.Text);
         }
@@ -244,8 +244,8 @@ namespace MacroBoard.View
 
         public void Visit(BlockScreenshot b)
         {
-            (TextBox, Button) filePath     = newSave("Path to save", concatPathWithFileName(b.folderPath, b.fileName) );
-            ComboBox screenNumber = newComboBoxList("Screen selection", System.Windows.Forms.Screen.AllScreens , b.screenNumber, getDataTemplateForScreen());
+            (TextBox, Button) filePath = newSave("Path to save", concatPathWithFileName(b.folderPath, b.fileName));
+            ComboBox screenNumber = newComboBoxList("Screen selection", System.Windows.Forms.Screen.AllScreens, b.screenNumber, getDataTemplateForScreen());
             newBlock = () => new BlockScreenshot(System.IO.Path.GetDirectoryName(filePath.Item1.Text), System.IO.Path.GetFileName(filePath.Item1.Text), screenNumber.SelectedIndex);
         }
 
@@ -259,7 +259,7 @@ namespace MacroBoard.View
             blockTitle.FontSize = 18;
             blockTitle.HorizontalAlignment = HorizontalAlignment.Left;
             blockTitle.FontWeight = FontWeights.Bold;
-            blockTitle.Margin = new Thickness(0,0,10,0);
+            blockTitle.Margin = new Thickness(0, 0, 10, 0);
             //blockTitle.FontStyle
             Controls.Children.Add(blockTitle);
         }
@@ -267,13 +267,13 @@ namespace MacroBoard.View
 
         public void AddHandlerToValiderBtn()
         {
-            validerBtn.Click += (object sender, RoutedEventArgs e) => { res=newBlock(); this.DialogResult = true; /*MessageBox.Show($"{Controls.Width}");*/ };
+            validerBtn.Click += (object sender, RoutedEventArgs e) => { res = newBlock(); this.DialogResult = true; /*MessageBox.Show($"{Controls.Width}");*/ };
         }
 
 
         //---------------------------------------------------------------------------
 
-        private (Label, TextBox) newTextBox(string labelTxt, string defaultText = "")
+        private (Label, TextBox) newTextBox(string labelTxt, string defaultText, TextCompositionEventHandler checkFormat = null)
         {
             Label label = newLabel(labelTxt); // pas de add() car fct 
             label.Margin = new Thickness(0, 10, 0, 0);
@@ -282,8 +282,18 @@ namespace MacroBoard.View
             textBox.Width = (98d / 100d) * Controls.Width;
             textBox.HorizontalAlignment = HorizontalAlignment.Center;
             textBox.Text = defaultText;
+            if (checkFormat != null)
+                textBox.PreviewTextInput += checkFormat;
             Controls.Children.Add(textBox);
             return (label, textBox);
+
+
+        }
+        private void CheckDigits(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+
         }
 
 
@@ -300,15 +310,15 @@ namespace MacroBoard.View
 
         private Label newLabel(string content)
         {
-            Label label   = new Label();
-            label.Margin  = new Thickness(0, 10, 0, 0);
+            Label label = new Label();
+            label.Margin = new Thickness(0, 10, 0, 0);
             label.Content = content;
             Controls.Children.Add(label);
             return label;
         }
 
 
-        private (Label, TextBox, Button) BaseBrowse(string labelTxt, string defaultPath, double ratio=73)
+        private (Label, TextBox, Button) BaseBrowse(string labelTxt, string defaultPath, double ratio = 73)
         {
             Label label = new Label();
             label.Margin = new Thickness(0, 10, 0, 0);
@@ -329,7 +339,7 @@ namespace MacroBoard.View
             btn.Margin = new Thickness(5, 0, 0, 0);
             btn.Content = "Browse";
             btn.Height = 20;
-            btn.Width = ((100d-ratio-3) / 100d) * Controls.Width;
+            btn.Width = ((100d - ratio - 3) / 100d) * Controls.Width;
             sp.Children.Add(btn);
 
             Controls.Children.Add(sp);
@@ -340,7 +350,7 @@ namespace MacroBoard.View
 
         private (TextBox, Button) newFolderSelector(string labelTxt, string defaultPath)
         {
-            (Label l,TextBox tb, Button btn ) baseBrowse = BaseBrowse(labelTxt, defaultPath);
+            (Label l, TextBox tb, Button btn) baseBrowse = BaseBrowse(labelTxt, defaultPath);
             baseBrowse.btn.Click += (object sender, RoutedEventArgs e) =>
             {
                 using (var fbd = new System.Windows.Forms.FolderBrowserDialog())
