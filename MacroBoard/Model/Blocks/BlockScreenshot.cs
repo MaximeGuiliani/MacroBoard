@@ -1,51 +1,44 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Diagnostics;
-using System.Threading;
-using System.Runtime.InteropServices;
-using System.Net;
 using System.Windows.Forms;
-using System.Drawing.Imaging;
 using System.Drawing;
+using static MacroBoard.Utils;
+
 
 
 namespace MacroBoard{
     public class BlockScreenshot : Block
     {
+
+        public string folderPath;
         public string fileName;
         public int screenNumber;
+        private int actualScreenNumber;
 
 
-        public BlockScreenshot(string fileName, int screenNumber)
+        public BlockScreenshot(string folderPath, string fileName, int screenNumber)
         {
             base.info = "Take a screenshot.";
             base.Name = "Screenshot";
+            this.folderPath = folderPath;
             this.fileName = fileName;
             this.screenNumber = screenNumber;
+            this.actualScreenNumber = (screenNumber >= Screen.AllScreens.Length) ? 0 : screenNumber ;
         }
 
 
         public override void Execute()
         {
-            int width  = Screen.AllScreens[this.screenNumber].Bounds.Width;
-            int height = Screen.AllScreens[this.screenNumber].Bounds.Height;
-            Bitmap captureBitmap = new Bitmap(width, height);
-            Graphics captureGraphics = Graphics.FromImage(captureBitmap);
-            captureGraphics.CopyFromScreen(0, 0, 0, 0, new System.Drawing.Size(width, height));
-            captureBitmap.Save (this.fileName);
-            
-            //MessageBox.Show( this.path + (this.path.EndsWith(@"\")? "":@"\") + this.fileName + "." + this.format);
-            //Rectangle captureRectangle = Screen.AllScreens[0].Bounds;
-            //captureBitmap.Save(@"C:\Users\leopaul\Desktop", ImageFormat.Jpeg);
+            Rectangle screen = Screen.AllScreens[actualScreenNumber].Bounds;
+            Bitmap captureBitmap = new Bitmap(screen.Width, screen.Height);
+            Graphics screenShotGraphics = Graphics.FromImage(captureBitmap);
+            screenShotGraphics.CopyFromScreen(screen.X, screen.Y, 0, 0, new Size(screen.Width, screen.Height));
+            captureBitmap.Save(concatPathWithFileName(folderPath,fileName));
         }
 
 
-
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
 
 
 
