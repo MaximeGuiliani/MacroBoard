@@ -268,13 +268,12 @@ namespace MacroBoard.View
         {
             validerBtn.Click += (object sender, RoutedEventArgs e) => {
 
-                foreach (Control c in Controls.Children)
-                    if (c is TextBox)
-                        if (((TextBox)c).Text.Length <= 0)
-                        {
+                foreach (object c in Controls.Children)
+                    if (c is TextBox && ((TextBox)c).Text.Length <= 0){ 
                             MessageBox.Show("Remplissez tous les champs");
                             return;
                         }
+
 
                 res = newBlock();
                 this.DialogResult = true; /*MessageBox.Show($"{Controls.Width}");*/
