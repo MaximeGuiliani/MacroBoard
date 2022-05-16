@@ -22,8 +22,8 @@ namespace MacroBoard.View.Themes
 
         private static ResourceDictionary ThemeDictionary
         {
-            get { return Application.Current.Resources.MergedDictionaries[0]; }
-            set { Application.Current.Resources.MergedDictionaries[0] = value; }
+            get { return Application.Current.Resources.MergedDictionaries[1]; }
+            set { Application.Current.Resources.MergedDictionaries[1] = value; }
         }
 
         private static void ChangeTheme(Uri uri)

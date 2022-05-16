@@ -421,11 +421,11 @@ namespace MacroBoard
             {
                 case 0:
                     ThemesController.SetTheme(ThemesController.ThemeTypes.Light);
-                    MessageBox.Show("heylight");
+                    
                     break;
                 case 1:
                     ThemesController.SetTheme(ThemesController.ThemeTypes.Dark);
-                    MessageBox.Show("heydark");
+                    
                     break;
             }
             e.Handled = true;
