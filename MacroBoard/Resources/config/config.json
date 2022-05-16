@@ -1,0 +1,25 @@
+{
+  "chromePaths": [
+    "C:\\un\\chemin\\qui\\existe\\pas",
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+  ],
+
+
+  "fireFoxPaths": [
+    "C:\\un\\chemin\\qui\\existe\\pas",
+    "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+    "firefox.exe"
+  ],
+
+
+  "edgePaths": [
+    "C:\\un\\chemin\\qui\\existe\\pas",
+    "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+  ],
+
+
+  "DebugPath": "C:\\Users\\$USERNAME\\Documents\\"
+}
+
+// Directory names must end with "\\"

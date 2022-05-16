@@ -10,12 +10,14 @@ using System.Diagnostics;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Net;
+using static MacroBoard.Utils;
 
 
 namespace MacroBoard
 {
-    class BlockSetCursor : Block
+    public class BlockSetCursor : Block
     {
+
         public int x;
         public int y;
 
@@ -29,15 +31,16 @@ namespace MacroBoard
         }
 
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        static extern bool SetCursorPos(int x, int y);
-
-
         public override void Execute()
         {
             SetCursorPos(this.x, this.y);
         }
 
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
 
 
 

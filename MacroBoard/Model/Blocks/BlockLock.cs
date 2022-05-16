@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using static MacroBoard.Utils;
 
 namespace MacroBoard
 {
-    internal class BlockLock : Block
+    public class BlockLock : Block
     {
         
         public BlockLock()
@@ -15,12 +16,19 @@ namespace MacroBoard
             base.info = "Lock the screen of the computer.";
             base.Name = "Lock";
         }
+
+
         public override void Execute()
         {
-            [DllImport("user32")]
-            static extern void LockWorkStation();
             LockWorkStation();
         }
-        
+
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 namespace MacroBoard
 {
-    internal class BlockDeleteDirectory : Block
+    public class BlockDeleteDirectory : Block
     {
         public String path;
         public BlockDeleteDirectory(String path)
@@ -18,6 +18,11 @@ namespace MacroBoard
         public override void Execute()
         {
           Directory.Delete(path, true);
+        }
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
         }
 
 

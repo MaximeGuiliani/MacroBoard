@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace MacroBoard
 {
-    internal class BlockWait : Block
+    public class BlockWait : Block
     {
         public int hour, min, sec, sum, mili;
         public BlockWait(int mili, int sec = 0, int min = 0, int hour = 0)
@@ -26,6 +26,12 @@ namespace MacroBoard
             //Thread.Sleep(sum);
             Task.Delay(sum).Wait();
 
+        }
+
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
         }
 
 

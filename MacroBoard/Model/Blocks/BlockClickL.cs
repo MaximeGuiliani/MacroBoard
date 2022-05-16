@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Threading;
+using static MacroBoard.Utils;
 
 namespace MacroBoard
 {
-    internal class BlockClickL : Block
+    public class BlockClickL : Block
     {
-        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        public const int MOUSEEVENTF_LEFTUP = 0x04;
 
         public BlockClickL()
         {
@@ -20,18 +19,19 @@ namespace MacroBoard
             base.info = "Simulate a Left mouse click in the current position of the mouse pointer.";
         }
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
-
 
 
         public override void Execute()
         {
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-
+            mouse_event((int)MouseEventFlags.LeftDown, 0, 0, 0, 0);
+            mouse_event((int)MouseEventFlags.LeftUp, 0, 0, 0, 0);
         }
 
-    }
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
 
+
+    }
 }

@@ -20,6 +20,8 @@ namespace MacroBoard{
 
         public abstract void Execute();
 
+        public abstract void Accept(IBlockVisitor visitor);
+
 
 
     

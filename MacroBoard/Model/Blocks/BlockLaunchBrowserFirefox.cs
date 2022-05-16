@@ -8,31 +8,46 @@ using System.Windows.Media;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
+using Newtonsoft.Json.Linq;
+using System.IO;
+using static MacroBoard.Utils;
 
 
 namespace MacroBoard
 {
-    internal class BlockLaunchBrowserFirefox : Block
+    public class BlockLaunchBrowserFirefox : Block
     {
         public String address;
+        public WindowStyle windowStyle;
+        public int delay;
 
-        public BlockLaunchBrowserFirefox(String address)
+        public BlockLaunchBrowserFirefox(String address, WindowStyle windowStyle = WindowStyle.Normal, int delay = 3_000)
         {
+            this.windowStyle = windowStyle;
             this.address = address;
             base.Name = "LaunchBrowser Firefox";
             base.LogoUrl = "";
             base.info = "Start the browser Firefox on a new tab with the specified address.";
+            this.delay = delay;
         }
 
         public override void Execute()
         {
-
-            ProcessStartInfo startInfo = new ProcessStartInfo(@"C:\Program Files\Mozilla Firefox\firefox.exe");
-            startInfo.WindowStyle = ProcessWindowStyle.Normal;
+            ProcessStartInfo startInfo = new ProcessStartInfo(Config.PathFromList("fireFoxPaths"));
             startInfo.Arguments = $"-new-tab {this.address}";
             Process.Start(startInfo);
-
+            Thread.Sleep(delay);
+            Process? p = getRecentProcess("firefox");
+            if (p != null)
+                ShowWindow(p.MainWindowHandle, (int)windowStyle);
         }
+
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
 
 
     }

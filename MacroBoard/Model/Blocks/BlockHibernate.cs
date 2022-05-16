@@ -4,21 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using static MacroBoard.Utils;
+
+
 namespace MacroBoard 
 {
-    internal class BlockHibernate : Block
+    public class BlockHibernate : Block
     {
+
         public BlockHibernate()
         {
             base.Name = "Hibernate";
             base.info = "Sleep/hibernate the computer.";
         }
+
+
         public override void Execute()
         {
-            [DllImport("PowrProf.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-            static extern bool SetSuspendState(bool hiberate, bool forceCritical, bool disableWakeEvent);
             SetSuspendState(false, true, true);
         }
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
 
     }
 }

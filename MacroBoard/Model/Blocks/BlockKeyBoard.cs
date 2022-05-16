@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace MacroBoard
 {
-    internal class BlockKeyBoard : Block
+    public class BlockKeyBoard : Block
     {
         public string _shortCut;
         public BlockKeyBoard(string ShortCut)
@@ -24,5 +24,12 @@ namespace MacroBoard
             SendKeys.SendWait(_shortCut);
 
         }
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+
     }
 }

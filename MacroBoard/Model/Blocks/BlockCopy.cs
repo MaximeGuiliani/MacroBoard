@@ -61,5 +61,12 @@ namespace MacroBoard
             }
                 
         }
+
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+
     }
 }
