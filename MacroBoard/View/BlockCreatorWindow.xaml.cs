@@ -251,7 +251,7 @@ namespace MacroBoard.View
         }
 
 
-        private void create(BlockWait? blockWait)
+        private void create(BlockWait? blockWait) 
         {
             (Label, TextBox) mili = newTextBox("milisecondes", blockWait.mili.ToString(),CheckDigits);
             (Label, TextBox) sec = newTextBox("secondes", blockWait.sec.ToString(), CheckDigits);
