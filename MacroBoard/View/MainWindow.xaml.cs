@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MacroBoard.View.Themes;
 
 namespace MacroBoard
 {
@@ -17,6 +18,8 @@ namespace MacroBoard
         private List<WorkflowView> WorkflowsSearchs = new();
         bool isEdition = false;
         bool isInsearch = false;
+
+        public App CurrentApplication { get; set; } 
         public MainWindow()
         {
             InitializeComponent();
@@ -408,5 +411,25 @@ namespace MacroBoard
                 isEdition = true;
             }
         }
+
+
+        //-----------------------------------------------------------------------------------------------------------------------------//
+
+        private void ChangeTheme(object sender, RoutedEventArgs e)
+        {
+            switch (int.Parse(((MenuItem)sender).Uid))
+            {
+                case 0:
+                    ThemesController.SetTheme(ThemesController.ThemeTypes.Light);
+                    
+                    break;
+                case 1:
+                    ThemesController.SetTheme(ThemesController.ThemeTypes.Dark);
+                    
+                    break;
+            }
+            e.Handled = true;
+        }
+       
     }
 }

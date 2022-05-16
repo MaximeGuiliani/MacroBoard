@@ -1,0 +1,28 @@
+﻿<ResourceDictionary x:Class="Macroboard.LightTheme"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="Zineb.Deep.1.Background.Static"         R="24" G="24" B="24" A="255"/>
+    <SolidColorBrush x:Key="g.Deep.1.Background.Static" Color="{StaticResource Zineb.Deep.1.Background.Static}"/>
+    <SolidColorBrush x:Key="ControlDefaultForeground" Color="White" />
+
+    <SolidColorBrush x:Key="BackgroundColour" Color="White" />
+    <SolidColorBrush x:Key="WindowBorderColour" Color="#FFE0E0E0" />
+    <SolidColorBrush x:Key="WindowTitleColour" Color="WhiteSmoke" />
+
+    <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="ContainerBackground" Color="WhiteSmoke" />
+    <SolidColorBrush x:Key="ContainerBorder" Color="#FFE8E8E8" />
+
+
+    <!-- Custom Window style (unaffected by win32 style stuff) -->
+
+    <Style x:Key="CustomWindowStyleL" TargetType="{x:Type Window}">
+        <Setter Property="BorderBrush" Value="{StaticResource WindowBorderColour}" />
+        <Setter Property="Background" Value="{StaticResource BackgroundColour}" />
+        <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        
+    </Style>
+</ResourceDictionary>
