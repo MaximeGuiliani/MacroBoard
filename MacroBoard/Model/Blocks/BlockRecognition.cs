@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using OpenCvSharp;
 using System.Linq;
+using static MacroBoard.Utils;
 using System;
 using System.Threading.Tasks;
 using System.Threading;
@@ -13,7 +14,7 @@ using System.Text;
 
 namespace MacroBoard
 {
-    class BlockRecognition : Block
+    public class BlockRecognition : Block
     {
         //direct from constructor
         public string templatePath;
@@ -25,8 +26,7 @@ namespace MacroBoard
         public bool debugMode;
         public TemplateMatchModes matchModes;
         //computed from constructor
-        public int widthScreen;
-        public int heightScreen;
+        public Rectangle screen;
         public Rect rectOfInterest;
         public IEnumerable<double> tryScales;
         public string debugDirPath;
@@ -49,7 +49,7 @@ namespace MacroBoard
             this.yInterest      = yInterest;
             this.heightInterest = heightInterest;
             this.widthInterest  = widthInterest;
-            this.screenNumber   = screenNumber;
+            this.screenNumber   = screenNumber; //NOTE: ne pas utilsier dans le code
             this.offSetX        = offSetX;
             this.offSetY        = offSetY;
             this.scale          = scale;
@@ -57,13 +57,12 @@ namespace MacroBoard
             this.debugMode      = debugMode;
             this.matchModes     = matchModes;
             //computed from constructor
-            this.heightScreen   = Screen.AllScreens[screenNumber].Bounds.Height;
-            this.widthScreen    = Screen.AllScreens[screenNumber].Bounds.Width;
-            this.rectOfInterest = new Rect(xInterest, yInterest, widthInterest <= 0 ? this.widthScreen - xInterest : widthInterest, heightInterest <= 0 ? this.heightScreen - yInterest : heightInterest);
+            this.screen         = Screen.AllScreens[(screenNumber>= Screen.AllScreens.Length)? 0:screenNumber].Bounds;
+            this.rectOfInterest = new Rect(xInterest, yInterest, widthInterest <= 0 ? this.screen.Width - xInterest : widthInterest, heightInterest <= 0 ? this.screen.Height - yInterest : heightInterest);
             int[] pourcentages  = { 100, 125, 150, 175, 200 };
             var scales          = (from p1 in pourcentages from p2 in pourcentages where p1 != p2 select (double)p1 / (double)p2).Append(1);
             this.tryScales      = (loop) ? scales : new double[] { scale };
-            this.debugDirPath   = $@"C:\Users\{Environment.GetEnvironmentVariable("USERNAME")}\Documents\";
+            this.debugDirPath = Config.PathFromString("DebugPath");
         }
 
 
@@ -74,16 +73,14 @@ namespace MacroBoard
 
             (double maxVal, OpenCvSharp.Point? maxLoc, double scale) found = find(image, template);
 
-
             OpenCvSharp.Point rectPt1 = new OpenCvSharp.Point((found.maxLoc?.X * ((0 < found.scale && found.scale < 1) ? (1 / found.scale) : 1) + rectOfInterest.X).GetValueOrDefault(),
-                                                               (found.maxLoc?.Y * ((0 < found.scale && found.scale < 1) ? (1 / found.scale) : 1) + rectOfInterest.Y).GetValueOrDefault());
+                                                              (found.maxLoc?.Y * ((0 < found.scale && found.scale < 1) ? (1 / found.scale) : 1) + rectOfInterest.Y).GetValueOrDefault());
             OpenCvSharp.Point rectPt2 = new OpenCvSharp.Point(rectPt1.X + ((1 < found.scale) ? template.Width / found.scale : template.Width),
                                                               rectPt1.Y + ((1 < found.scale) ? template.Height / found.scale : template.Height));
 
             OpenCvSharp.Point CirclePt = new OpenCvSharp.Point(rectPt1.X + ((1 < found.scale) ? template.Width / found.scale : template.Width) / 2 + offSetX,
-                                                                rectPt1.Y + ((1 < found.scale) ? template.Height / found.scale : template.Height) / 2 + offSetY);
+                                                               rectPt1.Y + ((1 < found.scale) ? template.Height / found.scale : template.Height) / 2 + offSetY);
             SetCursorPos(CirclePt.X, CirclePt.Y);
-
 
             if (debugMode) Debug(image, rectPt1, rectPt2, CirclePt, found);
 
@@ -128,10 +125,10 @@ namespace MacroBoard
 
         private Bitmap BitmapScreenShot()
         {
-            Bitmap screenShotBitmap = new Bitmap(widthScreen, heightScreen, PixelFormat.Format32bppRgb);
+            Bitmap screenShotBitmap = new Bitmap(screen.Width, screen.Height, PixelFormat.Format32bppRgb);
             Graphics screenShotGraphics = Graphics.FromImage(screenShotBitmap);
             // NOTE: CopyFromScreen() possede un overload avec gestion des couleurs si besoin
-            screenShotGraphics.CopyFromScreen(Screen.AllScreens[screenNumber].Bounds.X, Screen.AllScreens[screenNumber].Bounds.Y, 0, 0, new System.Drawing.Size(widthScreen, heightScreen));
+            screenShotGraphics.CopyFromScreen(screen.X, screen.Y, 0, 0, new System.Drawing.Size(screen.Width, screen.Height));
             return screenShotBitmap;
         }
 
@@ -157,7 +154,7 @@ namespace MacroBoard
             //
             Cv2.PutText(image, $"screenNumber: {screenNumber}; x_interest: {xInterest}; y_interest: {yInterest}; w_Interest: {widthInterest}; h_Interest: {heightInterest}; scale: {scale}", new OpenCvSharp.Point(2, 20), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
             Cv2.PutText(image, $"Loop: {loop}; DebugMode: {debugMode}; Method: {matchModes}", new OpenCvSharp.Point(2, 40), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
-            Cv2.PutText(image, $"w_screen: {widthScreen}; h_screen: {heightScreen}", new OpenCvSharp.Point(2, 70), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
+            Cv2.PutText(image, $"w_screen: {screen.Width}; h_screen: {screen.Height}", new OpenCvSharp.Point(2, 70), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
             Cv2.PutText(image, $"rect_interest_x: {rectOfInterest.X}; rect_interest_y: {rectOfInterest.Y}; rect_interest_w: {rectOfInterest.Width}; rect_interest_h: {rectOfInterest.Height}", new OpenCvSharp.Point(2, 90), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
             Cv2.PutText(image, $"nb_tried_scales: {tryScales.Count()} found_scale: {found.scale}", new OpenCvSharp.Point(2, 110), HersheyFonts.HersheySimplex, 0.6, Scalar.DarkBlue);
             //
@@ -168,8 +165,11 @@ namespace MacroBoard
         }
 
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        static extern bool SetCursorPos(int x, int y);
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
 
 
 
