@@ -190,7 +190,7 @@ namespace MacroBoard
             if (blockCreatorWindow.DialogResult == false)
                 return;
 
-            newBlock = res[0];
+            newBlock = res[0]; 
 
 
             BlockViewModel_Right CurrentBlockViewModel = new BlockViewModel_Right(newBlock); //wrapper de block à droite
@@ -327,5 +327,5 @@ namespace MacroBoard
 
         }
 
-    }
+    } 
 }
