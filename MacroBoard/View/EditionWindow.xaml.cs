@@ -15,7 +15,7 @@ namespace MacroBoard
     /// </summary>
     public partial class EditionWindow : Window
     {
-        WorkFlow WorkFlow = new WorkFlow("", "", new());
+        public WorkFlow WorkFlow = new WorkFlow("", "", new());
 
         private List<BlockViewModel_Left> BlockViewModels_Left = new();
         private List<BlockViewModel_Right> BlockViewModels_Right = new();
@@ -31,9 +31,24 @@ namespace MacroBoard
         public EditionWindow(WorkFlow workFlow)
         {
             InitializeComponent();
-            this.WorkFlow = workFlow;
+            this.WorkFlow.workflowList = workFlow.workflowList;
+            this.WorkFlow.imagePath = workFlow.imagePath;
+            this.WorkFlow.workflowName = workFlow.workflowName;
+
+
             InitListBlock_Workflow();
-            //Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(workFlow.imagePath, UriKind.Absolute));
+            if (!WorkFlow.imagePath.Equals(""))
+            {
+                Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(WorkFlow.imagePath, UriKind.Absolute));
+
+            }
+            if (!WorkFlow.imagePath.Equals(""))
+            {
+
+                TextBox_WorkFlowImage.Text = WorkFlow.imagePath;
+            }
+            TextBox_WorkFlowName.Text = WorkFlow.workflowName;
+
         }
 
         private void InitListBlock_All()
@@ -232,6 +247,14 @@ namespace MacroBoard
 
             ListBlock_Right_XAML.Items.Insert(currentItemPos - 1, ((Button)sender).Parent);
             ListBlock_Right_XAML.Items.Insert(currentItemPos, previousItem);
+
+            Block block = WorkFlow.workflowList[currentItemPos - 1];
+
+
+            WorkFlow.workflowList.RemoveAt(currentItemPos - 1);
+            WorkFlow.workflowList.Insert(currentItemPos, block);
+
+
         }
         private void OnClick_Down(object sender, RoutedEventArgs e)
         {
@@ -245,6 +268,12 @@ namespace MacroBoard
 
             ListBlock_Right_XAML.Items.Insert(currentItemPos, nextItem);
             ListBlock_Right_XAML.Items.Insert(currentItemPos + 1, ((Button)sender).Parent);
+
+            Block block = WorkFlow.workflowList[currentItemPos];
+
+
+            WorkFlow.workflowList.RemoveAt(currentItemPos);
+            WorkFlow.workflowList.Insert(currentItemPos + 1, block);
         }
 
         private void SetHiddenOrVisibleBtnUp(object sender, Grid previousItem)
@@ -286,17 +315,28 @@ namespace MacroBoard
 
         }
 
+        private string placeHolderImagePath = "Select folder";
+        private string placeHolderWFName = "Select name";
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-            this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
-            this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
+            if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
+            {
+                if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
+                {
+                    this.WorkFlow.imagePath = "";
 
-            string JsonPath = AppDomain.CurrentDomain.BaseDirectory + "/BLOCK_JSON_TEST.json";
+                }
+                else
+                {
+                    this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
 
-            Serialization serialization = new Serialization(JsonPath);
+                }
+                this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
+                this.DialogResult = true;
+                this.Close();
+            }
 
-            serialization.Serialize(WorkFlow);
         }
 
         private void selectImage(object sender, RoutedEventArgs e)
@@ -318,16 +358,13 @@ namespace MacroBoard
 
         private void Name_Box_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox_WorkFlowName.Text = "";
+            if (TextBox_WorkFlowName.Text.Equals(placeHolderWFName))
+            {
+                TextBox_WorkFlowName.Text = "";
+
+            }
             TextBox_WorkFlowName.Foreground = new SolidColorBrush(Colors.Black);
         }
-
-        private void Name_Box_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-
 
     }
 }
