@@ -14,8 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using static MacroBoard.Utils;
-
-
+using System.Text.RegularExpressions;
 
 namespace MacroBoard.View
 {
@@ -115,7 +114,7 @@ namespace MacroBoard.View
         public void Visit(BlockLaunchBrowserChrome b)
         {
             (Label, TextBox) address = newTextBox("adresse web", b.address);
-            (Label, TextBox) delay = newTextBox("Delay before applying window style (ms)", b.delay.ToString());
+            (Label, TextBox) delay = newTextBox("Delay before applying window style (ms)", b.delay.ToString(), CheckDigits);
             ComboBox comboBox = newComboBoxList("Affichage", Enum.GetValues(typeof(WindowStyle)), b.windowStyle);
             newBlock = () => new BlockLaunchBrowserChrome(address.Item2.Text, (WindowStyle)comboBox.SelectedItem, int.Parse(delay.Item2.Text));
         }
@@ -164,14 +163,14 @@ namespace MacroBoard.View
         public void Visit(BlockRecognition b)
         {
             (TextBox, Button) templatePath = newFileSelector("Template path", b.templatePath);
-            (Label, TextBox) xInterest = newTextBox("X en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", b.xInterest.ToString());
-            (Label, TextBox) yInterest = newTextBox("Y en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", b.yInterest.ToString());
-            (Label, TextBox) heightInterest = newTextBox("Hauteur de la zone de recherche\n(0 pour tout l'écran)", b.heightInterest.ToString());
-            (Label, TextBox) widthInterest = newTextBox("Largeur de la zone de recherche\n(0 pour tout l'écran)", b.widthInterest.ToString());
-            (Label, TextBox) screenNumber = newTextBox("Numero de l'ecran de recherche", b.screenNumber.ToString());
-            (Label, TextBox) offSetX = newTextBox("Décalge horizontal de la souris", b.offSetX.ToString());
-            (Label, TextBox) offSetY = newTextBox("Décalge vertical de la souris", b.offSetY.ToString());
-            (Label, TextBox) scale = newTextBox("Scale de l'image\n[0,1[ rétrecir\t]1,+inf] agrandir", b.scale.ToString());
+            (Label, TextBox) xInterest = newTextBox("X en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", b.xInterest.ToString(), CheckDigits);
+            (Label, TextBox) yInterest = newTextBox("Y en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", b.yInterest.ToString(), CheckDigits);
+            (Label, TextBox) heightInterest = newTextBox("Hauteur de la zone de recherche\n(0 pour tout l'écran)", b.heightInterest.ToString(), CheckDigits);
+            (Label, TextBox) widthInterest = newTextBox("Largeur de la zone de recherche\n(0 pour tout l'écran)", b.widthInterest.ToString(), CheckDigits);
+            (Label, TextBox) screenNumber = newTextBox("Numero de l'ecran de recherche", b.screenNumber.ToString(), CheckDigits);
+            (Label, TextBox) offSetX = newTextBox("Décalge horizontal de la souris", b.offSetX.ToString(), CheckDigits);
+            (Label, TextBox) offSetY = newTextBox("Décalge vertical de la souris", b.offSetY.ToString(), CheckDigits);
+            (Label, TextBox) scale = newTextBox("Scale de l'image\n[0,1[ rétrecir\t]1,+inf] agrandir", b.scale.ToString(), CheckDigits);
             ComboBox loop = newComboBoxBool("Essayer plusieurs scale", b.loop);
             ComboBox debugMode = newComboBoxBool("DebugMode", b.debugMode);
             newBlock = () => new BlockRecognition(templatePath.Item1.Text, xInterest: ((xInterest.Item2.Text == "*") ? 0 : int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest: int.Parse(heightInterest.Item2.Text), widthInterest: int.Parse(widthInterest.Item2.Text), screenNumber: int.Parse(screenNumber.Item2.Text), offSetX: int.Parse(offSetX.Item2.Text), offSetY: int.Parse(offSetY.Item2.Text), scale: int.Parse(scale.Item2.Text), loop: (bool)loop.SelectedItem, debugMode: (bool)debugMode.SelectedItem);
@@ -212,8 +211,8 @@ namespace MacroBoard.View
 
         public void Visit(BlockSetCursor b)
         {
-            (Label, TextBox) x = newTextBox("x", b.x.ToString());
-            (Label, TextBox) y = newTextBox("y", b.y.ToString());
+            (Label, TextBox) x = newTextBox("x", b.x.ToString(), CheckDigits);
+            (Label, TextBox) y = newTextBox("y", b.y.ToString(), CheckDigits);
             newBlock = () => new BlockSetCursor(int.Parse(x.Item2.Text), int.Parse(y.Item2.Text));
         }
 
@@ -226,10 +225,10 @@ namespace MacroBoard.View
 
         public void Visit(BlockWait b)
         {
-            (Label, TextBox) mili = newTextBox("milisecondes", b.mili.ToString());
-            (Label, TextBox) sec = newTextBox("secondes", b.sec.ToString());
-            (Label, TextBox) min = newTextBox("minutes", b.min.ToString());
-            (Label, TextBox) hour = newTextBox("heures", b.hour.ToString());
+            (Label, TextBox) mili = newTextBox("milisecondes", b.mili.ToString(), CheckDigits);
+            (Label, TextBox) sec = newTextBox("secondes", b.sec.ToString(), CheckDigits);
+            (Label, TextBox) min = newTextBox("minutes", b.min.ToString(), CheckDigits);
+            (Label, TextBox) hour = newTextBox("heures", b.hour.ToString(), CheckDigits);
             newBlock = () => new BlockWait(int.Parse(mili.Item2.Text), int.Parse(sec.Item2.Text), int.Parse(min.Item2.Text), int.Parse(hour.Item2.Text));
         }
 
@@ -267,7 +266,19 @@ namespace MacroBoard.View
 
         public void AddHandlerToValiderBtn()
         {
-            validerBtn.Click += (object sender, RoutedEventArgs e) => { res = newBlock(); this.DialogResult = true; /*MessageBox.Show($"{Controls.Width}");*/ };
+            validerBtn.Click += (object sender, RoutedEventArgs e) => {
+
+                foreach (Control c in Controls.Children)
+                    if (c is TextBox)
+                        if (((TextBox)c).Text.Length <= 0)
+                        {
+                            MessageBox.Show("Remplissez tous les champs");
+                            return;
+                        }
+
+                res = newBlock();
+                this.DialogResult = true; /*MessageBox.Show($"{Controls.Width}");*/
+            };
         }
 
 
