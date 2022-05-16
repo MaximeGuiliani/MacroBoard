@@ -28,7 +28,7 @@ namespace MacroBoard
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(writer, wf);
             }
-                
+
         }
 
         public WorkFlow Deserialize()
@@ -47,6 +47,50 @@ namespace MacroBoard
                 Blocks.Add((Block)WFList[i]!.ToObject(BlockType)!);
             }
             return new WorkFlow(WFImgPath, WFName, Blocks);
+        }
+
+
+        public static void DeleteFAV(string WorkFlowName)
+        {
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + WorkFlowName + ".json");
+        }
+
+        public static void DeleteWF(string WorkFlowName)
+        {
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + WorkFlowName + ".json");
+
+        }
+
+
+        public static List<WorkflowView> getFavsFromJson()
+        {
+            List<WorkflowView> FavWorkflows = new();
+            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON", "*", SearchOption.TopDirectoryOnly).Length;
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON");
+            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+            foreach (FileInfo file in files)
+            {
+                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + file.Name);
+                FavWorkflows.Add(new(serialization.Deserialize()));
+            }
+
+            return FavWorkflows;
+        }
+
+
+        public static List<WorkflowView> getWorkFlowsFromJson()
+        {
+            List<WorkflowView> Workflows = new();
+
+            int fCount = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON", "*", SearchOption.TopDirectoryOnly).Length;
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON");
+            FileInfo[] files = info.GetFiles().OrderBy(p => p.CreationTime).ToArray();
+            foreach (FileInfo file in files)
+            {
+                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + file.Name);
+                Workflows.Add(new(serialization.Deserialize()));
+            }
+            return Workflows;
         }
 
     }

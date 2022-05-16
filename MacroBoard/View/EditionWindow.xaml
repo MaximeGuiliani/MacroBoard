@@ -44,7 +44,7 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <TextBox x:Name="TextBox_WorkFlowName" Foreground="Gray" VerticalContentAlignment="Center"  HorizontalAlignment="Center" Height="28" Margin="0,85,0,0" Text="Select name" TextWrapping="NoWrap" VerticalAlignment="Top" Width="350" GotFocus="Name_Box_GotFocus" TextChanged="Name_Box_TextChanged"/>
+                    <TextBox x:Name="TextBox_WorkFlowName" Foreground="Gray" VerticalContentAlignment="Center"  HorizontalAlignment="Center" Height="28" Margin="0,85,0,0" Text="Select name" TextWrapping="NoWrap" VerticalAlignment="Top" Width="350" GotFocus="Name_Box_GotFocus" />
                     <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Height="28" Width="350" Margin="0,40">
                         <TextBox x:Name="TextBox_WorkFlowImage" Text="Select folder" TextWrapping="NoWrap" Foreground="Gray" Width="270" HorizontalAlignment="Right" VerticalContentAlignment="Center" Focusable="False"/>
                         <Button x:Name="Btn_WorkFlowImage" Width="80" HorizontalAlignment="Left" Content="Select Image" Click="selectImage"/>
@@ -52,7 +52,7 @@
                 </Grid>
 
                 <Grid Grid.Column="2">
-                    <Button x:Name="Btn_Save" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="86" Click="Button_Save" />
+                    <Button ToolTip="KEKW"  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="86" Click="Button_Save" />
                 </Grid>
 
             </Grid>

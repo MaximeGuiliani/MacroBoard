@@ -70,5 +70,9 @@
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Resources\FavWorkFlowsJSON\" />
+	  <Folder Include="Resources\WorkFlowsJSON\" />
+	</ItemGroup>
 
 </Project>

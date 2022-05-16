@@ -120,7 +120,6 @@
                 <Style TargetType="{x:Type ListBoxItem}">
 
 
-
                     <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                     <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -177,7 +176,6 @@
             </ListBox.Style>
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
-
                     <Setter Property="Background" Value="Transparent"/>
                     <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                     <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
