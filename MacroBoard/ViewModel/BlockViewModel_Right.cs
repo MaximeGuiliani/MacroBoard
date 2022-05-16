@@ -36,27 +36,27 @@ namespace MacroBoard
 
             //Up Button
             txtBlock = new();
-            txtBlock.Text = "🠕";
+            txtBlock.Text = "▲";
             thickness = new Thickness();
             thickness.Top = -3d;
             txtBlock.Margin = thickness;
             Btn_Up.Content = txtBlock;
 
-            Btn_Up.Width = 15d;
-            Btn_Up.Height = 15d;
+            Btn_Up.Width = 25d;
+            Btn_Up.Height = 25d;
             Btn_Up.HorizontalAlignment = HorizontalAlignment.Left;
             Btn_Up.VerticalAlignment = VerticalAlignment.Top;
 
             //Down Button
             txtBlock = new();
-            txtBlock.Text = "🠗";
+            txtBlock.Text = "▼";
             thickness = new Thickness();
             thickness.Top = -3d;
             txtBlock.Margin = thickness;
             Btn_Down.Content = txtBlock;
 
-            Btn_Down.Width = 15d;
-            Btn_Down.Height = 15d;
+            Btn_Down.Width = 25d;
+            Btn_Down.Height = 25d;
             Btn_Down.HorizontalAlignment = HorizontalAlignment.Left;
             Btn_Down.VerticalAlignment = VerticalAlignment.Bottom;
 

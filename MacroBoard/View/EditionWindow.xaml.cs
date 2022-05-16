@@ -31,11 +31,12 @@ namespace MacroBoard
         public EditionWindow(WorkFlow workFlow)
         {
             InitializeComponent();
-            this.WorkFlow.workflowList = workFlow.workflowList;
+
+            this.WorkFlow.workflowList = new(workFlow.workflowList);
             this.WorkFlow.imagePath = workFlow.imagePath;
             this.WorkFlow.workflowName = workFlow.workflowName;
 
-
+            InitListBlock_All();
             InitListBlock_Workflow();
             if (!WorkFlow.imagePath.Equals(""))
             {
@@ -78,13 +79,6 @@ namespace MacroBoard
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockSetCursor(0, 0)));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockShutdown()));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockWait(0, 0, 0)));
-
-
-
-
-
-
-
 
             foreach (BlockViewModel_Left blockView in BlockViewModels_Left)
             {

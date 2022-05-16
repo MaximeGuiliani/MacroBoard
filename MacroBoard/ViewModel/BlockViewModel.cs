@@ -43,7 +43,7 @@ namespace MacroBoard
             BitmapImage bitmapImg = new BitmapImage();
 
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri("/Resources/Logo_Blocks/Logo_BlockSendMail.png", UriKind.Relative);
+            bitmapImg.UriSource = new Uri("/Resources/Logo_Blocks/Logo_BlockClickL.png", UriKind.Relative);
             bitmapImg.EndInit();
 
             img.Source = bitmapImg;
@@ -53,7 +53,7 @@ namespace MacroBoard
 
             Thickness thickness = new Thickness();
             thickness.Top = 10d;
-            thickness.Left = 15d;
+            thickness.Left = 25d;
 
             img.Margin = thickness;
             img.Width = 35d;
