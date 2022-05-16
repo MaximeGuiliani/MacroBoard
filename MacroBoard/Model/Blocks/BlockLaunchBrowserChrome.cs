@@ -7,32 +7,48 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Forms;
 using System.Diagnostics;
+using MacroBoard;
 using System.Threading;
+using Newtonsoft.Json.Linq;
+using System.IO;
+using static MacroBoard.Utils;
 
 
 namespace MacroBoard
 {
-    internal class BlockLaunchBrowserChrome : Block
+    public class BlockLaunchBrowserChrome : Block
     {
-        public String address;
 
-        public BlockLaunchBrowserChrome(String address)
+        public String address;
+        public WindowStyle windowStyle;
+        public int delay;
+
+
+        public BlockLaunchBrowserChrome(String address, WindowStyle windowStyle=WindowStyle.Normal, int delay = 3_000)
         {
             this.address = address;
+            this.windowStyle = windowStyle;
+            this.delay = delay;
             base.Name = "LaunchBrowserChrome";
             base.LogoUrl = "";
             base.info = "Start the browser Chrome on a new tab with the specified address.";
         }
 
+
         public override void Execute()
         {
-
-            ProcessStartInfo startInfo = new ProcessStartInfo(@"C:\Program Files\Google\Chrome\Application\chrome.exe");
-            startInfo.WindowStyle = ProcessWindowStyle.Normal;
+            ProcessStartInfo startInfo = new ProcessStartInfo(Config.PathFromList("chromePaths"));
             startInfo.Arguments = $"-d {this.address}";
             Process.Start(startInfo);
+            Thread.Sleep(delay);
+            Process? p = getRecentProcess("chrome");
+            if (p != null)
+                ShowWindow(p.MainWindowHandle, (int)windowStyle);
+        }
 
-
+        public override void Accept(IBlockVisitor visitor)
+        {
+            visitor.Visit(this);
         }
 
 
