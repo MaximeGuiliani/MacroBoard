@@ -11,6 +11,7 @@ namespace MacroBoard
         public BlockClickR()
         {
             base.Name = "Right Click";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockClickR.png";
             base.info = "Simulate a Right mouse click in the current position of the mouse pointer.";
         }
 

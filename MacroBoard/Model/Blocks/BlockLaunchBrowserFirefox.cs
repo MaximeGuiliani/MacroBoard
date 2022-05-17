@@ -25,8 +25,8 @@ namespace MacroBoard
         {
             this.windowStyle = windowStyle;
             this.address = address;
-            base.Name = "LaunchBrowser Firefox";
-            base.LogoUrl = "";
+            base.Name = "Launch Mozilla Firefox";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockLaunchFirefox.png";
             base.info = "Start the browser Firefox on a new tab with the specified address.";
             this.delay = delay;
         }

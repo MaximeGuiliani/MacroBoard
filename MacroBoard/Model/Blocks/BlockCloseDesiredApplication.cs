@@ -14,7 +14,8 @@ namespace MacroBoard
         public BlockCloseDesiredApplication(String appName)
         {
             base.Name = "CloseDesiredApplication";
-            base.info = "Close desired application.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCloseDesiredApplication.png";
+            base.info = "Close desired application";
             this.appName = appName;
 
         }

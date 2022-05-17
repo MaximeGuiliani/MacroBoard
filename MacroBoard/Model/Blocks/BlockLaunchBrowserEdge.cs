@@ -17,8 +17,8 @@ namespace MacroBoard
         public BlockLaunchBrowserEdge(String address, WindowStyle windowStyle = WindowStyle.Normal, int delay=3_000)
         {
             base.info = "Start the Edge browser on a new tab with the specifiedaddress.";
-            base.Name = "LaunchEdgeBrowser";
-            base.LogoUrl = "";
+            base.Name = "Launch Microsoft Edge";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockLaunchEdge.png";
             this.address = address;
             this.windowStyle = windowStyle;
             this.delay = delay;

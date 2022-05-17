@@ -14,6 +14,7 @@ namespace MacroBoard
         public BlockMove(String source, String destination)
         {
             base.Name = "Move Folder/File";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockMoveFile.png";
             base.info = "Move a folder/file from the specified source to the specified destination.";
             this.source = source;
             this.destination = destination;

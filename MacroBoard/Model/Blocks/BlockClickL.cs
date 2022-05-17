@@ -16,6 +16,7 @@ namespace MacroBoard
         public BlockClickL()
         {
             base.Name = "Left Click";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockClickL.png";
             base.info = "Simulate a Left mouse click in the current position of the mouse pointer.";
         }
 

@@ -27,7 +27,27 @@
 		<None Remove="Resources\Logo_Blocks\Logo_BlockClickL.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockClickR.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockCopy.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockCreateTextFile.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockCursorPosition.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockDeleteDirectory.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockDownloadFile.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockHibernate.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockLaunchChrome.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockLaunchEdge.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockLaunchFirefox.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockLock.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockMoveFile.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockPopup.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockRecognizeImage.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockRestart.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockRunApplication.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockRunScript.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockScreenShot.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockSendMail.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockShortcut.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockShutdown.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockWait.png" />
 		<None Remove="Resources\macro_img.png" />
 		<None Remove="Resources\WFJSON\init.txt" />
 	</ItemGroup>
@@ -42,6 +62,78 @@
 
 	<ItemGroup>
 	  <Content Include="Resources\FAVJSON\init.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockClickL.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockClickR.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockCopy.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockCreateTextFile.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockCursorPosition.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockDeleteDirectory.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockDownloadFile.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockHibernate.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockLaunchChrome.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockLaunchEdge.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockLaunchFirefox.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockLock.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockMoveFile.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockPopup.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockRecognizeImage.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockRestart.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockRunApplication.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockRunScript.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockScreenShot.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockSendMail.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockShortcut.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockShutdown.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockWait.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\WFJSON\init.txt">
@@ -72,18 +164,6 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\config\config.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\Logo_Blocks\Logo_BlockClickL.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\Logo_Blocks\Logo_BlockClickR.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Resources\Logo_Blocks\Logo_BlockSendMail.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\macro_img.png">

@@ -29,8 +29,8 @@ namespace MacroBoard
             this.address = address;
             this.windowStyle = windowStyle;
             this.delay = delay;
-            base.Name = "LaunchBrowserChrome";
-            base.LogoUrl = "";
+            base.Name = "Launch Google Chrome";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockLaunchChrome.png";
             base.info = "Start the browser Chrome on a new tab with the specified address.";
         }
 
