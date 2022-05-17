@@ -59,6 +59,7 @@ namespace MacroBoard
                 workflowView.Btn_Fav.Click += OnClick_Fav;
                 workflowView.Btn_Main.Click += Button_Click;
             }
+
             if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
             {
                 workflowView.Btn_Main.Content = new Image
@@ -66,6 +67,7 @@ namespace MacroBoard
                     Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.Absolute))
                 };
             }
+
             if (pos != -2)
             {
                 if (isFav) ListFav.Items.Insert(pos, workflowView.Content);
@@ -77,8 +79,6 @@ namespace MacroBoard
                 else ListMacro.Items.Add(workflowView.Content);
             }
         }
-
-
 
         //-----------------------------------------------------------------------------------------------------------------------------//
 
@@ -174,20 +174,11 @@ namespace MacroBoard
             {
                 if (!ListContains(FavWorkflows, wf))
                 {
-                    newFav.Btn_Fav.Click += OnClick_Delete_Fav;
-                    newFav.Btn_Main.Click += Button_Click_Fav;
-                    newFav.Btn_Delete.Visibility = Visibility.Hidden;
-                    if (!newFav.CurrentworkFlow.imagePath.Equals(""))
-                    {
-                        newFav.Btn_Main.Content
-                            = new Image
-                            {
-                                Source = new BitmapImage(new Uri(newFav.CurrentworkFlow.imagePath, UriKind.Absolute))
-                            };
-                    }
+
+                    CreateButton(newFav, true);
+
                     Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + wf.workflowName + ".json");
                     serialization.Serialize(wf);
-                    ListFav.Items.Add(newFav.Content);
                     FavWorkflows.Add(newFav);
                 }
             }
@@ -237,6 +228,19 @@ namespace MacroBoard
 
         }
 
+        private void ResetWindow()
+        {
+            if (isEdition) EditionMode(new(), new());
+
+            Search.Text = "";
+
+            ListMacro.Items.Clear();
+            foreach (WorkflowView wf in Workflows)
+            {
+                ListMacro.Items.Add(wf.Content);
+            }
+        }
+
         //-----------------------------------------------------------------------------------------------------------------------------//
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -276,6 +280,9 @@ namespace MacroBoard
 
             EditionWindow editionWindow = new();
             editionWindow.ShowDialog();
+
+            ResetWindow();
+
             if (editionWindow.DialogResult == true)
             {
 
@@ -295,7 +302,7 @@ namespace MacroBoard
                 Workflows.Insert(Workflows.Count - 1, new(wf));
 
 
-                CreateButton(new(Workflows[^2].CurrentworkFlow), false, Workflows.Count - 2);
+                CreateButton(Workflows[^2], false, ListMacro.Items.Count - 1);
 
             }
         }
@@ -307,6 +314,9 @@ namespace MacroBoard
             {
                 EditionWindow editionWindow = new(wf);
                 editionWindow.ShowDialog();
+
+                ResetWindow();
+
                 if (editionWindow.DialogResult == true)
                 {
 
@@ -335,7 +345,7 @@ namespace MacroBoard
                             }
 
                             Workflows.Insert(indexWF, new(editionWindow.WorkFlow));
-                            CreateButton(new(editionWindow.WorkFlow), false, indexWF);
+                            CreateButton(Workflows[indexWF], false, indexWF);
                             WorkFlow favWorkflow = Workflows[indexWF].CurrentworkFlow;
                             WorkflowView favWorkflowView = new(favWorkflow);
                             FavWorkflows.Insert(index, favWorkflowView);
@@ -370,6 +380,9 @@ namespace MacroBoard
             string toDelete = wf.workflowName;
             EditionWindow editionWindow = new(wf);
             editionWindow.ShowDialog();
+
+            ResetWindow();
+
             if (editionWindow.DialogResult == true)
             {
                 Serialization.DeleteWF(toDelete);
@@ -382,7 +395,7 @@ namespace MacroBoard
                 }
 
                 Workflows.Insert(indexWF, new(editionWindow.WorkFlow));
-                CreateButton(new(editionWindow.WorkFlow), false, indexWF);
+                CreateButton(Workflows[indexWF], false, indexWF);
 
                 Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + editionWindow.WorkFlow.workflowName + ".json");
                 serialization.Serialize(editionWindow.WorkFlow);
