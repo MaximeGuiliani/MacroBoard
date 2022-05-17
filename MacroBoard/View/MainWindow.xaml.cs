@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using MacroBoard.View.Themes;
 
@@ -49,6 +50,9 @@ namespace MacroBoard
         {
             if (isFav)
             {
+                //((TextBlock)workflowView.Btn_Fav.Content).Text = "✰";
+
+
                 workflowView.Btn_Delete.Visibility = Visibility.Hidden;
                 workflowView.Btn_Main.Click += Button_Click_Fav;
                 workflowView.Btn_Fav.Click += OnClick_Delete_Fav;
@@ -462,13 +466,57 @@ namespace MacroBoard
             {
                 ButtonEdit.Foreground = Brushes.Black;
                 isEdition = false;
+                for (int i = 0; i < ListMacro.Items.Count - 1; i++)
+                {
+                    ((Button)((Grid)ListMacro.Items[i]).Children[2]).Visibility = Visibility.Hidden;
+                    ((Button)((Grid)ListMacro.Items[i]).Children[3]).Visibility = Visibility.Hidden;
+                }
+
+
+
+                for (int i = 0; i < ListFav.Items.Count; i++)
+                {
+                    ((Button)((Grid)ListFav.Items[i]).Children[3]).Visibility = Visibility.Hidden;
+                }
             }
             else
             {
                 ButtonEdit.Foreground = Brushes.Green;
                 isEdition = true;
+                for (int i = 0; i < ListMacro.Items.Count - 1; i++)
+                {
+                    ((Grid)ListMacro.Items[i]).MouseEnter += myRectangleLoaded;
+                    ((Button)((Grid)ListMacro.Items[i]).Children[2]).Visibility = Visibility.Visible;
+                    ((Button)((Grid)ListMacro.Items[i]).Children[3]).Visibility = Visibility.Visible;
+                }
+
+
+                for (int i = 0; i < ListFav.Items.Count; i++)
+                {
+                    ((Button)((Grid)ListFav.Items[i]).Children[3]).Visibility = Visibility.Visible;
+                }
             }
         }
+
+
+        private void myRectangleLoaded(object sender, RoutedEventArgs e)
+        {
+
+            DoubleAnimation myDoubleAnimation = new();
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
+            myDoubleAnimation.From = 0;
+            myDoubleAnimation.To = 360;
+
+
+            Storyboard.SetTargetProperty(myDoubleAnimation,
+                new PropertyPath(RotateTransform.AngleProperty));
+            Storyboard myStoryboard = new();
+            myStoryboard.Children.Add(myDoubleAnimation);
+            myStoryboard.Begin(this);
+        }
+
+
+
 
 
         //-----------------------------------------------------------------------------------------------------------------------------//
