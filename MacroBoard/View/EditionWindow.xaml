@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
         mc:Ignorable="d"
+        UseLayoutRounding="True"
         Title="EditionWindow" Height="675" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>

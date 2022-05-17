@@ -15,6 +15,7 @@ namespace MacroBoard
         public BlockRunScript(string script)
         {
             base.info = "Execute a script with powershell.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockRunScript.png";
             base.Name = "Run Script";
             this.script = script;
         }
