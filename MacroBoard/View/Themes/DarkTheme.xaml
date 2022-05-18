@@ -3,28 +3,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <SolidColorBrush x:Key="BackgroundColour" Color="#FF232323" />
-    <SolidColorBrush x:Key="WindowBorderColour" Color="#FF343434" />
-    <SolidColorBrush x:Key="WindowTitleColour" Color="#FF242424" />
-
-    <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="ContainerBackground" Color="#FF272727" />
-    <SolidColorBrush x:Key="ContainerBorder" Color="#FF2B2B2B" />
-    <SolidColorBrush x:Key="ControlDefaultForeground" Color="Black" />
-
-    <SolidColorBrush x:Key="ControlPrimaryColourBackground" Color="#FF2084E8" />
-    <SolidColorBrush x:Key="ControlPrimaryColourBorderBrush" Color="#FF3294E8" />
-    <SolidColorBrush x:Key="ControlBrightPrimaryColourBackground" Color="#FF3296FA" />
-    <SolidColorBrush x:Key="ControlBrightPrimaryColourBorderBrush" Color="#FF50A4FA" />
-
+   
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="BorderBrush" Value="{StaticResource WindowBorderColour}" />
-        <Setter Property="Background" Value= "BlueViolet" />
-        <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="#3A4149"/>
+        <Setter Property="Background" Value= "#282D33" />
+        <!--<Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />-->
+        <Setter Property="BorderThickness" Value="5" />
         <Setter Property="WindowStyle" Value="SingleBorderWindow" />
         
-       
+
     </Style>
 
 </ResourceDictionary>
