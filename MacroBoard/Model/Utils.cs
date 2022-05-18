@@ -40,7 +40,7 @@ namespace MacroBoard
                 }
                 else
                 {
-                    if (proc.ProcessName.ToLower().Contains(processName.ToLower()))
+                    if (proc.ProcessName.ToLower().Contains(processName.ToLower()) || processName.ToLower().Contains(proc.ProcessName.ToLower()))
                         return proc;
                 }
             }
@@ -97,6 +97,35 @@ namespace MacroBoard
         public static extern bool SetCursorPos(int x, int y);
 
 
+//-------------------------------------------------------------------------
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            int left, top, right, bottom;
+
+            public System.Drawing.Rectangle ToRectangle()
+            {
+                return new System.Drawing.Rectangle(left, top, right - left, bottom - top);
+            }
+        }
+
+
+        [DllImport("user32.dll")]
+        private static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+
+        [DllImport("user32.dll")]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+        public static System.Drawing.Rectangle GetWindowRect(IntPtr hWnd)
+        {
+            var nativeRect = new RECT();
+            GetWindowRect(hWnd, out nativeRect);
+            return nativeRect.ToRectangle();
+        }
+
+
+//-------------------------------------------------------------------------
 
 
 
