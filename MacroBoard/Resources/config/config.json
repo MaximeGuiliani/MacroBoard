@@ -19,7 +19,10 @@
   ],
 
 
-  "DebugPath": "C:\\Users\\$USERNAME\\Documents\\"
+  "DebugPath": "C:\\Users\\$USERNAME\\Documents\\",
+
+  "Theme": "Light"
+
 }
 
 // Directory names must end with "\\"
