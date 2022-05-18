@@ -26,6 +26,7 @@ namespace MacroBoard
             DataContext = this;
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/macro_img.png", UriKind.Absolute));
+            Research reasearch = new(BlockViewModels_Left, ListBlock_Left_XAML);
         }
 
         public EditionWindow(WorkFlow workFlow)
