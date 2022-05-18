@@ -8,6 +8,15 @@ using System.Windows.Controls;
 
 namespace MacroBoard{
     public abstract class Block  {
+
+        public enum Categories
+        {
+            System,
+            Browsers,
+            Files,
+            Controls,
+            Applications
+        }
         public Block()
         {
             this.BlockType = this.GetType().Name;
@@ -17,6 +26,8 @@ namespace MacroBoard{
         public string Name { get; set; } = "";
         public string LogoUrl { get; set; } = "";
         public string info { get; set; } = "";
+
+        public Categories category;
 
         public abstract void Execute();
 

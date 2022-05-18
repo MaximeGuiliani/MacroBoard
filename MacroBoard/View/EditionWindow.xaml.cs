@@ -22,6 +22,7 @@ namespace MacroBoard
         public EditionWindow()
         {
             InitializeComponent();
+            initCategories();
             InitListBlock_All();
             DataContext = this;
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
@@ -84,10 +85,23 @@ namespace MacroBoard
             foreach (BlockViewModel_Left blockView in BlockViewModels_Left)
             {
                 blockView.Btn_Add.Click += OnClick_Add;
-                ListBlock_Left_XAML.Items.Add(blockView.Content);
+                //Categories_XAML.Items.Add(blockView.Content);
+                //ListBlock_Left_XAML.Items.Add(blockView.Content);
             }
 
         }
+
+        private void initCategories(){
+            foreach(string i in Enum.GetNames(typeof(Block.Categories)))
+            {
+                TreeViewItem category = new();
+                category.Header = i;
+                
+                Categories_XAML.Items.Add(category);
+
+            }
+        }
+
 
         private void InitListBlock_Workflow()
         {
