@@ -8,6 +8,7 @@ using System.ComponentModel;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockCloseDesiredApplication : Block
     {
         public String appName { get; set; } = "";

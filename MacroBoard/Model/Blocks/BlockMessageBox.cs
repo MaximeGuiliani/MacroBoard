@@ -8,6 +8,7 @@ using System.Windows;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockMessageBox : Block
     {
 

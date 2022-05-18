@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockRunScript : Block
     {
         public string script;

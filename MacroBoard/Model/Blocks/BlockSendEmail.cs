@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockSendEmail : Block
     {
         public string body;

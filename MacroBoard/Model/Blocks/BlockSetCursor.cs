@@ -15,6 +15,7 @@ using static MacroBoard.Utils;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockSetCursor : Block
     {
 

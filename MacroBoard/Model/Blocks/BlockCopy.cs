@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using static MacroBoard.Utils;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockCopy : Block
     {
         public String source { get; set; } = "";
@@ -14,8 +16,8 @@ namespace MacroBoard
         
         public BlockCopy(String source, String destination)
         {
-            base.Name = "Copy";
-            base.info = "Copies a file in a defined directory or copies all the elements of a directory to another directory.";
+            base.Name = "Copy Directory";
+            base.info = "Copies all the elements of a directory to another directory.";
             this.source = source;
             this.destination = destination;
         }
@@ -57,9 +59,9 @@ namespace MacroBoard
             else
             {
                 FileInfo file = new FileInfo(source);
-                file.CopyTo(destination + ((source.EndsWith(@"\")) ? "" : @"\") + Path.GetFileName(source)) ;
+                file.CopyTo(concatPathWithFileName(destination, Path.GetFileName(source)));
             }
-                
+
         }
 
         public override void Accept(IBlockVisitor visitor)

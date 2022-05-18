@@ -8,6 +8,7 @@ using static MacroBoard.Utils;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockLock : Block
     {
         

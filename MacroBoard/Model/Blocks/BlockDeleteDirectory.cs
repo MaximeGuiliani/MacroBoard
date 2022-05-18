@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockDeleteDirectory : Block
     {
         public String path;

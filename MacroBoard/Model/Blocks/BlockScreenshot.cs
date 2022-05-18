@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Forms;
 using System.Drawing;
 using static MacroBoard.Utils;
@@ -5,6 +6,8 @@ using static MacroBoard.Utils;
 
 
 namespace MacroBoard{
+
+    [Serializable]
     public class BlockScreenshot : Block
     {
 
