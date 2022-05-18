@@ -21,7 +21,18 @@
         </Grid>
 
         <Grid Margin="20,20,20,20">
+            
             <ListBox x:Name="ListBlock_Left_XAML" VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="0,0,0,0"/>
+            <TreeView>
+                <TreeViewItem Header="Cold Drinks">
+                    <TreeViewItem Header="Coke"></TreeViewItem>
+                    <TreeViewItem Header="Pepsi"></TreeViewItem>
+                    <TreeViewItem Header="Orange Juice"></TreeViewItem>
+                    <TreeViewItem Header="Milk"></TreeViewItem>
+                    <TreeViewItem Header="Iced Tea"></TreeViewItem>
+                    <TreeViewItem Header="Mango Shake"></TreeViewItem>
+                </TreeViewItem>
+            </TreeView>
         </Grid>
 
         <Grid Grid.Column="1" Margin="20,20,20,20">
