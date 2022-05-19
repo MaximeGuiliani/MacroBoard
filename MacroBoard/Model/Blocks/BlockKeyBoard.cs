@@ -17,6 +17,8 @@ namespace MacroBoard
             base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockShortcut.png";
             base.info = "Simulate user input with the keyboard including ctrl, alt and shift.";
             this._shortCut = ShortCut;
+            base.category = Categories.Controls;
+
         }
 
 

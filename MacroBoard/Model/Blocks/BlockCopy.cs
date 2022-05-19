@@ -19,6 +19,8 @@ namespace MacroBoard
             base.info = "Copies a file in a defined directory or copies all the elements of a directory to another directory.";
             this.source = source;
             this.destination = destination;
+            base.category = Categories.Files;
+
         }
 
         static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)

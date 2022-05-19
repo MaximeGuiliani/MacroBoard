@@ -29,6 +29,8 @@ namespace MacroBoard
             base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockLaunchFirefox.png";
             base.info = "Start the browser Firefox on a new tab with the specified address.";
             this.delay = delay;
+            base.category = Categories.Browsers;
+
         }
 
         public override void Execute()

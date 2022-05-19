@@ -34,14 +34,14 @@
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-
-            <ListBox x:Name="ListBlock_Left_XAML" VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="0,0,0,0" Margin="0,70,0,0">
-                <TreeView x:Name="Categories_XAML" Width="Auto">
-                    
-                </TreeView>
-            </ListBox>
             
+            <TreeView x:Name="Categories_XAML" Width="Auto">
 
+            </TreeView>
+            
+            <ListBox x:Name="ListBlock_Left_XAML" VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="0,0,0,0" Margin="0,70,0,0">
+                
+            </ListBox>
 
         </Grid>
 

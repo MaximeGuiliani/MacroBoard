@@ -17,6 +17,8 @@ namespace MacroBoard
             base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCloseDesiredApplication.png";
             base.info = "Close desired application";
             this.appName = appName;
+            base.category = Categories.Applications;
+
 
         }
         public override void Execute()

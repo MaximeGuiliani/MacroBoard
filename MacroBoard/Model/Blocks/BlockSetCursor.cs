@@ -29,6 +29,8 @@ namespace MacroBoard
             base.Name = "Set cursor position";
             this.x = x;
             this.y = y;
+            base.category = Categories.Controls;
+
         }
 
 

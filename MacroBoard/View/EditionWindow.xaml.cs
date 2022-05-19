@@ -22,8 +22,8 @@ namespace MacroBoard
         public EditionWindow()
         {
             InitializeComponent();
-            initCategories();
             InitListBlock_All();
+            initCategories();
             DataContext = this;
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/macro_img.png", UriKind.Absolute));
@@ -87,18 +87,25 @@ namespace MacroBoard
                 blockView.Btn_Add.Click += OnClick_Add;
                 //Categories_XAML.Items.Add(blockView.Content);
                 //ListBlock_Left_XAML.Items.Add(blockView.Content);
+                //ListBlock_Left_XAML.Visibility = Visibility.Hidden;
             }
 
         }
 
         private void initCategories(){
-            foreach(string i in Enum.GetNames(typeof(Block.Categories)))
-            {
-                TreeViewItem category = new();
-                category.Header = i;
-                
-                Categories_XAML.Items.Add(category);
 
+            foreach (string cat in Enum.GetNames(typeof(Block.Categories)))
+            {
+                TreeViewItem item = new();
+                item.Header = cat;
+                Categories_XAML.Items.Add(item);
+
+                foreach (BlockViewModel_Left blockView in BlockViewModels_Left)
+                {
+                    if (blockView.Block.category.ToString() == cat)
+                        item.Items.Add(blockView.Content);
+                        
+                }
             }
         }
 
@@ -127,6 +134,7 @@ namespace MacroBoard
 
         private void OnClick_Add(object sender, RoutedEventArgs e)
         {
+            
             int currentItemPos = ListBlock_Left_XAML.Items.IndexOf(((Button)sender).Parent);
 
             //---------------------------------------------------------------------------

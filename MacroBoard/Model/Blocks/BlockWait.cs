@@ -19,6 +19,8 @@ namespace MacroBoard
             this.sec = sec;
             this.min = min;
             this.hour = hour;
+            base.category = Categories.System;
+
         }
 
         public override void Execute()
