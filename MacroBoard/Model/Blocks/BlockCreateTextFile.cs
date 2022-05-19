@@ -19,6 +19,8 @@ namespace MacroBoard
             this.filePath = filePath;
             this.fileName = fileName;
             this.text = text;
+            base.category = Categories.Files;
+
         }
 
         public override void Execute()

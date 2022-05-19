@@ -18,6 +18,8 @@ namespace MacroBoard
             base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockRunScript.png";
             base.Name = "Run Script";
             this.script = script;
+            base.category = Categories.System;
+
         }
 
         public override void Execute()

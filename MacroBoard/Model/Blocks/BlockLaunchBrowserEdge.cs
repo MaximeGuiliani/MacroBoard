@@ -22,6 +22,7 @@ namespace MacroBoard
             this.address = address;
             this.windowStyle = windowStyle;
             this.delay = delay;
+            base.category = Categories.Browsers;
         }
 
 

@@ -20,7 +20,9 @@ namespace MacroBoard
             base.Name = "Send Email";
             this.body = body;   
             this.to = to;       
-            this.subject = subject; 
+            this.subject = subject;
+            base.category = Categories.Applications;
+
         }
 
 
