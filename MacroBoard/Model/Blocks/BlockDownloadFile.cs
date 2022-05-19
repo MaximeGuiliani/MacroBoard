@@ -21,6 +21,8 @@ namespace MacroBoard
             base.info = "Downloads the resource with the specified URI to a local file.";
             this.address = address;
             this.folderPath = folderPath;
+            base.category = Categories.Files;
+
         }
 
         public override void Execute()

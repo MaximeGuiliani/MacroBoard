@@ -8,6 +8,7 @@
         UseLayoutRounding="True"
         Title="EditionWindow" Height="675" Width="1200">
     <Grid>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*" />
             <ColumnDefinition Width="287*" />
@@ -18,21 +19,30 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
         </Grid>
 
         <Grid Margin="20,20,20,20">
+            <TextBox Background="Gray" BorderThickness="2" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="220" Margin="0,10,0,0"   >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+
+                        <Setter Property="Padding" Value="10,0,0,10"/>
+
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
             
-            <ListBox x:Name="ListBlock_Left_XAML" VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="0,0,0,0"/>
-            <TreeView>
-                <TreeViewItem Header="Cold Drinks">
-                    <TreeViewItem Header="Coke"></TreeViewItem>
-                    <TreeViewItem Header="Pepsi"></TreeViewItem>
-                    <TreeViewItem Header="Orange Juice"></TreeViewItem>
-                    <TreeViewItem Header="Milk"></TreeViewItem>
-                    <TreeViewItem Header="Iced Tea"></TreeViewItem>
-                    <TreeViewItem Header="Mango Shake"></TreeViewItem>
-                </TreeViewItem>
+            <TreeView x:Name="Categories_XAML" Width="Auto">
+
             </TreeView>
+            
+            <ListBox x:Name="ListBlock_Left_XAML" VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="0,0,0,0" Margin="0,70,0,0">
+                
+            </ListBox>
+
         </Grid>
 
         <Grid Grid.Column="1" Margin="20,20,20,20">

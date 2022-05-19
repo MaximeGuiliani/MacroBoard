@@ -32,6 +32,7 @@ namespace MacroBoard
             base.Name = "Launch Google Chrome";
             base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockLaunchChrome.png";
             base.info = "Start the browser Chrome on a new tab with the specified address.";
+            base.category = Categories.Browsers;
         }
 
 

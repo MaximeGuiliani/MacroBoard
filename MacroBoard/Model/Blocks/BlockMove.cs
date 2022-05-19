@@ -18,6 +18,8 @@ namespace MacroBoard
             base.info = "Move a folder/file from the specified source to the specified destination.";
             this.source = source;
             this.destination = destination;
+            base.category = Categories.Files;
+
         }
 
 

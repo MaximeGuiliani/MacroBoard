@@ -16,6 +16,8 @@ namespace MacroBoard
             base.Name = "Block Invoke Automation Id";
             base.info = "Invoke the AutomationElement on the foreground window.";
             this.automationID = automationID;
+            base.category = Categories.Applications;
+
         }
 
 

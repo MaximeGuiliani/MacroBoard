@@ -23,6 +23,8 @@ namespace MacroBoard{
             this.fileName = fileName;
             this.screenNumber = screenNumber;
             this.actualScreenNumber = (screenNumber >= Screen.AllScreens.Length) ? 0 : screenNumber ;
+            base.category = Categories.System;
+
         }
 
 

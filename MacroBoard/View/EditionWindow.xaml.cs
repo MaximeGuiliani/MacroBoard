@@ -28,7 +28,9 @@ namespace MacroBoard
         {
             InitializeComponent();
             InitListBlock_All();
+            initCategories();
             InitKeyboardInteractions();
+
             DataContext = this;
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/macro_img.png", UriKind.Absolute));
@@ -91,10 +93,30 @@ namespace MacroBoard
             foreach (BlockViewModel_Left blockView in BlockViewModels_Left)
             {
                 blockView.Btn_Add.Click += OnClick_Add;
-                ListBlock_Left_XAML.Items.Add(blockView.Content);
+                //Categories_XAML.Items.Add(blockView.Content);
+                //ListBlock_Left_XAML.Items.Add(blockView.Content);
+                //ListBlock_Left_XAML.Visibility = Visibility.Hidden;
             }
 
         }
+
+        private void initCategories(){
+
+            foreach (string cat in Enum.GetNames(typeof(Block.Categories)))
+            {
+                TreeViewItem item = new();
+                item.Header = cat;
+                Categories_XAML.Items.Add(item);
+
+                foreach (BlockViewModel_Left blockView in BlockViewModels_Left)
+                {
+                    if (blockView.Block.category.ToString() == cat)
+                        item.Items.Add(blockView.Content);
+                        
+                }
+            }
+        }
+
         private void InitListBlock_Workflow()
         {
             foreach (Block Block in WorkFlow.workflowList)
@@ -117,6 +139,7 @@ namespace MacroBoard
         }
         private void OnClick_Add(object sender, RoutedEventArgs e)
         {
+            
             int currentItemPos = ListBlock_Left_XAML.Items.IndexOf(((Button)sender).Parent);
 
             //---------------------------------------------------------------------------
