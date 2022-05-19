@@ -10,8 +10,8 @@
         <!--<Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />-->
         <Setter Property="BorderThickness" Value="5" />
         <Setter Property="WindowStyle" Value="SingleBorderWindow" />
-        
 
+        <!--set the text block color to white / add the costume style in mainwindow-->
     </Style>
 
 </ResourceDictionary>

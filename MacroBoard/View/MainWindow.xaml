@@ -4,17 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
-        
+        Height="600" 
+        Width="700"
         mc:Ignorable="d"
-        Title="Macroboard Desktop" MinHeight="400" MinWidth="300"
-        Width="500" Height="600"
+        Title="Macroboard Desktop" MinHeight="300" MinWidth="200"
         ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource CustomWindowStyle}">
-   
-        
+
+
 
     <Window.Resources>
+
+        <Style x:Key="font" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
         <Style TargetType="{x:Type Button}"
            >
             <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -34,35 +40,41 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="tooltip" TargetType="ToolTip">
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
 
     <Grid >
-        
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
             <Border CornerRadius="8,8,0,8"/>
-            <Menu VerticalAlignment="Top" HorizontalAlignment="Right" Width="120" >
-                <MenuItem Header="Themes" Width="131" Height="19" >
-                    <MenuItem Header="Light" Click="ChangeTheme" Uid="0">
-                        <MenuItem.Icon>
-                            <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round"  />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="Dark" Click="ChangeTheme" Uid="1">
-                        <MenuItem.Icon>
-                            <Rectangle Stroke="#FF404040" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
+
 
             <!--<Label FontFamily="Calibri" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40">
                 <TextBlock FontSize="28" Text="MacroBoard">
@@ -72,7 +84,7 @@
                 </TextBlock>
             </Label>-->
 
-            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2" x:Name="Search" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Top" Width="350" TextChanged="Search_TextChanged" Margin="156,24,0,0" >
+            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="350" TextChanged="Search_TextChanged"  >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -89,7 +101,7 @@
         <Grid Grid.Row="1">
             <Border CornerRadius="8,8,0,8"/>
             <!--   Liste des favoris   -->
-            <ListBox  Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="ListFav" Grid.ColumnSpan="5" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" >
+            <ListBox  Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="ListFav" Grid.ColumnSpan="5" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" Margin="79,20,0,0" >
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
 
@@ -135,11 +147,11 @@
 
         </Grid>
 
-        <Grid Grid.Row="2">
-            <Border CornerRadius="8,8,0,8"/>
+        <!--<Grid Grid.Row="2">
+            <Border CornerRadius="8,8,0,8" Margin="73,0,0,0"/>
             <Button BorderThickness="0" RenderTransformOrigin="0.5,0.541"
-            x:Name="ButtonEdit" Content="⚙" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="50"  
-            TextBlock.FontSize="30" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Grid.RowSpan="3" Grid.Row="2" Height="50">
+            x:Name="ButtonEdit" Content="⚙" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="73"  
+            TextBlock.FontSize="30" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Height="50" Margin="73,53,0,0">
                 <Button.RenderTransform>
                     <RotateTransform x:Name="MyAnimatedTransform" Angle="0" />
                 </Button.RenderTransform>
@@ -157,12 +169,16 @@
                 </Button.Triggers>
             </Button>
 
-        </Grid>
+        </Grid>-->
 
         <Grid Grid.Row="3">
-            <Border CornerRadius="8,8,0,8"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="43*"/>
+                <ColumnDefinition Width="647*"/>
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="8,8,0,8" Margin="45,0,0,0" Grid.Column="1"/>
             <!--    List des macros    -->
-            <ListBox Grid.Row="2" x:Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"  >
+            <ListBox x:Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" Margin="36,10,0,0" Grid.Column="1"  >
                 <ListBox.Style>
                     <Style/>
                 </ListBox.Style>
@@ -211,5 +227,52 @@
 
         </Grid>
 
+        <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="AliceBlue" Grid.RowSpan="4">
+            <StackPanel x:Name="nav">
+
+                <Menu VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="10,0,0,0">
+                    <MenuItem BorderBrush="Transparent" Height="47">
+                        <MenuItem.Icon>
+                            <Image Width="20" Height="16" Source="../Resources/theme.png"/>
+                        </MenuItem.Icon>
+                        <MenuItem Header="Light" Click="ChangeTheme" Uid="0">
+                            <MenuItem.Icon>
+                                <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round"  />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Dark" Click="ChangeTheme" Uid="1">
+                            <MenuItem.Icon>
+                                <Rectangle Stroke="#FF404040" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+                <Button BorderThickness="0" RenderTransformOrigin="0.5,0.541"
+                    x:Name="ButtonEdit" Content="⚙" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="73"  
+                    TextBlock.FontSize="20" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Height="50" Margin="0,20,0,0">
+                    <Button.RenderTransform>
+                        <RotateTransform x:Name="MyAnimatedTransform" Angle="0" />
+                    </Button.RenderTransform>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                Storyboard.TargetName="MyAnimatedTransform"
+                                Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                From="0.0" To="360" Duration="0:0:1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button x:Name="Mainw" Margin="0,90,0,40" Width="20" Height="20" Click="clickedOnHome" BorderBrush="Black">
+                    <Image Source="../Resources/home.png"></Image>
+                </Button>
+                <Button x:Name="Edition" Margin="0,0,0,40"  Width="20" Height="20" Click="clickedOnEdition" BorderBrush="Black">
+                    <Image Source="../Resources/page.png"></Image>
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

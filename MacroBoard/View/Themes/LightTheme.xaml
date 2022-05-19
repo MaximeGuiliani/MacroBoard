@@ -9,5 +9,6 @@
         <Setter Property="BorderThickness" Value="5"  />
         <Setter Property="WindowStyle" Value="SingleBorderWindow" />
     </Style>
-    
+    <!--set the text block color to black / add the costume style in mainwindow / set the size of the text under each workflow-->
+
 </ResourceDictionary>
