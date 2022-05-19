@@ -7,7 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-
+using System.Windows.Data;
 
 namespace MacroBoard.View
 {
@@ -18,6 +18,7 @@ namespace MacroBoard.View
         public WorkFlow WorkFlow             = new WorkFlow("", "", new());
         private string placeHolderImagePath  = "Select folder";
         private string placeHolderWFName     = "Select name";
+        private bool IsExpanded = true;
         public Visibility editVisibility { get; set; }
 
 
@@ -25,12 +26,13 @@ namespace MacroBoard.View
         public EW()
         {
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-            
+
+            DataContext = this;
             DataContext = this;
             RightBlocks = new();
             LeftBlocks  = new();
-            setupLeftBlocks();
             InitializeComponent();
+            setupLeftBlocks();
             setupKeyboardInteractions();
 
             RightBlocks.Add(new BlockClickR());
@@ -90,7 +92,13 @@ namespace MacroBoard.View
             LeftBlocks.Add(new BlockSetCursor(0, 0));
             LeftBlocks.Add(new BlockShutdown());
             LeftBlocks.Add(new BlockWait(0, 0, 0));
+            ListBlock_Left_XAML.ItemsSource = LeftBlocks;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("category");
+            view.GroupDescriptions.Add(groupDescription);
+
         }
+       
 
 
         private void setupKeyboardInteractions()
@@ -332,6 +340,17 @@ namespace MacroBoard.View
             }
         }
 
+   
 
+        private void OnClickExpander(object sender, RoutedEventArgs e)
+        {
+            IsExpanded = !IsExpanded;
+            MessageBox.Show(IsExpanded.ToString());
+            //TODO ca marche pas
+
+          
+
+            
+        }
     }
 }        // il n'y a que 2 fleches a supprimer: celle toute en haut, celle tout en bas (update a delete et insert)
