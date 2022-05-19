@@ -242,6 +242,9 @@ namespace MacroBoard
             BlockViewModels_Right.Insert(currentItemPos, CurrentBlockViewModel);
 
         }
+       
+
+
         private void OnClick_Up(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
@@ -408,6 +411,7 @@ namespace MacroBoard
                 Clipboard.SetData(dataFormat, toCopyBlock);
             }
         }
+
         private void ListRightPaste(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.V && Keyboard.Modifiers == ModifierKeys.Control && ListBlock_Right_XAML.SelectedItems.Count > 0)
