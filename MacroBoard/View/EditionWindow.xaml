@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MacroBoard"
         mc:Ignorable="d"
         UseLayoutRounding="True"
+        WindowStartupLocation="CenterScreen"
         Title="EditionWindow" Height="675" Width="1200">
     <Grid>
 
