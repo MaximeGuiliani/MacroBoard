@@ -9,6 +9,7 @@
         Title="EditW"
         Height="675"
         Width="900"
+        Name="bibu"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,13 +25,15 @@
 
         <Grid Margin="20,20,20,20">
 
-            <ListBox x:Name="ListBlock_Left_XAML"
-                     VirtualizingStackPanel.IsVirtualizing="False"
-                     VerticalAlignment="Top"
-                     HorizontalAlignment="Center"
-                     BorderThickness="0,0,0,0"
-                     ItemsSource="{Binding Path=LeftBlocks}">
-                <ListBox.ItemTemplate>
+            <ListView Name="ListBlock_Left_XAML" 
+                      VirtualizingStackPanel.IsVirtualizing="False"
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Center"
+                      BorderThickness="0,0,0,0"
+                      Tag="false"
+                      >
+
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Height="52" Margin="0,5,0,5" Background="MediumPurple">
                             <Grid.ColumnDefinitions>
@@ -65,8 +68,32 @@
                                     Margin="0,0,8,0"/>
                         </Grid>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </ListView.ItemTemplate>
+
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate x:Name ="Expander_XAML">
+                                            <Expander IsExpanded="{Binding Tag, RelativeSource={RelativeSource AncestorType=GroupItem}, TargetNullValue=true, FallbackValue=true}" >
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" FontWeight="DemiBold" Foreground="DarkSlateGray" FontSize="20" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
 
         </Grid>
 
@@ -78,8 +105,7 @@
                      VirtualizingStackPanel.IsVirtualizing="False"
                      VerticalAlignment="Top"
                      HorizontalAlignment="Center"
-                     Height="350"
-                     Margin="0,0,0,0"
+                     Height="468"
                      BorderThickness="0,0,0,0"
                      ItemsSource="{Binding Path=RightBlocks}"
                      >
@@ -102,7 +128,7 @@
 
                             <Button Content="UP"     Grid.Column = "0"  Grid.Row = "0" Margin="8,3,0,0" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickUp"/>
                             <Button Content="DOWN"   Grid.Column = "0"  Grid.Row = "1" Margin="8,0,0,3" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickDown"/>
-                            
+
                             <Image Source="{Binding LogoUrl}"
                                    RenderOptions.BitmapScalingMode='HighQuality'
                                    Width="32"
@@ -117,8 +143,8 @@
                             <Button Content="EDIT"   Name="edit" Grid.Row = "0"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,3,8,0" Width="30" Click="onClickEdit"  />
                             <Button Content="-"      Grid.Row = "1"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,0,8,3" Width="30" Click="onClickDelete"/>
                         </Grid>
-                        
-                            
+
+
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -155,6 +181,8 @@
             </Grid>
 
         </Grid>
+
+        <Button x:Name="debug" Content="debug" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="58" Click="debug_Click" Grid.Column="1" Margin="365,404,0,0" />
 
     </Grid>
 </Window>

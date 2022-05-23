@@ -7,59 +7,68 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Data;
+using static MacroBoard.Utils;
 
 namespace MacroBoard.View
 {
     public partial class EW : Window
     {
-        public  ObservableCollection<Block> RightBlocks { get; set; } //ATTENTION: devrait etre -- this.WorkFlow.workflowList --  mais c'est pas une ObservableCollection
+        public  ObservableCollection<Block> RightBlocks { get; set; } // this.RightBlocks <==> this.WorkFlow.workflowList
         public ObservableCollection<Block> LeftBlocks { get; set; }
-        public WorkFlow WorkFlow             = new WorkFlow("", "", new());
+        public WorkFlow WorkFlow;
         private string placeHolderImagePath  = "Select folder";
         private string placeHolderWFName     = "Select name";
-        public Visibility editVisibility { get; set; }
-
+        public bool isex { get; set; }
+        
 
         /*constructor for new workflow*/
         public EW()
         {
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-            
             DataContext = this;
-            RightBlocks = new();
             LeftBlocks  = new();
-            setupLeftBlocks();
+            RightBlocks = new();
+            this.WorkFlow = new WorkFlow("", "", RightBlocks);
             InitializeComponent();
+            setupLeftBlocks();
             setupKeyboardInteractions();
-
-            RightBlocks.Add(new BlockClickR());
-            RightBlocks.Add(new BlockCloseDesiredApplication("msedge"));
-            RightBlocks.Add(new BlockClickL());
             RightBlocks.CollectionChanged += refresh;
             ((Window)this).Loaded += initRefresh;
+            ((Window)this).Loaded += initExpander;
         }
 
 
         /*constructor for existing workflow */
-        public EW(WorkFlow workFlow) : this()
+        public EW(WorkFlow modelWorkFlow)
         {
-            setupWorkflow(workFlow);
+            ((Window)this).Loaded += initRefresh;
+            ((Window)this).Loaded += initExpander;
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
+            DataContext = this;
+            LeftBlocks  = new();
+            this.RightBlocks = new ObservableCollection<Block>(modelWorkFlow.workflowList);
+            this.WorkFlow    = new WorkFlow(modelWorkFlow.imagePath, modelWorkFlow.workflowName, RightBlocks);
+            InitializeComponent();
+            setupLeftBlocks();
+            setupBottom(modelWorkFlow);
+            setupKeyboardInteractions();
+            RightBlocks.CollectionChanged += refresh;
         }
 
 
-        private void setupWorkflow(WorkFlow workFlow)
+        private void setupBottom(WorkFlow modelWorkFlow)
         {
-            this.WorkFlow.workflowList = new(workFlow.workflowList);
-            //this.RightBlocks = workFlow.workflowList TODO: ATTENTION A PAS OUBLIER
-            this.WorkFlow.imagePath = workFlow.imagePath;
-            this.WorkFlow.workflowName = workFlow.workflowName;
             if (!WorkFlow.imagePath.Equals(""))
             {
                 Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(WorkFlow.imagePath, UriKind.Absolute));
                 TextBox_WorkFlowImage.Text = WorkFlow.imagePath;
+
             }
-            TextBox_WorkFlowName.Text = WorkFlow.workflowName;
+            TextBox_WorkFlowName.Text = "name";//this.WorkFlow.workflowName; // TODOOOOO
         }
 
 
@@ -90,6 +99,10 @@ namespace MacroBoard.View
             LeftBlocks.Add(new BlockSetCursor(0, 0));
             LeftBlocks.Add(new BlockShutdown());
             LeftBlocks.Add(new BlockWait(0, 0, 0));
+            ListBlock_Left_XAML.ItemsSource = LeftBlocks;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("category");
+            view.GroupDescriptions.Add(groupDescription);
         }
 
 
@@ -171,7 +184,6 @@ namespace MacroBoard.View
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-
             if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
             {
                 if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
@@ -186,7 +198,7 @@ namespace MacroBoard.View
                 this.DialogResult = true;
                 this.Close();
             }
-            MessageBox.Show($"remplissez tout");
+            //MessageBox.Show($"remplissez tout"); //TODO
         }
 
 
@@ -214,6 +226,7 @@ namespace MacroBoard.View
         {
             for (int i = 0; i < RightBlocks.Count; i++)
             {
+                //MessageBox.Show(ListBlock_Right_XAML.Items.Count.ToString());
                 ListBoxItem myListBoxItem = (ListBoxItem)ListBlock_Right_XAML.ItemContainerGenerator.ContainerFromItem(ListBlock_Right_XAML.Items[i]);
                 if (myListBoxItem == null)
                 {
@@ -251,37 +264,17 @@ namespace MacroBoard.View
             
             if (mustCreateWindow)
             {
-                editVisibility = Visibility.Visible;
                 BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
                 blockCreatorWindow.ShowDialog();
                 if (blockCreatorWindow.DialogResult == false) return;
                 RightBlocks.Add(blockCreatorWindow.res);
                 return;
             }
-            editVisibility = Visibility.Hidden;
             Block newBlock = (Block)model.GetType().GetConstructor(Type.EmptyTypes).Invoke(new object[0]);
             RightBlocks.Add(newBlock);
         }
 
-        private childItem FindVisualChild<childItem>(DependencyObject obj)
-            where childItem : DependencyObject
-        {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
-                if (child != null && child is childItem)
-                {
-                    return (childItem)child;
-                }
-                else
-                {
-                    childItem childOfChild = FindVisualChild<childItem>(child);
-                    if (childOfChild != null)
-                        return childOfChild;
-                }
-            }
-            return null;
-        }
+
 
 
         private void Name_Box_GotFocus(object sender, RoutedEventArgs e) //TODO a utiliser
@@ -331,6 +324,26 @@ namespace MacroBoard.View
                 addRightBlock(model);
             }
         }
+
+        private void debug_Click(object sender, RoutedEventArgs e)
+        {
+            isex = !isex;
+            expandAll(isex);
+        }
+
+        private void expandAll(bool visibility)
+        {
+            foreach (GroupItem gi in FindVisualChildren<GroupItem>(ListBlock_Left_XAML))
+                gi.Tag = visibility;
+        }
+
+        private void initExpander(object sender, RoutedEventArgs e)
+        {
+            expandAll(true);
+        }
+
+
+
 
 
     }
