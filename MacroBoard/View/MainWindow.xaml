@@ -75,15 +75,6 @@
         <Grid Grid.Row="0">
             <Border CornerRadius="8,8,0,8"/>
 
-
-            <!--<Label FontFamily="Calibri" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40">
-                <TextBlock FontSize="28" Text="MacroBoard">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="White" BlurRadius="3" ShadowDepth="0"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-            </Label>-->
-
             <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="350" TextChanged="Search_TextChanged"  >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -227,52 +218,40 @@
 
         </Grid>
 
-        <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="AliceBlue" Grid.RowSpan="4">
-            <StackPanel x:Name="nav">
+        <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="Transparent" Grid.RowSpan="4">
+            <Border BorderBrush="Black" CornerRadius="12,12,12,12" BorderThickness="2,2,2,2" Margin="9,10,9,10">
+                <StackPanel x:Name="nav">
 
-                <Menu VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="10,0,0,0">
-                    <MenuItem BorderBrush="Transparent" Height="47">
-                        <MenuItem.Icon>
-                            <Image Width="20" Height="16" Source="../Resources/theme.png"/>
-                        </MenuItem.Icon>
-                        <MenuItem Header="Light" Click="ChangeTheme" Uid="0">
+                    <Menu VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="10,0,0,0" Background="Transparent">
+                        <MenuItem BorderBrush="Transparent" Height="47">
                             <MenuItem.Icon>
-                                <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round"  />
+                                <Image Width="20" Height="16" Source="../Resources/theme.png"/>
                             </MenuItem.Icon>
+                            <MenuItem Header="Light" Click="ChangeTheme" Uid="0">
+                                <MenuItem.Icon>
+                                    <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round"  />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Dark" Click="ChangeTheme" Uid="1">
+                                <MenuItem.Icon>
+                                    <Rectangle Stroke="#FF404040" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" />
+                                </MenuItem.Icon>
+                            </MenuItem>
                         </MenuItem>
-                        <MenuItem Header="Dark" Click="ChangeTheme" Uid="1">
-                            <MenuItem.Icon>
-                                <Rectangle Stroke="#FF404040" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                    </MenuItem>
-                </Menu>
-                <Button BorderThickness="0" RenderTransformOrigin="0.5,0.541"
-                    x:Name="ButtonEdit" Content="⚙" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="73"  
-                    TextBlock.FontSize="20" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Height="50" Margin="0,20,0,0">
-                    <Button.RenderTransform>
-                        <RotateTransform x:Name="MyAnimatedTransform" Angle="0" />
-                    </Button.RenderTransform>
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                Storyboard.TargetName="MyAnimatedTransform"
-                                Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                From="0.0" To="360" Duration="0:0:1" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
-                </Button>
-                <Button x:Name="Mainw" Margin="0,90,0,40" Width="20" Height="20" Click="clickedOnHome" BorderBrush="Black">
-                    <Image Source="../Resources/home.png"></Image>
-                </Button>
-                <Button x:Name="Edition" Margin="0,0,0,40"  Width="20" Height="20" Click="clickedOnEdition" BorderBrush="Black">
-                    <Image Source="../Resources/page.png"></Image>
-                </Button>
-            </StackPanel>
+                    </Menu>
+                    <Button BorderThickness="0"
+                    x:Name="ButtonEdit" HorizontalAlignment="Center"   
+                    TextBlock.FontSize="20" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Height="20" Width="20" Margin="0,20,0,0">
+                        <Image Source="../Resources/icons8_edit.png"></Image>
+                    </Button>
+                    <Button x:Name="Mainw" Margin="0,40,0,40" Width="20" Height="20" Click="clickedOnHome" BorderBrush="Black">
+                        <Image Source="../Resources/home.png" ></Image>
+                    </Button>
+                    <Button x:Name="Edition" Margin="0,7,0,0"  Width="20" Height="20" Click="clickedOnEdition" BorderBrush="Black">
+                        <Image Source="../Resources/page.png"></Image>
+                    </Button>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>
