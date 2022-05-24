@@ -26,9 +26,12 @@ namespace MacroBoard
         public BlockSetCursor(int x, int y)
         {
             base.info = "Set the mouse cursor position at the given coordinate.";
-            base.Name = "Set Cursor";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCursorPosition.png";
+            base.Name = "Set cursor position";
             this.x = x;
             this.y = y;
+            base.category = Categories.Controls;
+
         }
 
 

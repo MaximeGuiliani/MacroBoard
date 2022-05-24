@@ -18,9 +18,12 @@ namespace MacroBoard
         public BlockDownloadFile(String address, string folderPath)
         {
             base.Name = "DownloadFile";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockDownloadFile.png";
             base.info = "Downloads the resource with the specified URI to a local file.";
             this.address = address;
             this.folderPath = folderPath;
+            base.category = Categories.Files;
+
         }
 
         public override void Execute()

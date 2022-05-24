@@ -13,7 +13,10 @@ namespace MacroBoard
         public BlockRestart()
         {
             base.info = "Restart the computer.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockRestart.png";
             base.Name = "Restart";
+            base.category = Categories.System;
+
         }
 
         public override void Execute()

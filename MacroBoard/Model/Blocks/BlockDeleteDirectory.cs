@@ -13,8 +13,11 @@ namespace MacroBoard
         public BlockDeleteDirectory(String path)
         {
             base.Name = "Delete Directory";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockDeleteDirectory.png";
             base.info = "Deletes the specified directory.";
-            this.path = path;   
+            this.path = path;
+            base.category = Categories.Files;
+
         }
         public override void Execute()
         {

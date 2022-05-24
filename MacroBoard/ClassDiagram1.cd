@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MacroBoard.Block" Collapsed="true">
+    <Position X="30" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAgAAAQAAAAAAAQAgAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\Block.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockClickL" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockClickL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockClickR" Collapsed="true">
+    <Position X="18.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockClickR.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockCloseDesiredApplication" Collapsed="true">
+    <Position X="27.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Model\Blocks\BlockCloseDesiredApplication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockCopy" Collapsed="true">
+    <Position X="36.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAABAAAEAA=</HashCode>
+      <FileName>Model\Blocks\BlockCopy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockCreateTextFile" Collapsed="true">
+    <Position X="45.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAEAIAEAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockCreateTextFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockDeleteDirectory" Collapsed="true">
+    <Position X="52.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockDeleteDirectory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockDownloadFile" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAIAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockDownloadFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockHibernate" Collapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockHibernate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockInvokeAutomationId" Collapsed="true">
+    <Position X="21" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockInvokeAutomationId.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockKeyBoard" Collapsed="true">
+    <Position X="30" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockKeyBoard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockLaunchApp" Collapsed="true">
+    <Position X="39" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAEAAAAAAAQAAAAAAAgAAAAoAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockLaunchApp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockLaunchBrowserChrome" Collapsed="true">
+    <Position X="48" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAgAAAIIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockLaunchBrowserChrome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockLaunchBrowserEdge" Collapsed="true">
+    <Position X="54.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAgAAAIIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockLaunchBrowserEdge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockLaunchBrowserFirefox" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAgAAAIIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockLaunchBrowserFirefox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockLock" Collapsed="true">
+    <Position X="14.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockLock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockMessageBox" Collapsed="true">
+    <Position X="23.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockMessageBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockMove" Collapsed="true">
+    <Position X="32.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockMove.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockRecognition" Collapsed="true">
+    <Position X="41.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAIAAAAAACCIQAAACACAYCQAACAADACMAAQAAAAAQ=</HashCode>
+      <FileName>Model\Blocks\BlockRecognition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockRestart" Collapsed="true">
+    <Position X="50.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockRestart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockRunScript" Collapsed="true">
+    <Position X="57" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockRunScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockScreenshot" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAIAAAAAAAAAAAAAAAAEAAQAEAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockScreenshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockSendEmail" Collapsed="true">
+    <Position X="16.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAiAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockSendEmail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockSetCursor" Collapsed="true">
+    <Position X="25.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockSetCursor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockShutdown" Collapsed="true">
+    <Position X="34.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockShutdown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockWait" Collapsed="true">
+    <Position X="43.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAJAAAAAAQAAQAAAQAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\BlockWait.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.Utils" Collapsed="true">
+    <Position X="40.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAIAgAAAAgAAAAIAAAAAAAAAADAAAI=</HashCode>
+      <FileName>Model\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.WorkFlow" Collapsed="true">
+    <Position X="42" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAiAAAAgAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Model\WorkFlow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.Config">
+    <Position X="40.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAACACAAAAAAAAA=</HashCode>
+      <FileName>Resources\Json\Config.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.Serialization" Collapsed="true">
+    <Position X="36.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgACAAACAAAACBAAAAAAAgAEAAAAAA=</HashCode>
+      <FileName>Resources\Json\Serialization.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.EditionWindow" BaseTypeListCollapsed="true">
+    <Position X="42" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAEAAAgwACFAKAAAAAACCQACAAAAUQQAAUAAIIAQAAA=</HashCode>
+      <FileName>View\EditionWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MacroBoard.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="40.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABQAACAI4ARAACEAIAEIEIACwIAACRAgAABIAAA=</HashCode>
+      <FileName>View\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MacroBoard.Research">
+    <Position X="43.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>View\Research.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockViewModel" Collapsed="true">
+    <Position X="31" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAgAAgAAAAAAAAAAAAAAAAAAAAAEAAAAACACAAA=</HashCode>
+      <FileName>ViewModel\BlockViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockViewModel_Left" Collapsed="true">
+    <Position X="29.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAABAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\BlockViewModel_Left.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.BlockViewModel_Right" Collapsed="true">
+    <Position X="32" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAAAAAAAAAAAAAAAAAAAABAEAIQAAAAAAAA=</HashCode>
+      <FileName>ViewModel\BlockViewModel_Right.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.WorkflowView" Collapsed="true">
+    <Position X="36.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAgIAgAAGAAAAABAAAAAABAAAAAEAAAAgAACAAA=</HashCode>
+      <FileName>ViewModel\WorkflowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.App" Collapsed="true">
+    <Position X="36.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.Resources.Json.JSON_TESTWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="38.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resources\Json\JSON_TESTWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MacroBoard.View.Themes.ThemesController" Collapsed="true">
+    <Position X="38.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQACAAAAAAAAAAAAAAAACAAAABAAAAAAAAA=</HashCode>
+      <FileName>View\Themes\ThemesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MacroBoard.View.BlockCreatorWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="38.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAEgABAAABARACAIAAAAAAAABABAAAABAgAgoAAA=</HashCode>
+      <FileName>View\BlockCreatorWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MacroBoard.View.EW" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAFCAEkQADBAgAgACAAACAACAAAAAQABGAAAcIgQEAA=</HashCode>
+      <FileName>View\EW.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="MacroBoard.IBlockVisitor" Collapsed="true">
+    <Position X="36.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Blocks\IBlockVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="MacroBoard.WindowStyle" Collapsed="true">
+    <Position X="36.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAQ=</HashCode>
+      <FileName>Model\WindowStyle.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

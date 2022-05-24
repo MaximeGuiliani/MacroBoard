@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using MacroBoard.View;
@@ -19,25 +20,34 @@ namespace MacroBoard
 
         private List<BlockViewModel_Left> BlockViewModels_Left = new();
         private List<BlockViewModel_Right> BlockViewModels_Right = new();
+
+        private string placeHolderImagePath = "Select folder";
+        private string placeHolderWFName = "Select name";
+
         public EditionWindow()
         {
             InitializeComponent();
             InitListBlock_All();
+            initCategories();
+            InitKeyboardInteractions();
+
             DataContext = this;
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/macro_img.png", UriKind.Absolute));
+            Research reasearch = new(BlockViewModels_Left, ListBlock_Left_XAML);
         }
-
         public EditionWindow(WorkFlow workFlow)
         {
             InitializeComponent();
+            InitKeyboardInteractions();
+            InitListBlock_All();
 
             this.WorkFlow.workflowList = new(workFlow.workflowList);
             this.WorkFlow.imagePath = workFlow.imagePath;
             this.WorkFlow.workflowName = workFlow.workflowName;
 
-            InitListBlock_All();
             InitListBlock_Workflow();
+
             if (!WorkFlow.imagePath.Equals(""))
             {
                 Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(WorkFlow.imagePath, UriKind.Absolute));
@@ -83,16 +93,35 @@ namespace MacroBoard
             foreach (BlockViewModel_Left blockView in BlockViewModels_Left)
             {
                 blockView.Btn_Add.Click += OnClick_Add;
-                ListBlock_Left_XAML.Items.Add(blockView.Content);
+                //Categories_XAML.Items.Add(blockView.Content);
+                //ListBlock_Left_XAML.Items.Add(blockView.Content);
+                //ListBlock_Left_XAML.Visibility = Visibility.Hidden;
             }
 
+        }
+
+        private void initCategories(){
+
+            foreach (string cat in Enum.GetNames(typeof(Block.Categories)))
+            {
+                TreeViewItem item = new();
+                item.Header = cat;
+                Categories_XAML.Items.Add(item);
+
+                foreach (BlockViewModel_Left blockView in BlockViewModels_Left)
+                {
+                    if (blockView.Block.category.ToString() == cat)
+                        item.Items.Add(blockView.Content);
+                        
+                }
+            }
         }
 
         private void InitListBlock_Workflow()
         {
             foreach (Block Block in WorkFlow.workflowList)
             {
-                BlockViewModel_Right CurrentBlockViewModel = new BlockViewModel_Right(Block); //wrapper de block à droite
+                BlockViewModel_Right CurrentBlockViewModel = new BlockViewModel_Right(Block);
                 CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
                 CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
                 CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
@@ -108,27 +137,23 @@ namespace MacroBoard
             }
 
         }
-
-
         private void OnClick_Add(object sender, RoutedEventArgs e)
         {
+            
             int currentItemPos = ListBlock_Left_XAML.Items.IndexOf(((Button)sender).Parent);
 
             //---------------------------------------------------------------------------
 
             Block model = BlockViewModels_Left[currentItemPos].Block;
-            bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
             Block? newBlock = model;
 
-            if (mustCreateWindow)
+            if (model.GetType().GetConstructor(Type.EmptyTypes) == null)
             {
                 BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
                 blockCreatorWindow.ShowDialog();
                 if (blockCreatorWindow.DialogResult == false)
                     return;
                 newBlock = blockCreatorWindow.res;
-
-
             }
 
             //---------------------------------------------------------------------------
@@ -163,12 +188,8 @@ namespace MacroBoard
             CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
 
         }
-
-
-
         private void OnClick_Delete(object sender, RoutedEventArgs e)
         {
-            Grid CurrentBlockContent = (Grid)((Button)sender).Parent;
             int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
             if (ListBlock_Right_XAML.Items.Count > 1 && currentItemPos == 0)
             {
@@ -188,10 +209,7 @@ namespace MacroBoard
         }
         private void OnClick_Edit(object sender, RoutedEventArgs e)
         {
-
-
             //---------------------------------------------------------------------------
-
 
             int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
 
@@ -199,21 +217,23 @@ namespace MacroBoard
 
             Block model = BlockViewModels_Right[currentItemPos].Block;
             bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
-            Block? newBlock = model;
+            Block newBlock = model;
 
-            if (mustCreateWindow)
-            {
-                BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
-                blockCreatorWindow.ShowDialog();
-                if (blockCreatorWindow.DialogResult == false)
-                    return;
-                newBlock = blockCreatorWindow.res;
+            if (!mustCreateWindow)
+                return;
 
+            BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
+            blockCreatorWindow.ShowDialog();
+            if (blockCreatorWindow.DialogResult == false)
+                return;
 
-            }
+            newBlock = blockCreatorWindow.res;
 
-
-            BlockViewModel_Right CurrentBlockViewModel = new BlockViewModel_Right(newBlock); //wrapper de block à droite
+            BlockViewModel_Right CurrentBlockViewModel = new BlockViewModel_Right(newBlock);
+            CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
+            CurrentBlockViewModel.Btn_Down.Click += OnClick_Down;
+            CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
+            CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
 
             WorkFlow.workflowList.RemoveAt(currentItemPos);
             WorkFlow.workflowList.Insert(currentItemPos, CurrentBlockViewModel.Block);
@@ -221,64 +241,67 @@ namespace MacroBoard
             BlockViewModels_Right.RemoveAt(currentItemPos);
             BlockViewModels_Right.Insert(currentItemPos, CurrentBlockViewModel);
 
-            if (WorkFlow.workflowList.Count <= 1)
-            {
-                CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Hidden;
-                CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
-            }
-            else CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Visible;
-
-            if (WorkFlow.workflowList.Count == 2)
-            {
-                ((Grid)ListBlock_Right_XAML.Items[0]).Children[4].Visibility = Visibility.Visible;
-            }
-
-            if (WorkFlow.workflowList.Count > 2)
-                ((Grid)ListBlock_Right_XAML.Items[ListBlock_Right_XAML.Items.Count - 2]).Children[4].Visibility = Visibility.Visible;
-
-            CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
-
-
         }
+       
+
+
         private void OnClick_Up(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
-            Grid previousItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos - 1);
 
-            SetHiddenOrVisibleBtnUp(sender, previousItem);
-
-            ListBlock_Right_XAML.Items.Remove(((Button)sender).Parent);
-            ListBlock_Right_XAML.Items.Remove(previousItem);
-
-            ListBlock_Right_XAML.Items.Insert(currentItemPos - 1, ((Button)sender).Parent);
-            ListBlock_Right_XAML.Items.Insert(currentItemPos, previousItem);
-
-            Block block = WorkFlow.workflowList[currentItemPos - 1];
-
-
-            WorkFlow.workflowList.RemoveAt(currentItemPos - 1);
-            WorkFlow.workflowList.Insert(currentItemPos, block);
-
-
+            SetHiddenOrVisibleBtnUp(sender, BlockViewModels_Right[currentItemPos - 1].Content);
+            SwitchBlockPosition(currentItemPos, currentItemPos - 1);
         }
         private void OnClick_Down(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(((Button)sender).Parent);
-            Grid nextItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos + 1);
 
-            SetHiddenOrVisibleBtnDown(sender, nextItem);
+            SetHiddenOrVisibleBtnDown(sender, BlockViewModels_Right[currentItemPos + 1].Content);
+            SwitchBlockPosition(currentItemPos + 1, currentItemPos);
+        }
+        private void Button_Save(object sender, RoutedEventArgs e)
+        {
+            if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
+            {
+                if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
+                {
+                    this.WorkFlow.imagePath = "";
 
-            ListBlock_Right_XAML.Items.Remove(((Button)sender).Parent);
-            ListBlock_Right_XAML.Items.Remove(nextItem);
+                }
+                else
+                {
+                    this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
 
-            ListBlock_Right_XAML.Items.Insert(currentItemPos, nextItem);
-            ListBlock_Right_XAML.Items.Insert(currentItemPos + 1, ((Button)sender).Parent);
+                }
+                this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
+                this.DialogResult = true;
+                this.Close();
+            }
 
-            Block block = WorkFlow.workflowList[currentItemPos];
+        }
 
+        private void SwitchBlockPosition(int pos1, int pos2)
+        {
+            BlockViewModel_Right pos1BlockViewModels_Right = BlockViewModels_Right[pos1];
+            BlockViewModel_Right pos2BlockViewModels_Right = BlockViewModels_Right[pos2];
 
-            WorkFlow.workflowList.RemoveAt(currentItemPos);
-            WorkFlow.workflowList.Insert(currentItemPos + 1, block);
+            ListBlock_Right_XAML.Items.RemoveAt(pos1);
+            ListBlock_Right_XAML.Items.RemoveAt(pos2);
+            ListBlock_Right_XAML.Items.Insert(pos2, pos1BlockViewModels_Right.Content);
+            ListBlock_Right_XAML.Items.Insert(pos1, pos2BlockViewModels_Right.Content);
+
+            BlockViewModels_Right.RemoveAt(pos1);
+            BlockViewModels_Right.RemoveAt(pos2);
+            BlockViewModels_Right.Insert(pos2, pos1BlockViewModels_Right);
+            BlockViewModels_Right.Insert(pos1, pos2BlockViewModels_Right);
+
+            Block previousBlock = WorkFlow.workflowList[pos2];
+            Block currentBlock = WorkFlow.workflowList[pos1];
+
+            WorkFlow.workflowList.RemoveAt(pos1);
+            WorkFlow.workflowList.RemoveAt(pos2);
+            WorkFlow.workflowList.Insert(pos2, previousBlock);
+            WorkFlow.workflowList.Insert(pos1, currentBlock);
         }
 
         private void SetHiddenOrVisibleBtnUp(object sender, Grid previousItem)
@@ -320,30 +343,6 @@ namespace MacroBoard
 
         }
 
-        private string placeHolderImagePath = "Select folder";
-        private string placeHolderWFName = "Select name";
-
-        private void Button_Save(object sender, RoutedEventArgs e)
-        {
-            if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
-            {
-                if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
-                {
-                    this.WorkFlow.imagePath = "";
-
-                }
-                else
-                {
-                    this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
-
-                }
-                this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
-                this.DialogResult = true;
-                this.Close();
-            }
-
-        }
-
         private void selectImage(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -369,6 +368,129 @@ namespace MacroBoard
 
             }
             TextBox_WorkFlowName.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+
+        //Shortcut
+        private void InitKeyboardInteractions()
+        {
+            ListBlock_Right_XAML.KeyDown += ListRightCopy;
+            ListBlock_Right_XAML.KeyDown += ListRightPaste;
+            ListBlock_Right_XAML.KeyDown += ListRightSupp;
+            ListBlock_Left_XAML.KeyDown += ListLeftAdd;
+        }
+        private void ListRightSupp(object sender, KeyEventArgs e)
+        {
+            if ((e.Key == Key.Back || e.Key == Key.Delete) && ListBlock_Right_XAML.SelectedItems.Count > 0)
+            {
+                int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(ListBlock_Right_XAML.SelectedItem);
+                if (ListBlock_Right_XAML.Items.Count > 1 && currentItemPos == 0)
+                {
+                    Grid nextItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos + 1);
+                    nextItem.Children[3].Visibility = Visibility.Hidden;
+                }
+
+                if (ListBlock_Right_XAML.Items.Count > 1 && currentItemPos == ListBlock_Right_XAML.Items.Count - 1)
+                {
+                    Grid previousItem = (Grid)ListBlock_Right_XAML.Items.GetItemAt(currentItemPos - 1);
+                    previousItem.Children[4].Visibility = Visibility.Hidden;
+                }
+
+                ListBlock_Right_XAML.Items.RemoveAt(currentItemPos);
+                WorkFlow.workflowList.RemoveAt(currentItemPos);
+                BlockViewModels_Right.RemoveAt(currentItemPos);
+            }
+        }
+        private void ListRightCopy(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control && ListBlock_Right_XAML.SelectedItems.Count > 0)
+            {
+                int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(ListBlock_Right_XAML.SelectedItem);
+                Block toCopyBlock = BlockViewModels_Right[currentItemPos].Block;
+                string dataFormat = "Block";
+                Clipboard.SetData(dataFormat, toCopyBlock);
+            }
+        }
+
+        private void ListRightPaste(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.V && Keyboard.Modifiers == ModifierKeys.Control && ListBlock_Right_XAML.SelectedItems.Count > 0)
+            {
+                string dataFormat = "Block";
+                int currentItemPos = ListBlock_Right_XAML.Items.IndexOf(ListBlock_Right_XAML.SelectedItem);
+
+                if (!Clipboard.ContainsData(dataFormat)) return;
+                Block newBlock = (Block)Clipboard.GetData(dataFormat);
+                BlockViewModel_Right CurrentBlockViewModel = new BlockViewModel_Right(newBlock);
+
+                CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
+                CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
+                CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
+                CurrentBlockViewModel.Btn_Down.Click += OnClick_Down;
+
+                WorkFlow.workflowList.Insert(currentItemPos + 1, newBlock);
+                ListBlock_Right_XAML.Items.Insert(currentItemPos + 1, CurrentBlockViewModel.Content);
+                BlockViewModels_Right.Insert(currentItemPos + 1, CurrentBlockViewModel);
+
+                CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Visible;
+                CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Visible;
+
+                if (currentItemPos + 1 == ListBlock_Right_XAML.Items.Count - 1)
+                {
+                    CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+                    ((Button)((Grid)ListBlock_Right_XAML.Items[^2]).Children[4]).Visibility = Visibility.Visible;
+                }
+                    
+                    
+
+            }
+        }
+        private void ListLeftAdd(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && ListBlock_Left_XAML.SelectedItems.Count > 0)
+            {
+                int currentItemPos = ListBlock_Left_XAML.Items.IndexOf(ListBlock_Left_XAML.SelectedItem);
+
+                Block model = BlockViewModels_Left[currentItemPos].Block;
+                bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
+                Block? newBlock = model;
+
+                if (mustCreateWindow)
+                {
+                    BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
+                    blockCreatorWindow.ShowDialog();
+                    if (blockCreatorWindow.DialogResult == false)
+                        return;
+                    newBlock = blockCreatorWindow.res;
+                }
+
+                BlockViewModel_Right CurrentBlockViewModel = new BlockViewModel_Right(newBlock);
+                CurrentBlockViewModel.Btn_Delete.Click += OnClick_Delete;
+                CurrentBlockViewModel.Btn_Edit.Click += OnClick_Edit;
+                CurrentBlockViewModel.Btn_Up.Click += OnClick_Up;
+                CurrentBlockViewModel.Btn_Down.Click += OnClick_Down;
+
+                WorkFlow.workflowList.Add(newBlock);
+                ListBlock_Right_XAML.Items.Add(CurrentBlockViewModel.Content);
+                BlockViewModels_Right.Add(CurrentBlockViewModel);
+
+                if (WorkFlow.workflowList.Count <= 1)
+                {
+                    CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Hidden;
+                    CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+                }
+                else CurrentBlockViewModel.Btn_Up.Visibility = Visibility.Visible;
+
+                if (WorkFlow.workflowList.Count == 2)
+                {
+                    ((Grid)ListBlock_Right_XAML.Items[0]).Children[4].Visibility = Visibility.Visible;
+                }
+
+                if (WorkFlow.workflowList.Count > 2)
+                    ((Grid)ListBlock_Right_XAML.Items[ListBlock_Right_XAML.Items.Count - 2]).Children[4].Visibility = Visibility.Visible;
+
+                CurrentBlockViewModel.Btn_Down.Visibility = Visibility.Hidden;
+            }
         }
 
     }

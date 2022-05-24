@@ -14,11 +14,14 @@ namespace MacroBoard
         public BlockWait(int mili, int sec = 0, int min = 0, int hour = 0)
         {
             base.info = "Wait the specified time.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockWait.png";
             base.Name = "Wait";
             this.mili = mili;
             this.sec = sec;
             this.min = min;
             this.hour = hour;
+            base.category = Categories.System;
+
         }
 
         public override void Execute()

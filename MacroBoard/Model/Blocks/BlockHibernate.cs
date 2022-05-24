@@ -16,7 +16,10 @@ namespace MacroBoard
         public BlockHibernate()
         {
             base.Name = "Hibernate";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockHibernate.png";
             base.info = "Sleep/hibernate the computer.";
+            base.category = Categories.System;
+
         }
 
 

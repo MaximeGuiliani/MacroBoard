@@ -20,11 +20,14 @@ namespace MacroBoard{
         public BlockScreenshot(string folderPath, string fileName, int screenNumber)
         {
             base.info = "Take a screenshot.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockScreenshot.png";
             base.Name = "Screenshot";
             this.folderPath = folderPath;
             this.fileName = fileName;
             this.screenNumber = screenNumber;
             this.actualScreenNumber = (screenNumber >= Screen.AllScreens.Length) ? 0 : screenNumber ;
+            base.category = Categories.System;
+
         }
 
 

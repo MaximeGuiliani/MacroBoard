@@ -24,7 +24,7 @@ namespace MacroBoard
             Setup_Btns();
             Setup_Name(Block.Name);
             Setup_Grid();
-            Setup_Logo();
+            Setup_Logo(Block.LogoUrl);
         }
 
         private void Setup_Name(string Name)
@@ -37,27 +37,30 @@ namespace MacroBoard
         public abstract void Setup_Btns();
         public abstract void Setup_Grid();
 
-        private void Setup_Logo()
+        private void Setup_Logo(string LogoUrl)
         {
             Image img = new();
             BitmapImage bitmapImg = new BitmapImage();
 
             bitmapImg.BeginInit();
-            bitmapImg.UriSource = new Uri("/Resources/Logo_Blocks/Logo_BlockClickL.png", UriKind.Relative);
+            bitmapImg.UriSource = new Uri(LogoUrl, UriKind.Relative);
             bitmapImg.EndInit();
-
+            
             img.Source = bitmapImg;
+
+            RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
+            RenderOptions.SetEdgeMode(img, EdgeMode.Aliased);
 
             img.HorizontalAlignment = HorizontalAlignment.Left;
             img.VerticalAlignment = VerticalAlignment.Top;
 
             Thickness thickness = new Thickness();
-            thickness.Top = 10d;
+            thickness.Top = 12d;
             thickness.Left = 25d;
 
             img.Margin = thickness;
-            img.Width = 35d;
-            img.Height = 35d;
+            img.Width = 32d;
+            img.Height = 32d;
 
             Content.Children.Add(img);
         }

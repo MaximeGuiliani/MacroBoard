@@ -19,8 +19,12 @@ namespace MacroBoard
         {
             base.Name = "Move Directory";
             base.info = "Move a folder from the specified source to the specified destination.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockMoveFile.png";
+
             this.source = source;
             this.destination = destination;
+            base.category = Categories.Files;
+
         }
 
 

@@ -12,7 +12,6 @@ namespace MacroBoard
 
 //-------------------------------------------------------------------------
 
-
         public static string concatPathWithFileName(string path, string fileName)
         {
             return path +

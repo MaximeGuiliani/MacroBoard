@@ -93,8 +93,9 @@ namespace MacroBoard
             Content.Width = 100d;
             Content.Height = 100d;
 
+            Btn_Fav.Visibility = Visibility.Hidden;
 
-
+            Btn_Delete.Visibility = Visibility.Hidden;
             Content.Children.Add(Lbl_Name);
             Content.Children.Add(Btn_Main);
             Content.Children.Add(Btn_Delete);

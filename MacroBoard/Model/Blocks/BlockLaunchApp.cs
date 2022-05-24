@@ -25,7 +25,10 @@ namespace MacroBoard
             /*this.windowStyle = windowStyle;
             this.delay = delay;*/
             base.info = "Launch the given application with optional arguments.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockRunApplication.png";
             base.Name = "Launch App";
+            base.category = Categories.Applications;
+
         }
 
 

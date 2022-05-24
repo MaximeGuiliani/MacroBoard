@@ -17,10 +17,13 @@ namespace MacroBoard
         public BlockSendEmail(string body, string to, string subject)
         {
             base.info = "Preparation for an email send.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockSendMail.png";
             base.Name = "Send Email";
             this.body = body;   
             this.to = to;       
-            this.subject = subject; 
+            this.subject = subject;
+            base.category = Categories.Applications;
+
         }
 
 

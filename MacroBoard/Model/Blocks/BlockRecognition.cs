@@ -43,7 +43,9 @@ namespace MacroBoard
         {
             //heritage
             base.Name = "Recognize image";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockRecognizeImage.png";
             base.info = "Recognize a given control screenshot in the current screen and set the cursor position in its center.";
+            base.category = Categories.Applications;
             //direct from constructor
             this.templatePath   = templatePath;
             this.xInterest      = xInterest;

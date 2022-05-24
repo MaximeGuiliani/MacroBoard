@@ -13,7 +13,10 @@ namespace MacroBoard
         public BlockShutdown()
         {
             base.info = "Shutdown the computer.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockShutdown.png";
             base.Name = "Shut Down";
+            base.category = Categories.System;
+
         }
 
         public override void Execute()

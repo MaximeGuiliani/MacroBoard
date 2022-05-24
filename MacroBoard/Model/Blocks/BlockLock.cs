@@ -15,7 +15,10 @@ namespace MacroBoard
         public BlockLock()
         {
             base.info = "Lock the screen of the computer.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockLock.png";
             base.Name = "Lock";
+            base.category = Categories.System;
+
         }
 
 

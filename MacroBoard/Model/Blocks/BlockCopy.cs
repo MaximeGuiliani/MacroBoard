@@ -16,10 +16,15 @@ namespace MacroBoard
         
         public BlockCopy(String source, String destination)
         {
+
             base.Name = "Copy Directory";
             base.info = "Copies all the elements of a directory to another directory.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCopy.png";
+
             this.source = source;
             this.destination = destination;
+            base.category = Categories.Files;
+
         }
 
         static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)

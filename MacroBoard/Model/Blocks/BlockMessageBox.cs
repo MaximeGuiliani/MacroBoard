@@ -19,8 +19,11 @@ namespace MacroBoard
         {
             base.Name = "Pop Up";
             base.info = "Block useful for debugging.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockPopup.png";
             this.param1 = param1;
             this.param2 = param2;
+            base.category = Categories.System;
+
         }
 
         public override void Execute()

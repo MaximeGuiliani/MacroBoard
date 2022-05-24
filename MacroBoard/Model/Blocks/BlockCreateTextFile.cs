@@ -15,10 +15,13 @@ namespace MacroBoard
         public BlockCreateTextFile(string filePath, string fileName, string text)
         {
             base.Name = "Create text file";
-            base.info = "Create a text file of any type.";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCreateTextFile.png";
+            base.info = "Create a text file of any type";
             this.filePath = filePath;
             this.fileName = fileName;
             this.text = text;
+            base.category = Categories.Files;
+
         }
 
         public override void Execute()
