@@ -114,22 +114,32 @@ namespace MacroBoard.View
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("category");
             string searchText = Search.Text;
             ObservableCollection<Block> LeftBlocksSearch = new ObservableCollection<Block>();
             if (!searchText.Equals(""))
             {
                 foreach (Block block in LeftBlocks)
                 {
-                    if (block.Name.Equals(searchText, StringComparison.OrdinalIgnoreCase))
+                    if (block.Name.ToLower().Contains(searchText.ToLower()))
                         LeftBlocksSearch.Add(block);
+
                 }
+                ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
+                view.GroupDescriptions.Add(groupDescription);
             }
             else
             {
                 LeftBlocksSearch = LeftBlocks;
+
+                ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
+                view.GroupDescriptions.Remove(groupDescription);
+
+
             }
-            ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+            
 
         }
 
@@ -370,7 +380,6 @@ namespace MacroBoard.View
         {
             expandAll(true);
         }
-
 
 
        
