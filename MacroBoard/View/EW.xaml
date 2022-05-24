@@ -22,26 +22,38 @@
             </Grid.RowDefinitions>
         </Grid>
 
-        <Grid Margin="20,20,20,20">
 
-            <ListBox x:Name="ListBlock_Left_XAML"
-                     VirtualizingStackPanel.IsVirtualizing="False"
+        <Grid Margin="20,20,20,20">
+            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="220" TextChanged="Search_TextChanged" Margin="0,20,0,0" >
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+
+                        <Setter Property="Padding" Value="10,0,0,10"/>
+
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+            
+            <ListView Name="ListBlock_Left_XAML"  VirtualizingStackPanel.IsVirtualizing="False"
                      VerticalAlignment="Top"
                      HorizontalAlignment="Center"
                      BorderThickness="0,0,0,0"
-                     ItemsSource="{Binding Path=LeftBlocks}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="52" Margin="0,5,0,5" Background="MediumPurple">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
+                      Margin="0,80,0,0">
+               
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="52" Margin="0,5,0,5" Background="MediumPurple">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
                             <Image Source="{Binding LogoUrl}"
                                    RenderOptions.BitmapScalingMode='HighQuality'
@@ -51,22 +63,37 @@
                                    Grid.Column = "0"
                                    Margin="8,0,0,0"
                                 />
-                            <TextBlock Text="{Binding Name}" Grid.Column = "1" Width="210" Margin="10,0,0,0"/>
-                            <Button Background="Purple"
-                                    Content="+"
-                                    FontSize="18"
-                                    Foreground="White"
-                                    Click="onClickPlus"
-                                    Width="30"
-                                    Height="30"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Right"
-                                    Grid.Column = "2"
-                                    Margin="0,0,8,0"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+
+                            <TextBlock Text="{Binding Name}" Grid.Column = "1" Width="210" Margin="10,0,0,0" MouseDown="OnDoubleClickAdd"  />
+                            
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate x:Name ="Expander_XAML">
+                                            <Expander  IsExpanded="{Binding IsExpanded}">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" FontWeight="DemiBold" Foreground="DarkSlateGray" FontSize="20" VerticalAlignment="Bottom" />
+                                                        <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
 
         </Grid>
 

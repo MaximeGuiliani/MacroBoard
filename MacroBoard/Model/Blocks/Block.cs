@@ -29,7 +29,7 @@ namespace MacroBoard{
         public string LogoUrl { get; set; } = "";
         public string info { get; set; } = "";
 
-        public Categories category;
+        public Categories category { get; set; }
 
         public abstract void Execute();
 
