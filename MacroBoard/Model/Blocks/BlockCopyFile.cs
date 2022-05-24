@@ -9,27 +9,22 @@ using static MacroBoard.Utils;
 namespace MacroBoard
 {
     [Serializable]
-    public class BlockCopy : Block
+    public class BlockCopyFile : Block
     {
         public String source { get; set; } = "";
         public String destination { get; set; } = "";
-        
-        public BlockCopy(String source, String destination)
+
+        public BlockCopyFile(String source, String destination)
         {
-
-            base.Name = "Copy Directory";
-            base.info = "Copies all the elements of a directory to another directory.";
-            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCopy.png";
-
+            base.Name = "Copy File";
+            base.info = "Copies file to another directory.";
             this.source = source;
             this.destination = destination;
-            base.category = Categories.Files;
-
         }
 
-        static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
+        static void CopyDirectory(string source, string destinationDir, bool recursive)
         {
-            var dir = new DirectoryInfo(sourceDir);
+            var dir = new DirectoryInfo(source);
             if (!dir.Exists)
                 throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
 
@@ -51,13 +46,14 @@ namespace MacroBoard
             }
         }
 
-        
+
 
         public override void Execute()
         {
             FileAttributes attr = File.GetAttributes(source);
 
-            if (attr.HasFlag(FileAttributes.Directory)) {
+            if (attr.HasFlag(FileAttributes.Directory))
+            {
                 CopyDirectory(source, destination, true);
             }
 

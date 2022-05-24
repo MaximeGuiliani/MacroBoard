@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Data;
 using static MacroBoard.Utils;
+using System.Windows.Data;
+using System.Collections.Generic;
+
 
 namespace MacroBoard.View
 {
@@ -30,8 +33,10 @@ namespace MacroBoard.View
             Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             DataContext = this;
             LeftBlocks  = new();
+
             RightBlocks = new();
             this.WorkFlow = new WorkFlow("", "", RightBlocks);
+
             InitializeComponent();
             setupLeftBlocks();
             setupKeyboardInteractions();
@@ -103,7 +108,35 @@ namespace MacroBoard.View
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("category");
             view.GroupDescriptions.Add(groupDescription);
+
         }
+
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            string searchText = Search.Text;
+            ObservableCollection<Block> LeftBlocksSearch = new ObservableCollection<Block>();
+            if (!searchText.Equals(""))
+            {
+                foreach (Block block in LeftBlocks)
+                {
+                    if (block.Name.Equals(searchText, StringComparison.OrdinalIgnoreCase))
+                        LeftBlocksSearch.Add(block);
+                }
+            }
+            else
+            {
+                LeftBlocksSearch = LeftBlocks;
+            }
+            ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+
+        }
+
+       
+
+
+
 
 
         private void setupKeyboardInteractions()
@@ -184,6 +217,7 @@ namespace MacroBoard.View
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
+
             if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
             {
                 if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
@@ -215,13 +249,7 @@ namespace MacroBoard.View
         }
 
 
-        private void onClickPlus(object sender, RoutedEventArgs e)
-        {
-            int c = ListBlock_Right_XAML.Items.Count;
-            Block model = (Block)((Button)sender).DataContext;
-            addRightBlock(model);
-        } 
-
+       
         private void refresh(object? sender, NotifyCollectionChangedEventArgs e)
         {
             for (int i = 0; i < RightBlocks.Count; i++)
@@ -325,6 +353,7 @@ namespace MacroBoard.View
             }
         }
 
+
         private void debug_Click(object sender, RoutedEventArgs e)
         {
             isex = !isex;
@@ -344,7 +373,17 @@ namespace MacroBoard.View
 
 
 
+       
 
+        private void OnDoubleClickAdd(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount == 2)
+            {
+                Block model = (Block)((TextBlock)sender).DataContext;
+                addRightBlock(model);
+            
+            }
 
+        }
     }
 }        // il n'y a que 2 fleches a supprimer: celle toute en haut, celle tout en bas (update a delete et insert)

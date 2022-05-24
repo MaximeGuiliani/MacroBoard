@@ -4,18 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using static MacroBoard.Utils;
+
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockMove : Block
     {
         public String source;
         public String destination;
+
         public BlockMove(String source, String destination)
         {
-            base.Name = "Move Folder/File";
+            base.Name = "Move Directory";
+            base.info = "Move a folder from the specified source to the specified destination.";
             base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockMoveFile.png";
-            base.info = "Move a folder/file from the specified source to the specified destination.";
+
             this.source = source;
             this.destination = destination;
             base.category = Categories.Files;
@@ -27,7 +32,7 @@ namespace MacroBoard
         {
             string sourceDirectory = source;
             string destinationDirectory = destination;
-            Directory.Move(sourceDirectory, destinationDirectory);
+            Directory.Move(sourceDirectory, concatPathWithFileName(destinationDirectory, Path.GetFileName(sourceDirectory)));
         }
 
 
