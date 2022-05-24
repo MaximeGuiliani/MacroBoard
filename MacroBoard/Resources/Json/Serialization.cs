@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,7 @@ namespace MacroBoard
             JArray WFList = (JArray)WFJson["workflowList"]!;
 
             int WFListSize = WFList.Count;
-            List<Block> Blocks = new List<Block>();
+            Collection<Block> Blocks = new Collection<Block>();
 
             for (int i = 0; i < WFListSize; i++)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace MacroBoard.Resources.Json
 
             string JsonPath = @"C:\Users\dadad\Desktop\test.json";
 
-            List<Block> Blocks = new List<Block>();
+            Collection<Block> Blocks = new Collection<Block>();
             Blocks.Add(new BlockRestart());
             Blocks.Add(new BlockClickR());
             Blocks.Add(new BlockClickL());

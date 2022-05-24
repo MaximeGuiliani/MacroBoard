@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -7,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using MacroBoard.View;
 using MacroBoard.View.Themes;
 
 namespace MacroBoard
@@ -100,7 +102,7 @@ namespace MacroBoard
 
         private void AddAddButton(List<WorkflowView> workflowViews)
         {
-            WorkFlow addButton = new("", "", new List<Block>());
+            WorkFlow addButton = new("", "", new Collection<Block>());
             workflowViews.Add(new(addButton));
             workflowViews[^1].Btn_Delete.Visibility = Visibility.Hidden;
             workflowViews[^1].Btn_Fav.Visibility = Visibility.Hidden;
@@ -282,7 +284,7 @@ namespace MacroBoard
         private void AddWorkFlow(object sender, RoutedEventArgs e)
         {
 
-            EditionWindow editionWindow = new();
+            EW editionWindow = new();
             editionWindow.ShowDialog();
 
             ResetWindow();
@@ -316,7 +318,7 @@ namespace MacroBoard
             string toDelete = wf.workflowName;
             if (isEdition)
             {
-                EditionWindow editionWindow = new(wf);
+                EW editionWindow = new(wf);
                 editionWindow.ShowDialog();
 
                 ResetWindow();
@@ -382,7 +384,7 @@ namespace MacroBoard
         private void EditWorkflow(WorkFlow wf, int indexWF)
         {
             string toDelete = wf.workflowName;
-            EditionWindow editionWindow = new(wf);
+            EW editionWindow = new(wf);
             editionWindow.ShowDialog();
 
             ResetWindow();
