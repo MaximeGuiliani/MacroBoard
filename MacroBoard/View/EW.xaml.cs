@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Data;
+using System.Collections.Generic;
 
 namespace MacroBoard.View
 {
@@ -98,7 +99,32 @@ namespace MacroBoard.View
             view.GroupDescriptions.Add(groupDescription);
 
         }
+
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            string searchText = Search.Text;
+            ObservableCollection<Block> LeftBlocksSearch = new ObservableCollection<Block>();
+            if (!searchText.Equals(""))
+            {
+                foreach (Block block in LeftBlocks)
+                {
+                    if (block.Name.Equals(searchText, StringComparison.OrdinalIgnoreCase))
+                        LeftBlocksSearch.Add(block);
+                }
+            }
+            else
+            {
+                LeftBlocksSearch = LeftBlocks;
+            }
+            ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+        }
+
        
+
+
+
 
 
         private void setupKeyboardInteractions()
@@ -179,7 +205,7 @@ namespace MacroBoard.View
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-
+            
             if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
             {
                 if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
@@ -211,13 +237,7 @@ namespace MacroBoard.View
         }
 
 
-        private void onClickPlus(object sender, RoutedEventArgs e)
-        {
-            int c = ListBlock_Right_XAML.Items.Count;
-            Block model = (Block)((Button)sender).DataContext;
-            addRightBlock(model);
-        } 
-
+       
         private void refresh(object? sender, NotifyCollectionChangedEventArgs e)
         {
             for (int i = 0; i < RightBlocks.Count; i++)
@@ -348,9 +368,19 @@ namespace MacroBoard.View
             MessageBox.Show(IsExpanded.ToString());
             //TODO ca marche pas
 
-          
+        }
 
+       
+
+        private void OnDoubleClickAdd(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount == 2)
+            {
+                Block model = (Block)((TextBlock)sender).DataContext;
+                addRightBlock(model);
             
+            }
+
         }
     }
 }        // il n'y a que 2 fleches a supprimer: celle toute en haut, celle tout en bas (update a delete et insert)
