@@ -34,6 +34,11 @@ namespace MacroBoard
             return ((string)JObject.Parse(File.ReadAllText(relPathConfigFile))[configId]).Replace("$USERNAME", Environment.GetEnvironmentVariable("USERNAME"));
         }
 
+        public static string String(string configId)
+        {
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+            return ((string)JObject.Parse(File.ReadAllText(relPathConfigFile))[configId]);
+        }
 
 
 

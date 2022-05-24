@@ -9,6 +9,7 @@ using static MacroBoard.Utils;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockDownloadFile : Block
     {
         public String address;

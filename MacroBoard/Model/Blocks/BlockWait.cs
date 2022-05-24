@@ -7,6 +7,7 @@ using System.Threading;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockWait : Block
     {
         public int hour, min, sec, sum, mili;

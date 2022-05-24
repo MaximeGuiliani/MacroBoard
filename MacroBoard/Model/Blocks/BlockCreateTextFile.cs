@@ -8,6 +8,7 @@ using static MacroBoard.Utils;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockCreateTextFile : Block
     {
         public string filePath, fileName, text;

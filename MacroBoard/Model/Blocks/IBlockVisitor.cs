@@ -33,7 +33,10 @@ namespace MacroBoard
         public void Visit(BlockSetCursor b);
         public void Visit(BlockShutdown b);
         public void Visit(BlockWait b);
-
+        public void Visit(BlockWindowStyle b);
+        public void Visit(BlockCopyFile b);
+        public void Visit(BlockDeleteFile b);
+        public void Visit(BlockMoveFile b);
 
     }
 }

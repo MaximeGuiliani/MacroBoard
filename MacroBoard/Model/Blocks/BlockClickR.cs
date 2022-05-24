@@ -1,9 +1,11 @@
+using System;
 using System.Runtime.InteropServices;
 using static MacroBoard.Utils;
 
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockClickR : Block
     {
 

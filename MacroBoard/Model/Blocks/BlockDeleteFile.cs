@@ -7,21 +7,18 @@ using System.IO;
 namespace MacroBoard
 {
     [Serializable]
-    public class BlockDeleteDirectory : Block
+    public class BlockDeleteFile : Block
     {
         public String path;
-        public BlockDeleteDirectory(String path)
+        public BlockDeleteFile(String path)
         {
-            base.Name = "Delete Directory";
-            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockDeleteDirectory.png";
-            base.info = "Deletes the specified directory.";
+            base.Name = "Delete File";
+            base.info = "Deletes the specified file.";
             this.path = path;
-            base.category = Categories.Files;
-
         }
         public override void Execute()
         {
-          Directory.Delete(path, true);
+            File.Delete(path);
         }
 
         public override void Accept(IBlockVisitor visitor)

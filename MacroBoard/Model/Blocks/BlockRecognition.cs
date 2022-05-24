@@ -14,6 +14,7 @@ using System.Text;
 
 namespace MacroBoard
 {
+    [Serializable]
     public class BlockRecognition : Block
     {
         //direct from constructor

@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 
 namespace MacroBoard{
+
+    [Serializable]
     public abstract class Block  {
 
         public enum Categories
