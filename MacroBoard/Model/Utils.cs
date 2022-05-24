@@ -119,7 +119,6 @@ namespace MacroBoard
             return null;
         }
 
-
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
@@ -137,6 +136,10 @@ namespace MacroBoard
                         yield return childOfChild;
                     }
                 }
+            }
+        }
+
+
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
@@ -149,6 +152,7 @@ namespace MacroBoard
 
             }
         }
+
 
 
 
