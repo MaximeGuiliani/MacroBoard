@@ -14,7 +14,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
-            <ColumnDefinition Width="287*" />
+            <ColumnDefinition Width="500" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Margin="20,20,20,20">
@@ -40,9 +40,9 @@
             
             <ListView Name="ListBlock_Left_XAML"  VirtualizingStackPanel.IsVirtualizing="False"
                      VerticalAlignment="Top"
-                     HorizontalAlignment="Center"
+                     HorizontalAlignment="Left"
                      BorderThickness="0,0,0,0"
-                      Margin="0,80,0,0">
+                     Margin="0,80,0,0">
                
                     <ListView.ItemTemplate>
                         <DataTemplate>
