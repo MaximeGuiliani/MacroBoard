@@ -537,17 +537,6 @@ namespace MacroBoard
             e.Handled = true;
         }
 
-        private void clickedOnHome(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("hello");
-        }
-
-        private void clickedOnEdition(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("hello");
-        }
-
-        
     }
 
        

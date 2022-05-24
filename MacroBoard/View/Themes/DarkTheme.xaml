@@ -5,13 +5,48 @@
 
    
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="BorderBrush" Value="#3A4149"/>
-        <Setter Property="Background" Value= "#282D33" />
-        <!--<Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />-->
-        <Setter Property="BorderThickness" Value="5" />
-        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+        <Setter Property="BorderBrush" Value= "#0A0329"/>
+        <Setter Property="Background" Value="Black" />
+        <!--<Setter Property="BorderThickness" Value="5" />-->
+        <!--<Setter Property="WindowStyle" Value="SingleBorderWindow" />-->
 
         <!--set the text block color to white / add the costume style in mainwindow-->
     </Style>
 
+    <Style x:Key="CustomTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="#111111"/>
+        <Setter Property="BorderBrush" Value="#777777"/>
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+    </Style>
+
+    <Style x:Key="CustomGrid" TargetType="Grid">
+        <Setter Property="TextBlock.FontFamily" Value="Comic Sans MS"/>
+        <Setter Property="Background" Value="#F2F7FA"/>
+    </Style>
+
+    <Style x:Key="CustomStackPanel" TargetType="StackPanel">
+        <Setter Property="Background" Value="Black"/>
+
+    </Style>
+
+    <Style x:Key="CustomListBox" TargetType="ListBox">
+        <Setter Property="Background" Value="#333333"/>
+        <Setter Property="BorderBrush" Value="#1F332E"/>
+    </Style>
+
+    <Style x:Key="CustomMenuItems" TargetType="MenuItem">
+        <Setter Property="Background" Value="Black"/>
+    </Style>
+
+    <!-- image links for different themes-->
+    <Style x:Key="CustomImageEdit" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_edit_white.png"/>
+    </Style>
+
+    <Style x:Key="CustomImageRearrange" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_rearrange_white.png"/>
+    </Style>
+    <Style x:Key="CustomImageThemes" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_themes_white.png"/>
+    </Style>
 </ResourceDictionary>
