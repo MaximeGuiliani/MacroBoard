@@ -3,28 +3,52 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <SolidColorBrush x:Key="BackgroundColour" Color="#FF232323" />
-    <SolidColorBrush x:Key="WindowBorderColour" Color="#FF343434" />
-    <SolidColorBrush x:Key="WindowTitleColour" Color="#FF242424" />
-
-    <SolidColorBrush x:Key="TransparentBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="ContainerBackground" Color="#FF272727" />
-    <SolidColorBrush x:Key="ContainerBorder" Color="#FF2B2B2B" />
-    <SolidColorBrush x:Key="ControlDefaultForeground" Color="Black" />
-
-    <SolidColorBrush x:Key="ControlPrimaryColourBackground" Color="#FF2084E8" />
-    <SolidColorBrush x:Key="ControlPrimaryColourBorderBrush" Color="#FF3294E8" />
-    <SolidColorBrush x:Key="ControlBrightPrimaryColourBackground" Color="#FF3296FA" />
-    <SolidColorBrush x:Key="ControlBrightPrimaryColourBorderBrush" Color="#FF50A4FA" />
-
+   
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="BorderBrush" Value="{StaticResource WindowBorderColour}" />
-        <Setter Property="Background" Value= "BlueViolet" />
-        <Setter Property="Foreground" Value="{StaticResource ControlDefaultForeground}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="WindowStyle" Value="SingleBorderWindow" />
-        
-       
+        <Setter Property="BorderBrush" Value= "Black"/>
+        <Setter Property="Background" Value="#333333" />
+        <!--<Setter Property="BorderThickness" Value="5" />-->
+        <!--<Setter Property="WindowStyle" Value="SingleBorderWindow" />-->
+
+        <!--set the text block color to white / add the costume style in mainwindow-->
     </Style>
 
+    <Style x:Key="CustomTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="#505050"/>
+        <Setter Property="BorderBrush" Value="#777777"/>
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+    </Style>
+
+    <Style x:Key="CustomStackPanel" TargetType="StackPanel">
+        <Setter Property="Background" Value="#3D3D3D"/>
+
+    </Style>
+
+    <Style x:Key="CustomBorder" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#525252"/>
+    </Style>
+
+
+    <Style x:Key="CustomListBox" TargetType="ListBox">
+        <Setter Property="Background" Value="#505050"/>
+        <Setter Property="BorderBrush" Value="#1F332E"/>
+    </Style>
+
+    <Style x:Key="CustomMenuItems" TargetType="MenuItem">
+        <Setter Property="Background" Value="#3D3D3D"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+    </Style>
+
+    <!-- image links for different themes-->
+    <Style x:Key="CustomImageEdit" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_add.png"/>
+    </Style>
+
+    <Style x:Key="CustomImageRearrange" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_edit.png"/>
+    </Style>
+    <Style x:Key="CustomImageThemes" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_themes.png"/>
+    </Style>
 </ResourceDictionary>

@@ -121,6 +121,7 @@ namespace MacroBoard.View
 
         private void setupKeyboardInteractions()
         {
+
             ListBlock_Right_XAML.KeyDown += onKeyCopy;
             ListBlock_Right_XAML.KeyDown += onKeyPaste;
             ListBlock_Right_XAML.KeyDown += onKeyDelete;
@@ -243,21 +244,31 @@ namespace MacroBoard.View
 
         private void onTextChangedSearch(object sender, TextChangedEventArgs e)
         {
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("category");
             string searchText = Search.Text;
             ObservableCollection<Block> LeftBlocksSearch = new ObservableCollection<Block>();
             if (!searchText.Equals(""))
             {
                 foreach (Block block in LeftBlocks)
                 {
-                    if (block.Name.Equals(searchText, StringComparison.OrdinalIgnoreCase))
+                    if (block.Name.ToLower().Contains(searchText.ToLower()))
                         LeftBlocksSearch.Add(block);
+
                 }
+                ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
+                view.GroupDescriptions.Add(groupDescription);
             }
             else
             {
                 LeftBlocksSearch = LeftBlocks;
+
+                ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
+                view.GroupDescriptions.Remove(groupDescription);
+
+
             }
-            ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
         }
 
 
@@ -444,6 +455,8 @@ namespace MacroBoard.View
                 setExpanders(true);
             }
         }
+
+
 
 
         private void onKeyMoveUp(object sender, KeyEventArgs e)

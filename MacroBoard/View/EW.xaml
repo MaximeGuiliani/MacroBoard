@@ -27,7 +27,8 @@
 
 
         <Grid Margin="20,20,20,20">
-            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="220" TextChanged="onTextChangedSearch" Margin="0,20,0,0" >
+
+            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"  VerticalContentAlignment="Center" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="220" TextChanged="onTextChangedSearch" Margin="0,20,0,0" >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>

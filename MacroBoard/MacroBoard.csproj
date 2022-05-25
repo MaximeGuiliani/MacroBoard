@@ -24,6 +24,9 @@
 		<None Remove="Resources\config\config.json" />
 		<None Remove="Resources\FAVJSON\init.txt" />
 		<None Remove="Resources\Icon.png" />
+		<None Remove="Resources\icon_add.png" />
+		<None Remove="Resources\icon_edit.png" />
+		<None Remove="Resources\icon_themes.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockClickL.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockClickR.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png" />
@@ -48,6 +51,10 @@
 		<None Remove="Resources\Logo_Blocks\Logo_BlockShortcut.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockShutdown.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockWait.png" />
+		<None Remove="Resources\Logo_Edit_0.png" />
+		<None Remove="Resources\Logo_Edit_1.gif" />
+		<None Remove="Resources\Logo_Edit_2.gif" />
+		<None Remove="Resources\Logo_Edit_3.png" />
 		<None Remove="Resources\macro_img.png" />
 		<None Remove="Resources\WFJSON\init.txt" />
 	</ItemGroup>
@@ -62,6 +69,15 @@
 
 	<ItemGroup>
 	  <Content Include="Resources\FAVJSON\init.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_add.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_edit.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_themes.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockClickL.png">
@@ -134,6 +150,18 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockWait.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Edit_0.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Edit_1.gif">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Edit_2.gif">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Edit_3.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\WFJSON\init.txt">
