@@ -85,7 +85,9 @@
                 </TextBox.Resources>
             </TextBox>
 
+            
         </Grid>
+
 
         <Grid Grid.Row="1">
             <Border CornerRadius="8,8,0,8">
@@ -205,13 +207,13 @@
 
         </Grid>
 
-        <Grid x:Name="panel" HorizontalAlignment="Left" Width="75" Background="Transparent" Grid.RowSpan="4" Style="{DynamicResource CustomGrid}">
-            <Border BorderBrush="White" CornerRadius="5,5,5,5" BorderThickness="3,3,3,3">
-                <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}" Margin="0,0,0,0">
-                    <Menu Margin="27,20,0,0" Background="Transparent">
-                        <MenuItem Style="{DynamicResource CustomMenuItems}" Background="{x:Null}">
+        <Grid x:Name="panel" HorizontalAlignment="Left" Width="175" Background="Transparent" Grid.RowSpan="4" >
+            <Border CornerRadius="5,5,5,5" BorderThickness="3,3,3,3" Style="{DynamicResource CustomBorder}">
+                <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}"  >
+                    <Menu   Margin="67,20,0,0" Background="Transparent">
+                        <MenuItem   Style="{DynamicResource CustomMenuItems}" >
                             <MenuItem.Icon>
-                                <Image Style="{DynamicResource CustomImageThemes}"/>
+                                <Image Height="20" Width="20" Style="{DynamicResource CustomImageThemes}"/>
                             </MenuItem.Icon>
                             <MenuItem Header="Light" Click="ChangeTheme" Uid="0">
                                 <MenuItem.Icon>
