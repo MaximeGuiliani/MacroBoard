@@ -17,6 +17,7 @@ namespace MacroBoard
         {
             base.Name = "Window Style";
             base.info = "Set the style of the foreground window";
+            base.category = Categories.Applications;
             this.windowStyle = windowStyle;
         }
 
