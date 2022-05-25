@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using MacroBoard.Model;
 using MacroBoard.View;
 using MacroBoard.View.Themes;
 
@@ -374,10 +375,10 @@ namespace MacroBoard
 
         private void ExecuteWorkflowFav(WorkFlow wf)
         {
-            foreach (Block block in wf.workflowList)
-            {
-                block.Execute();
-            }
+            Executor executor = new(wf);
+            string message = executor.Execute();
+            if (message.Length != 0)
+                MessageBox.Show(message);
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
@@ -436,12 +437,11 @@ namespace MacroBoard
 
         private static void ExecuteWorkflow(WorkFlow wf)
         {
-
-            foreach (Block block in wf.workflowList)
-            {
-                block.Execute();
-            }
-
+            Executor executor = new(wf);
+            string message = executor.Execute();
+            if (message.Length != 0)
+                MessageBox.Show(message);
+                    
         }
         //-----------------------------------------------------------------------------------------------------------------------------//
 

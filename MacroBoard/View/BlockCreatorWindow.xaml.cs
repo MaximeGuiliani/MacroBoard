@@ -177,7 +177,7 @@ namespace MacroBoard.View
             (Label, TextBox)  scale          = fields.newTextBox("Scale de l'image\n[0,1[ rétrecir\t]1,+inf] agrandir", b.scale.ToString(), fields.CheckDigits);
             ComboBox          loop           = fields.newComboBoxBool("Essayer plusieurs scale", b.loop);
             ComboBox          debugMode      = fields.newComboBoxBool("DebugMode", b.debugMode);
-            newBlock = () => new BlockRecognition(templatePath.Item1.Text, xInterest: ((xInterest.Item2.Text == "*") ? 0 : int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest: int.Parse(heightInterest.Item2.Text), widthInterest: int.Parse(widthInterest.Item2.Text), screenNumber: screenNumber.SelectedIndex, offSetX: int.Parse(offSetX.Item2.Text), offSetY: int.Parse(offSetY.Item2.Text), scale: int.Parse(scale.Item2.Text), loop: (bool)loop.SelectedItem, debugMode: (bool)debugMode.SelectedItem);
+            newBlock = () => new BlockRecognition(templatePath.Item1.Text, xInterest: ((xInterest.Item2.Text == "*") ? 0 : int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest: int.Parse(heightInterest.Item2.Text), widthInterest: int.Parse(widthInterest.Item2.Text), screenNumber: screenNumber.SelectedIndex, offSetX: int.Parse(offSetX.Item2.Text), offSetY: int.Parse(offSetY.Item2.Text), scale: int.Parse(scale.Item2.Text), loop: (bool)loop.SelectedItem, debugMode: (bool)debugMode.SelectedItem);          
         }
 
 
@@ -306,7 +306,16 @@ namespace MacroBoard.View
                     MessageBox.Show("Remplissez tous les champs");
                     return;
                 }
+                try
+                {
                 res = newBlock();
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+     
+                }
+
                 this.DialogResult = true;
             };
         }
