@@ -4,14 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
-        
+        Height="600" 
+        Width="725"
         mc:Ignorable="d"
-        Title="Macroboard" Height="500" Width="600"
-        ResizeMode="NoResize"
+        Title="Macroboard Desktop" MinHeight="600" MinWidth="520"
+        ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource CustomWindowStyle}">
-    
+
+
     <Window.Resources>
+
+        <Style x:Key="font" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
         <Style TargetType="{x:Type Button}"
            >
             <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -31,67 +39,76 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="tooltip" TargetType="ToolTip">
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
 
-    <Grid>
+    <Grid >
+        <!--<Grid.Background>
+            <ImageBrush Stretch="None" ImageSource="../Resources/backgroundtest.jpg" AlignmentY="Top" AlignmentX="Center"/>
+        </Grid.Background>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="115" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="230" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
+            <Border CornerRadius="8,8,0,8"/>
 
-            <Menu VerticalAlignment="Top" HorizontalAlignment="Right" Width="120" >
-                <MenuItem Header="Themes" Width="131" Height="19" >
-                    <MenuItem Header="Light" Click="ChangeTheme" Uid="0">
-                        <MenuItem.Icon>
-                            <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round"  />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="Dark" Click="ChangeTheme" Uid="1">
-                        <MenuItem.Icon>
-                            <Rectangle Stroke="#FF404040" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
-
-            <Label FontFamily="Calibri" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40">
-                <TextBlock FontSize="28" Text="MacroBoard">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="White" BlurRadius="3" ShadowDepth="0"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-            </Label>
-
-            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2" x:Name="Search" HorizontalAlignment="Right" Height="30"  VerticalAlignment="Center" Width="220" TextChanged="Search_TextChanged" Margin="0,0,150,0" >
+            <TextBox Style="{DynamicResource CustomTextBox}" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="350" TextChanged="Search_TextChanged" Margin="0,10,0,0"  >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
-
                         <Setter Property="Padding" Value="10,0,0,10"/>
-
+                        <Setter Property="BorderBrush" Value="White"/>
                     </Style>
                 </TextBox.Resources>
             </TextBox>
 
+            
         </Grid>
 
-        <Grid Grid.Row="1">
 
+        <Grid Grid.Row="1">
+            <Border CornerRadius="8,8,0,8">
+                <Border.Effect>
+                    <BlurEffect Radius="50" KernelType="Gaussian"/>
+                </Border.Effect>
+            </Border>
             <!--   Liste des favoris   -->
-            <ListBox  Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="600" x:Name="ListFav" Grid.ColumnSpan="5" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,0" >
+            <ListBox  Style="{DynamicResource CustomListBox}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="ListFav" Grid.ColumnSpan="5" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="79,20,0,0" >
+                <ListBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </ListBox.Resources>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
 
                         <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="Padding" Value="10,0,0,10"/>
+                        <Setter Property="Padding" Value="10,10,10,10"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -130,34 +147,18 @@
 
         </Grid>
 
-        <Grid Grid.Row="2">
-
-            <Button BorderThickness="0" RenderTransformOrigin="0.5,0.541"
-            x:Name="ButtonEdit" Content="⚙" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="50"  
-            TextBlock.FontSize="30" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Grid.RowSpan="3" Grid.Row="2" Height="50">
-                <Button.RenderTransform>
-                    <RotateTransform x:Name="MyAnimatedTransform" Angle="0" />
-                </Button.RenderTransform>
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="Button.Click">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                Storyboard.TargetName="MyAnimatedTransform"
-                                Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                From="0.0" To="360" Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
-
-        </Grid>
-
         <Grid Grid.Row="3">
-
+            <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="43*"/>
+                <ColumnDefinition Width="647*"/>
+            </Grid.ColumnDefinitions>-->
+            <Border CornerRadius="8,8,0,8" Grid.Column="1">
+                <Border.Effect>
+                    <BlurEffect Radius="500" KernelType="Gaussian" />
+                </Border.Effect>
+            </Border>
             <!--    List des macros    -->
-            <ListBox Grid.Row="2" x:Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="600" BorderBrush="{x:Null}" >
+            <ListBox x:Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.ColumnSpan="5" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="{x:Null}" Margin="69,20,0,0" Grid.Column="1"  >
                 <ListBox.Style>
                     <Style/>
                 </ListBox.Style>
@@ -167,7 +168,7 @@
                         <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="Padding" Value="10,0,0,10"/>
+                        <Setter Property="Padding" Value="10,10,10,10"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -206,5 +207,37 @@
 
         </Grid>
 
+        <Grid x:Name="panel" HorizontalAlignment="Left" Width="175" Background="Transparent" Grid.RowSpan="4" >
+            <Border CornerRadius="5,5,5,5" BorderThickness="3,3,3,3" Style="{DynamicResource CustomBorder}">
+                <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}"  >
+                    <Menu   Margin="67,20,0,0" Background="Transparent">
+                        <MenuItem   Style="{DynamicResource CustomMenuItems}" >
+                            <MenuItem.Icon>
+                                <Image Height="20" Width="20" Style="{DynamicResource CustomImageThemes}"/>
+                            </MenuItem.Icon>
+                            <MenuItem Header="Light" Click="ChangeTheme" Uid="0">
+                                <MenuItem.Icon>
+                                    <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round"  />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Dark" Click="ChangeTheme" Uid="1">
+                                <MenuItem.Icon>
+                                    <Rectangle Stroke="#FF404040" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                    <Button BorderThickness="0"
+                    x:Name="ButtonEdit" HorizontalAlignment="Center"   
+                    TextBlock.FontSize="20" TextBlock.Foreground="black" Background="Transparent" Click="EditionMode" Margin="0,30,0,10">
+                        <Image Height="40" Width="40" Style="{DynamicResource CustomImageRearrange}"/>
+                    </Button>
+                    <Button x:Name="Edition" Margin="0,30,0,0" Click="AddWorkFlow" BorderBrush="Black">
+                        <Image Height="40" Width="40" Style="{DynamicResource CustomImageEdit}"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
+
 </Window>
