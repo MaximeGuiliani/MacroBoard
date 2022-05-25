@@ -21,8 +21,8 @@
 
   "DebugPath": "C:\\Users\\$USERNAME\\Documents\\",
 
-  "Theme": "Light"
+  "theme": "Light",
 
+  "initExpandersEW": "true"
 }
-
 // Directory names must end with "\\"
