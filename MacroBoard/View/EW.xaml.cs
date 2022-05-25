@@ -227,22 +227,30 @@ namespace MacroBoard.View
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-
-            if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
+            if (WorkFlow.workflowList.Count != 0)
             {
-                if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
+
+
+                if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
                 {
-                    this.WorkFlow.imagePath = "";
+                    if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
+                    {
+                        this.WorkFlow.imagePath = "";
+                    }
+                    else
+                    {
+                        
+                        this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
+                    }
+                    this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
+                    this.DialogResult = true;
+                    this.Close();
                 }
                 else
-                {
-                    this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
-                }
-                this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
-                this.DialogResult = true;
-                this.Close();
+                    MessageBox.Show("Please select a name"); 
             }
-            //MessageBox.Show($"remplissez tout"); //TODO
+            else 
+                MessageBox.Show("Please add at least one block");
         }
 
 
