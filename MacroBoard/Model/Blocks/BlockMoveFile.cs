@@ -19,6 +19,7 @@ namespace MacroBoard
         {
             base.Name = "Move File";
             base.info = "Move the specified file to the specified destination.";
+            base.category = Categories.Files;
             this.source = source;
             this.destination = destination;
         }
