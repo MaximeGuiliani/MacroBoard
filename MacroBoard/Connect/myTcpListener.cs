@@ -95,6 +95,7 @@ class myTcpListener
 
     public void InitMobileData(NetworkStream stream)
     {
+
         List<WorkflowView> lw = Serialization.getFavsFromJson();
         List<string> lds = new();
         byte[] msg = null;
@@ -104,41 +105,28 @@ class myTcpListener
             lds.Add(wf.CurrentworkFlow.imagePath);
             lds.Add(wf.CurrentworkFlow.workflowName);
 
-            //msg = System.Text.Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName + "\n");
+            msg = System.Text.Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName + "\n");
 
-            //Image image = Image.FromFile(wf.CurrentworkFlow.imagePath);
-
-
+            stream.Write(msg, 0, msg.Length);
+            stream.Flush();
+            Thread.Sleep(100);
             Bitmap tImage = new Bitmap(wf.CurrentworkFlow.imagePath);
 
-            byte[] test = (System.Text.Encoding.ASCII.GetBytes("<img>"));
-            // byte[] bStream = Encoding.ASCII.GetBytes(tImage.ToString());
+           
 
             byte[] bStream = ImageToByteArray(tImage);
-            byte[] test2 = System.Text.Encoding.ASCII.GetBytes("</img>");
-            byte[] saut = System.Text.Encoding.ASCII.GetBytes("\n");
 
-            byte[] all = new byte[test.Length + test2.Length + bStream.Length + 2];
-
-            test.CopyTo(all, 0);
-            saut.CopyTo(all, test.Length);
-            bStream.CopyTo(all, test.Length + 1);
-            saut.CopyTo(all, bStream.Length + test.Length + 1);
-            test2.CopyTo(all, bStream.Length + test.Length + 2);
-            saut.CopyTo(all, test2.Length+ bStream.Length + test.Length + 1);
-
-
-
-
-
-            stream.Write(all, 0, all.Length);
+            stream.Write(bStream, 0, bStream.Length);
+            stream.Flush();
+            Thread.Sleep(100);
 
 
 
         }
 
-        msg = System.Text.Encoding.ASCII.GetBytes("|");
+        msg = Encoding.ASCII.GetBytes("|");
         stream.Write(msg, 0, msg.Length);
+        
 
     }
 
