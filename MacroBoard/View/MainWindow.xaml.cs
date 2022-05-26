@@ -43,7 +43,7 @@ namespace MacroBoard
             {
                 CreateButton(FavWorkflows, true);
             }
-            AddAddButton(Workflows);
+           
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
@@ -206,7 +206,7 @@ namespace MacroBoard
 
         //-----------------------------------------------------------------------------------------------------------------------------//
 
-        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        private void Search_TextChanged(object sender, RoutedEventArgs e)
         {
 
             string searchText = Search.Text;
@@ -220,7 +220,7 @@ namespace MacroBoard
                         WorkflowsSearchs.Add(workFlowView);
                     }
                 }
-                AddAddButton(WorkflowsSearchs);
+                //AddAddButton(WorkflowsSearchs);
             }
             else
             {

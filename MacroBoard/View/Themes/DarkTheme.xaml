@@ -6,7 +6,8 @@
    
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="BorderBrush" Value= "Black"/>
-        <Setter Property="Background" Value="#333333" />
+        <Setter Property="Background" Value="#222222" />
+        
         <!--<Setter Property="BorderThickness" Value="5" />-->
         <!--<Setter Property="WindowStyle" Value="SingleBorderWindow" />-->
 
@@ -14,35 +15,43 @@
     </Style>
 
     <Style x:Key="CustomTextBox" TargetType="TextBox">
-        <Setter Property="Background" Value="#505050"/>
-        <Setter Property="BorderBrush" Value="#777777"/>
+        <Setter Property="Background" Value="#2f2f2f"/> 
         <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
     </Style>
 
     <Style x:Key="CustomStackPanel" TargetType="StackPanel">
-        <Setter Property="Background" Value="#3D3D3D"/>
-
+        <Setter Property="Background" Value="#282828"/>
+        
     </Style>
 
     <Style x:Key="CustomBorder" TargetType="Border">
-        <Setter Property="BorderBrush" Value="#525252"/>
+        <Setter Property="BorderBrush" Value="#282828"/>
     </Style>
 
 
     <Style x:Key="CustomListBox" TargetType="ListBox">
-        <Setter Property="Background" Value="#505050"/>
-        <Setter Property="BorderBrush" Value="#1F332E"/>
+        <Setter Property="Background" Value="#282828"/>
+        <Setter Property="BorderBrush" Value="#282828"/>
     </Style>
 
     <Style x:Key="CustomMenuItems" TargetType="MenuItem">
-        <Setter Property="Background" Value="#3D3D3D"/>
+        <Setter Property="Background" Value="#021627"/>
         <Setter Property="Width" Value="40"/>
         <Setter Property="Height" Value="40"/>
     </Style>
 
+    
+
+    <Style x:Key="CustomImageSearch" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_search.png"/>
+    </Style>
+
+    
     <!-- image links for different themes-->
     <Style x:Key="CustomImageEdit" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_add.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_plus.png"/>
     </Style>
 
     <Style x:Key="CustomImageRearrange" TargetType="Image">

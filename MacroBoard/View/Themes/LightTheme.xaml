@@ -12,7 +12,6 @@
 
     <Style x:Key="CustomTextBox" TargetType="TextBox">
         <Setter Property="Background" Value="#EBEBEB"/>
-        <Setter Property="BorderBrush" Value="SandyBrown"/>
     </Style>
 
     <Style x:Key="CustomStackPanel" TargetType="StackPanel">
@@ -21,6 +20,7 @@
 
     <Style x:Key="CustomBorder" TargetType="Border">
         <Setter Property="BorderBrush" Value="#BBBBBB"/>
+        <!--same color as meni-->
     </Style>
 
     <Style x:Key="CustomListBox" TargetType="ListBox">
@@ -31,17 +31,22 @@
         <Setter Property="BorderBrush" Value="#EBEBEB"/>
     </Style>
 
+    
+
+    <Style x:Key="CustomImageSearch" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_search.png"/>
+    </Style>
+    
     <Style x:Key="CustomImageEdit" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_add.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_plus_dark.png"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="30"/>
     </Style>
-
     <Style x:Key="CustomImageRearrange" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_edit.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_edit_dark.png"/>
     </Style>
     <Style x:Key="CustomImageThemes" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_themes.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_themes_dark.png"/>
     </Style>
    
 </ResourceDictionary>
