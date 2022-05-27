@@ -21,7 +21,9 @@
 		<None Remove="Resources\Button_WorkFlow_MouseOver.png" />
 		<None Remove="Resources\Button_WorkFlow_V2.png" />
 		<None Remove="Resources\Button_WorkFlow_V3.png" />
+		<None Remove="Resources\collapse.png" />
 		<None Remove="Resources\config\config.json" />
+		<None Remove="Resources\expand.png" />
 		<None Remove="Resources\FAVJSON\init.txt" />
 		<None Remove="Resources\Icon.png" />
 		<None Remove="Resources\icon_add.png" />
@@ -55,6 +57,8 @@
 		<None Remove="Resources\Logo_Edit_1.gif" />
 		<None Remove="Resources\Logo_Edit_2.gif" />
 		<None Remove="Resources\Logo_Edit_3.png" />
+		<None Remove="Resources\loop_dark.png" />
+		<None Remove="Resources\loop_light.png" />
 		<None Remove="Resources\macro_img.png" />
 		<None Remove="Resources\WFJSON\init.txt" />
 	</ItemGroup>
@@ -68,6 +72,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="Resources\collapse.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\expand.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\FAVJSON\init.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
@@ -162,6 +172,12 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Edit_3.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\loop_dark.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\loop_light.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\WFJSON\init.txt">
