@@ -10,7 +10,6 @@
         Height="675"
         Width="900"
         Name="bibu"
-        FocusManager.FocusedElement="{Binding ElementName=ListBlock_Left_XAML}"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -27,8 +26,7 @@
 
 
         <Grid Margin="20,20,20,20">
-
-            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"  VerticalContentAlignment="Center" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="220" TextChanged="onTextChangedSearch" Margin="0,20,0,0" >
+            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"  VerticalContentAlignment="Center" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="220" TextChanged="Search_TextChanged" Margin="0,20,0,0" >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -44,8 +42,7 @@
                      VerticalAlignment="Top"
                      HorizontalAlignment="Left"
                      BorderThickness="0,0,0,0"
-                     Margin="0,80,0,0"
-                     >
+                     Margin="0,80,0,0">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -70,11 +67,32 @@
                                 />
 
 
-                            <TextBlock Text="{Binding Name}" Grid.Column = "1" Width="210" Margin="10,0,0,0" MouseDown="OnDoubleClickAdd"  />
+                            
+                            
+                            <TextBlock Text="{Binding Name}" Grid.Column = "1" Width="210" Margin="20,0,0,0" MouseDown="OnDoubleClickAdd"  />
+                            <Button Width="20" Height="20"
+                                    Background="Black"
+                                     Content="i"
+                                     FontSize="12"
+                                     Foreground="Black"
+                                     HorizontalAlignment="Right"
+                                     Grid.Column = "2"
+                                     Margin="0,0,8,0" Click="OnClickInfo" Opacity="0.7">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse Stroke="#FF4C4A4A" Fill="#FF6F6C6C" />
+                                            
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
 
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+            
 
                 <ListView.GroupStyle>
                     <GroupStyle>
@@ -122,8 +140,8 @@
 
                         <Grid Height="52" Margin="0,5,0,5" Background="MediumPurple" Name="RightGrid">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
                                 <ColumnDefinition />
+                                <ColumnDefinition Width=" 37" />
                                 <ColumnDefinition />
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
@@ -133,30 +151,37 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
 
-                            <Button Content="UP"     Grid.Column = "0"  Grid.Row = "0" Margin="8,3,0,0" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickUp"   Focusable="False"/>
-                            <Button Content="DOWN"   Grid.Column = "0"  Grid.Row = "1" Margin="8,0,0,3" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickDown" Focusable="False"/>
+                            <Button Content="UP"     Grid.Column = "0"  Grid.Row = "0" Margin="8,3,0,0" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickUp"/>
+                            <Button Content="DOWN"   Grid.Column = "0"  Grid.Row = "1" Margin="8,0,0,3" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickDown"/>
 
-                            <Image Source="{Binding LogoUrl}"
+                            <Image Source="{Binding LogoUrl}"                                  
                                    RenderOptions.BitmapScalingMode='HighQuality'
                                    Width="32"
                                    Height="32"
-                                   VerticalAlignment="Center"
+                                   VerticalAlignment="Bottom"
                                    Grid.Column = "1"
-                                   Margin="10,0,0,0"
+                                   
                                 />
 
-                            <TextBlock Text="{Binding Name}" Grid.Column = "2" Width="210" Margin="8,0,0,0"/>
+                            <TextBlock Text="{Binding Name}" Grid.Column = "2" Width="210" Margin="20,0,0,0" MouseDown="OnDoubleClickEdit" />
 
-                            <Button Content="EDIT"   Name="edit" Grid.Row = "0"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,3,8,0" Width="30" Click="onClickEdit"  Focusable="False"/>
-                            <Button Content="-"      Grid.Row = "1"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,0,8,3" Width="30" Click="onClickDelete"  Focusable="False"/>
+                            <!--<Button Content="EDIT"   Name="edit" Grid.Row = "0"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,3,8,0" Width="30" Click="onClickEdit"  />-->
+                            <Button Content="-"      Grid.Row = "1"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,0,8,3" Width="30" Click="onClickDelete"/>
                         </Grid>
 
 
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Border Height="146" Width="460" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2"
+                    VerticalAlignment="Bottom"
+        CornerRadius="50,50,50,50" BorderBrush="DarkSlateGray" Background="#FF969393">
+            </Border>
 
-            <Grid Height="146" VerticalAlignment="Bottom" Width="450" Focusable="False">
+
+            <Grid Height="146" VerticalAlignment="Bottom" Width="450" >
+               
+
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="12*" />
@@ -166,6 +191,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,273,0">
+
                     <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="20" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Border.Background>
                             <ImageBrush x:Name="Img_WorkFlowImage" Stretch="Fill" ImageSource="../Resources/macro_img.png" />
@@ -174,24 +200,27 @@
                 </Grid>
 
                 <Grid Grid.Column="2">
-                    <TextBox x:Name="TextBox_WorkFlowName" Foreground="Gray" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="28" Margin="81,76,0,0" Text="Select name" TextWrapping="NoWrap" VerticalAlignment="Top" Width="250" GotFocus="onGotFocusNameBox"/>
+
+
+
+                    <TextBox x:Name="TextBox_WorkFlowName" Foreground="Gray" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="28" Margin="81,76,0,0" Text="Select name" TextWrapping="NoWrap" VerticalAlignment="Top" Width="250" GotFocus="Name_Box_GotFocus" />
+
                     <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Height="28" Width="350" Margin="0,40">
+                        
                         <TextBox x:Name="TextBox_WorkFlowImage" Text="Select folder" TextWrapping="NoWrap" Foreground="Gray" Width="170" HorizontalAlignment="Left" VerticalContentAlignment="Center" Focusable="False" Margin="159,0,0,0"/>
-                        <Button x:Name="Btn_WorkFlowImage" Width="77" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="82,0,0,0" Focusable="False"/>
+                        <Button x:Name="Btn_WorkFlowImage" Width="77" HorizontalAlignment="Left" Content="Select Image" Click="selectImage" Margin="82,0,0,0"/>
                     </Grid>
                 </Grid>
 
                 <Grid Grid.Column="2" Margin="320,0,0,0" Grid.ColumnSpan="2">
-                    <Button ToolTip="KEKW"  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="64" Width="58" Click="onClickSave" Focusable="False" />
+                    <Button ToolTip="KEKW"  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="64" Width="58" Click="Button_Save" />
                 </Grid>
 
             </Grid>
 
         </Grid>
 
-        <Button x:Name="expandAll"   Content="+ +"   HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="25" Click="onClickExpandAll"   Margin="326,35,0,0" Focusable="False" />
-        <Button x:Name="collapseAll" Content="- -" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="25" Click="onClickCollapseAll" Margin="326,58,0,0"  Focusable="False"/>
-
+        <Button x:Name="debug" Content="debug" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="58" Click="debug_Click" Grid.Column="1" Margin="365,404,0,0" />
 
     </Grid>
 </Window>
