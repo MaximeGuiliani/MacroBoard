@@ -67,8 +67,10 @@ namespace MacroBoard.View
 
         public void Visit(BlockCloseDesiredApplication b)
         {
-            (Label, TextBox) appName = fields.newTextBox("App Name", b.appName);
-            newBlock = () => new BlockCloseDesiredApplication(appName.Item2.Text);
+            (Label, TextBox) appName    = fields.newTextBox("App Name", b.appName);
+            ComboBox         exactMatch = fields.newComboBoxBool("Exact match on app name", b.exactMatch);
+            ComboBox         kill       = fields.newComboBoxBool("Kill the app ? (or soft close)", b.kill);
+            newBlock = () => new BlockCloseDesiredApplication(appName.Item2.Text, (bool)exactMatch.SelectedItem, (bool)kill.SelectedItem);
         }
 
 
@@ -187,7 +189,7 @@ namespace MacroBoard.View
         }
 
 
-        public void Visit(BlockLaunchApp b)
+        public void Visit(BlockLaunchApp b) //TODO
         {
             (TextBox, Button) appPath = fields.newFileSelector("Chemin de l'app", b.appPath);
             (Label, TextBox) arguments = fields.newTextBox("arguments", b.arguments);
@@ -303,7 +305,7 @@ namespace MacroBoard.View
             validerBtn.Click += (object sender, RoutedEventArgs e) => {
                 if (!allTextBoxesAreOk())
                 {
-                    MessageBox.Show("Remplissez tous les champs");
+                    MessageBox.Show("Please fill the fields");
                     return;
                 }
                 try
@@ -311,11 +313,9 @@ namespace MacroBoard.View
                 res = newBlock();
                 }catch(Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Please fill fields with correct values :\n" + ex.Message);
                     return;
-     
                 }
-
                 this.DialogResult = true;
             };
         }
@@ -328,11 +328,14 @@ namespace MacroBoard.View
         {
             //TODO: créer une Class/Enum PlaceHolder pour etre sur de pas en rater 
             List<string> placeHolders = new() { "", @"c:\", @"http:\\", @"https:\\", "filename", "blabla", "a", "b", @"c:\filename", "filePath" };
-            foreach (object o in Controls.Children)
-                if (!textBoxesAreOk(o, placeHolders)){
-                    return false;
-                };
-            return true;
+            bool ok = true;
+            int i = 0;
+            foreach (object child in Controls.Children)
+            {
+                bool res = textBoxesAreOk(child, placeHolders); //TODO: pourquoi je peux pas le faire une seule ligne !?
+                ok = ok && res;
+            }
+            return ok;
         }
 
 
@@ -341,13 +344,17 @@ namespace MacroBoard.View
          */
         private bool textBoxesAreOk(Object o, List<string> placeHolders)
         {
+            bool ok = true;
             if (o is TextBox)
             {
                 TextBox textBox = (TextBox)o;
                 foreach(string placeHolder in placeHolders)
                 {
                     if (placeHolder.ToLower().Equals(textBox.Text.ToLower()))
-                        return false;
+                    {
+                        textBox.BorderBrush = Brushes.Red;
+                        ok = false;
+                    }
                 }
             }
             else if(o is Panel)
@@ -355,11 +362,10 @@ namespace MacroBoard.View
                 Panel panel = (Panel)o;
                 foreach(Object child in panel.Children)
                 {
-                    if (!textBoxesAreOk(child, placeHolders))
-                        return false;
+                    ok = ok && textBoxesAreOk(child, placeHolders);
                 }
             }
-            return true;
+            return ok;
         }
 
 
