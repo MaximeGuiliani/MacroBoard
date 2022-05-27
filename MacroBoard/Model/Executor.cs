@@ -24,7 +24,7 @@ namespace MacroBoard.Model
                 }
                 catch(Exception e)
                 {
-                    return block.GetType().Name+ " " + e.Message;
+                    return "Error in execution of  " + block.GetType().Name+ "\n\n" + e.Message;
                 }
             return ("");
         }
