@@ -32,11 +32,19 @@ namespace MacroBoard.View
 
         //---------------------------------------------------------------------------
 
+        private TextBox baseTextBox()
+        {
+            TextBox textBox = new TextBox();
+            textBox.GotFocus += (object sender, RoutedEventArgs args) => { textBox.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#AEAEAE"); };
+            textBox.Height = 20;
+            return textBox;
+        }
+
+
         public (Label, TextBox) newTextBox(string labelTxt, string defaultText, TextCompositionEventHandler checkFormat = null)
         {
             Label label = newLabel(labelTxt); // pas de add() car fct 
-            TextBox textBox = new TextBox();
-            textBox.Height = 20;
+            TextBox textBox = baseTextBox();
             textBox.Width = (98d / 100d) * Controls.Width;
             textBox.HorizontalAlignment = HorizontalAlignment.Center;
             textBox.Text = defaultText;
@@ -85,8 +93,7 @@ namespace MacroBoard.View
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Horizontal;
 
-            TextBox textBox = new TextBox();
-            textBox.Height = 20;
+            TextBox textBox = baseTextBox();
             textBox.Width = (ratio / 100d) * Controls.Width;
             textBox.Text = defaultPath;
             textBox.IsReadOnly = true;
@@ -155,7 +162,9 @@ namespace MacroBoard.View
             {
                 System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 
-                saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = "filename";
+                saveFileDialog.Filter = "jpg (*.jpg)|*.jpg" + "|image (*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg" + "|txt files (*.txt)|*.txt" + "|All files (*.*)|*.*";
                 saveFileDialog.FilterIndex = 2;
                 saveFileDialog.RestoreDirectory = true;
 
