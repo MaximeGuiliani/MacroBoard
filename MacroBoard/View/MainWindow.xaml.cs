@@ -538,6 +538,10 @@ namespace MacroBoard
             }
             e.Handled = true;
         }
+        private void AboutApp(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("about");
+        }
 
     }
 

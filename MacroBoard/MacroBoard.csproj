@@ -24,6 +24,8 @@
 		<None Remove="Resources\config\config.json" />
 		<None Remove="Resources\FAVJSON\init.txt" />
 		<None Remove="Resources\Icon.png" />
+		<None Remove="Resources\icon_about.png" />
+		<None Remove="Resources\icon_about_dark.png" />
 		<None Remove="Resources\icon_add.png" />
 		<None Remove="Resources\icon_edit.png" />
 		<None Remove="Resources\icon_edit_dark.png" />
@@ -75,6 +77,12 @@
 
 	<ItemGroup>
 	  <Content Include="Resources\FAVJSON\init.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_about.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_about_dark.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\icon_edit.png">

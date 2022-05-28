@@ -76,11 +76,11 @@
         <Grid Grid.Row="0">
             <Border CornerRadius="8,8,0,8"/>
 
-            <TextBox Style="{DynamicResource CustomTextBox}"  BorderBrush="Transparent" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" x:Name="Search" HorizontalAlignment="Left" Height="30"  VerticalAlignment="Center" Width="351" TextChanged="Search_TextChanged" Margin="354,0,0,0"  >
+            <TextBox Style="{DynamicResource CustomTextBox}"  BorderBrush="Transparent" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" x:Name="Search" HorizontalAlignment="Right" Height="30"  VerticalAlignment="Center" Width="351" TextChanged="Search_TextChanged" Margin="35,0,30,0"  >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="15"/>
-                        
+
                     </Style>
                 </TextBox.Resources>
             </TextBox>
@@ -106,11 +106,11 @@
                 </ListBox.Resources>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
-
                         <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                         <Setter Property="Padding" Value="10,10,10,10"/>
+                        
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -209,11 +209,16 @@
 
         </Grid>
 
-        <Grid x:Name="panel" HorizontalAlignment="Left" Width="75" Background="Transparent" Grid.RowSpan="4" >
+        <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="Transparent" Grid.RowSpan="5" >
+            <!--<Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>-->
             <Border CornerRadius="5,5,5,5" BorderThickness="3,3,3,3" Style="{DynamicResource CustomBorder}" >
                 <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}"  >
-                    <Menu Background="Transparent" Height="50" Width="54">
-                        <Image Margin="0,10,0,0" HorizontalAlignment="Left" Width="40" Height="40" Source="../Resources/icon_themes.png"/>
+                    <Menu Background="Transparent" Height="50" Width="54" Margin="0,20,0,0">
+                        <Image Margin="7,10,0,0" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
                         <MenuItem Margin="0,-40,1,1" Width="50" Height="54">
                             <!--<MenuItem.Icon>
                                 <Image Margin="13,0,-6,0" Source="../Resources/white_arrow.png"/>
@@ -231,14 +236,16 @@
                         </MenuItem>
                     </Menu>
                     <Button x:Name="ButtonEdit" Click="EditionMode" Margin="10,40,0,10">
-                        <Image Height="40" Width="40" Style="{DynamicResource CustomImageRearrange}"/>
+                        <Image Height="25" Width="25" Style="{DynamicResource CustomImageRearrange}"/>
                     </Button>
                     <Button x:Name="Edition" Margin="0,40,0,0" Click="AddWorkFlow" >
-                        <Image Height="40" Width="40" Style="{DynamicResource CustomImageEdit}"/>
+                        <Image Height="25" Width="25" Style="{DynamicResource CustomImageEdit}"/>
+                    </Button>
+                    <Button Height="25" Width="25" x:Name="About" Margin="0,320,0,0" Click="AboutApp" Cursor="Hand" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <Image Height="25" Width="25" Style="{DynamicResource CustomImageAbout}"/>
                     </Button>
                 </StackPanel>
             </Border>
         </Grid>
     </Grid>
-
 </Window>
