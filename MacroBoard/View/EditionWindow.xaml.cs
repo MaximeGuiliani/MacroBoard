@@ -543,15 +543,13 @@ namespace MacroBoard.View
         {
             Block model = (Block)((Button)sender).DataContext;
             MessageBox.Show(model.info);
-
-
         }
 
         private void OnDoubleClickEdit(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount == 2)
             {
-                Block model = (Block)((TextBlock)sender).DataContext;
+                Block model = (Block)((Border)sender).DataContext;
                 int modelIndex = RightBlocks.IndexOf(model);
                 bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
                 if (!mustCreateWindow) return;
@@ -561,12 +559,96 @@ namespace MacroBoard.View
                 if (blockCreatorWindow.DialogResult == false) return;
 
                 RightBlocks[modelIndex] = blockCreatorWindow.res;
-
-
             }
         }
 
 
 
+        //------------Visual Part-------------\\
+
+        //List Right
+        private void Border_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Border border = (Border)sender;
+            if (ListBlock_Right_XAML.SelectedItem == border.DataContext) return;
+
+            border.BorderBrush = new SolidColorBrush(Color.FromRgb(181, 96, 216));
         }
+
+        private void Border_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Border border = (Border)sender;
+            if (ListBlock_Right_XAML.SelectedItem == border.DataContext) return;
+
+            border.BorderBrush = new SolidColorBrush(Color.FromRgb(111, 61, 132));
+        }
+
+        Border ListBlock_Right_XAML_LastSelectedItem;
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Border border = (Border)sender;
+
+            ListBlock_Right_XAML.UnselectAll();
+            ListBlock_Right_XAML.SelectedItem = border.DataContext;
+
+            border.BorderBrush = new SolidColorBrush(Color.FromRgb(111, 61, 132));
+            border.Background = new SolidColorBrush(Color.FromRgb(181, 96, 216));
+
+            ListBlock_Right_XAML_LastSelectedItem = border;
+
+            OnDoubleClickEdit(sender, e);
+        }
+
+
+        //List Left
+
+        private void Border_MouseEnter_LeftList(object sender, MouseEventArgs e)
+        {
+            Border border = (Border)sender;
+            if (ListBlock_Left_XAML.SelectedItem == border.DataContext) return;
+
+            border.BorderBrush = new SolidColorBrush(Color.FromRgb(181, 96, 216));
+        }
+
+        private void Border_MouseLeave_LeftList(object sender, MouseEventArgs e)
+        {
+            Border border = (Border)sender;
+            if (ListBlock_Left_XAML.SelectedItem == border.DataContext) return;
+
+            border.BorderBrush = new SolidColorBrush(Color.FromRgb(111, 61, 132));
+        }
+
+        Border ListBlock_Left_XAML_LastSelectedItem;
+        private void Border_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            Border border = (Border)sender;
+
+            ListBlock_Left_XAML.UnselectAll();
+            ListBlock_Left_XAML.SelectedItem = border.DataContext;
+
+            border.BorderBrush = new SolidColorBrush(Color.FromRgb(111, 61, 132));
+            border.Background = new SolidColorBrush(Color.FromRgb(181, 96, 216));
+
+            ListBlock_Left_XAML_LastSelectedItem = border;
+        }
+
+        private void EditWindow_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (ListBlock_Right_XAML_LastSelectedItem != null)
+            {
+                ListBlock_Right_XAML_LastSelectedItem.BorderBrush = new SolidColorBrush(Color.FromRgb(111, 61, 132));
+                ListBlock_Right_XAML_LastSelectedItem.Background = new SolidColorBrush(Color.FromRgb(136, 72, 162));
+                ListBlock_Right_XAML.UnselectAll();
+            }
+
+            if (ListBlock_Left_XAML_LastSelectedItem != null)
+            {
+                ListBlock_Left_XAML_LastSelectedItem.BorderBrush = new SolidColorBrush(Color.FromRgb(111, 61, 132));
+                ListBlock_Left_XAML_LastSelectedItem.Background = new SolidColorBrush(Color.FromRgb(136, 72, 162));
+                ListBlock_Left_XAML.UnselectAll();
+            }
+        }
+
+
+    }
 }
