@@ -179,14 +179,6 @@ namespace MacroBoard
 
 //-------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
         [DllImport("user32.dll")]
         private static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
 
