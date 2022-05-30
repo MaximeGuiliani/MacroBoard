@@ -539,8 +539,34 @@ namespace MacroBoard.View
                 bool moved = MoveBlockDown(indexBlock);
             }
         }
+        private void OnClickInfo(object sender, RoutedEventArgs e)
+        {
+            Block model = (Block)((Button)sender).DataContext;
+            MessageBox.Show(model.info);
+
+
+        }
+
+        private void OnDoubleClickEdit(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount == 2)
+            {
+                Block model = (Block)((TextBlock)sender).DataContext;
+                int modelIndex = RightBlocks.IndexOf(model);
+                bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
+                if (!mustCreateWindow) return;
+
+                BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
+                blockCreatorWindow.ShowDialog();
+                if (blockCreatorWindow.DialogResult == false) return;
+
+                RightBlocks[modelIndex] = blockCreatorWindow.res;
+
+
+            }
+        }
 
 
 
-    }
+        }
 }

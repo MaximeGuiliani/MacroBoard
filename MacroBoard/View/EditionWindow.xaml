@@ -144,6 +144,24 @@
 
                                         <TextBlock Text="{Binding Name}" Grid.Column = "1" Width="210" Margin="10,0,0,0" MouseDown="OnDoubleClickAdd"  />
 
+                                        <Button Width="20" Height="20"
+                                         Background="Black"
+                                          Content="i"
+                                          FontSize="12"
+                                          Foreground="Black"
+                                          HorizontalAlignment="Right"
+                                          Grid.Column = "2"
+                                          Margin="0,0,8,0" Click="OnClickInfo" Opacity="0.7">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Grid>
+                                                        <Ellipse Stroke="#FF4C4A4A" Fill="#FF6F6C6C" />
+
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>   
                                     </Grid>
 
                                     <ControlTemplate.Triggers>
