@@ -37,7 +37,7 @@ namespace MacroBoard.View
         {
             InitializeComponent();
             this.model = model;
-            this.fields = new Fields(Controls);
+            this.fields = new Fields(Controls, this);
             create();
         }
 
@@ -105,8 +105,9 @@ namespace MacroBoard.View
 
         public void Visit(BlockInvokeAutomationId b)
         {
-            (Label, TextBox) automationId = fields.newTextBox("Automation Id", b.automationID);
-            newBlock = () => new BlockInvokeAutomationId(automationId.Item2.Text);
+            (TextBox, Button) automationId = fields.newAutomationIdPicker("Automation Id", b.automationID);
+            //(Label, TextBox) automationId = fields.newTextBox("Automation Id", b.automationID);
+            newBlock = () => new BlockInvokeAutomationId(automationId.Item1.Text);
         }
 
 
@@ -168,7 +169,7 @@ namespace MacroBoard.View
 
         public void Visit(BlockRecognition b)
         {
-            (TextBox, Button) templatePath   = fields.newFileSelector("Template path", b.templatePath);
+            (Label, TextBox, Button, Button) templatePath = fields.newScreenShotPicker("Template Path", b.templatePath);
             (Label, TextBox)  xInterest      = fields.newTextBox("X en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", b.xInterest.ToString(), fields.CheckDigits);
             (Label, TextBox)  yInterest      = fields.newTextBox("Y en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", b.yInterest.ToString(), fields.CheckDigits);
             (Label, TextBox)  heightInterest = fields.newTextBox("Hauteur de la zone de recherche\n(0 pour tout l'écran)", b.heightInterest.ToString(), fields.CheckDigits);
@@ -179,7 +180,7 @@ namespace MacroBoard.View
             (Label, TextBox)  scale          = fields.newTextBox("Scale de l'image\n[0,1[ rétrecir\t]1,+inf] agrandir", b.scale.ToString(), fields.CheckDigits);
             ComboBox          loop           = fields.newComboBoxBool("Essayer plusieurs scale", b.loop);
             ComboBox          debugMode      = fields.newComboBoxBool("DebugMode", b.debugMode);
-            newBlock = () => new BlockRecognition(templatePath.Item1.Text, xInterest: ((xInterest.Item2.Text == "*") ? 0 : int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest: int.Parse(heightInterest.Item2.Text), widthInterest: int.Parse(widthInterest.Item2.Text), screenNumber: screenNumber.SelectedIndex, offSetX: int.Parse(offSetX.Item2.Text), offSetY: int.Parse(offSetY.Item2.Text), scale: int.Parse(scale.Item2.Text), loop: (bool)loop.SelectedItem, debugMode: (bool)debugMode.SelectedItem);          
+            newBlock = () => new BlockRecognition(templatePath.Item2.Text, xInterest: ((xInterest.Item2.Text == "*") ? 0 : int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest: int.Parse(heightInterest.Item2.Text), widthInterest: int.Parse(widthInterest.Item2.Text), screenNumber: screenNumber.SelectedIndex, offSetX: int.Parse(offSetX.Item2.Text), offSetY: int.Parse(offSetY.Item2.Text), scale: int.Parse(scale.Item2.Text), loop: (bool)loop.SelectedItem, debugMode: (bool)debugMode.SelectedItem);          
         }
 
 

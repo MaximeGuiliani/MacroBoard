@@ -11,7 +11,10 @@
         MaxHeight="500"
         Width="450"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Topmost="False"
+        WindowStyle="ToolWindow"
+        >
 
 
 
