@@ -332,18 +332,14 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            
+            <Border Height="146" Width="460" BorderThickness="1" Grid.Row="0" Grid.ColumnSpan="2"
+                     VerticalAlignment="Bottom"
+         CornerRadius="15.5" BorderBrush="DarkSlateGray" Background="#FF969393">
+            </Border>
 
 
-
-
-
-
-
-
-
-
-
-            <Grid Height="146" VerticalAlignment="Bottom" Width="450" Focusable="False">
+                <Grid Height="146" VerticalAlignment="Bottom" Width="450" Focusable="False">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="12*" />
