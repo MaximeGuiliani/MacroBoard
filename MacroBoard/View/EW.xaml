@@ -26,27 +26,147 @@
 
 
         <Grid Margin="20,20,20,20">
-            <TextBox Background="Gray" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" BorderThickness="2"  VerticalContentAlignment="Center" x:Name="Search" HorizontalAlignment="Center" Height="30"  VerticalAlignment="Top" Width="220" TextChanged="Search_TextChanged" Margin="0,20,0,0" >
+
+            <TextBox Foreground="#10001A"
+                     Background="#D7CFE0"
+                     BorderThickness="2"  
+                     VerticalContentAlignment="Center" x:Name="Search"
+                     HorizontalAlignment="Left"
+                     Height="30"
+                     VerticalAlignment="Top"
+                     Width="220" TextChanged="onTextChangedSearch"
+                     Margin="10,21,0,0"
+                     CaretBrush="#F7089E"
+                     FontSize="15" Padding="4,0,0,0"
+                     BorderBrush="#10001A"
+                     MaxLength="50">
+
+
                 <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="10"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
+                    <Style TargetType="TextBox">
+                        <Setter Property="OverridesDefaultStyle" Value="True"/>
 
-                        <Setter Property="Padding" Value="10,0,0,10"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TextBox}">
+                                    <Border x:Name="Border" 
+						                    BorderBrush="{TemplateBinding BorderBrush}" 
+						                    BorderThickness="{TemplateBinding BorderThickness}" 
+						                    Background="{TemplateBinding Background}"
+                                            CornerRadius="3"
+                                            >
 
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image x:Name="loop" Source="../Resources/loop_dark.png"
+                                               RenderOptions.BitmapScalingMode='HighQuality'
+                                               Width="25"
+                                               Height="25"
+                                               VerticalAlignment="Center"
+                                               Margin="3,0,0,0"
+                                            />
+                                            <ScrollViewer x:Name="PART_ContentHost" 
+								                 Focusable="false" 
+								                 HorizontalScrollBarVisibility="Hidden" 
+								                 VerticalScrollBarVisibility="Hidden">
+                                            </ScrollViewer>
+                                        </StackPanel>
+
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsFocused" Value="true">
+                                            <Setter Property="BorderBrush" 
+								                    TargetName="Border" 
+								                    Value="#F7089E">
+                                            </Setter>
+                                            <Setter Property="Background" 
+                                                    TargetName="Border"
+								                    Value="#F4EBFF">
+                                            </Setter>
+                                            <Setter Property="Source" 
+                                                    TargetName="loop"
+								                    Value="../Resources/loop_light.png">
+                                            </Setter>
+
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </Style>
                 </TextBox.Resources>
             </TextBox>
 
-            <ListView Name="ListBlock_Left_XAML"  VirtualizingStackPanel.IsVirtualizing="False"
+            
+            
+            
+            
+            
+            
+            
+            <ListView Name="ListBlock_Left_XAML" 
+                      VirtualizingStackPanel.IsVirtualizing="False"
                      VerticalAlignment="Top"
                      HorizontalAlignment="Left"
                      BorderThickness="0,0,0,0"
                      Margin="0,80,0,0">
 
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                   
+                                    <!--<DockPanel x:Name="iitem" Margin="10,10,10,10">
+                                        <ContentPresenter x:Name="ccp"/>
+                                    </DockPanel>-->
+
+                                    <Grid Height="52" Margin="0,5,0,5" Background="MediumPurple" x:Name="LeftGrid">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <Image Source="{Binding LogoUrl}"
+                                               RenderOptions.BitmapScalingMode='HighQuality'
+                                               Width="32"
+                                               Height="32"
+                                               VerticalAlignment="Center"
+                                               Grid.Column = "0"
+                                               Margin="8,0,0,0"
+                                            />
+                                        
+                                        <TextBlock Text="{Binding Name}" Grid.Column = "1" Width="210" Margin="10,0,0,0" MouseDown="OnDoubleClickAdd"  />
+
+                                    </Grid>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Background" TargetName="LeftGrid" Value="#F7089E"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="52" Margin="0,5,0,5" Background="MediumPurple">
+
+                        <TextBlock>
+                        hiiiii
+                        </TextBlock>
+
+                        <!--<Grid Height="52" Margin="0,5,0,5" Background="MediumPurple">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition />
@@ -89,11 +209,12 @@
                                 </Button.Template>
                             </Button>
 
-                        </Grid>
+                        </Grid>-->
                     </DataTemplate>
                 </ListView.ItemTemplate>
             
 
+                
                 <ListView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.ContainerStyle>
@@ -120,10 +241,25 @@
                 </ListView.GroupStyle>
             </ListView>
 
+            
+            
+            
+            
+            
+            
         </Grid>
 
         <Grid Grid.Column="1" Margin="20,20,20,20" VirtualizingStackPanel.IsVirtualizing="False">
 
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <ListBox x:Name="ListBlock_Right_XAML"
                      VirtualizingPanel.IsContainerVirtualizable="False"
                      VirtualizingPanel.IsVirtualizingWhenGrouping="False"
@@ -132,44 +268,69 @@
                      HorizontalAlignment="Center"
                      Height="468"
                      BorderThickness="0,0,0,0"
-                     ItemsSource="{Binding Path=RightBlocks}"
+                     ItemsSource="{Binding Path=RightBlocks, Mode=TwoWay}"
                      >
+
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <!--<DockPanel x:Name="iitem" Margin="10,10,10,10">
+                                        <ContentPresenter x:Name="ccp"/>
+                                    </DockPanel>-->
+                                    <Grid Height="52" Margin="0,5,0,5" Background="MediumPurple" Name="RightGrid">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+
+                                        <Button Content="▲"     Grid.Column = "0"  Grid.Row = "0" Margin="8,3,0,0" Width="30" Foreground="White" Background="Purple" FontSize="9" Click="onClickUp"   Focusable="False"/>
+                                        <Button Content="▼"     Grid.Column = "0"  Grid.Row = "1" Margin="8,0,0,3" Width="30" Foreground="White" Background="Purple" FontSize="9" Click="onClickDown" Focusable="False"/>
+
+                                        <Image Source="{Binding LogoUrl}"
+                                               RenderOptions.BitmapScalingMode='HighQuality'
+                                               Width="32"
+                                               Height="32"
+                                               VerticalAlignment="Center"
+                                               Grid.Column = "1"
+                                               Margin="10,0,0,0"
+                                            />
+
+                                        <TextBlock Text="{Binding Name}" Grid.Column = "2" Width="210" Margin="8,0,0,0"/>
+
+                                        <Button Content="EDIT"   Name="edit" Grid.Row = "0"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,3,8,0" Width="30" Click="onClickEdit"  Focusable="False"/>
+                                        <Button Content="-"      Grid.Row = "1"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,0,8,3" Width="30" Click="onClickDelete"  Focusable="False"/>
+                                        <ContentPresenter x:Name="ccp" Grid.Row="1" Grid.Column="2"/>
+                                    </Grid>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Background" TargetName="RightGrid" Value="#F7089E"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-
-                        <Grid Height="52" Margin="0,5,0,5" Background="MediumPurple" Name="RightGrid">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width=" 37" />
-                                <ColumnDefinition />
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-
-                            <Button Content="UP"     Grid.Column = "0"  Grid.Row = "0" Margin="8,3,0,0" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickUp"/>
-                            <Button Content="DOWN"   Grid.Column = "0"  Grid.Row = "1" Margin="8,0,0,3" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickDown"/>
-
-                            <Image Source="{Binding LogoUrl}"                                  
-                                   RenderOptions.BitmapScalingMode='HighQuality'
-                                   Width="32"
-                                   Height="32"
-                                   VerticalAlignment="Bottom"
-                                   Grid.Column = "1"
-                                   
-                                />
-
-                            <TextBlock Text="{Binding Name}" Grid.Column = "2" Width="210" Margin="20,0,0,0" MouseDown="OnDoubleClickEdit" />
-
-                            <!--<Button Content="EDIT"   Name="edit" Grid.Row = "0"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,3,8,0" Width="30" Click="onClickEdit"  />-->
-                            <Button Content="-"      Grid.Row = "1"     Grid.Column = "3" Foreground="White" Background="Purple" FontSize="10" Margin="0,0,8,3" Width="30" Click="onClickDelete"/>
-                        </Grid>
-
-
+                        <TextBlock>
+                            coucou
+                        </TextBlock>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -181,7 +342,13 @@
 
             <Grid Height="146" VerticalAlignment="Bottom" Width="450" >
                
-
+  
+            
+            
+            
+            
+            
+            <Grid Height="146" VerticalAlignment="Bottom" Width="450" Focusable="False">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="12*" />
@@ -220,7 +387,31 @@
 
         </Grid>
 
-        <Button x:Name="debug" Content="debug" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="58" Click="debug_Click" Grid.Column="1" Margin="365,404,0,0" />
+         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <Button x:Name="expandAll"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="20" Click="onClickExpandAll"   Margin="294,42,0,0"  Focusable="False" Background="MediumPurple">
+            <Image Width="15" Height="15" Source="../Resources/expand.png"></Image>
+        </Button>
+        <Button x:Name="collapseAll"    HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="20" Click="onClickCollapseAll" Margin="271,42,0,0"  Focusable="False" Background="MediumPurple">
+            <Image Width="15" Height="15" Source="../Resources/collapse.png"/>
+        </Button>
+
+
+        
+        
+        
+        
+        
+        
+        
 
     </Grid>
 </Window>

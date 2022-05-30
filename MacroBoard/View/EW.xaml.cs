@@ -14,7 +14,6 @@ using static MacroBoard.Utils;
 using System.Windows.Data;
 using System.Collections.Generic;
 
-
 namespace MacroBoard.View
 {
     public partial class EW : Window
@@ -81,7 +80,7 @@ namespace MacroBoard.View
         {
             LeftBlocks.Add(new BlockClickL());
             LeftBlocks.Add(new BlockClickR());
-            LeftBlocks.Add(new BlockCloseDesiredApplication(""));
+            LeftBlocks.Add(new BlockCloseDesiredApplication("", true, false));
             LeftBlocks.Add(new BlockCopy(@"C:\", @"C:\"));
             LeftBlocks.Add(new BlockCreateTextFile(@"C:\", "fileName", "blabla"));
             LeftBlocks.Add(new BlockDeleteDirectory(@"C:\"));
@@ -245,21 +244,63 @@ namespace MacroBoard.View
 
 
        
-        private void refresh(object? sender, NotifyCollectionChangedEventArgs e)
+  
+
+
+        private void onGotFocusNameBox(object sender, RoutedEventArgs e) //TODO a utiliser
         {
-            for (int i = 0; i < RightBlocks.Count; i++)
+            if (TextBox_WorkFlowName.Text.Equals(placeHolderWFName))
+                TextBox_WorkFlowName.Text = "";
+            TextBox_WorkFlowName.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+
+        private void onTextChangedSearch(object sender, TextChangedEventArgs e)
+        {
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("category");
+            string searchText = Search.Text;
+            ObservableCollection<Block> LeftBlocksSearch = new ObservableCollection<Block>();
+            if (!searchText.Equals(""))
             {
-                //MessageBox.Show(ListBlock_Right_XAML.Items.Count.ToString());
-                ListBoxItem myListBoxItem = (ListBoxItem)ListBlock_Right_XAML.ItemContainerGenerator.ContainerFromItem(ListBlock_Right_XAML.Items[i]);
+                foreach (Block block in LeftBlocks)
+                {
+                    if (block.Name.ToLower().Contains(searchText.ToLower()))
+                        LeftBlocksSearch.Add(block);
+
+                }
+                ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
+                view.GroupDescriptions.Add(groupDescription);
+            }
+            else
+            {
+                LeftBlocksSearch = LeftBlocks;
+
+                ListBlock_Left_XAML.ItemsSource = LeftBlocksSearch;
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBlock_Left_XAML.ItemsSource);
+                view.GroupDescriptions.Remove(groupDescription);
+
+
+            }
+        }
+
+
+        private void onCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            for (int i = 0; i<RightBlocks.Count; i++)
+            {
+                ListBoxItem listBoxItem = (ListBoxItem)ListBlock_Right_XAML.ItemContainerGenerator.ContainerFromItem(ListBlock_Right_XAML.Items[i]);
                 if (myListBoxItem == null)
                 {
                     ListBlock_Right_XAML.UpdateLayout();
                     myListBoxItem = (ListBoxItem)ListBlock_Right_XAML.ItemContainerGenerator.ContainerFromItem(ListBlock_Right_XAML.Items[i]);
                 }
-                if (myListBoxItem == null) MessageBox.Show("nulllll");
-                ContentPresenter myContentPresenter = FindVisualChild<ContentPresenter>(myListBoxItem);
-                DataTemplate myDataTemplate = myContentPresenter.ContentTemplate;
-                Grid BlockGrid = (Grid)myDataTemplate.FindName("RightGrid", myContentPresenter);
+                if (listBoxItem == null) MessageBox.Show("nulllll");
+                //Grid ContentPresenter = FindVisualChild<Grid>(listBoxItem);
+                //DataTemplate dataTemplate = Grid.ContentTemplate;
+                //Grid BlockGrid = (Grid)dataTemplate.FindName("RightGrid", ContentPresenter);
+                Grid BlockGrid = FindVisualChild<Grid>(listBoxItem);
+
                 if (RightBlocks[i].GetType().GetConstructor(Type.EmptyTypes) == null)
                     BlockGrid.Children[4].Visibility = Visibility.Visible;
                 else BlockGrid.Children[4].Visibility = Visibility.Hidden;
@@ -275,6 +316,100 @@ namespace MacroBoard.View
         }
 
 
+
+//LOGIC
+//-----------------------------------------------------------------------------------------------
+
+        private bool MoveBlockUp(int initialIndex)
+        {
+            if (initialIndex < 1 || initialIndex>=RightBlocks.Count) return false;
+
+            int upperIndex = initialIndex-1;
+
+            Block mustGoUp   = RightBlocks[initialIndex];
+            Block mustGoDown = RightBlocks[upperIndex];
+            RightBlocks[upperIndex]   = mustGoUp;
+            RightBlocks[initialIndex] = mustGoDown;
+
+            selectAndFocusItem(upperIndex, ListBlock_Right_XAML);
+            
+            return true;
+        }
+
+
+        private bool MoveBlockDown(int initialIndex)
+        {
+            if (initialIndex >= RightBlocks.Count - 1 || initialIndex < 0) return false;
+
+            int lowerIndex = initialIndex+1;
+
+            Block mustGoDown = RightBlocks[initialIndex];
+            Block mustGoUp   = RightBlocks[lowerIndex];
+            RightBlocks[lowerIndex]   = mustGoDown;
+            RightBlocks[initialIndex] = mustGoUp;
+
+            selectAndFocusItem(lowerIndex, ListBlock_Right_XAML);
+
+            return true;
+        }
+
+
+        private bool DeleteBlock(int indexBlock)
+        {
+            if (indexBlock<0 || indexBlock>=RightBlocks.Count) return false;
+            RightBlocks.RemoveAt(indexBlock);
+
+            if (ListBlock_Right_XAML.Items.Count <= 0)
+            {
+                ListBlock_Left_XAML.Focus(); //TODO focus la barre de recherche
+                return true;
+            }
+
+            int newSelectedIndex = Math.Min(ListBlock_Right_XAML.Items.Count - 1, indexBlock);
+            selectAndFocusItem(newSelectedIndex, ListBlock_Right_XAML);
+            return true;
+        }
+
+
+        private void EditBlock(Block model)
+        {
+            int modelIndex = RightBlocks.IndexOf(model);
+            
+            selectAndFocusItem(modelIndex, ListBlock_Right_XAML);
+            
+            bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
+            if (!mustCreateWindow) return;
+
+            BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
+            blockCreatorWindow.ShowDialog();
+            if (blockCreatorWindow.DialogResult == false) return;
+
+            RightBlocks[modelIndex] = blockCreatorWindow.res;
+            
+            selectAndFocusItem(modelIndex, ListBlock_Right_XAML);
+        }
+
+
+        private void addBlock(Block model)
+        {
+            bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
+            if (mustCreateWindow)
+            {
+                BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
+                blockCreatorWindow.ShowDialog();
+                if (blockCreatorWindow.DialogResult == false) return;
+                RightBlocks.Add(blockCreatorWindow.res);
+            }
+            else
+            {
+                Block newBlock = (Block)model.GetType().GetConstructor(Type.EmptyTypes).Invoke(new object[0]);
+                RightBlocks.Add(newBlock);
+            }
+
+            selectAndFocusItem(ListBlock_Right_XAML.Items.Count - 1, ListBlock_Right_XAML);
+        }
+
+
         private void initRefresh(object sender, RoutedEventArgs e)
         {
             refresh(null, null);
@@ -284,17 +419,20 @@ namespace MacroBoard.View
         private void addRightBlock(Block model)
         {
             bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
+            //conflit
             
-            if (mustCreateWindow)
-            {
-                BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
-                blockCreatorWindow.ShowDialog();
-                if (blockCreatorWindow.DialogResult == false) return;
-                RightBlocks.Add(blockCreatorWindow.res);
-                return;
-            }
-            Block newBlock = (Block)model.GetType().GetConstructor(Type.EmptyTypes).Invoke(new object[0]);
-            RightBlocks.Add(newBlock);
+            
+
+        private void insertBlockOnSelectedIndex(Block model)
+        {
+            int selectedIndex = ListBlock_Right_XAML.SelectedIndex;
+            insertBlock(selectedIndex, model);
+        }
+
+        private void insertBlock(int index, Block model)
+        {
+            RightBlocks.Insert(index, model);
+            selectAndFocusItem(index, ListBlock_Right_XAML);
         }
 
 
@@ -308,10 +446,51 @@ namespace MacroBoard.View
         }
 
 
+
+        private void selectAndFocusItem(int index, ListBox listBox)
+        {
+            listBox.UpdateLayout();
+            
+            if (index<0 || index>=listBox.Items.Count) return;
+            
+            ListBoxItem? item = listBox.ItemContainerGenerator.ContainerFromIndex(index) as ListBoxItem;
+            if (item == null) return;
+
+            RoutedEventHandler delegateSelectAndFocusItem = null;
+            delegateSelectAndFocusItem = delegate(object sender, RoutedEventArgs e){ item.Focus(); listBox.SelectedIndex = index; item.Loaded -= delegateSelectAndFocusItem; };
+
+            if (item.IsLoaded)
+            {
+                listBox.SelectedIndex = index;
+                item.Focus();
+            }
+            else
+            {
+                item.Loaded += delegateSelectAndFocusItem;
+            }
+
+        }
+
+
+//KEYBOARD HANDLERS 
+//-----------------------------------------------------------------------------------------------
+
+        private void onKeyDelete(object sender, KeyEventArgs e){
+            if ((e.Key == Key.Delete || e.Key == Key.E) && ListBlock_Right_XAML.SelectedItems.Count > 0)
+            {
+                int selectedIndex = ListBlock_Right_XAML.SelectedIndex;
+                DeleteBlock(selectedIndex);
+                
+            }
+        }
+
+
         private void ListRightSupp(object sender, KeyEventArgs e)
         {
             if ((e.Key == Key.Back || e.Key == Key.Delete) && ListBlock_Right_XAML.SelectedItems.Count > 0)
             {
+                int selectedIndex = ListBlock_Right_XAML.SelectedIndex;
+                DeleteBlock(selectedIndex);
                 RightBlocks.RemoveAt(ListBlock_Right_XAML.SelectedIndex);
             }
         }
@@ -334,19 +513,10 @@ namespace MacroBoard.View
                 string dataFormat = "Block";
                 if (!Clipboard.ContainsData(dataFormat)) return;
                 Block pasteBlock = (Block)Clipboard.GetData(dataFormat);
-                RightBlocks.Add(pasteBlock);
+                insertBlockOnSelectedIndex(pasteBlock);
             }
         }
 
-
-        private void LeftListPlus(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter && ListBlock_Left_XAML.SelectedItems.Count > 0)
-            {
-                Block model = (Block)ListBlock_Left_XAML.SelectedItem;
-                addRightBlock(model);
-            }
-        }
 
 
         private void debug_Click(object sender, RoutedEventArgs e)
@@ -367,15 +537,36 @@ namespace MacroBoard.View
         }
 
 
+        private void onKeyMoveUp(object sender, KeyEventArgs e)
+        {
+        
+        if (ListBlock_Right_XAML.IsLoaded && e.Key == Key.S && ListBlock_Right_XAML.SelectedItems.Count > 0)
+          {
+          int indexBlock = ListBlock_Right_XAML.SelectedIndex;
+          bool moved = MoveBlockUp(indexBlock);
+          }
+        }
        
 
         private void OnDoubleClickAdd(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount == 2)
             {
-                Block model = (Block)((TextBlock)sender).DataContext;
+             Block model = (Block)((TextBlock)sender).DataContext;
                 addRightBlock(model);
+                }
+             }
             
+
+
+
+        private void on
+        MoveDown(object sender, KeyEventArgs e)
+        {
+            if (ListBlock_Right_XAML.IsLoaded && e.Key == Key.S && ListBlock_Right_XAML.SelectedItems.Count > 0)
+            {
+                int indexBlock = ListBlock_Right_XAML.SelectedIndex;
+                bool moved = MoveBlockDown(indexBlock);
             }
 
         }
@@ -409,5 +600,6 @@ namespace MacroBoard.View
             
 
         }
+
     }
 }        // il n'y a que 2 fleches a supprimer: celle toute en haut, celle tout en bas (update a delete et insert)

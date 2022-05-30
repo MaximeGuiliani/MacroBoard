@@ -11,11 +11,14 @@
         MaxHeight="500"
         Width="450"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Topmost="False"
+        WindowStyle="ToolWindow"
+        >
 
 
 
-        <ScrollViewer Margin="0,20,0,20" Height="Auto">
+        <ScrollViewer Margin="0,20,0,20" Height="Auto" VerticalScrollBarVisibility="Auto" >
             <Grid Height="Auto">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

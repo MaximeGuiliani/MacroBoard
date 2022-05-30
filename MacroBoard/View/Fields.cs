@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using static MacroBoard.Utils;
 using System.Text.RegularExpressions;
+using MacroBoard.ScreenShot;
 
 namespace MacroBoard.View
 {
@@ -22,21 +23,31 @@ namespace MacroBoard.View
     {
 
         private Panel Controls;
+        private Window callerWindow;
 
 
-        public Fields(Panel Controls)
+        public Fields(Panel Controls, Window callerWindow)
         {
             this.Controls = Controls;
+            this.callerWindow = callerWindow;
         }
 
 
         //---------------------------------------------------------------------------
 
+        private TextBox baseTextBox()
+        {
+            TextBox textBox = new TextBox();
+            textBox.GotFocus += (object sender, RoutedEventArgs args) => { textBox.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#AEAEAE"); };
+            textBox.Height = 20;
+            return textBox;
+        }
+
+
         public (Label, TextBox) newTextBox(string labelTxt, string defaultText, TextCompositionEventHandler checkFormat = null)
         {
             Label label = newLabel(labelTxt); // pas de add() car fct 
-            TextBox textBox = new TextBox();
-            textBox.Height = 20;
+            TextBox textBox = baseTextBox();
             textBox.Width = (98d / 100d) * Controls.Width;
             textBox.HorizontalAlignment = HorizontalAlignment.Center;
             textBox.Text = defaultText;
@@ -85,8 +96,7 @@ namespace MacroBoard.View
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Horizontal;
 
-            TextBox textBox = new TextBox();
-            textBox.Height = 20;
+            TextBox textBox = baseTextBox();
             textBox.Width = (ratio / 100d) * Controls.Width;
             textBox.Text = defaultPath;
             textBox.IsReadOnly = true;
@@ -155,7 +165,9 @@ namespace MacroBoard.View
             {
                 System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 
-                saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                saveFileDialog.AddExtension = true;
+                saveFileDialog.FileName = "filename";
+                saveFileDialog.Filter = "jpg (*.jpg)|*.jpg" + "|image (*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg" + "|txt files (*.txt)|*.txt" + "|All files (*.*)|*.*";
                 saveFileDialog.FilterIndex = 2;
                 saveFileDialog.RestoreDirectory = true;
 
@@ -166,6 +178,80 @@ namespace MacroBoard.View
             };
             baseBrowse.btn.Content = "save";
             return (baseBrowse.tb, baseBrowse.btn);
+        }
+
+
+        public (TextBox, Button) newAutomationIdPicker(string labelTxt, string defaultPath)
+        {
+            (Label l, TextBox tb, Button btn) baseBrowse = BaseBrowse(labelTxt, defaultPath);
+            baseBrowse.tb.IsReadOnly = false;
+            baseBrowse.btn.Click += (object sender, RoutedEventArgs e) =>
+            {
+                string[] res = new string[1];
+                Window w = new FlaUInspect.Views.MainWindow(res);
+                callerWindow.Hide();
+                w.ShowDialog();
+                baseBrowse.tb.Text = res[0];
+                callerWindow.ShowDialog();
+                callerWindow.Activate();
+            };
+            baseBrowse.btn.Content = "pick id";
+            return (baseBrowse.tb, baseBrowse.btn);
+        }
+
+
+        public (Label, TextBox, Button, Button) newScreenShotPicker(string labelTxt, string defaultPath)
+        {
+            Label label = new Label();
+            label.Margin = new Thickness(0, 10, 0, 0);
+            label.Content = labelTxt;
+            Controls.Children.Add(label);
+
+            StackPanel sp = new StackPanel();
+            sp.Orientation = Orientation.Horizontal;
+
+            TextBox textBox = baseTextBox();
+            textBox.Width = (46d / 100d) * Controls.Width;
+            textBox.Text = defaultPath;
+            textBox.IsReadOnly = true;
+            sp.Children.Add(textBox);
+
+            Button btnFile = new Button();
+            btnFile.Margin = new Thickness(5, 0, 0, 0);
+            btnFile.Content = "Browse";
+            btnFile.Height = 20;
+            btnFile.Width = (24d/ 100d) * Controls.Width;
+            sp.Children.Add(btnFile);
+            btnFile.Click += (object sender, RoutedEventArgs e) =>
+            {
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.Filter = "All Files  (*)|*|" +
+                             "JPEG Files (*.jpeg)|*.jpeg|" +
+                             "JPG Files  (*.jpg)|*.jpg|" +
+                             "PNG Files  (*.png)|*.png";
+                if (dlg.ShowDialog() == true)
+                {
+                    textBox.Text = dlg.FileName;
+                }
+            };
+
+            Button btnScreen = new Button();
+            btnScreen.Margin = new Thickness(5, 0, 0, 0);
+            btnScreen.Content = "Screen";
+            btnScreen.Height = 20;
+            btnScreen.Width = (25d / 100d) * Controls.Width;
+            sp.Children.Add(btnScreen);
+            btnScreen.Click += (object sender, RoutedEventArgs e) =>
+            {
+                ScreenShotWindow w = new ScreenShotWindow();
+                if (w.ShowDialog() == true)
+                {
+                    textBox.Text = w.filepath;
+                }
+            };
+
+            Controls.Children.Add(sp);
+            return (label, textBox, btnFile, btnScreen);
         }
 
 

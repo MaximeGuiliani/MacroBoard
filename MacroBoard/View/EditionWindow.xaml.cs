@@ -66,7 +66,7 @@ namespace MacroBoard
         {
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockClickL()));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockClickR()));
-            BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockCloseDesiredApplication("")));
+            BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockCloseDesiredApplication("", true, false)));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockCopy(@"C:\", @"C:\")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockCreateTextFile(@"C:\", "fileName", "blabla")));
             BlockViewModels_Left.Add(new BlockViewModel_Left(new BlockDeleteDirectory(@"C:\")));

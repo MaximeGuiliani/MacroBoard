@@ -37,7 +37,7 @@ namespace MacroBoard.View
         {
             InitializeComponent();
             this.model = model;
-            this.fields = new Fields(Controls);
+            this.fields = new Fields(Controls, this);
             create();
         }
 
@@ -67,8 +67,10 @@ namespace MacroBoard.View
 
         public void Visit(BlockCloseDesiredApplication b)
         {
-            (Label, TextBox) appName = fields.newTextBox("App Name", b.appName);
-            newBlock = () => new BlockCloseDesiredApplication(appName.Item2.Text);
+            (Label, TextBox) appName    = fields.newTextBox("App Name", b.appName);
+            ComboBox         exactMatch = fields.newComboBoxBool("Exact match on app name", b.exactMatch);
+            ComboBox         kill       = fields.newComboBoxBool("Kill the app ? (or soft close)", b.kill);
+            newBlock = () => new BlockCloseDesiredApplication(appName.Item2.Text, (bool)exactMatch.SelectedItem, (bool)kill.SelectedItem);
         }
 
 
@@ -103,8 +105,9 @@ namespace MacroBoard.View
 
         public void Visit(BlockInvokeAutomationId b)
         {
-            (Label, TextBox) automationId = fields.newTextBox("Automation Id", b.automationID);
-            newBlock = () => new BlockInvokeAutomationId(automationId.Item2.Text);
+            (TextBox, Button) automationId = fields.newAutomationIdPicker("Automation Id", b.automationID);
+            //(Label, TextBox) automationId = fields.newTextBox("Automation Id", b.automationID);
+            newBlock = () => new BlockInvokeAutomationId(automationId.Item1.Text);
         }
 
 
@@ -166,7 +169,7 @@ namespace MacroBoard.View
 
         public void Visit(BlockRecognition b)
         {
-            (TextBox, Button) templatePath   = fields.newFileSelector("Template path", b.templatePath);
+            (Label, TextBox, Button, Button) templatePath = fields.newScreenShotPicker("Template Path", b.templatePath);
             (Label, TextBox)  xInterest      = fields.newTextBox("X en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", b.xInterest.ToString(), fields.CheckDigits);
             (Label, TextBox)  yInterest      = fields.newTextBox("Y en haut à gauche de la zone de recherche\n(0 pour tout l'écran)", b.yInterest.ToString(), fields.CheckDigits);
             (Label, TextBox)  heightInterest = fields.newTextBox("Hauteur de la zone de recherche\n(0 pour tout l'écran)", b.heightInterest.ToString(), fields.CheckDigits);
@@ -177,7 +180,7 @@ namespace MacroBoard.View
             (Label, TextBox)  scale          = fields.newTextBox("Scale de l'image\n[0,1[ rétrecir\t]1,+inf] agrandir", b.scale.ToString(), fields.CheckDigits);
             ComboBox          loop           = fields.newComboBoxBool("Essayer plusieurs scale", b.loop);
             ComboBox          debugMode      = fields.newComboBoxBool("DebugMode", b.debugMode);
-            newBlock = () => new BlockRecognition(templatePath.Item1.Text, xInterest: ((xInterest.Item2.Text == "*") ? 0 : int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest: int.Parse(heightInterest.Item2.Text), widthInterest: int.Parse(widthInterest.Item2.Text), screenNumber: screenNumber.SelectedIndex, offSetX: int.Parse(offSetX.Item2.Text), offSetY: int.Parse(offSetY.Item2.Text), scale: int.Parse(scale.Item2.Text), loop: (bool)loop.SelectedItem, debugMode: (bool)debugMode.SelectedItem);          
+            newBlock = () => new BlockRecognition(templatePath.Item2.Text, xInterest: ((xInterest.Item2.Text == "*") ? 0 : int.Parse(xInterest.Item2.Text)), yInterest: int.Parse(yInterest.Item2.Text), heightInterest: int.Parse(heightInterest.Item2.Text), widthInterest: int.Parse(widthInterest.Item2.Text), screenNumber: screenNumber.SelectedIndex, offSetX: int.Parse(offSetX.Item2.Text), offSetY: int.Parse(offSetY.Item2.Text), scale: int.Parse(scale.Item2.Text), loop: (bool)loop.SelectedItem, debugMode: (bool)debugMode.SelectedItem);          
         }
 
 
@@ -187,7 +190,7 @@ namespace MacroBoard.View
         }
 
 
-        public void Visit(BlockLaunchApp b)
+        public void Visit(BlockLaunchApp b) //TODO
         {
             (TextBox, Button) appPath = fields.newFileSelector("Chemin de l'app", b.appPath);
             (Label, TextBox) arguments = fields.newTextBox("arguments", b.arguments);
@@ -303,7 +306,7 @@ namespace MacroBoard.View
             validerBtn.Click += (object sender, RoutedEventArgs e) => {
                 if (!allTextBoxesAreOk())
                 {
-                    MessageBox.Show("Remplissez tous les champs");
+                    MessageBox.Show("Please fill the fields");
                     return;
                 }
                 try
@@ -311,11 +314,9 @@ namespace MacroBoard.View
                 res = newBlock();
                 }catch(Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Please fill fields with correct values :\n" + ex.Message);
                     return;
-     
                 }
-
                 this.DialogResult = true;
             };
         }
@@ -328,11 +329,14 @@ namespace MacroBoard.View
         {
             //TODO: créer une Class/Enum PlaceHolder pour etre sur de pas en rater 
             List<string> placeHolders = new() { "", @"c:\", @"http:\\", @"https:\\", "filename", "blabla", "a", "b", @"c:\filename", "filePath" };
-            foreach (object o in Controls.Children)
-                if (!textBoxesAreOk(o, placeHolders)){
-                    return false;
-                };
-            return true;
+            bool ok = true;
+            int i = 0;
+            foreach (object child in Controls.Children)
+            {
+                bool res = textBoxesAreOk(child, placeHolders); //TODO: pourquoi je peux pas le faire une seule ligne !?
+                ok = ok && res;
+            }
+            return ok;
         }
 
 
@@ -341,13 +345,17 @@ namespace MacroBoard.View
          */
         private bool textBoxesAreOk(Object o, List<string> placeHolders)
         {
+            bool ok = true;
             if (o is TextBox)
             {
                 TextBox textBox = (TextBox)o;
                 foreach(string placeHolder in placeHolders)
                 {
                     if (placeHolder.ToLower().Equals(textBox.Text.ToLower()))
-                        return false;
+                    {
+                        textBox.BorderBrush = Brushes.Red;
+                        ok = false;
+                    }
                 }
             }
             else if(o is Panel)
@@ -355,11 +363,10 @@ namespace MacroBoard.View
                 Panel panel = (Panel)o;
                 foreach(Object child in panel.Children)
                 {
-                    if (!textBoxesAreOk(child, placeHolders))
-                        return false;
+                    ok = ok && textBoxesAreOk(child, placeHolders);
                 }
             }
-            return true;
+            return ok;
         }
 
 

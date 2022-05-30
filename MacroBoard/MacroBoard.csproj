@@ -13,6 +13,39 @@
 	
 
 	<ItemGroup>
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Button.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Calendar.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\CheckBox.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\ComboBox.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Custom.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\DataGrid.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Document.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Edit.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Group.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Header.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\HeaderItem.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\HyperLink.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Image.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Item.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\List.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Menu.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\MenuItem.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Pane.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\ProgressBar.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\RadioButton.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\ScrollBar.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Slider.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Spinner.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\SplitButton.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\StatusBar.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Tab.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Text.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Thumb.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\TitleBar.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\ToolBar.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\ToolTip.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Tree.png" />
+		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Window.png" />
 		<None Remove="Resources\add.png" />
 		<None Remove="Resources\Block_V2.png" />
 		<None Remove="Resources\Button_WorkFlow.png" />
@@ -21,7 +54,9 @@
 		<None Remove="Resources\Button_WorkFlow_MouseOver.png" />
 		<None Remove="Resources\Button_WorkFlow_V2.png" />
 		<None Remove="Resources\Button_WorkFlow_V3.png" />
+		<None Remove="Resources\collapse.png" />
 		<None Remove="Resources\config\config.json" />
+		<None Remove="Resources\expand.png" />
 		<None Remove="Resources\FAVJSON\init.txt" />
 		<None Remove="Resources\Icon.png" />
 		<None Remove="Resources\icon_add.png" />
@@ -36,6 +71,7 @@
 		<None Remove="Resources\Logo_Blocks\Logo_BlockDeleteDirectory.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockDownloadFile.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockHibernate.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockInvoke.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockLaunchChrome.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockLaunchEdge.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockLaunchFirefox.png" />
@@ -55,11 +91,112 @@
 		<None Remove="Resources\Logo_Edit_1.gif" />
 		<None Remove="Resources\Logo_Edit_2.gif" />
 		<None Remove="Resources\Logo_Edit_3.png" />
+		<None Remove="Resources\loop_dark.png" />
+		<None Remove="Resources\loop_light.png" />
 		<None Remove="Resources\macro_img.png" />
 		<None Remove="Resources\WFJSON\init.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Button.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Calendar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\CheckBox.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\ComboBox.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Custom.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\DataGrid.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Document.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Edit.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Group.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Header.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\HeaderItem.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\HyperLink.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Image.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Item.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\List.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Menu.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\MenuItem.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Pane.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\ProgressBar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\RadioButton.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\ScrollBar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Slider.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Spinner.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\SplitButton.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\StatusBar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Tab.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Text.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Thumb.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\TitleBar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\ToolBar.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\ToolTip.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Tree.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="FlaUInspect\src\FlaUInspect\Resources\Window.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Include="icone2.ico" />
 	</ItemGroup>
 
@@ -68,6 +205,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="Resources\collapse.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\expand.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\FAVJSON\init.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
@@ -105,6 +248,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockHibernate.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockInvoke.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockLaunchChrome.png">
@@ -164,6 +310,12 @@
 	  <Content Include="Resources\Logo_Edit_3.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Resources\loop_dark.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\loop_light.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\WFJSON\init.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
@@ -199,6 +351,9 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="FlaUI.Core" Version="3.2.0" />
+		<PackageReference Include="FlaUI.UIA2" Version="3.2.0" />
+		<PackageReference Include="FlaUI.UIA3" Version="3.2.0" />
 		<PackageReference Include="MVVMEssentials.WPF" Version="1.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="OpenCvSharp4.Extensions" Version="4.5.5.20211231" />
