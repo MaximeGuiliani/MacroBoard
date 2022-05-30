@@ -31,6 +31,9 @@
         <Setter Property="BorderBrush" Value="#EBEBEB"/>
     </Style>
 
+    <Style x:Key="CustomButton" TargetType="Button">
+        <Setter Property="Background" Value="#f2e3ea"/>
+    </Style>
 
     <Style x:Key="CustomImageAbout" TargetType="Image">
         <Setter Property="Source" Value="../../Resources/icon_about_dark.png"/>

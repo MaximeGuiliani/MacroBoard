@@ -68,10 +68,12 @@ namespace MacroBoard
 
             if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
             {
-                workflowView.Btn_Main.Content = new Image
-                {
-                    Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.Absolute))
-                };
+                //BitmapImage img = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute));
+                Image image = new() {Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute)) };
+
+                image.Stretch = Stretch.Fill;   
+                workflowView.Btn_Main.Content = image;
+                
             }
 
             if (pos != -2)
@@ -110,7 +112,7 @@ namespace MacroBoard
             workflowViews[^1].Btn_Main.Content
                             = new Image
                             {
-                                Source = new BitmapImage(new Uri("../../../Resources/Button_WorkFlow_Add.png", UriKind.Relative))
+                                Source = new BitmapImage(new Uri("../../../Resources/Button_WorkFlowsou_Add.png", UriKind.Relative))
                             };
             ListMacro.Items.Add(workflowViews[^1].Content);
         }

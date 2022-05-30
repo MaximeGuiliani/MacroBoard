@@ -42,17 +42,24 @@ namespace MacroBoard
         {
 
             //Main Button
-            Btn_Main.Background = Brushes.Transparent;
-            Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
+            Btn_Main.Background = Brushes.LightGray;
+            Btn_Main.BorderBrush = Brushes.Gray;
+           
+            //Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
 
-            Btn_Main.Content = new Image
-            {
-                Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute))
-            };
 
-            Btn_Main.Width = 100d;
-            Btn_Main.Height = 100d;
+            //Btn_Main.Content = new Image
+            //{
+            //    Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute))
+            //};
+            
+            Btn_Main.Width = 90d;
+            Btn_Main.Height = 90d;
 
+            Border border = new Border();
+
+            border.CornerRadius = new CornerRadius(15);
+            Btn_Main.Style.Resources.Add(Border.CornerRadiusProperty, border) ;
             //Delete Button
             TextBlock txtBlock = new();
 
