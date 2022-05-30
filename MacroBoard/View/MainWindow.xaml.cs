@@ -285,7 +285,7 @@ namespace MacroBoard
         private void AddWorkFlow(object sender, RoutedEventArgs e)
         {
 
-            EW editionWindow = new();
+            EditionWindow editionWindow = new();
             editionWindow.ShowDialog();
 
             ResetWindow();
@@ -319,7 +319,7 @@ namespace MacroBoard
             string toDelete = wf.workflowName;
             if (isEdition)
             {
-                EW editionWindow = new(wf);
+                EditionWindow editionWindow = new(wf);
                 editionWindow.ShowDialog();
 
                 ResetWindow();
@@ -385,7 +385,7 @@ namespace MacroBoard
         private void EditWorkflow(WorkFlow wf, int indexWF)
         {
             string toDelete = wf.workflowName;
-            EW editionWindow = new(wf);
+            EditionWindow editionWindow = new(wf);
             editionWindow.ShowDialog();
 
             ResetWindow();
