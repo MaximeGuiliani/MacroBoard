@@ -49,7 +49,6 @@ class myTcpListener
                 Trace.WriteLine("Connected!");
                 NetworkStream stream = client.GetStream();
                 InitMobileData(stream);
-                //Console.WriteLine(InitMobileData().Count);
 
 
                 data = null;
@@ -58,17 +57,7 @@ class myTcpListener
 
                 int i;
 
-                // Loop to receive all the data sent by the client.
 
-                while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                {
-                    // Translate data bytes to a ASCII string.
-                    data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                    Trace.WriteLine("Received: {0}", data);
-
-                    // Process the data sent by the client.
-                    ExecuteGivenWorkflow(data.ToString());
-                }
 
                 // Shutdown and end connection
                 client.Close();
@@ -88,48 +77,64 @@ class myTcpListener
         Console.Read();
     }
 
-    private void ExecuteGivenWorkflow(String Name)
-    {
 
-    }
 
     public void InitMobileData(NetworkStream stream)
     {
 
         List<WorkflowView> lw = Serialization.getFavsFromJson();
-        List<string> lds = new();
-        byte[] msg = null;
+        byte[] msg;
+        byte[] clientResponseData;
+        string ClientResponse;
+        int bytes;
         foreach (WorkflowView wf in lw)
         {
-            // Send back a response.
-            lds.Add(wf.CurrentworkFlow.imagePath);
-            lds.Add(wf.CurrentworkFlow.workflowName);
-
-            msg = System.Text.Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName + "\n");
-
-            stream.Write(msg, 0, msg.Length);
+            //Send Name Start ---------------------------------------------------------------//
+            byte[] wfNameToSend = Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName);
+            stream.Write(wfNameToSend, 0, wfNameToSend.Length);
+            Trace.WriteLine("Name send : " + wf.CurrentworkFlow.workflowName);
+            // reponse du client
+            clientResponseData = new byte[256];
+            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
+            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+            Trace.WriteLine("Received from Client : " + ClientResponse);
             stream.Flush();
-            Thread.Sleep(100);
-            Bitmap tImage = new Bitmap(wf.CurrentworkFlow.imagePath);
+            //Send Name end ---------------------------------------------------------------//
 
-           
-
-            byte[] bStream = ImageToByteArray(tImage);
-
-            stream.Write(bStream, 0, bStream.Length);
+            //Send image length Start ---------------------------------------------------------------//
+            Bitmap Image = new Bitmap(wf.CurrentworkFlow.imagePath);
+            byte[] imageInBytes = ImageToByteArray(Image);
+            byte[] imageLength = Encoding.ASCII.GetBytes(imageInBytes.Length.ToString());
+            stream.Write(imageLength, 0, imageLength.Length);
+            Trace.WriteLine("Image Length send : " + Encoding.ASCII.GetString(imageLength));
+            // reponse du client
+            clientResponseData = new byte[256];
+            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
+            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+            Trace.WriteLine("Received from Client : " + ClientResponse);
             stream.Flush();
-            Thread.Sleep(100);
+            //Send image length Start ---------------------------------------------------------------//
+
+            //Send image Start ---------------------------------------------------------------//
+
+            stream.Write(imageInBytes, 0, imageInBytes.Length);
+            //Send image end ---------------------------------------------------------------//
 
 
-
+            //Send balise image end Start ---------------------------------------------------------------//
+            byte[] balise = Encoding.ASCII.GetBytes("</img>");
+            stream.Write(balise, 0, balise.Length);
+            clientResponseData = new Byte[256];
+            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
+            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+            Trace.WriteLine("Received: " + ClientResponse);
+            stream.Flush();
+            //Send balise image end Start ---------------------------------------------------------------//
         }
-
+        //message to tell the client we finish sending ----------------------------------------//
         msg = Encoding.ASCII.GetBytes("|");
         stream.Write(msg, 0, msg.Length);
-        
-
     }
-
 
     public byte[] ImageToByteArray(Image imageIn)
     {
