@@ -273,8 +273,8 @@
                                         </Grid.RowDefinitions>
 
 
-                                        <Button Content="UP"     Grid.Column = "0"  Grid.Row = "0" Margin="8,3,0,0" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickUp"   Focusable="False"/>
-                                        <Button Content="DOWN"   Grid.Column = "0"  Grid.Row = "1" Margin="8,0,0,3" Width="30" Foreground="White" Background="Purple" FontSize="10" Click="onClickDown" Focusable="False"/>
+                                        <Button Content="▲"     Grid.Column = "0"  Grid.Row = "0" Margin="8,3,0,0" Width="30" Foreground="White" Background="Purple" FontSize="9" Click="onClickUp"   Focusable="False"/>
+                                        <Button Content="▼"     Grid.Column = "0"  Grid.Row = "1" Margin="8,0,0,3" Width="30" Foreground="White" Background="Purple" FontSize="9" Click="onClickDown" Focusable="False"/>
 
                                         <Image Source="{Binding LogoUrl}"
                                                RenderOptions.BitmapScalingMode='HighQuality'
@@ -368,10 +368,10 @@
         
         
         
-        <Button x:Name="expandAll"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="20" Click="onClickExpandAll"   Margin="294,42,0,0"  Focusable="False" >
+        <Button x:Name="expandAll"      HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="20" Click="onClickExpandAll"   Margin="294,42,0,0"  Focusable="False" Background="MediumPurple">
             <Image Width="15" Height="15" Source="../Resources/expand.png"></Image>
         </Button>
-        <Button x:Name="collapseAll"    HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="20" Click="onClickCollapseAll" Margin="271,42,0,0"  Focusable="False">
+        <Button x:Name="collapseAll"    HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="20" Click="onClickCollapseAll" Margin="271,42,0,0"  Focusable="False" Background="MediumPurple">
             <Image Width="15" Height="15" Source="../Resources/collapse.png"/>
         </Button>
 
