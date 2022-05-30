@@ -102,6 +102,7 @@ class myTcpListener
             //Send Name end ---------------------------------------------------------------//
 
             //Send image length Start ---------------------------------------------------------------//
+
             Bitmap Image = new Bitmap(wf.CurrentworkFlow.imagePath);
             byte[] imageInBytes = ImageToByteArray(Image);
             byte[] imageLength = Encoding.ASCII.GetBytes(imageInBytes.Length.ToString());
@@ -116,8 +117,9 @@ class myTcpListener
             //Send image length Start ---------------------------------------------------------------//
 
             //Send image Start ---------------------------------------------------------------//
-
-            stream.Write(imageInBytes, 0, imageInBytes.Length);
+            byte[] bytesArray = new byte[1024];
+            Array.Copy(imageInBytes, 0, bytesArray, 0, Math.Min(1024, imageInBytes.Length));
+            stream.Write(bytesArray, 0, bytesArray.Length);
             //Send image end ---------------------------------------------------------------//
 
 
