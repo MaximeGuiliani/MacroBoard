@@ -26,6 +26,7 @@ namespace MacroBoard
         public App CurrentApplication { get; set; }
         public MainWindow()
         {
+            new myTcpListener();
             InitializeComponent();
             InitWorkflows();
         }
