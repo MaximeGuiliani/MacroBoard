@@ -8,10 +8,14 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
-class myTcpListener
+class MyTcpListener
 {
-    public myTcpListener()
+
+    public TcpListener server;
+
+    public MyTcpListener()
     {
         Thread newThread = new Thread(new ThreadStart(Run));
         newThread.SetApartmentState(ApartmentState.STA);
@@ -20,15 +24,10 @@ class myTcpListener
 
     public void Run()
     {
-
-        TcpListener server = null;
         try
         {
             // Set the TcpListener on port 13000.
             Int32 port = 13000;
-            // IPAddress localAddr = IPAddress.Parse("192.168.43.63");
-
-            // TcpListener server = new TcpListener(port);
             server = new TcpListener(port);
 
             // Start listening for client requests.
@@ -39,29 +38,14 @@ class myTcpListener
             String data = null;
 
             // Enter the listening loop.
-            while (true)
-            {
-                Trace.Write("Waiting for a connection... ");
 
-                // Perform a blocking call to accept requests.
-                // You could also use server.AcceptSocket() here.
-                TcpClient client = server.AcceptTcpClient();
-                Trace.WriteLine("Connected!");
-                NetworkStream stream = client.GetStream();
-                InitMobileData(stream);
+            Trace.Write("Waiting for a connection... ");
+            TcpClient client = server.AcceptTcpClient();
+            Trace.WriteLine("Connected!");
+            NetworkStream stream = client.GetStream();
+            InitMobileData(stream);
 
-
-                data = null;
-
-                // Get a stream object for reading and writing
-
-                int i;
-
-
-
-                // Shutdown and end connection
-                client.Close();
-            }
+            client.Close();
         }
         catch (SocketException e)
         {
@@ -69,15 +53,12 @@ class myTcpListener
         }
         finally
         {
-            // Stop listening for new clients.
             server.Stop();
         }
 
         Trace.WriteLine("\nHit enter to continue...");
         Console.Read();
     }
-
-
 
     public void InitMobileData(NetworkStream stream)
     {
@@ -87,64 +68,102 @@ class myTcpListener
         byte[] clientResponseData;
         string ClientResponse;
         int bytes;
-        foreach (WorkflowView wf in lw)
-        {
-            //Send Name Start ---------------------------------------------------------------//
-            byte[] wfNameToSend = Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName);
-            stream.Write(wfNameToSend, 0, wfNameToSend.Length);
-            Trace.WriteLine("Name send : " + wf.CurrentworkFlow.workflowName);
-            // reponse du client
-            clientResponseData = new byte[256];
-            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-            Trace.WriteLine("Received from Client : " + ClientResponse);
-            stream.Flush();
-            //Send Name end ---------------------------------------------------------------//
+        //foreach (WorkflowView wf in lw)
+        //{
+        //    //Send Name Start ---------------------------------------------------------------//
+        //    byte[] wfNameToSend = Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName);
+        //    stream.Write(wfNameToSend, 0, wfNameToSend.Length);
+        //    Trace.WriteLine("Name send : " + wf.CurrentworkFlow.workflowName);
+        //    // reponse du client
+        //    clientResponseData = new byte[256];
+        //    bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
+        //    ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+        //    Trace.WriteLine("Received from Client : " + ClientResponse);
+        //    stream.Flush();
+        //    //Send Name end ---------------------------------------------------------------//
 
-            //Send image length Start ---------------------------------------------------------------//
+        //    //Send image length Start ---------------------------------------------------------------//
 
-            Bitmap Image = new Bitmap(wf.CurrentworkFlow.imagePath);
-            byte[] imageInBytes = ImageToByteArray(Image);
-            byte[] imageLength = Encoding.ASCII.GetBytes(imageInBytes.Length.ToString());
-            stream.Write(imageLength, 0, imageLength.Length);
-            Trace.WriteLine("Image Length send : " + Encoding.ASCII.GetString(imageLength));
-            // reponse du client
-            clientResponseData = new byte[256];
-            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-            Trace.WriteLine("Received from Client : " + ClientResponse);
-            stream.Flush();
-            //Send image length Start ---------------------------------------------------------------//
+        //    Bitmap Image = new Bitmap(wf.CurrentworkFlow.imagePath);
+        //    byte[] imageInBytes = ImageToByteArray(Image);
+        //    byte[] imageLength = Encoding.ASCII.GetBytes(imageInBytes.Length.ToString());
+        //    stream.Write(imageLength, 0, imageLength.Length);
+        //    Trace.WriteLine("Image Length send : " + Encoding.ASCII.GetString(imageLength));
+        //    // reponse du client
+        //    clientResponseData = new byte[256];
+        //    bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
+        //    ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+        //    Trace.WriteLine("Received from Client : " + ClientResponse);
+        //    stream.Flush();
+        //    //Send image length Start ---------------------------------------------------------------//
 
-            //Send image Start ---------------------------------------------------------------//
-            byte[] bytesArray = new byte[1024];
-            Array.Copy(imageInBytes, 0, bytesArray, 0, Math.Min(1024, imageInBytes.Length));
-            stream.Write(bytesArray, 0, bytesArray.Length);
-            //Send image end ---------------------------------------------------------------//
+        //    //Send image Start ---------------------------------------------------------------//
+        //    byte[] bytesArray = new byte[1024];
+        //    Array.Copy(imageInBytes, 0, bytesArray, 0, Math.Min(1024, imageInBytes.Length));
+        //    stream.Write(bytesArray, 0, bytesArray.Length);
+        //    //Send image end ---------------------------------------------------------------//
 
 
-            //Send balise image end Start ---------------------------------------------------------------//
-            byte[] balise = Encoding.ASCII.GetBytes("</img>");
-            stream.Write(balise, 0, balise.Length);
-            clientResponseData = new Byte[256];
-            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-            Trace.WriteLine("Received: " + ClientResponse);
-            stream.Flush();
-            //Send balise image end Start ---------------------------------------------------------------//
-        }
-        //message to tell the client we finish sending ----------------------------------------//
-        msg = Encoding.ASCII.GetBytes("|");
-        stream.Write(msg, 0, msg.Length);
+        //    //Send balise image end Start ---------------------------------------------------------------//
+        //    byte[] balise = Encoding.ASCII.GetBytes("</img>");
+        //    stream.Write(balise, 0, balise.Length);
+        //    clientResponseData = new Byte[256];
+        //    bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
+        //    ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+        //    Trace.WriteLine("Received: " + ClientResponse);
+        //    stream.Flush();
+        //    //Send balise image end Start ---------------------------------------------------------------//
+        //}
+        ////message to tell the client we finish sending ----------------------------------------//
+        //msg = Encoding.ASCII.GetBytes("|");
+        //stream.Write(msg, 0, msg.Length);
+
+        Bitmap imageBitmap = new Bitmap(lw[0].CurrentworkFlow.imagePath);
+        imageBitmap = resizeImage(imageBitmap, new Size(15, 15));
+
+        byte[] imageInBytes = ImageToByte(imageBitmap);
+
+        stream.Write(imageInBytes, 0, imageInBytes.Length-1);
+
+        Trace.WriteLine(imageInBytes.Length.ToString(), "TEST");
+
+
     }
 
-    public byte[] ImageToByteArray(Image imageIn)
+    public static byte[] ImageToByte(Image img)
     {
-        using (var ms = new MemoryStream())
-        {
-            imageIn.Save(ms, imageIn.RawFormat);
-            return ms.ToArray();
-        }
+        ImageConverter converter = new ImageConverter();
+        return (byte[])converter.ConvertTo(img, typeof(byte[]));
+    }
+
+    private static Bitmap resizeImage(Bitmap imgToResize, Size size)
+    {
+        //Get the image current width  
+        int sourceWidth = imgToResize.Width;
+        //Get the image current height  
+        int sourceHeight = imgToResize.Height;
+        float nPercent = 0;
+        float nPercentW = 0;
+        float nPercentH = 0;
+        //Calulate  width with new desired size  
+        nPercentW = ((float)size.Width / (float)sourceWidth);
+        //Calculate height with new desired size  
+        nPercentH = ((float)size.Height / (float)sourceHeight);
+        if (nPercentH < nPercentW)
+            nPercent = nPercentH;
+        else
+            nPercent = nPercentW;
+        //New Width  
+        int destWidth = (int)(sourceWidth * nPercent);
+        //New Height  
+        int destHeight = (int)(sourceHeight * nPercent);
+        Bitmap b = new Bitmap(destWidth, destHeight);
+        Graphics g = Graphics.FromImage((System.Drawing.Image)b);
+        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        // Draw image with new width and height  
+        g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
+        g.Dispose();
+        return b;
     }
 }
 

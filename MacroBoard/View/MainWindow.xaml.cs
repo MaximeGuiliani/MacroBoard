@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -22,13 +23,19 @@ namespace MacroBoard
         private List<WorkflowView> FavWorkflows = new();
         private List<WorkflowView> Workflows = new();
         bool isEdition = false;
+        MyTcpListener myTcp;
 
         
         public MainWindow()
         {
-            //new myTcpListener();
+            myTcp = new MyTcpListener();
             InitializeComponent();
             InitWorkflows();
+        }
+
+        void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            myTcp.server.Stop();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
