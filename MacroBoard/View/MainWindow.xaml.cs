@@ -268,7 +268,7 @@ namespace MacroBoard
         private void AddWorkFlow(object sender, RoutedEventArgs e)
         {
 
-            EW editionWindow = new();
+            EditionWindow editionWindow = new();
             editionWindow.ShowDialog();
 
             ResetWindow();
