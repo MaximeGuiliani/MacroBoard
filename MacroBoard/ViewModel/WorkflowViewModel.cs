@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MacroBoard;
 namespace MacroBoard
 {
-    internal class WorkflowView
+    public class WorkflowView
     {
         public Button Btn_Delete { get; } = new();
         public Image ImageWorkflow { get; } = new();
@@ -29,8 +31,21 @@ namespace MacroBoard
 
         }
 
+        public WorkflowView(Collection<WorkFlow> workFlows)
+        {
+            foreach (WorkFlow w in workFlows )
+            {
+                this.CurrentworkFlow = w;
+            Setup_Btns();
+            Setup_Name(w.workflowName);
+            Setup_Grid();
 
-        private void Setup_Name(string Name)
+            } 
+
+        }
+
+
+        public void Setup_Name(string Name)
         {
             Lbl_Name.Content = Name;
             Lbl_Name.HorizontalAlignment = HorizontalAlignment.Center;
@@ -38,33 +53,24 @@ namespace MacroBoard
         }
 
 
-        private void Setup_Btns()
+        public void Setup_Btns()
         {
 
             //Main Button
             Btn_Main.Background = Brushes.LightGray;
-            Btn_Main.BorderBrush = Brushes.Gray;
-           
-            //Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
-
-
-            //Btn_Main.Content = new Image
-            //{
-            //    Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute))
-            //};
+            Btn_Main.Opacity = 0.8;
             
             Btn_Main.Width = 90d;
             Btn_Main.Height = 90d;
 
-            Border border = new Border();
-
-            border.CornerRadius = new CornerRadius(15);
-            Btn_Main.Style.Resources.Add(Border.CornerRadiusProperty, border) ;
+            Btn_Main.Resources.Add(Border.CornerRadiusProperty, new CornerRadius(15)) ;
+            Btn_Main.Resources.Add(Border.BorderBrushProperty, Brushes.Red) ;
+            Btn_Main.Resources.Add(Border.BorderThicknessProperty, new Thickness(10)) ;
             //Delete Button
-            TextBlock txtBlock = new();
+           TextBlock txtBlock = new();
 
             txtBlock.Text = "━";
-            txtBlock.Foreground = Brushes.DarkRed;
+            txtBlock.Foreground = Brushes.Red;
             txtBlock.FontSize = 20d;
 
 
@@ -80,7 +86,7 @@ namespace MacroBoard
             //Edit Button
             txtBlock = new();
             txtBlock.Text = "♥";
-            txtBlock.Foreground = Brushes.DarkRed;
+            txtBlock.Foreground = Brushes.Red;
             txtBlock.FontSize = 20d;
 
             Btn_Fav.Content = txtBlock;
@@ -93,7 +99,7 @@ namespace MacroBoard
             Btn_Fav.VerticalAlignment = VerticalAlignment.Top;
         }
 
-        private void Setup_Grid()
+        public void Setup_Grid()
         {
 
             Content.Width = 100d;

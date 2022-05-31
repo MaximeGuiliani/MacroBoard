@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.ComponentModel;
+using System.Windows.Data;
+using static MacroBoard.Utils;
+using System.Linq;
+using System.Windows.Media.Animation;
 using MacroBoard.View;
 using MacroBoard.View.Themes;
+
 
 namespace MacroBoard
 {
@@ -18,11 +23,17 @@ namespace MacroBoard
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<WorkflowView> FavWorkflows = new();
-        private List<WorkflowView> Workflows = new();
+        public WorkFlow WorkFlow;
+        private List<WorkflowView> FavWorkflows { get; set; }
+        private List<WorkflowView> Workflows { get; set; }
+
+       
+
+        public ObservableCollection<WorkflowView> FavoriteWorkFlows { get; set; }
+        public ObservableCollection<WorkflowView> WorkFlows { get; set; }
+
         bool isEdition = false;
 
-        public App CurrentApplication { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -33,13 +44,20 @@ namespace MacroBoard
 
         private void InitWorkflows()
         {
-            Workflows = Serialization.getWorkFlowsFromJson();
-            FavWorkflows = Serialization.getFavsFromJson();
-            foreach (WorkflowView workflowView in Workflows)
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+            DataContext = this;
+            WorkFlows = new ();
+
+            
+
+            WorkFlows = Serialization.getWorkFlowsFromJsonZ();
+            FavoriteWorkFlows = Serialization.getFavsFromJsonZ();
+
+            foreach (WorkflowView workflowView in WorkFlows)
             {
                 CreateButton(workflowView, false);
             }
-            foreach (WorkflowView FavWorkflows in FavWorkflows)
+            foreach (WorkflowView FavWorkflows in FavoriteWorkFlows)
             {
                 CreateButton(FavWorkflows, true);
             }
@@ -52,28 +70,26 @@ namespace MacroBoard
         {
             if (isFav)
             {
-                //((TextBlock)workflowView.Btn_Fav.Content).Text = "✰";
-
-
-                workflowView.Btn_Delete.Visibility = Visibility.Hidden;
+               
+                //workflowView.Btn_Delete.Visibility = Visibility.Hidden;
                 workflowView.Btn_Main.Click += Button_Click_Fav;
-                workflowView.Btn_Fav.Click += OnClick_Delete_Fav;
+                //workflowView.Btn_Fav.Click += OnClick_Delete_Fav;
+                
             }
             else
             {
-                workflowView.Btn_Delete.Click += OnClick_DeleteWorkflow;
-                workflowView.Btn_Fav.Click += OnClick_Fav;
-                workflowView.Btn_Main.Click += Button_Click;
+                //workflowView.Btn_Delete.Click += OnClick_DeleteWorkflow;
+                workflowView.Btn_Fav.Click += OnClick_Favorite;
+                //workflowView.Btn_Main.Click += Button_Click;
             }
 
             if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
             {
-                //BitmapImage img = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute));
+                
                 Image image = new() {Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute)) };
 
                 image.Stretch = Stretch.Fill;   
                 workflowView.Btn_Main.Content = image;
-                
             }
 
             if (pos != -2)
@@ -94,28 +110,11 @@ namespace MacroBoard
         private void OnClick_Delete_Fav(object sender, RoutedEventArgs e)
         {
             int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
-            Serialization.DeleteFAV(FavWorkflows[currentItemPos].CurrentworkFlow.workflowName);
+            Serialization.DeleteFAV(FavoriteWorkFlows[currentItemPos].CurrentworkFlow.workflowName);
             ListFav.Items.RemoveAt(currentItemPos);
-            FavWorkflows.RemoveAt(currentItemPos);
+            FavoriteWorkFlows.RemoveAt(currentItemPos);
         }
 
-        //-----------------------------------------------------------------------------------------------------------------------------//
-
-
-        private void AddAddButton(List<WorkflowView> workflowViews)
-        {
-            WorkFlow addButton = new("", "", new Collection<Block>());
-            workflowViews.Add(new(addButton));
-            workflowViews[^1].Btn_Delete.Visibility = Visibility.Hidden;
-            workflowViews[^1].Btn_Fav.Visibility = Visibility.Hidden;
-            workflowViews[^1].Btn_Main.Click += AddWorkFlow;
-            workflowViews[^1].Btn_Main.Content
-                            = new Image
-                            {
-                                Source = new BitmapImage(new Uri("../../../Resources/Button_WorkFlowsou_Add.png", UriKind.Relative))
-                            };
-            ListMacro.Items.Add(workflowViews[^1].Content);
-        }
         //-----------------------------------------------------------------------------------------------------------------------------//
 
         private void OnClick_DeleteWorkflow(object sender, RoutedEventArgs e)
@@ -126,6 +125,7 @@ namespace MacroBoard
             RemoveWorkflow(currentItemPos);
 
         }
+
         //-----------------------------------------------------------------------------------------------------------------------------//
 
 
@@ -141,9 +141,9 @@ namespace MacroBoard
 
             int currentItemPosFav = 0;
             bool isInFav = false;
-            while (currentItemPosFav < FavWorkflows.Count)
+            while (currentItemPosFav < FavoriteWorkFlows.Count)
             {
-                if (!WFToDelete.Equals(FavWorkflows[currentItemPosFav].CurrentworkFlow.workflowName))
+                if (!WFToDelete.Equals(FavoriteWorkFlows[currentItemPosFav].CurrentworkFlow.workflowName))
                 {
                     currentItemPosFav++;
                 }
@@ -156,7 +156,7 @@ namespace MacroBoard
             if (isInFav)
             {
                 Serialization.DeleteFAV(WFToDelete);
-                FavWorkflows.RemoveAt(currentItemPosFav);
+                FavoriteWorkFlows.RemoveAt(currentItemPosFav);
                 ListFav.Items.RemoveAt(currentItemPosFav);
             }
             ListMacro.Items.RemoveAt(buttonCLickedPos);
@@ -172,25 +172,48 @@ namespace MacroBoard
             int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
             AddFav(new WorkflowView(Workflows[currentItemPos].CurrentworkFlow));
         }
+        ////////////////////////////////////////////////////////////////////////
+        private void OnClick_Favorite(object sender, RoutedEventArgs e)
+        {
+
+            int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
+            AddFavorite(new WorkflowView(Workflows[currentItemPos].CurrentworkFlow));
+        }
+
+        private void AddFavorite(WorkflowView newFavorite)
+        {
+            WorkFlow wf = newFavorite.CurrentworkFlow;
+            if (FavoriteWorkFlows.Count < 5)
+            {
+                {
+                    CreateButton(newFavorite, true);
+                    Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + wf.workflowName + ".json");
+                    serialization.Serialize(wf);
+                    FavoriteWorkFlows.Add(newFavorite);
+                }
+            }
+        }
+
+
 
         //-----------------------------------------------------------------------------------------------------------------------------//
 
         private void AddFav(WorkflowView newFav)
         {
             WorkFlow wf = newFav.CurrentworkFlow;
-            if (FavWorkflows.Count < 5)
+            if (FavoriteWorkFlows.Count < 5)
             {
-                if (!ListContains(FavWorkflows, wf))
                 {
 
                     CreateButton(newFav, true);
 
                     Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + wf.workflowName + ".json");
                     serialization.Serialize(wf);
-                    FavWorkflows.Add(newFav);
+                    FavoriteWorkFlows.Add(newFav);
                 }
             }
         }
+
         //-----------------------------------------------------------------------------------------------------------------------------//
 
         private static bool ListContains(List<WorkflowView> workflowViews, WorkFlow workFlow)
@@ -222,7 +245,7 @@ namespace MacroBoard
                         WorkflowsSearchs.Add(workFlowView);
                     }
                 }
-                //AddAddButton(WorkflowsSearchs);
+                
             }
             else
             {
@@ -273,11 +296,11 @@ namespace MacroBoard
             int currentItemPos = ListFav.Items.IndexOf(((Button)sender).Parent);
             if (isEdition)
             {
-                EditWorkflowFav(FavWorkflows[currentItemPos].CurrentworkFlow, currentItemPos);
+                EditWorkflowFav(FavoriteWorkFlows[currentItemPos].CurrentworkFlow, currentItemPos);
             }
             else
             {
-                ExecuteWorkflowFav(FavWorkflows[currentItemPos].CurrentworkFlow);
+                ExecuteWorkflowFav(FavoriteWorkFlows[currentItemPos].CurrentworkFlow);
 
             }
         }
@@ -338,7 +361,7 @@ namespace MacroBoard
 
 
                     int indexWF = 0;
-                    foreach (WorkflowView wfv in Workflows)
+                    foreach (WorkflowView wfv in WorkFlows)
                     {
 
                         if (wfv.CurrentworkFlow.workflowName.Equals(toDelete))
@@ -346,7 +369,7 @@ namespace MacroBoard
                             Workflows.RemoveAt(indexWF);
                             ListMacro.Items.RemoveAt(indexWF);
                             ListFav.Items.RemoveAt(index);
-                            FavWorkflows.RemoveAt(index);
+                            FavoriteWorkFlows.RemoveAt(index);
                             while (ListContainsName(editionWindow.WorkFlow.workflowName))
                             {
                                 editionWindow.WorkFlow.workflowName += 1;
@@ -356,7 +379,7 @@ namespace MacroBoard
                             CreateButton(Workflows[indexWF], false, indexWF);
                             WorkFlow favWorkflow = Workflows[indexWF].CurrentworkFlow;
                             WorkflowView favWorkflowView = new(favWorkflow);
-                            FavWorkflows.Insert(index, favWorkflowView);
+                            FavoriteWorkFlows.Insert(index, favWorkflowView);
                             CreateButton(favWorkflowView, true, index);
 
                             break;
@@ -408,7 +431,7 @@ namespace MacroBoard
                 Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + editionWindow.WorkFlow.workflowName + ".json");
                 serialization.Serialize(editionWindow.WorkFlow);
                 int indexFav = 0;
-                foreach (WorkflowView wfv in FavWorkflows)
+                foreach (WorkflowView wfv in FavoriteWorkFlows)
                 {
                     if (wfv.CurrentworkFlow.workflowName.Equals(toDelete))
                     {
@@ -416,9 +439,9 @@ namespace MacroBoard
                         serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + editionWindow.WorkFlow.workflowName + ".json");
                         serialization.Serialize(editionWindow.WorkFlow);
                         ListFav.Items.RemoveAt(indexFav);
-                        FavWorkflows.RemoveAt(indexFav);
+                        FavoriteWorkFlows.RemoveAt(indexFav);
                         WorkflowView favWorkflowView = new(editionWindow.WorkFlow);
-                        FavWorkflows.Insert(indexFav, favWorkflowView);
+                        FavoriteWorkFlows.Insert(indexFav, favWorkflowView);
                         CreateButton(favWorkflowView, true, indexFav);
 
                         break;
