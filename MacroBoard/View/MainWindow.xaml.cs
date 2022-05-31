@@ -23,10 +23,10 @@ namespace MacroBoard
         private List<WorkflowView> Workflows = new();
         bool isEdition = false;
 
-        public App CurrentApplication { get; set; }
+        
         public MainWindow()
         {
-            new myTcpListener();
+            //new myTcpListener();
             InitializeComponent();
             InitWorkflows();
         }

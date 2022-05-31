@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
         mc:Ignorable="d"
-        UseLayoutRounding="True"
+        
         Title="EditW"
         Height="600"
         Width="800"
@@ -13,9 +13,11 @@
         MinWidth="600"
         Name="bibu"
         FocusManager.FocusedElement="{Binding ElementName=ListBlock_Left_XAML}"
-        Background="#1b1b1b"
+        
         WindowStartupLocation="CenterScreen"
-        FontFamily="Bahnschrift" FontSize="14">
+        FontFamily="Bahnschrift" FontSize="14"
+        
+        Style="{DynamicResource CustomWindowStyle}">
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -31,7 +33,7 @@
 
 
         <!--Left Side-->
-        <Border CornerRadius="8" Background="#404040">
+        <Border CornerRadius="8" >
             <Grid>
 
                 <Grid.RowDefinitions>
@@ -157,11 +159,10 @@
 
 
                                                 <Button Width="20" Height="20"
-                                                    Background="Black"
+                                                    
                                                     Content="i"
                                                     FontSize="12"
-                                                    Foreground="Black"
-                                                    HorizontalAlignment="Right"
+                                                                                                        HorizontalAlignment="Right"
                                                     Grid.Column = "2"
                                                     Margin="0,0,8,0" Click="OnClickInfo" Opacity="0.7">
                                                     <Button.Template>
