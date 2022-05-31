@@ -20,10 +20,10 @@ namespace MacroBoard
             base.info = "Start the Edge browser on a new tab with the specifiedaddress.";
             base.Name = "Launch Microsoft Edge";
             base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockLaunchEdge.png";
+            base.category = Categories.Browsers;
             this.address = address;
             this.windowStyle = windowStyle;
             this.delay = delay;
-            base.category = Categories.Browsers;
         }
 
 

@@ -40,6 +40,15 @@ namespace MacroBoard
             return ((string)JObject.Parse(File.ReadAllText(relPathConfigFile))[configId]);
         }
 
+        public static bool Boolean(string configId)
+        {
+            Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+            return ((bool)JObject.Parse(File.ReadAllText(relPathConfigFile))[configId]);
+            //Boolean.Parse(string...);
+        }
+
+
+
 
 
     }

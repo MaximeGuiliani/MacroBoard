@@ -14,6 +14,7 @@ namespace MacroBoard
         {
             base.Name = "Delete File";
             base.info = "Deletes the specified file.";
+            base.category = Categories.Files;
             this.path = path;
         }
         public override void Execute()

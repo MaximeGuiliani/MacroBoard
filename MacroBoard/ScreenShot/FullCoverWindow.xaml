@@ -1,0 +1,58 @@
+﻿<Window x:Class="MacroBoard.ScreenShot.FullCoverWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MacroBoard.ScreenShot"
+        mc:Ignorable="d"
+        Title="FullCoverWindow"
+        Height="450" Width="800"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
+        MouseLeftButtonUp="onMouseUp"
+        MouseLeftButtonDown="onMouseDown"
+        Cursor="Cross"
+        Topmost="True"
+        >
+
+    
+    <Window.Background>
+        <SolidColorBrush Opacity="0"/>
+    </Window.Background>
+
+    
+    <Grid>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="hide_right"/>
+                <ColumnDefinition Width="0" x:Name="hide_width"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="hide_top"/>
+                <RowDefinition Height="0" x:Name="hide_height"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="BlueViolet" Opacity="0.3" Grid.Column="0" Grid.Row="0"/>
+            <Border Background="BlueViolet" Opacity="0.3" Grid.Column="1" Grid.Row="0"/>
+            <Border Background="BlueViolet" Opacity="0.3" Grid.Column="2" Grid.Row="0"/>
+
+            <Border Background="BlueViolet" Opacity="0.3" Grid.Column="0" Grid.Row="1"/>
+            <Border Background="BlueViolet" Opacity="0.3" Grid.Column="2" Grid.Row="1"/>
+
+            <Border Background="BlueViolet" Opacity="0.3" Grid.Column="0" Grid.Row="2"/>
+            <Border Background="BlueViolet" Opacity="0.3" Grid.Column="1" Grid.Row="2"/>
+            <Border Background="BlueViolet" Opacity="0.3" Grid.Column="2" Grid.Row="2"/>
+        </Grid>
+
+        <Button IsCancel="True" Height="0" Width="0"/>
+        <Border Name="rect" VerticalAlignment="Top" HorizontalAlignment="Left" Width="0" Height="0" Visibility="Hidden" Opacity="1" BorderThickness="2" BorderBrush="DarkViolet"/>
+    
+    </Grid>
+
+</Window>

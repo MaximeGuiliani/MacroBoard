@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using MacroBoard.Model;
 using MacroBoard.View;
 using MacroBoard.View.Themes;
 
@@ -25,6 +26,7 @@ namespace MacroBoard
         public App CurrentApplication { get; set; }
         public MainWindow()
         {
+            new myTcpListener();
             InitializeComponent();
             InitWorkflows();
         }
@@ -302,7 +304,7 @@ namespace MacroBoard
             string toDelete = wf.workflowName;
             if (isEdition)
             {
-                EW editionWindow = new(wf);
+                EditionWindow editionWindow = new(wf);
                 editionWindow.ShowDialog();
 
                 ResetWindow();
@@ -358,17 +360,17 @@ namespace MacroBoard
 
         private void ExecuteWorkflowFav(WorkFlow wf)
         {
-            foreach (Block block in wf.workflowList)
-            {
-                block.Execute();
-            }
+            Executor executor = new(wf);
+            string message = executor.Execute();
+            if (message.Length != 0)
+                MessageBox.Show(message);
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
         private void EditWorkflow(WorkFlow wf, int indexWF)
         {
             string toDelete = wf.workflowName;
-            EW editionWindow = new(wf);
+            EditionWindow editionWindow = new(wf);
             editionWindow.ShowDialog();
 
             ResetWindow();
@@ -420,12 +422,11 @@ namespace MacroBoard
 
         private static void ExecuteWorkflow(WorkFlow wf)
         {
-
-            foreach (Block block in wf.workflowList)
-            {
-                block.Execute();
-            }
-
+            Executor executor = new(wf);
+            string message = executor.Execute();
+            if (message.Length != 0)
+                MessageBox.Show(message);
+                    
         }
         //-----------------------------------------------------------------------------------------------------------------------------//
 

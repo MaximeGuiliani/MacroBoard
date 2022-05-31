@@ -61,7 +61,18 @@ namespace MacroBoard
             File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + WorkFlowName + ".json");
 
         }
-
+        public static void ExecuteFromMobileApp(string WFname)
+        {
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\");
+            FileInfo[] files = info.GetFiles(WFname + ".json").OrderBy(p => p.CreationTime).ToArray();
+            Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + files[0]);
+            WorkFlow wf = serialization.Deserialize();
+            foreach(Block b in wf.workflowList)
+            {
+                b.Execute();
+            }
+            
+        }
 
         public static List<WorkflowView> getFavsFromJson()
         {
