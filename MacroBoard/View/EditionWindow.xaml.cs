@@ -432,7 +432,7 @@ namespace MacroBoard.View
             ListBoxItem? item = listBox.ItemContainerGenerator.ContainerFromIndex(index) as ListBoxItem;
             if (item == null) return;
 
-            RoutedEventHandler delegateSelectAndFocusItem = null;
+            RoutedEventHandler? delegateSelectAndFocusItem = null;
             delegateSelectAndFocusItem = delegate (object sender, RoutedEventArgs e) { item.Focus(); listBox.SelectedIndex = index; item.Loaded -= delegateSelectAndFocusItem; };
 
             if (item.IsLoaded)
@@ -526,7 +526,7 @@ namespace MacroBoard.View
             if (ListBlock_Right_XAML.IsLoaded && e.Key == Key.Z && ListBlock_Right_XAML.SelectedItems.Count > 0)
             {
                 int indexBlock = ListBlock_Right_XAML.SelectedIndex;
-                bool moved = MoveBlockUp(indexBlock);
+                MoveBlockUp(indexBlock);
             }
         }
 
