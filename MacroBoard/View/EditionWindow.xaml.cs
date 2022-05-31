@@ -21,6 +21,7 @@ namespace MacroBoard.View
         public WorkFlow WorkFlow;
         private string placeHolderImagePath = "Select folder";
         private string placeHolderWFName = "Select name";
+        private string WorkFlowImage;
 
 
         //CONSTRUCTORS
@@ -72,7 +73,7 @@ namespace MacroBoard.View
             if (!WorkFlow.imagePath.Equals(""))
             {
                 Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(WorkFlow.imagePath, UriKind.Absolute));
-                TextBox_WorkFlowImage.Text = WorkFlow.imagePath;
+                WorkFlowImage = WorkFlow.imagePath;
 
             }
             TextBox_WorkFlowName.Text = "name";//this.WorkFlow.workflowName; // TODOOOOO
@@ -186,14 +187,14 @@ namespace MacroBoard.View
 
                 if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
                 {
-                    if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
+                    if (WorkFlowImage.Equals(placeHolderImagePath))
                     {
                         this.WorkFlow.imagePath = "";
                     }
                     else
                     {
 
-                        this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
+                        this.WorkFlow.imagePath = WorkFlowImage;
                     }
                     this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
                     this.DialogResult = true;
@@ -215,7 +216,7 @@ namespace MacroBoard.View
             if (result == true)
             {
                 Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(dlg.FileName, UriKind.Absolute));
-                TextBox_WorkFlowImage.Text = dlg.FileName;
+                WorkFlowImage = dlg.FileName;
             }
         }
 
@@ -538,11 +539,6 @@ namespace MacroBoard.View
                 int indexBlock = ListBlock_Right_XAML.SelectedIndex;
                 bool moved = MoveBlockDown(indexBlock);
             }
-        }
-        private void OnClickInfo(object sender, RoutedEventArgs e)
-        {
-            Block model = (Block)((Button)sender).DataContext;
-            MessageBox.Show(model.info);
         }
 
         private void OnDoubleClickEdit(object sender, MouseButtonEventArgs e)
