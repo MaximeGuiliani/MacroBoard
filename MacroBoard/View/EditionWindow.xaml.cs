@@ -235,13 +235,13 @@ namespace MacroBoard.View
         {
             if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount == 2)
             {
-                Block model = (Block)((TextBlock)sender).DataContext;
+                Block model = (Block)((Border)sender).DataContext;
                 addBlock(model);
             }
         }
 
 
-        private void onGotFocusNameBox(object sender, RoutedEventArgs e) //TODO a utiliser
+        private void onGotFocusNameBox(object sender, RoutedEventArgs e)
         {
             if (TextBox_WorkFlowName.Text.Equals(placeHolderWFName))
                 TextBox_WorkFlowName.Text = "";
@@ -432,7 +432,7 @@ namespace MacroBoard.View
             ListBoxItem? item = listBox.ItemContainerGenerator.ContainerFromIndex(index) as ListBoxItem;
             if (item == null) return;
 
-            RoutedEventHandler delegateSelectAndFocusItem = null;
+            RoutedEventHandler? delegateSelectAndFocusItem = null;
             delegateSelectAndFocusItem = delegate (object sender, RoutedEventArgs e) { item.Focus(); listBox.SelectedIndex = index; item.Loaded -= delegateSelectAndFocusItem; };
 
             if (item.IsLoaded)
@@ -526,7 +526,7 @@ namespace MacroBoard.View
             if (ListBlock_Right_XAML.IsLoaded && e.Key == Key.Z && ListBlock_Right_XAML.SelectedItems.Count > 0)
             {
                 int indexBlock = ListBlock_Right_XAML.SelectedIndex;
-                bool moved = MoveBlockUp(indexBlock);
+                MoveBlockUp(indexBlock);
             }
         }
 
@@ -543,30 +543,16 @@ namespace MacroBoard.View
         {
             Block model = (Block)((Button)sender).DataContext;
             MessageBox.Show(model.info);
-
-
         }
 
         private void OnDoubleClickEdit(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed && e.ClickCount == 2)
             {
-                Block model = (Block)((TextBlock)sender).DataContext;
-                int modelIndex = RightBlocks.IndexOf(model);
-                bool mustCreateWindow = model.GetType().GetConstructor(Type.EmptyTypes) == null;
-                if (!mustCreateWindow) return;
-
-                BlockCreatorWindow blockCreatorWindow = new BlockCreatorWindow(model);
-                blockCreatorWindow.ShowDialog();
-                if (blockCreatorWindow.DialogResult == false) return;
-
-                RightBlocks[modelIndex] = blockCreatorWindow.res;
-
-
+                Block model = (Block)((Border)sender).DataContext;
+                EditBlock(model);
             }
         }
 
-
-
-        }
+    }
 }
