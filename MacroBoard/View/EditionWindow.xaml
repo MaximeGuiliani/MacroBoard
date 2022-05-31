@@ -15,8 +15,7 @@
         FocusManager.FocusedElement="{Binding ElementName=ListBlock_Left_XAML}"
         Background="#1b1b1b"
         WindowStartupLocation="CenterScreen"
-        FontFamily="Bahnschrift" FontSize="14"
-        PreviewMouseLeftButtonDown="EditWindow_PreviewMouseLeftButtonDown">
+        FontFamily="Bahnschrift" FontSize="14">
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
@@ -123,74 +122,78 @@
                      HorizontalAlignment="Stretch"
                      HorizontalContentAlignment="Stretch"
                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                     Grid.Row="1">
-
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-
-                            <Border BorderBrush="#6f3d84" BorderThickness="0,0,0,8" CornerRadius="8" Background="#8848a2" MouseLeftButtonDown="Border_MouseLeftButtonDown_1" MouseEnter="Border_MouseEnter_LeftList" MouseLeave="Border_MouseLeave_LeftList">
-
-                                <Grid Height="50">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-
-                                    <Image Source="{Binding LogoUrl}"
-                                       RenderOptions.BitmapScalingMode='HighQuality'
-                                       Width="32"
-                                       Height="32"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Grid.Column="0"
-                                       Margin="10,0,0,0"
-                                    />
-
-                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1" MouseDown="OnDoubleClickAdd" Background="Transparent"/>
-
-
-                                    <Button Width="20" Height="20"
-                                         Background="Black"
-                                          Content="i"
-                                          FontSize="12"
-                                          Foreground="Black"
-                                          HorizontalAlignment="Right"
-                                          Grid.Column = "2"
-                                          Margin="0,0,8,0" Click="OnClickInfo" Opacity="0.7">
-                                        <Button.Template>
-                                            <ControlTemplate TargetType="Button">
-                                                <Grid>
-                                                    <Ellipse Stroke="#FF4C4A4A" Fill="#FF6F6C6C" />
-
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                </Grid>
-                                            </ControlTemplate>
-                                        </Button.Template>
-                                    </Button>
-
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                     Grid.Row="1"
+                     >
 
                     <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Background" Value="Transparent" />
+                        <Style TargetType="ListBoxItem">
                             <Setter Property="Template">
                                 <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                        <ContentPresenter Margin="0,0,0,4"/>
+                                    <ControlTemplate TargetType="ListBoxItem">
+
+                                        <Border Margin="0,2,0,2" Name="LeftBorder" BorderBrush="#6f3d84" BorderThickness="0,0,0,8" CornerRadius="8" Background="#8848a2" MouseLeftButtonDown="OnDoubleClickAdd">
+
+                                            <Grid Height="50">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+
+                                                <Image Source="{Binding LogoUrl}"
+                                                   RenderOptions.BitmapScalingMode='HighQuality'
+                                                   Width="32"
+                                                   Height="32"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Grid.Column="0"
+                                                   Margin="10,0,0,0"/>
+
+                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1" Background="Transparent"/>
+
+
+                                                <Button Width="20" Height="20"
+                                                    Background="Black"
+                                                    Content="i"
+                                                    FontSize="12"
+                                                    Foreground="Black"
+                                                    HorizontalAlignment="Right"
+                                                    Grid.Column = "2"
+                                                    Margin="0,0,8,0" Click="OnClickInfo" Opacity="0.7">
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Grid>
+                                                                <Ellipse Stroke="#FF4C4A4A" Fill="#FF6F6C6C" />
+
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" TargetName="LeftBorder" Value="#b560d8"/>
+                                            </Trigger>
+                                            <Trigger Property="IsFocused" Value="True">
+                                                <Setter Property="Background" TargetName="LeftBorder" Value="#b560d8"/>
+                                                <Setter Property="BorderBrush" TargetName="LeftBorder" Value="#6f3d84"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+
                                     </ControlTemplate>
+
                                 </Setter.Value>
                             </Setter>
                         </Style>
                     </ListBox.ItemContainerStyle>
 
+                    
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.ContainerStyle>
@@ -245,73 +248,75 @@
                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
                      >
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="#6f3d84" BorderThickness="0,0,0,10" CornerRadius="8" Background="#8848a2" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" MouseLeftButtonDown="Border_MouseLeftButtonDown" >
-
-                            <Grid Height="60" Name="RightGrid">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Button BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,3,0,0" Content="▲" Grid.Column = "0" VerticalAlignment="Top" Width="25" Height="25" Foreground="Black" Background="#6f3d84" FontSize="10" Click="onClickUp"   Focusable="False">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="3"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-                                <Button BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,0,0,3" Content="▼" Grid.Column = "0" VerticalAlignment="Bottom" Width="25" Height="25" Foreground="Black" Background="#6f3d84" FontSize="10" Click="onClickDown" Focusable="False">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="3"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-
-                                <Image Source="{Binding LogoUrl}"
-                                   RenderOptions.BitmapScalingMode='HighQuality'
-                                   Width="42"
-                                   Height="42"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"
-                                   Grid.Column="0"
-                                />
-
-                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1"/>
-
-
-                                <Button Content="EDIT" Name="Edit" BorderThickness="2" BorderBrush="Black" Margin="0,0,10,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column = "2" Foreground="Black" Background="#6f3d84" FontSize="10" Width="25" Height="25" Click="onClickEdit"  Focusable="False">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="3"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-                                <Button Content="-" BorderThickness="2" BorderBrush="Black" Margin="0,3,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column = "2" Foreground="Black" Background="#6f3d84" FontSize="10" Width="25" Height="25" Click="onClickDelete"  Focusable="False">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="3"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-
-
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-
                 <ListBox.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="Background" Value="Transparent" />
+                    <Style TargetType="ListBoxItem">
                         <Setter Property="Template">
                             <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <ContentPresenter Margin="0,0,0,4"/>
+                                <ControlTemplate TargetType="ListBoxItem">
+
+                                    <Border Margin="0,2,0,2" Name="RightBorder" BorderBrush="#6f3d84" BorderThickness="0,0,0,10" CornerRadius="8" Background="#8848a2" MouseLeftButtonDown="OnDoubleClickEdit">
+
+                                        <Grid Height="60" Name="RightGrid">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Button BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,3,0,0" Content="▲" Grid.Column = "0" VerticalAlignment="Top" Width="25" Height="25" Foreground="Black" Background="#6f3d84" FontSize="10" Click="onClickUp"   Focusable="False">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                            <Button BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,0,0,3" Content="▼" Grid.Column = "0" VerticalAlignment="Bottom" Width="25" Height="25" Foreground="Black" Background="#6f3d84" FontSize="10" Click="onClickDown" Focusable="False">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+
+                                            <Image Source="{Binding LogoUrl}"
+                                               RenderOptions.BitmapScalingMode='HighQuality'
+                                               Width="42"
+                                               Height="42"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Right"
+                                               Grid.Column="0"/>
+
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1"/>
+
+
+                                            <Button Content="EDIT" Name="Edit" BorderThickness="2" BorderBrush="Black" Margin="0,0,10,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column = "2" Foreground="Black" Background="#6f3d84" FontSize="10" Width="25" Height="25" Click="onClickEdit"  Focusable="False">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                            <Button Content="-" BorderThickness="2" BorderBrush="Black" Margin="0,3,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column = "2" Foreground="Black" Background="#6f3d84" FontSize="10" Width="25" Height="25" Click="onClickDelete"  Focusable="False">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BorderBrush" TargetName="RightBorder" Value="#b560d8"/>
+                                        </Trigger>
+                                        <Trigger Property="IsFocused" Value="True">
+                                            <Setter Property="Background" TargetName="RightBorder" Value="#b560d8"/>
+                                            <Setter Property="BorderBrush" TargetName="RightBorder" Value="#6f3d84"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+
                                 </ControlTemplate>
+
                             </Setter.Value>
                         </Setter>
                     </Style>
