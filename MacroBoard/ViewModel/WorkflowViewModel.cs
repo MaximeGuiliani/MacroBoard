@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
 namespace MacroBoard
 {
     internal class WorkflowView
@@ -14,7 +13,7 @@ namespace MacroBoard
 
         public Button Btn_Fav { get; } = new();
         public Button Btn_Main { get; } = new();
-
+        
 
         private Label Lbl_Name = new();
         public Grid Content { get; } = new();
@@ -35,7 +34,7 @@ namespace MacroBoard
         {
             Lbl_Name.Content = Name;
             Lbl_Name.HorizontalAlignment = HorizontalAlignment.Center;
-            Lbl_Name.VerticalAlignment = VerticalAlignment.Center;
+            Lbl_Name.VerticalAlignment = VerticalAlignment.Bottom;
         }
 
 
@@ -43,46 +42,37 @@ namespace MacroBoard
         {
 
             //Main Button
-            Btn_Main.Background = Brushes.Transparent;
-            Btn_Main.BorderThickness = new Thickness(0, 0, 0, 0);
-            Btn_Main.Content = new Image
-            {
-                Source = new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute))
-            };
-
-            Btn_Main.Width = 100d;
-            Btn_Main.Height = 100d;
-
-
+            //Btn_Main.Background = Brushes.LightGray;
+            
             //Delete Button
             TextBlock txtBlock = new();
 
-            txtBlock.Text = "🚫";
-            txtBlock.Foreground = Brushes.Red;
-            txtBlock.FontSize = 25d;
+            txtBlock.Text = "━";
+            txtBlock.Foreground = Brushes.DarkRed;
+            txtBlock.FontSize = 20d;
 
 
             Btn_Delete.Content = txtBlock;
             Btn_Delete.Background = Brushes.Transparent;
             Btn_Delete.BorderThickness = new Thickness(0, 0, 0, 0);
-            Btn_Delete.Width = 30d;
-            Btn_Delete.Height = 30d;
+            Btn_Delete.Width = 20d;
+            Btn_Delete.Height = 20d;
             Btn_Delete.HorizontalAlignment = HorizontalAlignment.Left;
             Btn_Delete.VerticalAlignment = VerticalAlignment.Top;
 
 
             //Edit Button
             txtBlock = new();
-            txtBlock.Text = "★";
-            txtBlock.Foreground = Brushes.Yellow;
-            txtBlock.FontSize = 25d;
+            txtBlock.Text = "♥";
+            txtBlock.Foreground = Brushes.DarkRed;
+            txtBlock.FontSize = 20d;
 
             Btn_Fav.Content = txtBlock;
             Btn_Fav.Background = Brushes.Transparent;
             Btn_Fav.BorderThickness = new Thickness(0, 0, 0, 0);
 
-            Btn_Fav.Width = 30d;
-            Btn_Fav.Height = 30d;
+            Btn_Fav.Width = 20d;
+            Btn_Fav.Height = 20d;
             Btn_Fav.HorizontalAlignment = HorizontalAlignment.Right;
             Btn_Fav.VerticalAlignment = VerticalAlignment.Top;
         }
@@ -102,8 +92,8 @@ namespace MacroBoard
             Content.Children.Add(Btn_Fav);
 
 
-            Content.MouseEnter += OnMouseEnter;
-            Content.MouseLeave += OnMouseLeave;
+            //Content.MouseEnter += OnMouseEnter;
+            //Content.MouseLeave += OnMouseLeave;
         }
 
         private void OnMouseEnter(object sender, RoutedEventArgs e)
@@ -112,9 +102,9 @@ namespace MacroBoard
 
             bitmapImg.BeginInit();
             if (CurrentworkFlow.workflowName.Equals(""))
-                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add_MouseOver.png", UriKind.Absolute);
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
             else
-                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_MouseOver.png", UriKind.Absolute);
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
             bitmapImg.EndInit();
             ImageWorkflow.Source = bitmapImg;
 
@@ -129,7 +119,7 @@ namespace MacroBoard
             if (CurrentworkFlow.workflowName.Equals(""))
                 bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add.png", UriKind.Absolute);
             else
-                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V2.png", UriKind.Absolute);
+                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
             bitmapImg.EndInit();
             ImageWorkflow.Source = bitmapImg;
 

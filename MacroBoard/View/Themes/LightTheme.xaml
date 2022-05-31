@@ -3,45 +3,54 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="BorderBrush" Value="#BFD0E3" />
-        <Setter Property="Background" Value="#F5F5F5" />
+        <Setter Property="BorderBrush" Value="#f8f1f4" />
+        <Setter Property="Background" Value="#faf5f8" />
         <!--<Setter Property="BorderThickness" Value="5"  />-->
         <!--<Setter Property="WindowStyle" Value="SingleBorderWindow" />-->
     </Style>
     <!--set the text block color to black / add the costume style in mainwindow / set the size of the text under each workflow-->
 
     <Style x:Key="CustomTextBox" TargetType="TextBox">
-        <Setter Property="Background" Value="#EBEBEB"/>
-        <Setter Property="BorderBrush" Value="SandyBrown"/>
+        <Setter Property="Background" Value="#ecd5df"/>
     </Style>
 
     <Style x:Key="CustomStackPanel" TargetType="StackPanel">
-        <Setter Property="Background" Value="#E9E3F1"/>
+        <Setter Property="Background" Value="#ead1dc"/>
     </Style>
 
     <Style x:Key="CustomBorder" TargetType="Border">
-        <Setter Property="BorderBrush" Value="#BBBBBB"/>
+        <Setter Property="BorderBrush" Value="#ead1dc"/>
+        <!--same color as meni-->
     </Style>
 
     <Style x:Key="CustomListBox" TargetType="ListBox">
-        <Setter Property="Background" Value="#CAD8EB"/>
+        <Setter Property="Background" Value="#dcead1"/>
     </Style>
 
     <Style x:Key="CustomMenuItems" TargetType="MenuItem">
         <Setter Property="BorderBrush" Value="#EBEBEB"/>
     </Style>
 
-    <Style x:Key="CustomImageEdit" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_add.png"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Width" Value="30"/>
+    <Style x:Key="CustomButton" TargetType="Button">
+        <Setter Property="Background" Value="#f2e3ea"/>
     </Style>
 
+    <Style x:Key="CustomImageAbout" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_about_dark.png"/>
+    </Style>
+
+    <Style x:Key="CustomImageSearch" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_search.png"/>
+    </Style>
+    
+    <Style x:Key="CustomImageEdit" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_plus_dark.png"/>
+    </Style>
     <Style x:Key="CustomImageRearrange" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_edit.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_edit_dark.png"/>
     </Style>
     <Style x:Key="CustomImageThemes" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_themes.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_themes_dark.png"/>
     </Style>
    
 </ResourceDictionary>

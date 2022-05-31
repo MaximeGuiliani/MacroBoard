@@ -59,9 +59,17 @@
 		<None Remove="Resources\expand.png" />
 		<None Remove="Resources\FAVJSON\init.txt" />
 		<None Remove="Resources\Icon.png" />
+		<None Remove="Resources\icon_about.png" />
+		<None Remove="Resources\icon_about_dark.png" />
 		<None Remove="Resources\icon_add.png" />
 		<None Remove="Resources\icon_edit.png" />
+		<None Remove="Resources\icon_edit_dark.png" />
+		<None Remove="Resources\icon_plus.png" />
+		<None Remove="Resources\icon_plus_dark.png" />
+		<None Remove="Resources\icon_search.png" />
+		<None Remove="Resources\icon_search_dark.png" />
 		<None Remove="Resources\icon_themes.png" />
+		<None Remove="Resources\icon_themes_dark.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockClickL.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockClickR.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png" />
@@ -214,13 +222,34 @@
 	  <Content Include="Resources\FAVJSON\init.txt">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Resources\icon_add.png">
+	  <Content Include="Resources\icon_about.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_about_dark.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\icon_edit.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Resources\icon_edit_dark.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_plus.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_plus_dark.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_search.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_search_dark.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\icon_themes.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_themes_dark.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockClickL.png">
