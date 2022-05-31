@@ -12,24 +12,26 @@
         Width="450"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Style="{DynamicResource CustomWindowStyle}">
+        Topmost="False"
+        WindowStyle="ToolWindow"
+        >
 
 
 
-        <ScrollViewer Margin="0,20,0,20" Height="Auto">
-            <Grid Height="Auto">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+    <ScrollViewer Margin="0,20,0,20" Height="Auto" VerticalScrollBarVisibility="Auto" >
+        <Grid Height="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <StackPanel Name="Controls" VerticalAlignment="Top" Width="300" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="0" Height="auto">
-                </StackPanel>
-                <Button  Name="validerBtn" IsDefault="True" Margin="0,30,80,0" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="1" Style="{DynamicResource CustomButton}" >OK</Button>
-            <Button  Name="annluer" IsCancel="True"  Height="30" Margin="80,30,0,0" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Style="{DynamicResource CustomButton}"  >Cancel</Button>
-            </Grid>
-        </ScrollViewer>
+            <StackPanel Name="Controls" VerticalAlignment="Top" Width="300" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="0" Height="auto">
+            </StackPanel>
+            <Button  Name="validerBtn" IsDefault="True" Margin="0,30,80,0" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="1" >OK</Button>
+            <Button  Name="annluer" IsCancel="True"  Height="30" Margin="80,30,0,0" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1"  >Cancel</Button>
+        </Grid>
+    </ScrollViewer>
 
- 
-    
+
+
 </Window>
