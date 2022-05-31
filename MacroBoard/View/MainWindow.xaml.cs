@@ -99,24 +99,7 @@ namespace MacroBoard
             FavWorkflows.RemoveAt(currentItemPos);
         }
 
-        //-----------------------------------------------------------------------------------------------------------------------------//
-
-
-        private void AddAddButton(List<WorkflowView> workflowViews)
-        {
-            WorkFlow addButton = new("", "", new Collection<Block>());
-            workflowViews.Add(new(addButton));
-            workflowViews[^1].Btn_Delete.Visibility = Visibility.Hidden;
-            workflowViews[^1].Btn_Fav.Visibility = Visibility.Hidden;
-            workflowViews[^1].Btn_Main.Click += AddWorkFlow;
-            workflowViews[^1].Btn_Main.Content
-                            = new Image
-                            {
-                                Source = new BitmapImage(new Uri("../../../Resources/Button_WorkFlowsou_Add.png", UriKind.Relative))
-                            };
-            ListMacro.Items.Add(workflowViews[^1].Content);
-        }
-        //-----------------------------------------------------------------------------------------------------------------------------//
+        //-----------------------------------------------------------------------------------------------------------------------------
 
         private void OnClick_DeleteWorkflow(object sender, RoutedEventArgs e)
         {
@@ -222,7 +205,6 @@ namespace MacroBoard
                         WorkflowsSearchs.Add(workFlowView);
                     }
                 }
-                //AddAddButton(WorkflowsSearchs);
             }
             else
             {
@@ -524,22 +506,17 @@ namespace MacroBoard
 
 
         //-----------------------------------------------------------------------------------------------------------------------------//
-
+        bool isDark = true;
         private void ChangeTheme(object sender, RoutedEventArgs e)
         {
-            switch (int.Parse(((MenuItem)sender).Uid))
-            {
-                case 0:
-                    ThemesController.SetTheme(ThemesController.ThemeTypes.Light);
+            if(isDark)
+                ThemesController.SetTheme(ThemesController.ThemeTypes.Light);
+            else
+                ThemesController.SetTheme(ThemesController.ThemeTypes.Dark);
 
-                    break;
-                case 1:
-                    ThemesController.SetTheme(ThemesController.ThemeTypes.Dark);
-
-                    break;
-            }
-            e.Handled = true;
+            isDark = !isDark;
         }
+
         private void AboutApp(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("about");
