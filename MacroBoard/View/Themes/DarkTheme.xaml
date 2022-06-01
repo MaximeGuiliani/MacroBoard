@@ -28,7 +28,8 @@
     </Style>
 
     <Style x:Key="CustomBorder" TargetType="Border">
-        <Setter Property="BorderBrush" Value="#282828"/>
+        <Setter Property="CornerRadius" Value="25"/>
+        <Setter Property="Background" Value="#5B5B5B"/>
     </Style>
 
 
@@ -40,14 +41,10 @@
         <Setter Property="Padding" Value="10,10,10,10"/>
     </Style>
 
-    <Style x:Key="CustomMenuItems" TargetType="MenuItem">
-        <Setter Property="Background" Value="#021627"/>
-        <Setter Property="Width" Value="40"/>
-        <Setter Property="Height" Value="40"/>
-    </Style>
+    
 
     <Style x:Key="CustomButton" TargetType="Button">
-        <Setter Property="Background" Value="#444444"/>
+        <Setter Property="Background" Value="Pink"/>
     </Style>
     
     <Style x:Key="CustomImageSearch" TargetType="Image">

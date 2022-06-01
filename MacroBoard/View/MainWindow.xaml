@@ -13,7 +13,6 @@
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource CustomWindowStyle}">
 
-
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -33,9 +32,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-       
     </Window.Resources>
 
+   
 
     <Grid >
         <Grid.ColumnDefinitions>
@@ -51,7 +50,13 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <TextBox Style="{DynamicResource CustomTextBox}" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" x:Name="Search" HorizontalAlignment="Right" Height="30"  VerticalAlignment="Center" Width="291" TextChanged="Search_TextChanged" Margin="35,20,30,0"  >
+            <TextBox Style="{DynamicResource CustomTextBox}" 
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                     x:Name="Search" HorizontalAlignment="Right" Height="30"  
+                     VerticalAlignment="Center"
+                     Width="291" 
+                     TextChanged="Search_TextChanged" 
+                     Margin="35,20,30,0"  >
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -59,22 +64,38 @@
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <!--<Button Background="Transparent"  HorizontalAlignment="Right" Margin="640,16,30,15" VerticalAlignment="Center" Width="48" Height="20" Click="Search_TextChanged">
-                <Image Height="17" Width="17" Style="{DynamicResource CustomImageSearch}" />
-            </Button>-->
         </Grid>
 
 
         <Grid Grid.Row="1">
-            <!--   Liste of favoris   -->
-            <ListBox  
+            <ListBox
+                BorderBrush="{x:Null}"
+                Grid.Column="1"
+                Grid.Row="1"
                 Style="{DynamicResource CustomListBox}" 
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                x:Name="ListFav" Grid.ColumnSpan="5" 
+                x:Name="ListFav" 
+                Grid.ColumnSpan="5" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center"  
                 Margin="79,20,0,0" 
                 ItemsSource="{Binding Path=FavoriteWorkFlows}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        
+                        <Border Style="{DynamicResource CustomBorder}" CornerRadius="25" >
+                            <Button FontSize="10" Click="Button_Click" >
+                                <Image Source="{Binding imagePath}"
+                                   RenderOptions.BitmapScalingMode='HighQuality'
+                                   Margin="7,7,7,7"
+                                   Width="90"
+                                   Height="90"
+                                   Stretch="Fill"
+                                   VerticalAlignment="Center"/>
+                            </Button>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="Template">
@@ -113,29 +134,34 @@
             </ListBox>
         </Grid>
 
-        <Grid Grid.Row="3">
-            <!--    List of macros    -->
-            <ListBox x:Name="ListMacro" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{x:Null}" Margin="69,20,0,0" Grid.Column="1" ItemsSource="{Binding Path=WorkFlows}" >
+        <Grid Grid.Row="2">
+            <ListBox x:Name="ListMacro" 
+                     Grid.ColumnSpan="5" 
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center" 
+                     BorderBrush="{x:Null}"
+                     Margin="69,20,0,0"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ItemsSource="{Binding Path=WorkFlows}"
+                     Style="{DynamicResource CustomListBox}" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        
-                            <Button  Grid.Column = "0"  FontSize="10" Click="Button_Click">
-                                <Image Source="{Binding ImageWorkflow }"
-                                   RenderOptions.BitmapScalingMode='HighQuality'
+                        <Border Style="{DynamicResource CustomBorder}" CornerRadius="25" >
+                            <Button  FontSize="10" Click="Button_Click" >
+                                <Image Source="{Binding ImageWorkflow}"
+                                   Margin="7,7,7,7"
                                    Width="90"
                                    Height="90"
                                    Stretch="Fill"
                                    VerticalAlignment="Center"
-                                   Margin="0,0,0,0"
                                 />
                             </Button>
-                            <!--<TextBlock Text="{Binding Lbl_Name}" Margin="8,0,0,0"/>-->
-                        
+                        </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                <ListBox.Style>
-                    <Style/>
-                </ListBox.Style>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Background" Value="Transparent"/>
@@ -176,26 +202,22 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
+        
         </Grid>
+
+
+
+
+
+
+
         <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="Transparent" Grid.RowSpan="5" >
-            <Border CornerRadius="5,5,5,5" BorderThickness="3,3,3,3" Style="{DynamicResource CustomBorder}" >
+            <Border CornerRadius="5,5,5,5" BorderThickness="3,3,3,3" >
                 <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}"  >
-                    <Menu Background="Transparent" Height="50" Width="54" Margin="0,20,0,0">
+                    <Button Click="ChangeTheme">
                         <Image Margin="7,10,0,0" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
-                        <MenuItem Margin="0,-40,1,1" Width="50" Height="54">
-                            <MenuItem Header="Light" Click="ChangeTheme" Uid="0">
-                                <MenuItem.Icon>
-                                    <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round"  />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="Dark" Click="ChangeTheme" Uid="1">
-                                <MenuItem.Icon>
-                                    <Rectangle Stroke="#FF404040" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </MenuItem>
-                    </Menu>
-                    <Button x:Name="ButtonEdit" Click="EditionMode" Margin="10,40,0,10">
+                        </Button>
+                    <Button x:Name="ButtonEdit" Click="EditionMode" Margin="0,50,0,10">
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageRearrange}"/>
                     </Button>
                     <Button x:Name="Edition" Margin="0,40,0,0" Click="AddWorkFlow" >
@@ -203,7 +225,10 @@
                     </Button>
                 </StackPanel>
             </Border>
-            <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" VerticalAlignment="Bottom" Margin="0,0,0,20" >
+            <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" 
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,20"
+                        Width="60">
                 <Button Height="25" Width="25"  Click="AboutApp" HorizontalAlignment="Center">
                     <Image Height="25" Width="25" Style="{DynamicResource CustomImageAbout}"/>
                 </Button>

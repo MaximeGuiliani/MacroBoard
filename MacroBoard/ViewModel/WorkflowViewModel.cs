@@ -57,7 +57,7 @@ namespace MacroBoard
         {
 
             //Main Button
-            Btn_Main.Background = Brushes.LightGray;
+            //Btn_Main.Background = Brushes.LightGray;
             Btn_Main.Opacity = 0.8;
             
             Btn_Main.Width = 90d;
