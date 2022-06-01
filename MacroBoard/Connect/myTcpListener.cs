@@ -43,6 +43,7 @@ class MyTcpListener
             TcpClient client = server.AcceptTcpClient();
             Trace.WriteLine("Connected!");
             NetworkStream stream = client.GetStream();
+
             InitMobileData(stream);
 
             client.Close();
@@ -119,11 +120,18 @@ class MyTcpListener
         //stream.Write(msg, 0, msg.Length);
 
         Bitmap imageBitmap = new Bitmap(lw[0].CurrentworkFlow.imagePath);
-        imageBitmap = resizeImage(imageBitmap, new Size(15, 15));
+        imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
 
         byte[] imageInBytes = ImageToByte(imageBitmap);
 
-        stream.Write(imageInBytes, 0, imageInBytes.Length-1);
+        stream.Write(imageInBytes, 0, imageInBytes.Length);
+
+        byte[] data = new byte[20];
+        //stream.Read(data, 0, 20);
+
+        Trace.WriteLine(Encoding.ASCII.GetString(data, 0, 20));
+
+        stream.Write(Encoding.ASCII.GetBytes(lw[0].CurrentworkFlow.workflowName), 0, lw[0].CurrentworkFlow.workflowName.Length);
 
         Trace.WriteLine(imageInBytes.Length.ToString(), "TEST");
 
