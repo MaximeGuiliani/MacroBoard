@@ -11,6 +11,9 @@ using System.Drawing;
 
 class myTcpListener
 {
+    public TcpListener server;
+    public TcpListener dataReceiveServer;
+    public bool isDatasender = true;
     public myTcpListener()
     {
         Thread newThread = new Thread(new ThreadStart(Run));
@@ -21,7 +24,6 @@ class myTcpListener
     public void Run()
     {
 
-        TcpListener server = null;
         try
         {
             // Set the TcpListener on port 13000.
@@ -35,8 +37,7 @@ class myTcpListener
             server.Start();
 
             // Buffer for reading data
-            Byte[] bytes = new Byte[256];
-            String data = null;
+            byte[] bytes = new byte[256];
 
             // Enter the listening loop.
             while (true)
@@ -47,15 +48,12 @@ class myTcpListener
                 // You could also use server.AcceptSocket() here.
                 TcpClient client = server.AcceptTcpClient();
                 Trace.WriteLine("Connected!");
+                Thread newThread = new(new ThreadStart(RunDataSender));
+                newThread.SetApartmentState(ApartmentState.STA);
+                newThread.Start();
                 NetworkStream stream = client.GetStream();
+                
                 InitMobileData(stream);
-
-
-                data = null;
-
-                // Get a stream object for reading and writing
-
-                int i;
 
 
 
@@ -71,15 +69,84 @@ class myTcpListener
         {
             // Stop listening for new clients.
             server.Stop();
+            Trace.WriteLine("\n Server Stopped...");
+
         }
 
-        Trace.WriteLine("\nHit enter to continue...");
+        Trace.WriteLine("\n Server Closed...");
+        
         Console.Read();
     }
 
 
 
-    public void InitMobileData(NetworkStream stream)
+    public void RunDataSender()
+    {
+        isDatasender = false;
+
+        try
+        {
+            int port = 14000;
+
+            dataReceiveServer = new TcpListener(port);
+
+            // Start listening for client requests.
+            dataReceiveServer.Start();
+
+            // Buffer for reading data
+            byte[] bytes = new byte[256];
+
+
+            Trace.WriteLine("Waiting for a connection Data Sender... ");
+
+            // Perform a blocking call to accept requests.
+            // You could also use server.AcceptSocket() here.
+            TcpClient client = dataReceiveServer.AcceptTcpClient();
+
+            Trace.WriteLine("Connected!");
+            NetworkStream streamReceiveMobiledata = client.GetStream();
+            GetMobileData(streamReceiveMobiledata);
+
+
+            // Shutdown and end connection
+            client.Close();
+
+        }
+        catch (SocketException e)
+        {
+            Console.WriteLine("SocketException: {0}", e);
+        }
+        finally
+        {
+            // Stop listening for new clients.
+            dataReceiveServer.Stop();
+            Trace.WriteLine("\n Server Stopped...");
+
+        }
+
+        Console.Read();
+    }
+
+
+    private void GetMobileData(NetworkStream streamReceiveMobiledata)
+    {
+        while (true)
+        {
+            // write du client ---------------------------------------------------------------//
+
+            byte[] clientResponseData = new byte[8];
+            streamReceiveMobiledata.Read(clientResponseData, 0, clientResponseData.Length);
+            string ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+
+            Trace.WriteLine("\n"+"Received from Client : " + ClientResponse+"\n");
+
+
+            Serialization.ExecuteFromMobileApp(ClientResponse);
+
+            //write du client end ---------------------------------------------------------------//
+        }
+    }
+    private void InitMobileData(NetworkStream stream)
     {
 
         List<WorkflowView> lw = Serialization.getFavsFromJson();
@@ -100,38 +167,6 @@ class myTcpListener
             Trace.WriteLine("Received from Client : " + ClientResponse);
             stream.Flush();
             //Send Name end ---------------------------------------------------------------//
-
-            //Send image length Start ---------------------------------------------------------------//
-
-            Bitmap Image = new Bitmap(wf.CurrentworkFlow.imagePath);
-            byte[] imageInBytes = ImageToByteArray(Image);
-            byte[] imageLength = Encoding.ASCII.GetBytes(imageInBytes.Length.ToString());
-            stream.Write(imageLength, 0, imageLength.Length);
-            Trace.WriteLine("Image Length send : " + Encoding.ASCII.GetString(imageLength));
-            // reponse du client
-            clientResponseData = new byte[256];
-            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-            Trace.WriteLine("Received from Client : " + ClientResponse);
-            stream.Flush();
-            //Send image length Start ---------------------------------------------------------------//
-
-            //Send image Start ---------------------------------------------------------------//
-            byte[] bytesArray = new byte[1024];
-            Array.Copy(imageInBytes, 0, bytesArray, 0, Math.Min(1024, imageInBytes.Length));
-            stream.Write(bytesArray, 0, bytesArray.Length);
-            //Send image end ---------------------------------------------------------------//
-
-
-            //Send balise image end Start ---------------------------------------------------------------//
-            byte[] balise = Encoding.ASCII.GetBytes("</img>");
-            stream.Write(balise, 0, balise.Length);
-            clientResponseData = new Byte[256];
-            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-            Trace.WriteLine("Received: " + ClientResponse);
-            stream.Flush();
-            //Send balise image end Start ---------------------------------------------------------------//
         }
         //message to tell the client we finish sending ----------------------------------------//
         msg = Encoding.ASCII.GetBytes("|");

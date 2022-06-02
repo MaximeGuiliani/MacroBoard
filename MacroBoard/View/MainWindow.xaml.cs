@@ -22,11 +22,10 @@ namespace MacroBoard
         private List<WorkflowView> FavWorkflows = new();
         private List<WorkflowView> Workflows = new();
         bool isEdition = false;
-
+        myTcpListener Server;
 
         public MainWindow()
         {
-            //new myTcpListener();
             InitializeComponent();
             InitWorkflows();
         }
@@ -49,7 +48,26 @@ namespace MacroBoard
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
+        private void cbFeature_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (AppServer.IsChecked == true)
+            {
+                Server = new myTcpListener();
+            }
+            else
+            {
+                if (Server.isDatasender)
+                {
+                    Server.server.Stop();
 
+                }
+                else
+                {
+                    Server.dataReceiveServer.Stop();
+
+                }
+            }
+        }
         private void CreateButton(WorkflowView workflowView, bool isFav, int pos = -2)
         {
             if (isFav)
@@ -292,7 +310,7 @@ namespace MacroBoard
                 serialization.Serialize(wf);
 
 
-                Workflows.Insert(Workflows.Count , new(wf));
+                Workflows.Insert(Workflows.Count, new(wf));
 
 
                 CreateButton(Workflows[^1], false);

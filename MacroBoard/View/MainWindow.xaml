@@ -40,7 +40,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-       
+
     </Window.Resources>
 
 
@@ -193,13 +193,14 @@
                     <Button Click="ChangeTheme">
                         <Image Margin="7,10,0,0" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
                     </Button>
-                        
+
                     <Button x:Name="ButtonEdit" Click="EditionMode" Margin="10,40,0,10">
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageRearrange}"/>
                     </Button>
                     <Button x:Name="Edition" Margin="0,40,0,0" Click="AddWorkFlow" >
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageEdit}"/>
                     </Button>
+                    <CheckBox x:Name="AppServer" IsChecked="False" Checked="cbFeature_CheckedChanged" Unchecked="cbFeature_CheckedChanged" Margin="0,40,0,0" >App</CheckBox>
                 </StackPanel>
             </Border>
             <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" VerticalAlignment="Bottom" Margin="0,0,0,20" >
