@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         
         Title="EditW"
-        Height="600"
+        Height="620"
         Width="800"
         MinHeight="500"
         MinWidth="600"
@@ -313,7 +313,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="12*" />
                         <ColumnDefinition Width="*" MinWidth="350" />
-                        
+
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,273,0">
@@ -343,7 +343,7 @@
                      Margin="81,36,0,0"
                      CaretBrush="#8848a2"
                      BorderBrush="#10001A"
-                     MaxLength="50">
+                     MaxLength="50" TextChanged="TextBox_WorkFlowName_TextChanged">
 
                             <TextBox.Resources>
                                 <Style TargetType="TextBox">
@@ -387,33 +387,60 @@
                                 </Style>
                             </TextBox.Resources>
                         </TextBox>
-
-                        <Button  BorderBrush="#10001A" Background="#D7CFE0" x:Name="Btn_WorkFlowImage" VerticalContentAlignment="Center" Height="30" Width="100" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="87,73,0,18" Focusable="False">
-                            <Button.Style> 
+                        <Button  BorderBrush="#10001A" x:Name="Btn_WorkFlowImage" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="30" Width="100" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="81,83,0,28" Focusable="False">
+                            <Button.Style>
                                 <Style TargetType="{x:Type Button}">
-                                    
+                                    <Setter Property="Background" Value="#404040"/>
+                                    <Setter Property="Foreground" Value="#FF7F4598"/>
+                                    <Setter Property="BorderBrush" Value="#FF7F4598"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type Button}">
-                                                <Border Background="{TemplateBinding Background}">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="#FF7F4598" BorderThickness="3" CornerRadius="5">
                                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
                                                 </Border>
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="DarkGoldenrod"/>
+                                            <Setter Property="Background" Value="#FF7F4598"/>
+                                            <Setter Property="Foreground" Value="#404040"/>
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
                         </Button>
 
-                        <Button  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Click="onClickSave" Focusable="False" Margin="227,83,0,0" RenderTransformOrigin="0.527,2.4" />
+                        <Button  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Click="onClickSave" Focusable="False" Margin="231,83,0,28" RenderTransformOrigin="0.527,2.4" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#404040"/>
+                                    <Setter Property="Foreground" Value="#FF7F4598"/>
+                                    <Setter Property="BorderBrush" Value="#FF7F4598"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="#FF7F4598" BorderThickness="3" CornerRadius="5">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF7F4598"/>
+                                            <Setter Property="Foreground" Value="#404040"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                     </Grid>
 
-                   
+
 
                 </Grid>
             </Border>
