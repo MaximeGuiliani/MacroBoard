@@ -42,16 +42,24 @@ namespace MacroBoard
         {
             this.DataContext = this;
 
+            //WorkFlows.Clear();
+            //FavoriteWorkFlows.Clear();
+           
+
             WorkFlows = new ();
             FavoriteWorkFlows = new();
-            
+           
+
             WorkFlows = Serialization.getWorkFlowsFromJsonZ();
             FavoriteWorkFlows = Serialization.getFavsFromJsonZ();
 
+            this.ListFav.ItemsSource = FavoriteWorkFlows;
+            this.ListMacro.ItemsSource = WorkFlows;
             foreach (WorkflowView workflowView in WorkFlows)
             {
                 CreateButton(workflowView, false);
             }
+            
             foreach (WorkflowView FavWorkflows in FavoriteWorkFlows)
             {
                 CreateButton(FavWorkflows, true);
@@ -60,6 +68,8 @@ namespace MacroBoard
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
+
+       
 
         private void CreateButton(WorkflowView workflowView, bool isFav, int pos = -2)
         {
@@ -80,11 +90,11 @@ namespace MacroBoard
 
             if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
             {
-                //ImageWorkflow
-                Image image = new() {Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute)) };
+                Image image = new() { Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute)) };
 
-                image.Stretch = Stretch.Fill;   
+                image.Stretch = Stretch.Fill;
                 workflowView.Btn_Main.Content = image;
+
             }
 
             if (pos != -2)
@@ -259,7 +269,7 @@ namespace MacroBoard
             if (isEdition) EditionMode(new(), new());
 
             Search.Text = "";
-
+            
             ListMacro.Items.Clear();
             foreach (WorkflowView wf in WorkFlows)
             {
@@ -271,14 +281,14 @@ namespace MacroBoard
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int currentItemPos = ListMacro.Items.IndexOf(((Button)sender).Parent);
+            int currentItemPos = ListMacro.Items.IndexOf(((Button)sender));
             if (isEdition)
             {
                 EditWorkflow(WorkFlows[currentItemPos].CurrentworkFlow, currentItemPos);
             }
             else
             {
-                ExecuteWorkflow(WorkFlows[currentItemPos].CurrentworkFlow) ;
+                ExecuteWorkflow(WorkFlows[currentItemPos].CurrentworkFlow);
 
             }
 
@@ -488,15 +498,15 @@ namespace MacroBoard
             {
                 ButtonEdit.Foreground = Brushes.Black;
                 isEdition = false;
-                for (int i = 0; i < ListMacro.Items.Count - 1; i++)
+                for (int i = 0; i < WorkFlows.Count - 1; i++)
                 {
-                    ((Button)((Grid)ListMacro.Items[i]).Children[2]).Visibility = Visibility.Hidden;
+                    ((Button)((Grid)WorkFlows.DataContext..Items[i]).Children[2]).Visibility = Visibility.Hidden;
                     ((Button)((Grid)ListMacro.Items[i]).Children[3]).Visibility = Visibility.Hidden;
                 }
 
 
 
-                for (int i = 0; i < ListFav.Items.Count; i++)
+                for (int i = 0; i < FavoriteWorkFlows.Count; i++)
                 {
                     ((Button)((Grid)ListFav.Items[i]).Children[3]).Visibility = Visibility.Hidden;
                 }
@@ -505,7 +515,7 @@ namespace MacroBoard
             {
                 ButtonEdit.Foreground = Brushes.Green;
                 isEdition = true;
-                for (int i = 0; i < ListMacro.Items.Count - 1; i++)
+                for (int i = 0; i < WorkFlows.Count ; i++)
                 {
                     ((Grid)ListMacro.Items[i]).MouseEnter += myRectangleLoaded;
                     ((Button)((Grid)ListMacro.Items[i]).Children[2]).Visibility = Visibility.Visible;

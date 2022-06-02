@@ -32,9 +32,69 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="RoundCorner" TargetType="{x:Type Button}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" CornerRadius="18" BorderThickness="2">
+                                <Border.Background>
+                                    <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                        <RadialGradientBrush.RelativeTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform CenterX="0.5" CenterY="0.5" 
+                                                        ScaleX="1.5" ScaleY="1.5"/>
+                                                <TranslateTransform X="0.02" Y="0.3"/>
+                                            </TransformGroup>
+                                        </RadialGradientBrush.RelativeTransform>
+                                        <GradientStop Offset="1" Color="BlueViolet"/>
+                                        <GradientStop Offset="0.3" Color="Gray"/>
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          TextElement.FontWeight="Bold">
+                                </ContentPresenter>
+                            </Border>
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <RadialGradientBrush GradientOrigin="0.496,1.052">
+                                            <RadialGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.5" ScaleY="1.5"/>
+                                                    <TranslateTransform X="0.02" Y="0.3"/>
+                                                </TransformGroup>
+                                            </RadialGradientBrush.RelativeTransform>
+                                            <GradientStop Color="Gray" Offset="1"/>
+                                            <GradientStop Color="BlueViolet" Offset="0.3"/>
+                                        </RadialGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="gray"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
    
+    
 
     <Grid >
         <Grid.ColumnDefinitions>
@@ -50,6 +110,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
+            
             <TextBox Style="{DynamicResource CustomTextBox}" 
                      Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                      x:Name="Search" HorizontalAlignment="Right" Height="30"  
@@ -66,7 +127,7 @@
             </TextBox>
         </Grid>
 
-
+        <!--Favorite-->
         <Grid Grid.Row="1">
             <ListBox
                 BorderBrush="{x:Null}"
@@ -80,20 +141,33 @@
                 VerticalAlignment="Center"  
                 Margin="79,20,0,0" 
                 ItemsSource="{Binding Path=FavoriteWorkFlows}">
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        
-                        <Border Style="{DynamicResource CustomBorder}" CornerRadius="25" >
-                            <Button FontSize="10" Click="Button_Click" >
-                                <Image Source="{Binding imagePath}"
+                        <Grid>
+                            <Border Style="{DynamicResource CustomBorder}">
+                                <Border.Clip>
+                                    <RectangleGeometry Rect="5,5,90,90" RadiusX="10" RadiusY="10" />
+                                </Border.Clip>
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="5"
+                                        Opacity=".5"
+                                        ShadowDepth="3" />
+                                </Border.Effect>
+                                <Border.Background>
+                                    <ImageBrush Stretch="Fill" />
+                                </Border.Background>
+                                <Button Name="workflow" Click="Button_Click" Background="BlueViolet" >
+                                    <Image Source="{Binding ImageWorkflow}"
                                    RenderOptions.BitmapScalingMode='HighQuality'
-                                   Margin="7,7,7,7"
-                                   Width="90"
-                                   Height="90"
+                                   Width="100"
+                                   Height="100"
                                    Stretch="Fill"
                                    VerticalAlignment="Center"/>
-                            </Button>
-                        </Border>
+                                </Button>
+                            </Border>
+                        </Grid>
+
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.ItemContainerStyle>
@@ -150,11 +224,21 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Style="{DynamicResource CustomBorder}" CornerRadius="25" >
-                            <Button  FontSize="10" Click="Button_Click" >
+                            <Border.Clip>
+                                <RectangleGeometry Rect="7,5,90,90" RadiusX="10" RadiusY="10" />
+                            </Border.Clip>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5"
+                              Opacity=".5"
+                              ShadowDepth="3" />
+                            </Border.Effect>
+                            <Border.Background>
+                                <ImageBrush Stretch="Fill" />
+                            </Border.Background>
+                            <Button  FontSize="10" Click="Button_Click" BorderBrush="BlueViolet" Style="{DynamicResource RoundCorner}">
                                 <Image Source="{Binding ImageWorkflow}"
-                                   Margin="7,7,7,7"
-                                   Width="90"
-                                   Height="90"
+                                   Width="100"
+                                   Height="100"
                                    Stretch="Fill"
                                    VerticalAlignment="Center"
                                 />
@@ -205,11 +289,7 @@
         
         </Grid>
 
-
-
-
-
-
+       
 
         <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="Transparent" Grid.RowSpan="5" >
             <Border CornerRadius="5,5,5,5" BorderThickness="3,3,3,3" >
