@@ -123,18 +123,20 @@ class MyTcpListener
         imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
 
         byte[] imageInBytes = ImageToByte(imageBitmap);
+        byte[] serverResponse = new byte[50];
 
+        stream.Write(Encoding.ASCII.GetBytes(imageInBytes.Length.ToString()), 0, imageInBytes.Length.ToString().Length);
+
+        stream.Read(serverResponse, 0, serverResponse.Length);
+        Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+        
         stream.Write(imageInBytes, 0, imageInBytes.Length);
 
-        byte[] data = new byte[20];
-        //stream.Read(data, 0, 20);
-
-        Trace.WriteLine(Encoding.ASCII.GetString(data, 0, 20));
+        serverResponse = new byte[50];
+        stream.Read(serverResponse, 0, serverResponse.Length);
+        Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
 
         stream.Write(Encoding.ASCII.GetBytes(lw[0].CurrentworkFlow.workflowName), 0, lw[0].CurrentworkFlow.workflowName.Length);
-
-        Trace.WriteLine(imageInBytes.Length.ToString(), "TEST");
-
 
     }
 
