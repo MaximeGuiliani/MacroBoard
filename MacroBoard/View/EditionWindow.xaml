@@ -108,11 +108,89 @@
                     </TextBox.Resources>
                 </TextBox>
 
-                <Button x:Name="expandAll"      HorizontalAlignment="Right" VerticalAlignment="Center" Height="28" Width="20" Click="onClickExpandAll"   Margin="0,0,5,0"  Focusable="False" Background="#6f3d84">
-                    <Image Width="15" Height="15" Source="../Resources/expand.png"></Image>
+                <Button x:Name="expandAll"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickExpandAll"   Margin="0,0,5,0"  Focusable="False">
+                    <Button.Style>
+
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#282828"/>
+                            <Setter Property="Foreground" Value="#FF7F4598"/>
+                            <Setter Property="BorderBrush" Value="#FF7F4598"/>
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <Image Source="../Resources/expand_purple.png" />
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="#FF7F4598" BorderThickness="3" CornerRadius="5">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF7F4598"/>
+
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <Image Source="../Resources/expand_grey.png" />
+                                        </Setter.Value>
+                                    </Setter>
+
+
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
                 </Button>
-                <Button x:Name="collapseAll"    HorizontalAlignment="Right" VerticalAlignment="Center" Height="28" Width="20" Click="onClickCollapseAll" Margin="0,0,35,0"  Focusable="False" Background="#6f3d84">
-                    <Image Width="15" Height="15" Source="../Resources/collapse.png"/>
+
+           
+                
+                <Button x:Name="collapseAll"    HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickCollapseAll" Margin="0,0,35,0"  Focusable="False" >
+
+                   
+                    <Button.Style>
+                       
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#282828"/>
+                            <Setter Property="Foreground" Value="#FF7F4598"/>
+                            <Setter Property="BorderBrush" Value="#FF7F4598"/>
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <Image Source="../Resources/collapse_purple.png" />
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="#FF7F4598" BorderThickness="3" CornerRadius="5">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF7F4598"/>
+                                    
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <Image Source="../Resources/collapse_grey.png" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    
+
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
 
 
@@ -188,14 +266,7 @@
 
                                                     <Expander.Header>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Name}" FontWeight="DemiBold" FontSize="20" VerticalAlignment="Bottom">
-                                                                <TextBlock.Foreground>
-                                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                                        <GradientStop Color="#8848a2" Offset="0.5" />
-                                                                        <GradientStop Color="#6f3d84" Offset="1.0" />
-                                                                    </LinearGradientBrush>
-                                                                </TextBlock.Foreground>
-                                                            </TextBlock>
+                                                            <TextBlock Text="{Binding Name}" FontWeight="DemiBold" FontSize="20" VerticalAlignment="Bottom" Foreground="#b560d8"/>
                                                         </StackPanel>
                                                     </Expander.Header>
                                                     <ItemsPresenter />
@@ -338,12 +409,13 @@
                      HorizontalAlignment="Left"
                      TextWrapping="NoWrap"
                      VerticalAlignment="Top" Width="250" 
-                     Height="28"   
+                     Height="28"  
+                     Text="Select name"
                                  
                      Margin="81,36,0,0"
                      CaretBrush="#8848a2"
                      BorderBrush="#10001A"
-                     MaxLength="50" TextChanged="TextBox_WorkFlowName_TextChanged">
+                     MaxLength="50" PreviewTextInput="OnPreviewTextInput">
 
                             <TextBox.Resources>
                                 <Style TargetType="TextBox">

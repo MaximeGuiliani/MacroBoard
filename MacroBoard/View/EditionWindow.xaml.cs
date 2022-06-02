@@ -11,6 +11,7 @@ using System.Windows.Data;
 using static MacroBoard.Utils;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace MacroBoard.View
 {
@@ -76,7 +77,7 @@ namespace MacroBoard.View
                 WorkFlowImage = WorkFlow.imagePath;
 
             }
-            TextBox_WorkFlowName.Text = "name";//this.WorkFlow.workflowName; // TODOOOOO
+            TextBox_WorkFlowName.Text = this.WorkFlow.workflowName;
         }
 
 
@@ -461,7 +462,6 @@ namespace MacroBoard.View
             }
         }
 
-
         private void onKeyCopy(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control && ListBlock_Right_XAML.SelectedItems.Count > 0)
@@ -550,5 +550,11 @@ namespace MacroBoard.View
             }
         }
 
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[\w\- ]+$");
+            e.Handled = !regex.IsMatch(e.Text);
+
+        }
     }
 }

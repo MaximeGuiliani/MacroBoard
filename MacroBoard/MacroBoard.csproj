@@ -55,8 +55,12 @@
 		<None Remove="Resources\Button_WorkFlow_V2.png" />
 		<None Remove="Resources\Button_WorkFlow_V3.png" />
 		<None Remove="Resources\collapse.png" />
+		<None Remove="Resources\collapse_grey.png" />
+		<None Remove="Resources\collapse_purple.png" />
 		<None Remove="Resources\config\config.json" />
 		<None Remove="Resources\expand.png" />
+		<None Remove="Resources\expand_grey.png" />
+		<None Remove="Resources\expand_purple.png" />
 		<None Remove="Resources\FAVJSON\init.txt" />
 		<None Remove="Resources\Icon.png" />
 		<None Remove="Resources\icon_about.png" />
@@ -216,7 +220,19 @@
 	  <Content Include="Resources\collapse.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Resources\collapse_grey.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\collapse_purple.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\expand.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\expand_grey.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\expand_purple.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\FAVJSON\init.txt">
