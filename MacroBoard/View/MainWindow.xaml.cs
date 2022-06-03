@@ -31,6 +31,15 @@ namespace MacroBoard
             InitWorkflows();
         }
 
+
+        public MainWindow(string message) : this()
+        {
+            //new myTcpListener();
+            InitializeComponent();
+            InitWorkflows();
+            MessageBox.Show(message);
+        }
+
         //-----------------------------------------------------------------------------------------------------------------------------//
 
         private void InitWorkflows()
