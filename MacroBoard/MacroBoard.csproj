@@ -6,7 +6,6 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>icone2.ico</ApplicationIcon>
 	</PropertyGroup>
 
