@@ -11,6 +11,7 @@ using System.Windows.Data;
 using static MacroBoard.Utils;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 
 namespace MacroBoard.View
@@ -20,8 +21,10 @@ namespace MacroBoard.View
         public ObservableCollection<Block> RightBlocks { get; set; } // this.RightBlocks <==> this.WorkFlow.workflowList
         public ObservableCollection<Block> LeftBlocks { get; set; }
         public WorkFlow WorkFlow;
-        private string placeHolderImagePath = "Select folder";
-        private string placeHolderWFName    = "Select name";
+
+        private string placeHolderWFName = "Select name";
+        private string WorkFlowImage = "";
+
 
 
         //CONSTRUCTORS
@@ -73,10 +76,11 @@ namespace MacroBoard.View
             if (!WorkFlow.imagePath.Equals(""))
             {
                 Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(WorkFlow.imagePath, UriKind.Absolute));
-                TextBox_WorkFlowImage.Text = WorkFlow.imagePath;
+                WorkFlowImage = WorkFlow.imagePath;
 
             }
-            TextBox_WorkFlowName.Text = "name";//this.WorkFlow.workflowName; // TODOOOOO
+            TextBox_WorkFlowName.Foreground = new SolidColorBrush(Colors.Black);
+            TextBox_WorkFlowName.Text = this.WorkFlow.workflowName;
         }
 
 
@@ -186,14 +190,14 @@ namespace MacroBoard.View
 
                 if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
                 {
-                    if (TextBox_WorkFlowImage.Text.Equals(placeHolderImagePath))
+                    if (WorkFlowImage == "")
                     {
                         this.WorkFlow.imagePath = "";
                     }
                     else
                     {
 
-                        this.WorkFlow.imagePath = TextBox_WorkFlowImage.Text;
+                        this.WorkFlow.imagePath = WorkFlowImage;
                     }
                     this.WorkFlow.workflowName = TextBox_WorkFlowName.Text;
                     this.DialogResult = true;
@@ -215,7 +219,7 @@ namespace MacroBoard.View
             if (result == true)
             {
                 Img_WorkFlowImage.ImageSource = new BitmapImage(new Uri(dlg.FileName, UriKind.Absolute));
-                TextBox_WorkFlowImage.Text = dlg.FileName;
+                WorkFlowImage = dlg.FileName;
             }
         }
 
@@ -460,7 +464,6 @@ namespace MacroBoard.View
             }
         }
 
-
         private void onKeyCopy(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control && ListBlock_Right_XAML.SelectedItems.Count > 0)
@@ -539,11 +542,6 @@ namespace MacroBoard.View
                 bool moved = MoveBlockDown(indexBlock);
             }
         }
-        private void OnClickInfo(object sender, RoutedEventArgs e)
-        {
-            Block model = (Block)((Button)sender).DataContext;
-            MessageBox.Show(model.info);
-        }
 
         private void OnDoubleClickEdit(object sender, MouseButtonEventArgs e)
         {
@@ -554,5 +552,11 @@ namespace MacroBoard.View
             }
         }
 
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[\w\- ]+$");
+            e.Handled = !regex.IsMatch(e.Text);
+
+        }
     }
 }
