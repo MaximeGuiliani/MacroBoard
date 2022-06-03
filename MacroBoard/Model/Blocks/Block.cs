@@ -35,9 +35,6 @@ namespace MacroBoard{
 
         public abstract void Accept(IBlockVisitor visitor);
 
-        public static explicit operator Block(Button v)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

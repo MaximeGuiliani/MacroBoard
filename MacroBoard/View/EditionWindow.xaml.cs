@@ -77,6 +77,7 @@ namespace MacroBoard.View
                 WorkFlowImage = WorkFlow.imagePath;
 
             }
+            TextBox_WorkFlowName.Foreground = new SolidColorBrush(Colors.Black);
             TextBox_WorkFlowName.Text = this.WorkFlow.workflowName;
         }
 

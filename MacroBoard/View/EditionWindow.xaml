@@ -401,7 +401,7 @@
 
                     <Grid Grid.Column="1">
 
-                        <TextBox Foreground="#10001A"
+                        <TextBox Foreground="Gray"
                      x:Name="TextBox_WorkFlowName"            
                      Background="#D7CFE0"
                      BorderThickness="2"                     
@@ -410,12 +410,11 @@
                      TextWrapping="NoWrap"
                      VerticalAlignment="Top" Width="250" 
                      Height="28"  
-                     Text="Select name"
-                                 
+                     Text="Select name"                                                 
                      Margin="81,36,0,0"
                      CaretBrush="#8848a2"
                      BorderBrush="#10001A"
-                     MaxLength="50" PreviewTextInput="OnPreviewTextInput">
+                     MaxLength="50" PreviewTextInput="OnPreviewTextInput" GotFocus="onGotFocusNameBox">
 
                             <TextBox.Resources>
                                 <Style TargetType="TextBox">
