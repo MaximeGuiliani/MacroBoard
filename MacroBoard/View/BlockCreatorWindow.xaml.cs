@@ -39,6 +39,7 @@ namespace MacroBoard.View
             this.model = model;
             this.fields = new Fields(Controls, this);
             create();
+            this.KeyDown += onKeyCopy;
         }
 
 
@@ -218,6 +219,13 @@ namespace MacroBoard.View
 
         public void Visit(BlockSetCursor b)
         {
+            Label blockInst = new Label();
+            blockInst.Content = "Press ctrl+c to get the cursor's position";
+            blockInst.FontSize = 16;
+            blockInst.HorizontalAlignment = HorizontalAlignment.Left;
+            blockInst.Margin = new Thickness(0, 0, 10, 0);
+            Controls.Children.Add(blockInst);
+            
             (Label, TextBox) x = fields.newTextBox("x", b.x.ToString(), fields.CheckDigits);
             (Label, TextBox) y = fields.newTextBox("y", b.y.ToString(), fields.CheckDigits);
             newBlock = () => new BlockSetCursor(int.Parse(x.Item2.Text), int.Parse(y.Item2.Text));
@@ -330,7 +338,6 @@ namespace MacroBoard.View
             //TODO: créer une Class/Enum PlaceHolder pour etre sur de pas en rater 
             List<string> placeHolders = new() { "", @"c:\", @"http:\\", @"https:\\", "filename", "blabla", "a", "b", @"c:\filename", "filePath" };
             bool ok = true;
-            int i = 0;
             foreach (object child in Controls.Children)
             {
                 bool res = textBoxesAreOk(child, placeHolders); //TODO: pourquoi je peux pas le faire une seule ligne !?
@@ -369,8 +376,20 @@ namespace MacroBoard.View
             return ok;
         }
 
+        private void onKeyCopy(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.C && Keyboard.Modifiers == ModifierKeys.Control && model.BlockType == nameof(BlockSetCursor))
+            {
+                System.Drawing.Point point = System.Windows.Forms.Control.MousePosition;
 
- 
+                ((TextBox)Controls.Children[3]).Text= point.X.ToString();
+               ((TextBox)Controls.Children[5]).Text = point.Y.ToString();              
+
+            }
+        }
+
+
+
 
 
 

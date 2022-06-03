@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         
         Title="EditW"
-        Height="600"
+        Height="620"
         Width="800"
         MinHeight="500"
         MinWidth="600"
@@ -108,11 +108,89 @@
                     </TextBox.Resources>
                 </TextBox>
 
-                <Button x:Name="expandAll"      HorizontalAlignment="Right" VerticalAlignment="Center" Height="28" Width="20" Click="onClickExpandAll"   Margin="0,0,5,0"  Focusable="False" Background="#6f3d84">
-                    <Image Width="15" Height="15" Source="../Resources/expand.png"></Image>
+                <Button x:Name="expandAll"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickExpandAll"   Margin="0,0,5,0"  Focusable="False">
+                    <Button.Style>
+
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#282828"/>
+                            <Setter Property="Foreground" Value="#FF7F4598"/>
+                            <Setter Property="BorderBrush" Value="#FF7F4598"/>
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <Image Source="../Resources/expand_purple.png" />
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="#FF7F4598" BorderThickness="3" CornerRadius="5">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF7F4598"/>
+
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <Image Source="../Resources/expand_grey.png" />
+                                        </Setter.Value>
+                                    </Setter>
+
+
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
                 </Button>
-                <Button x:Name="collapseAll"    HorizontalAlignment="Right" VerticalAlignment="Center" Height="28" Width="20" Click="onClickCollapseAll" Margin="0,0,35,0"  Focusable="False" Background="#6f3d84">
-                    <Image Width="15" Height="15" Source="../Resources/collapse.png"/>
+
+           
+                
+                <Button x:Name="collapseAll"    HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickCollapseAll" Margin="0,0,35,0"  Focusable="False" >
+
+                   
+                    <Button.Style>
+                       
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#282828"/>
+                            <Setter Property="Foreground" Value="#FF7F4598"/>
+                            <Setter Property="BorderBrush" Value="#FF7F4598"/>
+                            <Setter Property="Content">
+                                <Setter.Value>
+                                    <Image Source="../Resources/collapse_purple.png" />
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="#FF7F4598" BorderThickness="3" CornerRadius="5">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF7F4598"/>
+                                    
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <Image Source="../Resources/collapse_grey.png" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    
+
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
 
 
@@ -133,9 +211,9 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">
 
-                                        <Border Margin="0,2,0,2" Name="LeftBorder" BorderBrush="#6f3d84" BorderThickness="0,0,0,8" CornerRadius="8" Background="#8848a2" MouseLeftButtonDown="OnDoubleClickAdd">
+                                        <Border  ToolTip="{Binding info}" Margin="0,2,0,2" Name="LeftBorder" BorderBrush="#6f3d84" BorderThickness="0,0,0,8" CornerRadius="8" Background="#8848a2" MouseLeftButtonDown="OnDoubleClickAdd">
 
-                                            <Grid Height="50">
+                                            <Grid Height="50"  >
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition/>
                                                     <ColumnDefinition/>
@@ -157,24 +235,6 @@
 
                                                 <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1" Background="Transparent"/>
 
-
-                                                <Button Width="20" Height="20"
-                                                    
-                                                    Content="i"
-                                                    FontSize="12"
-                                                                                                        HorizontalAlignment="Right"
-                                                    Grid.Column = "2"
-                                                    Margin="0,0,8,0" Click="OnClickInfo" Opacity="0.7">
-                                                    <Button.Template>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Grid>
-                                                                <Ellipse Stroke="#FF4C4A4A" Fill="#FF6F6C6C" />
-
-                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                            </Grid>
-                                                        </ControlTemplate>
-                                                    </Button.Template>
-                                                </Button>
                                             </Grid>
                                         </Border>
                                         <ControlTemplate.Triggers>
@@ -194,7 +254,7 @@
                         </Style>
                     </ListBox.ItemContainerStyle>
 
-                    
+
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.ContainerStyle>
@@ -206,14 +266,7 @@
 
                                                     <Expander.Header>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Name}" FontWeight="DemiBold" FontSize="20" VerticalAlignment="Bottom">
-                                                                <TextBlock.Foreground>
-                                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                                        <GradientStop Color="#8848a2" Offset="0.5" />
-                                                                        <GradientStop Color="#6f3d84" Offset="1.0" />
-                                                                    </LinearGradientBrush>
-                                                                </TextBlock.Foreground>
-                                                            </TextBlock>
+                                                            <TextBlock Text="{Binding Name}" FontWeight="DemiBold" FontSize="20" VerticalAlignment="Bottom" Foreground="#b560d8"/>
                                                         </StackPanel>
                                                     </Expander.Header>
                                                     <ItemsPresenter />
@@ -325,35 +378,140 @@
 
             </ListBox>
 
-            <Border Grid.Row="1" CornerRadius="7" Background="#404040">
+            <Border Grid.Row="1" CornerRadius="10" Background="#404040">
                 <Grid Width="450" Focusable="False">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="12*" />
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="auto" MinWidth="350" />
-                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="*" MinWidth="350" />
+
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,273,0">
-                        <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="20" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                        <Border  CornerRadius="20" Width="100" Height="100" VerticalAlignment="Center" 
+                                 HorizontalAlignment="Center" 
+                                 BorderBrush="#6f3d84" 
+						         BorderThickness="3" >
                             <Border.Background>
                                 <ImageBrush x:Name="Img_WorkFlowImage" Stretch="Fill" ImageSource="../Resources/macro_img.png" />
                             </Border.Background>
                         </Border>
                     </Grid>
 
-                    <Grid Grid.Column="2">
-                        <TextBox x:Name="TextBox_WorkFlowName" Foreground="Gray" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Height="28" Margin="81,76,0,0" Text="Select name" TextWrapping="NoWrap" VerticalAlignment="Top" Width="250" GotFocus="onGotFocusNameBox"/>
-                        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Height="28" Width="350" Margin="0,40">
-                            <TextBox x:Name="TextBox_WorkFlowImage" Text="Select folder" TextWrapping="NoWrap" Foreground="Gray" Width="170" HorizontalAlignment="Left" VerticalContentAlignment="Center" Focusable="False" Margin="159,0,0,0"/>
-                            <Button x:Name="Btn_WorkFlowImage" Width="77" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="82,0,0,0" Focusable="False"/>
-                        </Grid>
+                    <Grid Grid.Column="1">
+
+                        <TextBox Foreground="Gray"
+                     x:Name="TextBox_WorkFlowName"            
+                     Background="#D7CFE0"
+                     BorderThickness="2"                     
+                     VerticalContentAlignment="Center"
+                     HorizontalAlignment="Left"
+                     TextWrapping="NoWrap"
+                     VerticalAlignment="Top" Width="250" 
+                     Height="28"  
+                     Text="Select name"                                                 
+                     Margin="81,36,0,0"
+                     CaretBrush="#8848a2"
+                     BorderBrush="#10001A"
+                     MaxLength="50" PreviewTextInput="OnPreviewTextInput" GotFocus="onGotFocusNameBox">
+
+                            <TextBox.Resources>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type TextBox}">
+                                                <Border x:Name="Border" 
+						                    BorderBrush="{TemplateBinding BorderBrush}" 
+						                    BorderThickness="{TemplateBinding BorderThickness}" 
+						                    Background="{TemplateBinding Background}"
+                                            CornerRadius="3"
+                                            >
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ScrollViewer x:Name="PART_ContentHost" 
+								                 Focusable="false" 
+								                 HorizontalScrollBarVisibility="Hidden" 
+								                 VerticalScrollBarVisibility="Hidden">
+                                                        </ScrollViewer>
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsFocused" Value="true">
+                                                        <Setter Property="BorderBrush" 
+								                    TargetName="Border" 
+								                    Value="#8848a2">
+                                                        </Setter>
+                                                        <Setter Property="Background" 
+                                                    TargetName="Border"
+								                    Value="#F4EBFF">
+                                                        </Setter>
+
+
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <Button  BorderBrush="#10001A" x:Name="Btn_WorkFlowImage" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="30" Width="100" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="81,83,0,28" Focusable="False">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#404040"/>
+                                    <Setter Property="Foreground" Value="#FF7F4598"/>
+                                    <Setter Property="BorderBrush" Value="#FF7F4598"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="#FF7F4598" BorderThickness="3" CornerRadius="5">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF7F4598"/>
+                                            <Setter Property="Foreground" Value="#404040"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <Button  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Click="onClickSave" Focusable="False" Margin="231,83,0,28" RenderTransformOrigin="0.527,2.4" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="#404040"/>
+                                    <Setter Property="Foreground" Value="#FF7F4598"/>
+                                    <Setter Property="BorderBrush" Value="#FF7F4598"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" BorderBrush="#FF7F4598" BorderThickness="3" CornerRadius="5">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF7F4598"/>
+                                            <Setter Property="Foreground" Value="#404040"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                     </Grid>
 
-                    <Grid Grid.Column="2" Margin="320,0,0,0" Grid.ColumnSpan="2">
-                        <Button ToolTip="KEKW"  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="64" Width="58" Click="onClickSave" Focusable="False" />
-                    </Grid>
+
 
                 </Grid>
             </Border>
