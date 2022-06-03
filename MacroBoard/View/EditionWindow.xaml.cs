@@ -20,9 +20,8 @@ namespace MacroBoard.View
         public ObservableCollection<Block> RightBlocks { get; set; } // this.RightBlocks <==> this.WorkFlow.workflowList
         public ObservableCollection<Block> LeftBlocks { get; set; }
         public WorkFlow WorkFlow;
-        private string placeHolderImagePath = "Select folder";
         private string placeHolderWFName = "Select name";
-        private string WorkFlowImage;
+        private string WorkFlowImage = "";
 
 
         //CONSTRUCTORS
@@ -189,7 +188,7 @@ namespace MacroBoard.View
 
                 if (!(TextBox_WorkFlowName.Text == placeHolderWFName) && TextBox_WorkFlowName.Text != "")
                 {
-                    if (WorkFlowImage.Equals(placeHolderImagePath))
+                    if (WorkFlowImage == "")
                     {
                         this.WorkFlow.imagePath = "";
                     }
