@@ -12,6 +12,7 @@ using static MacroBoard.Utils;
 using System.Collections.Generic;
 using System.ComponentModel;
 
+
 namespace MacroBoard.View
 {
     public partial class EditionWindow : Window
@@ -20,7 +21,7 @@ namespace MacroBoard.View
         public ObservableCollection<Block> LeftBlocks { get; set; }
         public WorkFlow WorkFlow;
         private string placeHolderImagePath = "Select folder";
-        private string placeHolderWFName = "Select name";
+        private string placeHolderWFName    = "Select name";
 
 
         //CONSTRUCTORS
@@ -97,7 +98,7 @@ namespace MacroBoard.View
             LeftBlocks.Add(new BlockLaunchBrowserFirefox(@"https:\\"));
             LeftBlocks.Add(new BlockLaunchBrowserEdge(@"https:\\"));
             LeftBlocks.Add(new BlockLock());
-            LeftBlocks.Add(new BlockMessageBox("a", "b"));
+            LeftBlocks.Add(new BlockMessageBox("", ""));
             LeftBlocks.Add(new BlockMove(@"C:\", @"C:\"));
             LeftBlocks.Add(new BlockMoveFile(@"C:\", @"C:\"));
             LeftBlocks.Add(new BlockRecognition(""));
@@ -120,14 +121,13 @@ namespace MacroBoard.View
 
         private void setupKeyboardInteractions()
         {
-
             ListBlock_Right_XAML.KeyDown += onKeyCopy;
             ListBlock_Right_XAML.KeyDown += onKeyPaste;
             ListBlock_Right_XAML.KeyDown += onKeyDelete;
             ListBlock_Right_XAML.KeyDown += onKeyEdit;
             ListBlock_Right_XAML.KeyDown += onKeyMoveUp;
             ListBlock_Right_XAML.KeyDown += onKeyMoveDown;
-            ListBlock_Left_XAML.KeyDown += onKeyAddBlock;
+            ListBlock_Left_XAML.KeyDown  += onKeyAddBlock;
             this.KeyDown += onKeyExpandAll;
             this.KeyDown += onKeyCollapseAll;
         }
