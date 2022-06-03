@@ -42,7 +42,8 @@ namespace MacroBoard.ScreenShot
             w.Height = screen.Height;
             if (w.ShowDialog() == true)
             {
-                takeScreenShot(w.p1, w.p2);
+                double ratio = GetDpiForWindow(getThisHandle())/96.0d;
+                takeScreenShot( new System.Windows.Point(w.p1.X*ratio, w.p1.Y*ratio) , new System.Windows.Point(w.p2.X*ratio, w.p2.Y*ratio));
                 this.DialogResult = true;
             }
             else

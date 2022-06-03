@@ -20,8 +20,7 @@ namespace MacroBoard.ScreenShot
 
         private void onMouseDown(object sender, MouseButtonEventArgs e)
         {
-            System.Drawing.Point temp = System.Windows.Forms.Control.MousePosition;
-            p1 = new Point(temp.X, temp.Y);
+            p1 = e.GetPosition(this);
             rect.Margin = new Thickness(p1.X, p1.Y, 0, 0);
             rect.Visibility = Visibility.Visible;
             this.MouseMove += onMouseMove;
@@ -30,8 +29,7 @@ namespace MacroBoard.ScreenShot
 
         private void onMouseUp(object sender, MouseButtonEventArgs e)
         {
-            System.Drawing.Point temp = System.Windows.Forms.Control.MousePosition;
-            p2 = new Point(temp.X, temp.Y);
+            p2 = e.GetPosition(this);
             this.MouseMove -= onMouseMove;
             if (p1.X-p2.X == 0 || p1.Y-p2.Y == 0) this.DialogResult = false;
             else this.DialogResult = true;
@@ -41,8 +39,7 @@ namespace MacroBoard.ScreenShot
 
         private void onMouseMove(object sender, MouseEventArgs e)
         {
-            System.Drawing.Point temp = System.Windows.Forms.Control.MousePosition;
-            p2 = new Point(temp.X, temp.Y);
+            p2 = e.GetPosition(this);
             double width  = Math.Abs(p1.X-p2.X);
             double height = Math.Abs(p1.Y - p2.Y);
             updateHiding(width, height);
