@@ -131,7 +131,7 @@ namespace MacroBoard.View
             ListBlock_Right_XAML.KeyDown += onKeyEdit;
             ListBlock_Right_XAML.KeyDown += onKeyMoveUp;
             ListBlock_Right_XAML.KeyDown += onKeyMoveDown;
-            ListBlock_Left_XAML.KeyDown  += onKeyAddBlock;
+            ListBlock_Left_XAML.KeyDown += onKeyAddBlock;
             this.KeyDown += onKeyExpandAll;
             this.KeyDown += onKeyCollapseAll;
         }
@@ -506,18 +506,19 @@ namespace MacroBoard.View
         }
 
 
-        private void onKeyExpandAll(object sender, KeyEventArgs e)
+        private void onKeyCollapseAll(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.H && ListBlock_Left_XAML.IsLoaded)
+
+            if ((e.Key == Key.H && Keyboard.Modifiers == ModifierKeys.Control) && ListBlock_Left_XAML.IsLoaded)
             {
                 setExpanders(false);
             }
         }
 
 
-        private void onKeyCollapseAll(object sender, KeyEventArgs e)
+        private void onKeyExpandAll(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.J && ListBlock_Left_XAML.IsLoaded)
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.J && ListBlock_Left_XAML.IsLoaded)
             {
                 setExpanders(true);
             }
