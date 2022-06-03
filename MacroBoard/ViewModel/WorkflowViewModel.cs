@@ -13,7 +13,7 @@ namespace MacroBoard
 
         public Button Btn_Fav { get; } = new();
         public Button Btn_Main { get; } = new();
-        
+
 
         private Label Lbl_Name = new();
         public Grid Content { get; } = new();
@@ -42,8 +42,10 @@ namespace MacroBoard
         {
 
             //Main Button
-            //Btn_Main.Background = Brushes.LightGray;
-            
+            Btn_Main.Background = Brushes.Transparent;
+            Btn_Main.Height = 100d;
+            Btn_Main.Width = 100d;
+
             //Delete Button
             TextBlock txtBlock = new();
 

@@ -22,11 +22,10 @@ namespace MacroBoard
         private List<WorkflowView> FavWorkflows = new();
         private List<WorkflowView> Workflows = new();
         bool isEdition = false;
+        myTcpListener Server;
 
-        
         public MainWindow()
         {
-            //new myTcpListener();
             InitializeComponent();
             InitWorkflows();
         }
@@ -45,17 +44,39 @@ namespace MacroBoard
             {
                 CreateButton(FavWorkflows, true);
             }
-           
+
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
+        private void cbFeature_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (AppServer.IsChecked == true)
+            {
+                Server = new myTcpListener();
+            }
+            else
+            {
+                if (Server.isDatasender)
+                {
+                    Server.server.Stop();
 
+                }
+                else
+                {
+                    Server.dataReceiveServer.Stop();
+
+                }
+            }
+        }
         private void CreateButton(WorkflowView workflowView, bool isFav, int pos = -2)
         {
             if (isFav)
             {
-                //((TextBlock)workflowView.Btn_Fav.Content).Text = "✰";
+                if (isEdition)
+                {
+                    workflowView.Btn_Fav.Visibility = Visibility.Visible;
 
+                }
 
                 workflowView.Btn_Delete.Visibility = Visibility.Hidden;
                 workflowView.Btn_Main.Click += Button_Click_Fav;
@@ -70,12 +91,10 @@ namespace MacroBoard
 
             if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
             {
-                //BitmapImage img = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute));
-                Image image = new() {Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute)) };
-
-                image.Stretch = Stretch.Fill;   
+                Image image = new() { Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute)) };
+                image.Stretch = Stretch.Fill;
                 workflowView.Btn_Main.Content = image;
-                
+
             }
 
             if (pos != -2)
@@ -291,10 +310,10 @@ namespace MacroBoard
                 serialization.Serialize(wf);
 
 
-                Workflows.Insert(Workflows.Count - 1, new(wf));
+                Workflows.Insert(Workflows.Count, new(wf));
 
 
-                CreateButton(Workflows[^2], false, ListMacro.Items.Count - 1);
+                CreateButton(Workflows[^1], false);
 
             }
         }
@@ -426,7 +445,7 @@ namespace MacroBoard
             string message = executor.Execute();
             if (message.Length != 0)
                 MessageBox.Show(message);
-                    
+
         }
         //-----------------------------------------------------------------------------------------------------------------------------//
 
@@ -453,7 +472,7 @@ namespace MacroBoard
             {
                 ButtonEdit.Foreground = Brushes.Black;
                 isEdition = false;
-                for (int i = 0; i < ListMacro.Items.Count - 1; i++)
+                for (int i = 0; i < ListMacro.Items.Count; i++)
                 {
                     ((Button)((Grid)ListMacro.Items[i]).Children[2]).Visibility = Visibility.Hidden;
                     ((Button)((Grid)ListMacro.Items[i]).Children[3]).Visibility = Visibility.Hidden;
@@ -470,7 +489,7 @@ namespace MacroBoard
             {
                 ButtonEdit.Foreground = Brushes.Green;
                 isEdition = true;
-                for (int i = 0; i < ListMacro.Items.Count - 1; i++)
+                for (int i = 0; i < ListMacro.Items.Count; i++)
                 {
                     ((Grid)ListMacro.Items[i]).MouseEnter += myRectangleLoaded;
                     ((Button)((Grid)ListMacro.Items[i]).Children[2]).Visibility = Visibility.Visible;
@@ -510,7 +529,7 @@ namespace MacroBoard
         bool isDark = true;
         private void ChangeTheme(object sender, RoutedEventArgs e)
         {
-            if(isDark)
+            if (isDark)
                 ThemesController.SetTheme(ThemesController.ThemeTypes.Light);
             else
                 ThemesController.SetTheme(ThemesController.ThemeTypes.Dark);
@@ -525,5 +544,5 @@ namespace MacroBoard
 
     }
 
-       
+
 }
