@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace MacroBoard.ScreenShot
 {
@@ -48,16 +39,15 @@ namespace MacroBoard.ScreenShot
 
         private void onMouseMove(object sender, MouseEventArgs e)
         {
-            Point p2 = e.GetPosition(this);
-            double width  = Math.Max(p1.X-p2.X, p2.X - p1.X);
-            double height = Math.Max(p1.Y - p2.Y, p2.Y - p1.Y);
-            
-            updateMainRect(width, height, p2);
-            updateHiding(width, height, p2);
+            p2 = e.GetPosition(this);
+            double width  = Math.Abs(p1.X-p2.X);
+            double height = Math.Abs(p1.Y - p2.Y);
+            updateHiding(width, height);
+            updateMainRect(width, height);
         }
 
 
-        private void updateMainRect(double width, double height, Point p2)
+        private void updateMainRect(double width, double height)
         {
             if (p2.X > p1.X)
                 if (p2.Y > p1.Y)
@@ -75,12 +65,12 @@ namespace MacroBoard.ScreenShot
         }
 
 
-        private void updateHiding(double width, double height, Point p2)
+        private void updateHiding(double width, double height)
         {
-            hide_width.Width   = new GridLength(width);
+            hide_width.Width = new GridLength(width);
             hide_height.Height = new GridLength(height);
-            hide_right.Width   = new GridLength(Math.Min(p1.X, p2.X));
-            hide_top.Height    = new GridLength(Math.Min(p1.Y, p2.Y));
+            hide_right.Width = new GridLength(Math.Min(p1.X, p2.X));
+            hide_top.Height = new GridLength(Math.Min(p1.Y, p2.Y));
         }
 
 

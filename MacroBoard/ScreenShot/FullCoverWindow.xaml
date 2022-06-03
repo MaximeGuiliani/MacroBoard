@@ -10,16 +10,16 @@
         AllowsTransparency="True"
         WindowStyle="None"
         ResizeMode="NoResize"
-        WindowState="Maximized"
         MouseLeftButtonUp="onMouseUp"
         MouseLeftButtonDown="onMouseDown"
         Cursor="Cross"
         Topmost="True"
+        WindowStartupLocation="Manual"
         >
 
     
     <Window.Background>
-        <SolidColorBrush Opacity="0"/>
+        <SolidColorBrush Opacity="0.01" Color="White" />
     </Window.Background>
 
     
