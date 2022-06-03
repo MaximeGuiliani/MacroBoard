@@ -336,7 +336,7 @@ namespace MacroBoard.View
         private bool allTextBoxesAreOk()
         {
             //TODO: créer une Class/Enum PlaceHolder pour etre sur de pas en rater 
-            List<string> placeHolders = new() { "", @"c:\", @"http:\\", @"https:\\", "filename", "blabla", "a", "b", @"c:\filename", "filePath" };
+            List<string> placeHolders = new() { "", @"c:\", @"http:\\", @"https:\\", "filename", "blabla", @"c:\filename", "filePath" };
             bool ok = true;
             foreach (object child in Controls.Children)
             {

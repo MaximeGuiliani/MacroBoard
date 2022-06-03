@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MacroBoard.Model
 {
-    internal class Executor
+    public class Executor
     {
         WorkFlow workFlow;
 
@@ -14,6 +14,7 @@ namespace MacroBoard.Model
         {
             this.workFlow = workFlow;
         }
+
 
        public string Execute()
         {
@@ -28,5 +29,8 @@ namespace MacroBoard.Model
                 }
             return ("");
         }
+
+
+
     }
 }
