@@ -64,79 +64,37 @@ class MyTcpListener
     public void InitMobileData(NetworkStream stream)
     {
 
-        List<WorkflowView> lw = Serialization.getFavsFromJson();
-        byte[] msg;
-        byte[] clientResponseData;
-        string ClientResponse;
-        int bytes;
-        //foreach (WorkflowView wf in lw)
-        //{
-        //    //Send Name Start ---------------------------------------------------------------//
-        //    byte[] wfNameToSend = Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName);
-        //    stream.Write(wfNameToSend, 0, wfNameToSend.Length);
-        //    Trace.WriteLine("Name send : " + wf.CurrentworkFlow.workflowName);
-        //    // reponse du client
-        //    clientResponseData = new byte[256];
-        //    bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-        //    ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-        //    Trace.WriteLine("Received from Client : " + ClientResponse);
-        //    stream.Flush();
-        //    //Send Name end ---------------------------------------------------------------//
+        List<WorkflowView> lwf = Serialization.getFavsFromJson();
 
-        //    //Send image length Start ---------------------------------------------------------------//
+        stream.Write(Encoding.ASCII.GetBytes(lwf.Count.ToString()), 0, 1);
 
-        //    Bitmap Image = new Bitmap(wf.CurrentworkFlow.imagePath);
-        //    byte[] imageInBytes = ImageToByteArray(Image);
-        //    byte[] imageLength = Encoding.ASCII.GetBytes(imageInBytes.Length.ToString());
-        //    stream.Write(imageLength, 0, imageLength.Length);
-        //    Trace.WriteLine("Image Length send : " + Encoding.ASCII.GetString(imageLength));
-        //    // reponse du client
-        //    clientResponseData = new byte[256];
-        //    bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-        //    ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-        //    Trace.WriteLine("Received from Client : " + ClientResponse);
-        //    stream.Flush();
-        //    //Send image length Start ---------------------------------------------------------------//
+        foreach (WorkflowView wf in lwf)
+        {
+            Bitmap imageBitmap = new Bitmap(wf.CurrentworkFlow.imagePath);
+            imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
 
-        //    //Send image Start ---------------------------------------------------------------//
-        //    byte[] bytesArray = new byte[1024];
-        //    Array.Copy(imageInBytes, 0, bytesArray, 0, Math.Min(1024, imageInBytes.Length));
-        //    stream.Write(bytesArray, 0, bytesArray.Length);
-        //    //Send image end ---------------------------------------------------------------//
+            byte[] imageInBytes = ImageToByte(imageBitmap);
+            byte[] serverResponse = new byte[50];
 
+            stream.Write(Encoding.ASCII.GetBytes(imageInBytes.Length.ToString()), 0, imageInBytes.Length.ToString().Length);
 
-        //    //Send balise image end Start ---------------------------------------------------------------//
-        //    byte[] balise = Encoding.ASCII.GetBytes("</img>");
-        //    stream.Write(balise, 0, balise.Length);
-        //    clientResponseData = new Byte[256];
-        //    bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-        //    ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-        //    Trace.WriteLine("Received: " + ClientResponse);
-        //    stream.Flush();
-        //    //Send balise image end Start ---------------------------------------------------------------//
-        //}
-        ////message to tell the client we finish sending ----------------------------------------//
-        //msg = Encoding.ASCII.GetBytes("|");
-        //stream.Write(msg, 0, msg.Length);
+            Trace.WriteLine(imageInBytes.Length);
 
-        Bitmap imageBitmap = new Bitmap(lw[0].CurrentworkFlow.imagePath);
-        imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
+            stream.Read(serverResponse, 0, serverResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
 
-        byte[] imageInBytes = ImageToByte(imageBitmap);
-        byte[] serverResponse = new byte[50];
+            stream.Write(imageInBytes, 0, imageInBytes.Length);
 
-        stream.Write(Encoding.ASCII.GetBytes(imageInBytes.Length.ToString()), 0, imageInBytes.Length.ToString().Length);
+            serverResponse = new byte[50];
+            stream.Read(serverResponse, 0, serverResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
 
-        stream.Read(serverResponse, 0, serverResponse.Length);
-        Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
-        
-        stream.Write(imageInBytes, 0, imageInBytes.Length);
+            stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName), 0, wf.CurrentworkFlow.workflowName.Length);
 
-        serverResponse = new byte[50];
-        stream.Read(serverResponse, 0, serverResponse.Length);
-        Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
-
-        stream.Write(Encoding.ASCII.GetBytes(lw[0].CurrentworkFlow.workflowName), 0, lw[0].CurrentworkFlow.workflowName.Length);
+            serverResponse = new byte[50];
+            stream.Read(serverResponse, 0, serverResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+        }
 
     }
 
