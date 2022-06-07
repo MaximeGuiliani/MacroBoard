@@ -47,6 +47,7 @@
 		<None Remove="FlaUInspect\src\FlaUInspect\Resources\Window.png" />
 		<None Remove="Resources\add.png" />
 		<None Remove="Resources\Block_V2.png" />
+		<None Remove="Resources\bot.jpg" />
 		<None Remove="Resources\Button_WorkFlow.png" />
 		<None Remove="Resources\Button_WorkFlow_Add.png" />
 		<None Remove="Resources\Button_WorkFlow_Add_MouseOver.png" />
@@ -217,6 +218,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Include="Resources\bot.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\collapse.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
