@@ -1,36 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using MacroBoard;
 namespace MacroBoard
 {
-    internal class WorkflowView
+    public class WorkflowView
     {
         public Button Btn_Delete { get; } = new();
-        public Image ImageWorkflow { get; } = new();
+        public String ImageWorkflow { get; set; } 
 
         public Button Btn_Fav { get; } = new();
         public Button Btn_Main { get; } = new();
 
 
-        private Label Lbl_Name = new();
+        public Label Lbl_Name { get; } = new();
         public Grid Content { get; } = new();
         public WorkFlow CurrentworkFlow { get; set; }
 
+
         public WorkflowView(WorkFlow workFlow)
         {
-
+            this.ImageWorkflow = workFlow.imagePath;
             this.CurrentworkFlow = workFlow;
-            Setup_Btns();
+            //Setup_Btns();
             Setup_Name(workFlow.workflowName);
             Setup_Grid();
 
         }
 
+        public WorkflowView(Collection<WorkFlow> workFlows)
+        {
+            foreach (WorkFlow w in workFlows )
+            {
+            this.CurrentworkFlow = w;
+            //Setup_Btns();
+            //Setup_Name(w.workflowName);
+            Setup_Grid();
+            } 
 
-        private void Setup_Name(string Name)
+        }
+
+
+        public void Setup_Name(string Name)
         {
             Lbl_Name.Content = Name;
             Lbl_Name.HorizontalAlignment = HorizontalAlignment.Center;
@@ -38,38 +53,21 @@ namespace MacroBoard
         }
 
 
-        private void Setup_Btns()
+        public void Setup_Btns()
         {
 
-            //Main Button
-            Btn_Main.Background = Brushes.Transparent;
-            Btn_Main.Height = 100d;
-            Btn_Main.Width = 100d;
+            Btn_Delete.Content = FavB;
+            Btn_Delete.Background = Brushes.Red;
 
-            //Delete Button
-            TextBlock txtBlock = new();
-
-            txtBlock.Text = "━";
-            txtBlock.Foreground = Brushes.DarkRed;
-            txtBlock.FontSize = 20d;
-
-
-            Btn_Delete.Content = txtBlock;
-            Btn_Delete.Background = Brushes.Transparent;
             Btn_Delete.BorderThickness = new Thickness(0, 0, 0, 0);
             Btn_Delete.Width = 20d;
             Btn_Delete.Height = 20d;
             Btn_Delete.HorizontalAlignment = HorizontalAlignment.Left;
             Btn_Delete.VerticalAlignment = VerticalAlignment.Top;
 
+;
 
-            //Edit Button
-            txtBlock = new();
-            txtBlock.Text = "♥";
-            txtBlock.Foreground = Brushes.DarkRed;
-            txtBlock.FontSize = 20d;
-
-            Btn_Fav.Content = txtBlock;
+            Btn_Fav.Content = FavB;
             Btn_Fav.Background = Brushes.Transparent;
             Btn_Fav.BorderThickness = new Thickness(0, 0, 0, 0);
 
@@ -79,13 +77,16 @@ namespace MacroBoard
             Btn_Fav.VerticalAlignment = VerticalAlignment.Top;
         }
 
-        private void Setup_Grid()
+        public void Setup_Grid()
         {
 
             Content.Width = 100d;
             Content.Height = 100d;
+            Btn_Fav.Content = FavB;
 
             Btn_Fav.Visibility = Visibility.Hidden;
+            
+            FavB.Visibility = Visibility.Hidden;
 
             Btn_Delete.Visibility = Visibility.Hidden;
             Content.Children.Add(Lbl_Name);
@@ -98,35 +99,35 @@ namespace MacroBoard
             //Content.MouseLeave += OnMouseLeave;
         }
 
-        private void OnMouseEnter(object sender, RoutedEventArgs e)
-        {
-            BitmapImage bitmapImg = new BitmapImage();
+        //private void OnMouseEnter(object sender, RoutedEventArgs e)
+        //{
+        //    BitmapImage bitmapImg = new BitmapImage();
 
-            bitmapImg.BeginInit();
-            if (CurrentworkFlow.workflowName.Equals(""))
-                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
-            else
-                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
-            bitmapImg.EndInit();
-            ImageWorkflow.Source = bitmapImg;
+        //    bitmapImg.BeginInit();
+        //    if (CurrentworkFlow.workflowName.Equals(""))
+        //        bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
+        //    else
+        //        bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
+        //    bitmapImg.EndInit();
+        //    ImageWorkflow.Source = bitmapImg;
 
-            Content.Background = new ImageBrush(bitmapImg);
-        }
+        //    Content.Background = new ImageBrush(bitmapImg);
+        //}
 
-        private void OnMouseLeave(object sender, RoutedEventArgs e)
-        {
-            BitmapImage bitmapImg = new BitmapImage();
+        //private void OnMouseLeave(object sender, RoutedEventArgs e)
+        //{
+        //    BitmapImage bitmapImg = new BitmapImage();
 
-            bitmapImg.BeginInit();
-            if (CurrentworkFlow.workflowName.Equals(""))
-                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add.png", UriKind.Absolute);
-            else
-                bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
-            bitmapImg.EndInit();
-            ImageWorkflow.Source = bitmapImg;
+        //    bitmapImg.BeginInit();
+        //    if (CurrentworkFlow.workflowName.Equals(""))
+        //        bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_Add.png", UriKind.Absolute);
+        //    else
+        //        bitmapImg.UriSource = new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Resources/Button_WorkFlow_V3.png", UriKind.Absolute);
+        //    bitmapImg.EndInit();
+        //    ImageWorkflow.Source = bitmapImg;
 
-            Content.Background = new ImageBrush(bitmapImg);
-        }
+        //    Content.Background = new ImageBrush(bitmapImg);
+        //}
 
 
     }
