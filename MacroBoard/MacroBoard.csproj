@@ -27,6 +27,7 @@
 		<None Remove="Resources\icon_about.png" />
 		<None Remove="Resources\icon_about_dark.png" />
 		<None Remove="Resources\icon_add.png" />
+		<None Remove="Resources\icon_add_dark.png" />
 		<None Remove="Resources\icon_edit.png" />
 		<None Remove="Resources\icon_edit_dark.png" />
 		<None Remove="Resources\icon_plus.png" />
@@ -85,16 +86,16 @@
 	  <Content Include="Resources\icon_about_dark.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Resources\icon_add.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_add_dark.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\icon_edit.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\icon_edit_dark.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="Resources\icon_plus.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="Resources\icon_plus_dark.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\icon_search.png">

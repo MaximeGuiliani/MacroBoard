@@ -6,16 +6,19 @@
    
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="BorderBrush" Value= "Black"/>
-        <Setter Property="Background" Value="#222222" />
+        <Setter Property="Background" Value="#282828" />
         
-        <!--<Setter Property="BorderThickness" Value="5" />-->
-        <!--<Setter Property="WindowStyle" Value="SingleBorderWindow" />-->
-
-        <!--set the text block color to white / add the costume style in mainwindow-->
     </Style>
 
+
+
+    <Style x:Key="CustomTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+    </Style>
+
+
     <Style x:Key="CustomTextBox" TargetType="TextBox">
-        <Setter Property="Background" Value="#282828"/>
+        <Setter Property="Background" Value="#222222"/>
         <Setter Property="BorderBrush" Value="#282828"/>
         <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
         <Setter Property="Foreground" Value="White"/>
@@ -23,32 +26,40 @@
     </Style>
 
     <Style x:Key="CustomStackPanel" TargetType="StackPanel">
-        <Setter Property="Background" Value="#282828"/>
+        <Setter Property="Background" Value="#222222"/>
         
+    </Style>
+
+    <Style x:Key="CustomButton" TargetType="Button">
+        <Setter Property="Background" Value="BlueViolet"/>
+
     </Style>
 
     <Style x:Key="CustomBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="25"/>
-        <Setter Property="Background" Value="#5B5B5B"/>
+        <Setter Property="Background" Value="#363636"/>
     </Style>
 
 
-    <Style x:Key="CustomListBox" TargetType="ListBox">
-        <Setter Property="Background" Value="#282828"/>
+    <Style x:Key="CustomListBoxFav" TargetType="ListBox">
+        <Setter Property="Background" Value="#222222"/>
         <Setter Property="BorderBrush" Value="#282828"/>
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="Padding" Value="10,10,10,10"/>
     </Style>
 
-    
-
-    <Style x:Key="CustomButton" TargetType="Button">
-        <Setter Property="Background" Value="Pink"/>
+    <Style x:Key="CustomListBox" TargetType="ListBox">
+        <Setter Property="BorderBrush" Value="#282828"/>
+        <Setter Property="Background" Value="#222222"/>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Padding" Value="10,10,10,10"/>
     </Style>
+
     
     <Style x:Key="CustomImageSearch" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_search.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_search_dark.png"/>
     </Style>
 
     <Style x:Key="CustomImageAbout" TargetType="Image">
@@ -56,7 +67,7 @@
     </Style>
 
     <Style x:Key="CustomImageEdit" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_plus.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_add.png"/>
     </Style>
 
     <Style x:Key="CustomImageRearrange" TargetType="Image">

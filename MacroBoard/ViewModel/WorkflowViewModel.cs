@@ -15,17 +15,18 @@ namespace MacroBoard
 
         public Button Btn_Fav { get; } = new();
         public Button Btn_Main { get; } = new();
-        
+        public TextBlock FavB { get; set; } = new();
 
-        private Label Lbl_Name = new();
+        public Label Lbl_Name { get; } = new();
         public Grid Content { get; } = new();
         public WorkFlow CurrentworkFlow { get; set; }
+
 
         public WorkflowView(WorkFlow workFlow)
         {
             this.ImageWorkflow = workFlow.imagePath;
             this.CurrentworkFlow = workFlow;
-            Setup_Btns();
+            //Setup_Btns();
             Setup_Name(workFlow.workflowName);
             Setup_Grid();
 
@@ -35,11 +36,10 @@ namespace MacroBoard
         {
             foreach (WorkFlow w in workFlows )
             {
-                this.CurrentworkFlow = w;
-            Setup_Btns();
-            Setup_Name(w.workflowName);
+            this.CurrentworkFlow = w;
+            //Setup_Btns();
+            //Setup_Name(w.workflowName);
             Setup_Grid();
-
             } 
 
         }
@@ -56,30 +56,17 @@ namespace MacroBoard
         public void Setup_Btns()
         {
 
-           
-           TextBlock txtBlock = new();
-
-            txtBlock.Text = "━";
-            txtBlock.Foreground = Brushes.Red;
-            txtBlock.FontSize = 20d;
-
-
-            Btn_Delete.Content = txtBlock;
-            Btn_Delete.Background = Brushes.Transparent;
+            Btn_Delete.Content = FavB;
+            Btn_Delete.Background = Brushes.Red;
             Btn_Delete.BorderThickness = new Thickness(0, 0, 0, 0);
             Btn_Delete.Width = 20d;
             Btn_Delete.Height = 20d;
             Btn_Delete.HorizontalAlignment = HorizontalAlignment.Left;
             Btn_Delete.VerticalAlignment = VerticalAlignment.Top;
 
+;
 
-            //Edit Button
-            txtBlock = new();
-            txtBlock.Text = "♥";
-            txtBlock.Foreground = Brushes.Red;
-            txtBlock.FontSize = 20d;
-
-            Btn_Fav.Content = txtBlock;
+            Btn_Fav.Content = FavB;
             Btn_Fav.Background = Brushes.Transparent;
             Btn_Fav.BorderThickness = new Thickness(0, 0, 0, 0);
 
@@ -94,8 +81,11 @@ namespace MacroBoard
 
             Content.Width = 100d;
             Content.Height = 100d;
+            Btn_Fav.Content = FavB;
 
             Btn_Fav.Visibility = Visibility.Hidden;
+            
+            FavB.Visibility = Visibility.Hidden;
 
             Btn_Delete.Visibility = Visibility.Hidden;
             Content.Children.Add(Lbl_Name);

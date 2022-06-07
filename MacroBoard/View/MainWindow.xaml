@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
         Height="600" 
-        Width="725"
+        Width="700"
         mc:Ignorable="d"
         Title="Macroboard Desktop" MinHeight="600" MinWidth="520"
         ResizeMode="CanResizeWithGrip"
@@ -51,7 +51,8 @@
                                                 <TranslateTransform X="0.02" Y="0.3"/>
                                             </TransformGroup>
                                         </RadialGradientBrush.RelativeTransform>
-                                        <GradientStop Offset="1" Color="BlueViolet"/>
+                                        <GradientStop Offset="1" Color="BlueViolet"
+                                                      />
                                         <GradientStop Offset="0.3" Color="Gray"/>
                                     </RadialGradientBrush>
                                 </Border.Background>
@@ -74,7 +75,7 @@
                                                 </TransformGroup>
                                             </RadialGradientBrush.RelativeTransform>
                                             <GradientStop Color="Gray" Offset="1"/>
-                                            <GradientStop Color="BlueViolet" Offset="0.3"/>
+                                            <GradientStop Color="LightGray" Offset="0.3"/>
                                         </RadialGradientBrush>
                                     </Setter.Value>
                                 </Setter>
@@ -93,8 +94,8 @@
         </Style>
     </Window.Resources>
 
-   
-    
+
+
 
     <Grid >
         <Grid.ColumnDefinitions>
@@ -110,14 +111,21 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            
+
             <TextBox Style="{DynamicResource CustomTextBox}" 
                      Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
-                     x:Name="Search" HorizontalAlignment="Right" Height="30"  
-                     VerticalAlignment="Center"
-                     Width="291" 
+                     x:Name="Search" 
+                     HorizontalAlignment="Right"
+                     Grid.Column="0"
+                     Grid.Row="0"
+                     Height="30"  
+                     VerticalAlignment="Top"
+                     HorizontalContentAlignment="Left"
+                     VerticalContentAlignment="Center"
+                     Width="302" 
                      TextChanged="Search_TextChanged" 
-                     Margin="35,20,30,0"  >
+                     Margin="0,20,20,20" 
+                     TextWrapping="Wrap">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -125,29 +133,39 @@
                     </Style>
                 </TextBox.Resources>
             </TextBox>
+            <Button Background="Transparent"  HorizontalAlignment="Right" Margin="0,20,20,20"  VerticalAlignment="Center" Width="48" Height="20" Click="Search_TextChanged">
+                <Image Height="17" Width="17" Style="{DynamicResource CustomImageSearch}" />
+            </Button>
         </Grid>
 
         <!--Favorite-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Name="FavGrid">
             <ListBox
                 BorderBrush="{x:Null}"
                 Grid.Column="1"
                 Grid.Row="1"
-                Style="{DynamicResource CustomListBox}" 
+                MinHeight="100"
+                Style="{DynamicResource CustomListBoxFav}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 x:Name="ListFav" 
                 Grid.ColumnSpan="5" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"  
-                Margin="79,20,0,0" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch"  
+                Margin="69,0,15,0" 
                 ItemsSource="{Binding Path=FavoriteWorkFlows}">
-                
+                <ListBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </ListBox.Resources>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Border Style="{DynamicResource CustomBorder}">
                                 <Border.Clip>
-                                    <RectangleGeometry Rect="5,5,90,90" RadiusX="10" RadiusY="10" />
+                                    <RectangleGeometry Rect="10,10,90,90" RadiusX="10" RadiusY="10" />
                                 </Border.Clip>
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="5"
@@ -157,7 +175,7 @@
                                 <Border.Background>
                                     <ImageBrush Stretch="Fill" />
                                 </Border.Background>
-                                <Button Name="workflow" Click="Button_Click" Background="BlueViolet" >
+                                <Button Name="workflow" Click="Button_Click_Fav" Style="{DynamicResource RoundCorner}" >
                                     <Image Source="{Binding ImageWorkflow}"
                                    RenderOptions.BitmapScalingMode='HighQuality'
                                    Width="100"
@@ -166,84 +184,14 @@
                                    VerticalAlignment="Center"/>
                                 </Button>
                             </Border>
+                            <!--<Label Margin="5" FontSize="20" VerticalAlignment="Bottom" FontStyle="Oblique" HorizontalAlignment="Center" Content="{Binding Path=Lbl_Name}" ></Label>-->
+                            <Button x:Name="Btn_Fav" Style="{Binding Btn_Fav}" BorderBrush="Transparent" Background="Transparent" Width="20" Height="20" Margin="80,10,10,80" Click="OnClick_Delete_Fav" >
+                                <TextBlock x:Name="FavB" Foreground="DarkRed" >
+                                     ♥
+                                </TextBlock>
+                            </Button>
                         </Grid>
 
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="true">
-                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-                                        </Trigger>
-                                        <MultiTrigger>
-                                            <MultiTrigger.Conditions>
-                                                <Condition Property="IsSelected" Value="true"/>
-                                                <Condition Property="Selector.IsSelectionActive" Value="false"/>
-                                            </MultiTrigger.Conditions>
-                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
-                                        </MultiTrigger>
-                                        <Trigger Property="IsEnabled" Value="false">
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
-        </Grid>
-
-        <Grid Grid.Row="2">
-            <ListBox x:Name="ListMacro" 
-                     Grid.ColumnSpan="5" 
-                     HorizontalAlignment="Center"
-                     VerticalAlignment="Center" 
-                     BorderBrush="{x:Null}"
-                     Margin="69,20,0,0"
-                     Grid.Column="1"
-                     Grid.Row="1"
-                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     ItemsSource="{Binding Path=WorkFlows}"
-                     Style="{DynamicResource CustomListBox}" >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border Style="{DynamicResource CustomBorder}" CornerRadius="25" >
-                            <Border.Clip>
-                                <RectangleGeometry Rect="7,5,90,90" RadiusX="10" RadiusY="10" />
-                            </Border.Clip>
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="5"
-                              Opacity=".5"
-                              ShadowDepth="3" />
-                            </Border.Effect>
-                            <Border.Background>
-                                <ImageBrush Stretch="Fill" />
-                            </Border.Background>
-                            <Button  FontSize="10" Click="Button_Click" BorderBrush="BlueViolet" Style="{DynamicResource RoundCorner}">
-                                <Image Source="{Binding ImageWorkflow}"
-                                   Width="100"
-                                   Height="100"
-                                   Stretch="Fill"
-                                   VerticalAlignment="Center"
-                                />
-                            </Button>
-                        </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.ItemContainerStyle>
@@ -286,29 +234,124 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-        
+           </Grid>
+
+        <Grid Grid.Row="2">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"> Create your own WorkFlows</TextBlock>
+            <ListBox x:Name="ListMacro" 
+                    BorderBrush="{x:Null}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Background="Transparent"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    Grid.ColumnSpan="5" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"  
+                    Margin="69,20,15,0" 
+                    ItemsSource="{Binding Path=WorkFlows}"
+                    Style="{DynamicResource CustomListBox}">
+                <ListBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </ListBox.Resources>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border Style="{DynamicResource CustomBorder}" CornerRadius="25" >
+                                <Border.Clip>
+                                    <RectangleGeometry Rect="10,10,90,90" RadiusX="10" RadiusY="10" />
+                                </Border.Clip>
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="5"
+                              Opacity=".5"
+                              ShadowDepth="3" />
+                                </Border.Effect>
+                                <Border.Background>
+                                    <ImageBrush Stretch="Fill" />
+                                </Border.Background>
+                                <Button Opacity="1" FontSize="10" Click="Button_Click" Style="{DynamicResource RoundCorner}">
+                                    <Image Source="{Binding ImageWorkflow}"
+                                   Width="100"
+                                   Height="100"
+                                   Stretch="Fill"
+                                   VerticalAlignment="Center"/>
+                                </Button>
+                            </Border>
+                            <Button Style="{Binding Btn_Fav}" BorderBrush="Transparent" Background="Transparent" Width="20" Height="20" Margin="80,10,10,80" Click="OnClick_Favorite" >
+                                <TextBlock Foreground="DarkRed">
+                                     ♥
+                                </TextBlock>
+                            </Button>
+                            <Button Style="{Binding Btn_Delete}" BorderBrush="Transparent" Background="Transparent"  Width="20" Height="20" Margin="0,10,80,80" Click="OnClick_DeleteWorkflow" >
+                                <TextBlock Foreground="DarkRed">  ━</TextBlock>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        <Setter Property="Padding" Value="10,10,10,10"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="true">
+                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected" Value="true"/>
+                                                <Condition Property="Selector.IsSelectionActive" Value="false"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
+                                        </MultiTrigger>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
         </Grid>
 
-       
+
 
         <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="Transparent" Grid.RowSpan="5" >
-            <Border CornerRadius="5,5,5,5" BorderThickness="3,3,3,3" >
-                <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}"  >
-                    <Button Click="ChangeTheme">
-                        <Image Margin="7,10,0,0" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
-                        </Button>
-                    <Button x:Name="ButtonEdit" Click="EditionMode" Margin="0,50,0,10">
+            <Border CornerRadius="15,15,15,15" BorderThickness="3,3,3,3" >
+                <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}" Margin="-3,-3,7,-3"  >
+                    <Button Click="ChangeTheme" Height="78" Width="58">
+                        <Image Margin="0,30,0,20" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
+                    </Button>
+                    <Button x:Name="ButtonEdit" Click="EditionMode" Margin="0,30,0,20">
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageRearrange}"/>
                     </Button>
-                    <Button x:Name="Edition" Margin="0,40,0,0" Click="AddWorkFlow" >
+                    <Button x:Name="Edition" Margin="0,30,0,20" Click="AddWorkFlow" >
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageEdit}"/>
                     </Button>
                 </StackPanel>
             </Border>
             <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" 
                         VerticalAlignment="Bottom"
-                        Margin="0,0,0,20"
-                        Width="60">
+                        Margin="2,0,10,0" Height="45">
                 <Button Height="25" Width="25"  Click="AboutApp" HorizontalAlignment="Center">
                     <Image Height="25" Width="25" Style="{DynamicResource CustomImageAbout}"/>
                 </Button>
