@@ -22,6 +22,7 @@ namespace MacroBoard
         public WorkFlow CurrentworkFlow { get; set; }
 
 
+        public TextBlock FavB { get; set; } = new();
         public WorkflowView(WorkFlow workFlow)
         {
             this.ImageWorkflow = workFlow.imagePath;
