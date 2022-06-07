@@ -48,6 +48,27 @@ namespace MacroBoard
         }
 
 
+        public static List<Process> getProcesses(string processName, bool exactMatching = false)
+        {
+            List<Process> outPocesses = new();
+            Process[] inProcesses = Process.GetProcesses();
+            foreach (Process proc in inProcesses)
+            {
+                if (exactMatching)
+                {
+                    if (proc.ProcessName.Equals(processName))
+                        outPocesses.Add(proc);
+                }
+                else
+                {
+                    if (proc.ProcessName.ToLower().Contains(processName.ToLower()) || processName.ToLower().Contains(proc.ProcessName.ToLower()))
+                        outPocesses.Add(proc);
+                }
+            }
+            return outPocesses;
+        }
+
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
@@ -157,14 +178,6 @@ namespace MacroBoard
 
 
 //-------------------------------------------------------------------------
-
-
-
-
-
-
-
-
 
         [DllImport("user32.dll")]
         private static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);

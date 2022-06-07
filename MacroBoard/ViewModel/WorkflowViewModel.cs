@@ -15,7 +15,7 @@ namespace MacroBoard
 
         public Button Btn_Fav { get; } = new();
         public Button Btn_Main { get; } = new();
-        public TextBlock FavB { get; set; } = new();
+
 
         public Label Lbl_Name { get; } = new();
         public Grid Content { get; } = new();
@@ -58,6 +58,7 @@ namespace MacroBoard
 
             Btn_Delete.Content = FavB;
             Btn_Delete.Background = Brushes.Red;
+
             Btn_Delete.BorderThickness = new Thickness(0, 0, 0, 0);
             Btn_Delete.Width = 20d;
             Btn_Delete.Height = 20d;

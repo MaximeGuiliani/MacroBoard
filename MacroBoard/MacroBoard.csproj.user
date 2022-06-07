@@ -4,10 +4,15 @@
     <_LastSelectedProfileId>C:\Users\user\source\Repos\MacroBoard\MacroBoard\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+
     <Compile Update="View\About.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\EW.xaml.cs">
+  
+    <Compile Update="ScreenShot\FullCoverWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ScreenShot\ScreenShotWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -16,6 +21,11 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EditionWindow.xaml">
+    <Page Update="ScreenShot\FullCoverWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ScreenShot\ScreenShotWindow.xaml">
+
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">
@@ -31,9 +41,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Themes\LightTheme.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\EW.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

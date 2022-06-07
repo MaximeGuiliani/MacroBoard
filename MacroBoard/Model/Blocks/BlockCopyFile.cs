@@ -18,6 +18,7 @@ namespace MacroBoard
         {
             base.Name = "Copy File";
             base.info = "Copies file to another directory.";
+            base.category = Categories.Files;
             this.source = source;
             this.destination = destination;
         }

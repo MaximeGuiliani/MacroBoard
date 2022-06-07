@@ -12,6 +12,7 @@ using System.Windows.Data;
 using static MacroBoard.Utils;
 using System.Linq;
 using System.Windows.Media.Animation;
+using MacroBoard.Model;
 using MacroBoard.View;
 using MacroBoard.View.Themes;
 using System.Windows.Data;
@@ -32,12 +33,22 @@ namespace MacroBoard
         public ObservableCollection<WorkflowView> WorkFlows { get; set; }
 
         bool isEdition = false;
+        myTcpListener Server;
 
         public MainWindow()
         {
             InitializeComponent();
             InitWorkflows();
             
+        }
+
+
+        public MainWindow(string message) : this()
+        {
+            //new myTcpListener();
+            InitializeComponent();
+            InitWorkflows();
+            MessageBox.Show(message);
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
@@ -66,14 +77,37 @@ namespace MacroBoard
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
+        private void cbFeature_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (AppServer.IsChecked == true)
+            {
+                Server = new myTcpListener();
+            }
+            else
+            {
+                if (Server.isDatasender)
+                {
+                    Server.server.Stop();
 
+                }
+                else
+                {
+                    Server.dataReceiveServer.Stop();
+
+       }
+            }
+        }
 
         private void CreateButton(WorkflowView workflowView, bool isFav, int pos = -2)
         {
 
             if (isFav)
             {
+                if (isEdition)
+                {
+                    workflowView.Btn_Fav.Visibility = Visibility.Visible;
 
+                }
                 workflowView.Btn_Delete.Visibility = Visibility.Hidden;
                 workflowView.Btn_Main.Click += Button_Click_Fav;
                 workflowView.Btn_Fav.Click += OnClick_Delete_Fav;
@@ -90,9 +124,9 @@ namespace MacroBoard
             if (!workflowView.CurrentworkFlow.imagePath.Equals(""))
             {
                 Image image = new() { Source = new BitmapImage(new Uri(workflowView.CurrentworkFlow.imagePath, UriKind.RelativeOrAbsolute)) };
-
                 image.Stretch = Stretch.Fill;
                 workflowView.Btn_Main.Content = image;
+
 
             }
             
@@ -220,7 +254,7 @@ namespace MacroBoard
                         WorkflowsSearchs.Add(workFlowView);
                     }
                 }
-                
+
             }
             else
             {
@@ -288,8 +322,7 @@ namespace MacroBoard
         private void AddWorkFlow(object sender, RoutedEventArgs e)
         {
 
-            EW editionWindow = new();
-
+            EditionWindow editionWindow = new();
             editionWindow.ShowDialog();
 
 
@@ -310,9 +343,11 @@ namespace MacroBoard
 
                 WorkflowView workflowView = new WorkflowView(wf);
 
+
                 WorkFlows.Add(workflowView);
                 //this
                 CreateButton(workflowView, false, WorkFlows.Count - 1 );
+
 
             }
         }
@@ -324,7 +359,7 @@ namespace MacroBoard
             string toDelete = wf.workflowName;
             if (isEdition)
             {
-                EW editionWindow = new(wf);
+                EditionWindow editionWindow = new(wf);
                 editionWindow.ShowDialog();
 
                 ResetWindow();
@@ -377,17 +412,17 @@ namespace MacroBoard
 
         private void ExecuteWorkflowFav(WorkFlow wf)
         {
-            foreach (Block block in wf.workflowList)
-            {
-                block.Execute();
-            }
+            Executor executor = new(wf);
+            string message = executor.Execute();
+            if (message.Length != 0)
+                MessageBox.Show(message);
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
         private void EditWorkflow(WorkFlow wf, int indexWF)
         {
             string toDelete = wf.workflowName;
-            EW editionWindow = new(wf);
+            EditionWindow editionWindow = new(wf);
             editionWindow.ShowDialog();
 
             ResetWindow();
@@ -437,11 +472,10 @@ namespace MacroBoard
 
         private static void ExecuteWorkflow(WorkFlow wf)
         {
-
-            foreach (Block block in wf.workflowList)
-            {
-                block.Execute();
-            }
+            Executor executor = new(wf);
+            string message = executor.Execute();
+            if (message.Length != 0)
+                MessageBox.Show(message);
 
         }
         //-----------------------------------------------------------------------------------------------------------------------------//
@@ -466,7 +500,9 @@ namespace MacroBoard
             if (isEdition)
             {
                 isEdition = false;
+
                 for (int i = 0; i < WorkFlows.Count - 1; i++)
+
                 {
                     
                     WorkFlows[i].Btn_Fav.Visibility = Visibility.Hidden;
@@ -482,7 +518,9 @@ namespace MacroBoard
             else
             {
                 isEdition = true;
+
                 for (int i = 0; i < WorkFlows.Count ; i++)
+
                 {
                     WorkFlows[i].Content.MouseEnter += myRectangleLoaded;
                     WorkFlows[i].Btn_Fav.Visibility = Visibility.Visible;
@@ -522,9 +560,11 @@ namespace MacroBoard
 
         //-----------------------------------------------------------------------------------------------------------------------------//
 
+
         bool isDark = true;
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
 
         private void ChangeTheme(object sender, RoutedEventArgs e)
         {
@@ -547,5 +587,5 @@ namespace MacroBoard
         }
     }
 
-       
+
 }

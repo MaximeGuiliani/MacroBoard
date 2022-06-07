@@ -35,8 +35,6 @@ namespace MacroBoard{
 
         public abstract void Accept(IBlockVisitor visitor);
 
-
-
-    
+       
     }
 }

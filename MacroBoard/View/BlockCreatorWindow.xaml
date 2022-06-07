@@ -12,12 +12,15 @@
         Width="450"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
+        Topmost="False"
+        WindowStyle="ToolWindow"
         Style="{DynamicResource CustomWindowStyle}">
 
 
 
-        <ScrollViewer HorizontalScrollBarVisibility ="Hidden"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,20" Height="Auto">
-            <Grid Height="Auto" >
+
+        <ScrollViewer HorizontalScrollBarVisibility ="Hidden"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,20" Height="Auto">  
+            <Grid Height="Auto">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -42,6 +45,6 @@
             </Grid>
         </ScrollViewer>
 
- 
-    
+
+
 </Window>
