@@ -26,19 +26,69 @@
         <Setter Property="FontSize" Value="14"/>
     </Style>
 
+    <Style x:Key="CustomCheckBox" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Background" Value="#F4F4F4"/>
+        <Setter Property="BorderBrush" Value="#8E8F8F"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FocusVisualStyle">
+            <Setter.Value>
+                <Style>
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Rectangle Margin="1" SnapsToDevicePixels="True" 
+Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
+StrokeThickness="1" StrokeDashArray="1 2"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Unchecked"/>
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="tick" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Indeterminate"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Ellipse x:Name="blackframe" Stroke="Black" Width="16" Height="16"/>
+                        <Ellipse x:Name="background" Margin="2" Fill="AliceBlue" Width="12" Height="12"/>
+                        <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="5,0,0,0"/>
+                        <Path x:Name="tick" Fill="Black" Data="F1 M 4.325,7.852 C 4.175,7.852 4.026,7.807 3.900,7.720 L 0.325,5.262 C -0.016,5.027 -0.103,4.560 0.132,4.219 C 0.367,3.877 0.833,3.792 1.175,4.025 L 4.091,6.030 L 7.478,0.365 C 7.690,0.010 8.151,-0.107 8.506,0.106 C 8.861,0.319 8.978,0.779 8.765,1.135 L 4.969,7.486 C 4.863,7.664 4.688,7.790 4.485,7.834 C 4.432,7.846 4.378,7.852 4.325,7.852 L 4.325,7.852 Z" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="CustomStackPanel" TargetType="StackPanel">
         <Setter Property="Background" Value="#222222"/>
         
     </Style>
 
     <Style x:Key="CustomButton" TargetType="Button">
-        <Setter Property="Background" Value="BlueViolet"/>
+        <Setter Property="Background" Value="#FF7F4598"/>
 
     </Style>
 
     <Style x:Key="CustomBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="25"/>
-        <Setter Property="Background" Value="#363636"/>
+        <Setter Property="BorderThickness" Value=" 0,0,0,10"/>
+        <Setter Property="BorderBrush" Value="Red"/>
     </Style>
 
 

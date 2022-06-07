@@ -16,11 +16,14 @@ namespace MacroBoard
         public Button Btn_Fav { get; } = new();
         public Button Btn_Main { get; } = new();
 
+        
 
         public Label Lbl_Name { get; } = new();
         public Grid Content { get; } = new();
         public WorkFlow CurrentworkFlow { get; set; }
 
+        
+        
 
         public TextBlock FavB { get; set; } = new();
         public WorkflowView(WorkFlow workFlow)
@@ -38,15 +41,22 @@ namespace MacroBoard
             foreach (WorkFlow w in workFlows )
             {
             this.CurrentworkFlow = w;
-            //Setup_Btns();
-            //Setup_Name(w.workflowName);
+            Setup_Btns();
+            Setup_Name(w.workflowName);
             Setup_Grid();
             } 
 
         }
 
+        public string WfName
+        {
+            get { return this.Lbl_Name.Content.ToString(); }
+        }
 
-        public void Setup_Name(string Name)
+       
+
+
+    public void Setup_Name(string Name)
         {
             Lbl_Name.Content = Name;
             Lbl_Name.HorizontalAlignment = HorizontalAlignment.Center;
