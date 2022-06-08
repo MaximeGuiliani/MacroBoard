@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using MacroBoard.Model;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -64,14 +66,18 @@ namespace MacroBoard
         public static void ExecuteFromMobileApp(string WFname)
         {
             DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\");
-            FileInfo[] files = info.GetFiles(WFname + ".json").OrderBy(p => p.CreationTime).ToArray();
-            Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + files[0]);
-            WorkFlow wf = serialization.Deserialize();
-            foreach(Block b in wf.workflowList)
-            {
-                b.Execute();
-            }
+            Trace.WriteLine("WFname" + WFname);
+
+            FileInfo[] files = info.GetFiles(WFname + ".json").ToArray();
+            Trace.WriteLine("files[0].ToString()" + files[0].ToString());
             
+            Serialization serialization = new Serialization(files[0].ToString());
+
+
+            WorkFlow wf = serialization.Deserialize();
+            Executor exec = new(wf);
+            string status = exec.Execute();
+
         }
 
         public static List<WorkflowView> getFavsFromJson()

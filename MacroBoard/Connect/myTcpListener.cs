@@ -15,6 +15,12 @@ class MyTcpListener
 
     public TcpListener server;
 
+    public TcpListener dataReceiveServer;
+    public TcpClient clientSender;
+    public TcpClient client;
+    public bool isclientSenderOnline = false;
+    public bool isclientOnline = false;
+    public bool isDatasender = true;
     public MyTcpListener()
     {
         Thread newThread = new Thread(new ThreadStart(Run));
@@ -42,6 +48,14 @@ class MyTcpListener
             Trace.Write("Waiting for a connection... ");
             TcpClient client = server.AcceptTcpClient();
             Trace.WriteLine("Connected!");
+
+
+            isclientOnline = true;
+            Thread newThread = new(new ThreadStart(RunDataSender));
+            newThread.SetApartmentState(ApartmentState.STA);
+            newThread.Start();
+
+
             NetworkStream stream = client.GetStream();
 
             InitMobileData(stream);
@@ -57,8 +71,11 @@ class MyTcpListener
             server.Stop();
         }
 
-        Trace.WriteLine("\nHit enter to continue...");
+        Trace.WriteLine("\n Server sending fav Closed...");
         Console.Read();
+        isclientOnline = false;
+
+
     }
 
     public void InitMobileData(NetworkStream stream)
@@ -88,6 +105,8 @@ class MyTcpListener
             serverResponse = new byte[50];
             stream.Read(serverResponse, 0, serverResponse.Length);
             Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+
+            stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName.Length.ToString()), 0, wf.CurrentworkFlow.workflowName.Length.ToString().Length);
 
             stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName), 0, wf.CurrentworkFlow.workflowName.Length);
 
@@ -133,5 +152,100 @@ class MyTcpListener
         g.Dispose();
         return b;
     }
+
+
+
+
+    public void RunDataSender()
+    {
+        isDatasender = false;
+
+        try
+        {
+            int port = 14000;
+
+            dataReceiveServer = new TcpListener(port);
+
+            // Start listening for client requests.
+            dataReceiveServer.Start();
+
+            // Buffer for reading data
+            byte[] bytes = new byte[256];
+
+
+            Trace.WriteLine("Waiting for a connection Data Sender... ");
+
+            // Perform a blocking call to accept requests.
+            // You could also use server.AcceptSocket() here.
+            clientSender = dataReceiveServer.AcceptTcpClient();
+
+            Trace.WriteLine("Connected!");
+            isclientSenderOnline = true;
+            NetworkStream streamReceiveMobiledata = clientSender.GetStream();
+            GetMobileData(streamReceiveMobiledata);
+
+
+            // Shutdown and end connection
+            isclientSenderOnline = false;
+            clientSender.Close();
+
+        }
+        catch (SocketException e)
+        {
+            Console.WriteLine("SocketException: {0}", e);
+        }
+        finally
+        {
+            // Stop listening for new clients.
+            dataReceiveServer.Stop();
+            Trace.WriteLine("\n Server Stopped...");
+
+        }
+
+        Console.Read();
+    }
+
+    private void GetMobileData(NetworkStream streamReceiveMobiledata)
+    {
+        while (true)
+        {
+            try
+            {
+                // write du client ---------------------------------------------------------------//
+                byte[] clientNameSize = new byte[20];
+                streamReceiveMobiledata.Read(clientNameSize, 0, clientNameSize.Length);
+                string ClientResponseNameSize = Encoding.ASCII.GetString(clientNameSize);
+
+
+                Trace.WriteLine("\n" + "Received from Client : " + ClientResponseNameSize + "\n");
+
+                byte[] okSend = Encoding.ASCII.GetBytes("ok");
+                streamReceiveMobiledata.Write(okSend, 0, okSend.Length);
+
+                byte[] clientResponseData = new byte[Int16.Parse(ClientResponseNameSize)];
+                streamReceiveMobiledata.Read(clientResponseData, 0, clientResponseData.Length);
+                string ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+
+
+                Trace.WriteLine("\n" + "Received from Client : " + ClientResponse + "\n");
+
+
+
+                Serialization.ExecuteFromMobileApp(ClientResponse);
+                Trace.WriteLine("");
+                //write du client end ---------------------------------------------------------------//
+            }
+            catch (Exception)
+            {
+
+                Trace.WriteLine("Client was Closed");
+                break;
+            }
+
+        }
+    }
+
+
+
 }
 
