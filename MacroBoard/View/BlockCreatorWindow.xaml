@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard.View"
         mc:Ignorable="d"
-        Title="Block Creation"
+        Title="Set Block"
         SizeToContent="Height"
         MinHeight="100"
         MaxHeight="500"
@@ -18,17 +18,30 @@
 
 
 
-<ScrollViewer Margin="0,20,0,20" Height="Auto">
+
+        <ScrollViewer HorizontalScrollBarVisibility ="Hidden"  VerticalScrollBarVisibility="Hidden" Margin="0,20,0,20" Height="Auto">  
             <Grid Height="Auto">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Name="Controls" VerticalAlignment="Top" Width="300" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="0" Height="auto">
+                <StackPanel Name="Controls" VerticalAlignment="Top" Width="300" HorizontalAlignment="Center" Margin="0,0,0,0" CanVerticallyScroll="False" CanHorizontallyScroll="False" Grid.Row="0" Height="auto">
                 </StackPanel>
-                <Button  Name="validerBtn" IsDefault="True" Margin="0,30,80,0" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="1" Style="{DynamicResource CustomButton}" >OK</Button>
-            <Button  Name="annluer" IsCancel="True"  Height="30" Margin="80,30,0,0" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Style="{DynamicResource CustomButton}"  >Cancel</Button>
+            <Button  Name="validerBtn" BorderBrush="Transparent" FontFamily="Century Gothic" IsDefault="True" Margin="0,30,80,0" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Row="1" Style="{DynamicResource CustomButton}" >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                OK</Button>
+            <Button  Name="annluer" BorderBrush="Transparent" FontFamily="Century Gothic" IsCancel="True"  Height="30" Margin="80,30,0,0" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Style="{DynamicResource CustomButton}"  >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+                Cancel</Button>
             </Grid>
         </ScrollViewer>
 

@@ -3,19 +3,9 @@
   <PropertyGroup>
     <_LastSelectedProfileId>C:\Users\user\source\Repos\MacroBoard\MacroBoard\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Compile Update="ScreenShot\FullCoverWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="ScreenShot\ScreenShotWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="ScreenShot\FullCoverWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="ScreenShot\ScreenShotWindow.xaml">
+    <Page Update="View\EditionWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">

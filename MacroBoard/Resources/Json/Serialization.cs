@@ -66,11 +66,8 @@ namespace MacroBoard
         public static void ExecuteFromMobileApp(string WFname)
         {
             DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\");
-            Trace.WriteLine("WFname" + WFname);
-
             FileInfo[] files = info.GetFiles(WFname + ".json").ToArray();
-            Trace.WriteLine("files[0].ToString()" + files[0].ToString());
-            
+       
             Serialization serialization = new Serialization(files[0].ToString());
 
 
@@ -110,6 +107,37 @@ namespace MacroBoard
             return Workflows;
         }
 
+
+        public static ObservableCollection<WorkflowView> getWorkFlowsFromJsonZ()
+        {
+            ObservableCollection<WorkflowView> Workflows = new();
+
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON");
+            FileInfo[] files = info.GetFiles("*.json").OrderBy(p => p.CreationTime).ToArray();
+            foreach (FileInfo file in files)
+            {
+                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\WFJSON\" + file.Name);
+                Workflows.Add(new(serialization.Deserialize()));
+            }
+            return Workflows;
+        }
+
+
+        public static ObservableCollection<WorkflowView> getFavsFromJsonZ()
+        {
+            ObservableCollection<WorkflowView> FavWorkflows = new();
+
+            DirectoryInfo info = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\");
+            FileInfo[] files = info.GetFiles("*.json").OrderBy(p => p.CreationTime).ToArray();
+            foreach (FileInfo file in files)
+            {
+                Serialization serialization = new Serialization(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\FAVJSON\" + file.Name);
+                FavWorkflows.Add(new(serialization.Deserialize()));
+            }
+
+            return FavWorkflows;
+        }
+        
     }
 
 }

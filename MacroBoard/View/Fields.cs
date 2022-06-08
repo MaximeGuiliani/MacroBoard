@@ -47,6 +47,7 @@ namespace MacroBoard.View
         public (Label, TextBox) newTextBox(string labelTxt, string defaultText, TextCompositionEventHandler checkFormat = null)
         {
             Label label = newLabel(labelTxt); // pas de add() car fct 
+            (label).Foreground = new SolidColorBrush(Color.FromRgb(127, 69, 152));
             TextBox textBox = baseTextBox();
             textBox.Width = (98d / 100d) * Controls.Width;
             textBox.HorizontalAlignment = HorizontalAlignment.Center;
@@ -79,6 +80,7 @@ namespace MacroBoard.View
         public Label newLabel(string content)
         {
             Label label = new Label();
+            (label).Foreground = new SolidColorBrush(Color.FromRgb(127, 69, 152));
             label.Margin = new Thickness(0, 10, 0, 0);
             label.Content = content;
             Controls.Children.Add(label);
@@ -91,6 +93,7 @@ namespace MacroBoard.View
             Label label = new Label();
             label.Margin = new Thickness(0, 10, 0, 0);
             label.Content = labelTxt;
+            (label).Foreground = new SolidColorBrush(Color.FromRgb(127, 69, 152));
             Controls.Children.Add(label);
 
             StackPanel sp = new StackPanel();
@@ -205,6 +208,7 @@ namespace MacroBoard.View
             Label label = new Label();
             label.Margin = new Thickness(0, 10, 0, 0);
             label.Content = labelTxt;
+            (label).Foreground = new SolidColorBrush(Color.FromRgb(127, 69, 152));
             Controls.Children.Add(label);
 
             StackPanel sp = new StackPanel();
@@ -258,6 +262,7 @@ namespace MacroBoard.View
         private ComboBox BaseComboBox(string labelTxt)
         {
             Label label = newLabel(labelTxt);
+            (label).Foreground = new SolidColorBrush(Color.FromRgb(127, 69, 152));
             ComboBox cb = new ComboBox();
             cb.Width = (98d / 100d) * Controls.Width;
             Controls.Children.Add(cb);

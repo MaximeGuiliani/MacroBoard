@@ -4,35 +4,100 @@
 
     <Style x:Key="CustomWindowStyle" TargetType="{x:Type Window}">
         <Setter Property="BorderBrush" Value="#f8f1f4" />
-        <Setter Property="Background" Value="#faf5f8" />
-        <!--<Setter Property="BorderThickness" Value="5"  />-->
-        <!--<Setter Property="WindowStyle" Value="SingleBorderWindow" />-->
+        <Setter Property="Background" Value="#f0ebf2" />
+        
     </Style>
-    <!--set the text block color to black / add the costume style in mainwindow / set the size of the text under each workflow-->
 
+   
+
+    <Style x:Key="CustomCheckBox" TargetType="CheckBox">
+        <Setter Property="Foreground" Value="DarkGray"/>
+        <Setter Property="BorderBrush" Value="#8E8F8F"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FocusVisualStyle">
+            <Setter.Value>
+                <Style>
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Rectangle Margin="1" SnapsToDevicePixels="True" 
+Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
+StrokeThickness="1" StrokeDashArray="1 2"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Unchecked"/>
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="tick" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Indeterminate"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Ellipse x:Name="blackframe" Stroke="Black" Width="16" Height="16"/>
+                        <Ellipse x:Name="background" Margin="2" Fill="AliceBlue" Width="12" Height="12"/>
+                        <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="5,0,0,0"/>
+                        <Path x:Name="tick" Fill="Black" Data="F1 M 4.325,7.852 C 4.175,7.852 4.026,7.807 3.900,7.720 L 0.325,5.262 C -0.016,5.027 -0.103,4.560 0.132,4.219 C 0.367,3.877 0.833,3.792 1.175,4.025 L 4.091,6.030 L 7.478,0.365 C 7.690,0.010 8.151,-0.107 8.506,0.106 C 8.861,0.319 8.978,0.779 8.765,1.135 L 4.969,7.486 C 4.863,7.664 4.688,7.790 4.485,7.834 C 4.432,7.846 4.378,7.852 4.325,7.852 L 4.325,7.852 Z" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
+
+    <Style x:Key="CustomTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#2f2f2f"/>
+    </Style>
+  
     <Style x:Key="CustomTextBox" TargetType="TextBox">
-        <Setter Property="Background" Value="#ecd5df"/>
+        <Setter Property="Background" Value="#e2d8e6"/>
     </Style>
 
     <Style x:Key="CustomStackPanel" TargetType="StackPanel">
-        <Setter Property="Background" Value="#ead1dc"/>
+        <Setter Property="Background" Value="#e2d8e6"/>
     </Style>
 
     <Style x:Key="CustomBorder" TargetType="Border">
-        <Setter Property="BorderBrush" Value="#ead1dc"/>
-        <!--same color as meni-->
+        <Setter Property="Background" Value="#e2d8e6"/>
+        <Setter Property="CornerRadius" Value="25"/>
+        <Setter Property="BorderThickness" Value=" 0,0,0,8"/>
+        <Setter Property="BorderBrush" Value="#c6c6c6"/>
+    </Style>
+
+    <Style x:Key="CustomListBoxFav" TargetType="ListBox">
+        <Setter Property="Background" Value="#e2d8e6"/>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Padding" Value="10,10,10,10"/>
     </Style>
 
     <Style x:Key="CustomListBox" TargetType="ListBox">
-        <Setter Property="Background" Value="#dcead1"/>
+        <Setter Property="Background" Value="#e1dbee"/>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Padding" Value="10,10,10,10"/>
     </Style>
 
-    <Style x:Key="CustomMenuItems" TargetType="MenuItem">
-        <Setter Property="BorderBrush" Value="#EBEBEB"/>
-    </Style>
-
+    
+<!--style creator-->
     <Style x:Key="CustomButton" TargetType="Button">
-        <Setter Property="Background" Value="#f2e3ea"/>
+        <Setter Property="Background" Value="#b4a7d6"/>
+        
     </Style>
 
     <Style x:Key="CustomImageAbout" TargetType="Image">
@@ -44,7 +109,7 @@
     </Style>
     
     <Style x:Key="CustomImageEdit" TargetType="Image">
-        <Setter Property="Source" Value="../../Resources/icon_plus_dark.png"/>
+        <Setter Property="Source" Value="../../Resources/icon_add_dark.png"/>
     </Style>
     <Style x:Key="CustomImageRearrange" TargetType="Image">
         <Setter Property="Source" Value="../../Resources/icon_edit_dark.png"/>
@@ -52,5 +117,9 @@
     <Style x:Key="CustomImageThemes" TargetType="Image">
         <Setter Property="Source" Value="../../Resources/icon_themes_dark.png"/>
     </Style>
-   
+
+    <Style x:Key="CustomImageApp" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_phonelink_dark.png"/>
+    </Style>
+
 </ResourceDictionary>

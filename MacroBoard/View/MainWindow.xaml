@@ -5,33 +5,32 @@
         xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
-        Height="600" 
-        Width="725"
+        Height="680" 
+        Width="910"
         mc:Ignorable="d"
-        Title="Macroboard Desktop" MinHeight="600" MinWidth="520"
+        x:Name="MainWindowT"
+        Title="Macroboard Desktop"
+        MinHeight="600" MinWidth="520"
         ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource CustomWindowStyle}"
         Closing="DataWindow_Closing">
 
 
+   <!--_____________________________________________________________________________________________________-->
+
+
     <Window.Resources>
 
-        <Style x:Key="font" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-        <Style TargetType="{x:Type Button}"
-           >
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+
+        <Style TargetType="{x:Type Button}">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Opacity" Value="0.8" />
@@ -41,10 +40,18 @@
                 </Setter.Value>
             </Setter>
         </Style>
-       
+
+
     </Window.Resources>
 
 
+    
+    
+    
+    <!--_____________________________________________________________________________________________________-->
+
+    
+    <!--grille principale-->
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -58,156 +65,375 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Border CornerRadius="8,8,0,8"/>
 
-            <TextBox Style="{DynamicResource CustomTextBox}"  BorderBrush="Transparent" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" x:Name="Search" HorizontalAlignment="Right" Height="30"  VerticalAlignment="Center" Width="291" TextChanged="Search_TextChanged" Margin="35,20,30,0"  >
+        
+        <!--_____________________________________________________________________________________________________-->
+
+
+        
+        
+        <!--recherche-->
+        <Grid Grid.Row="0">
+            <TextBox Style="{DynamicResource CustomTextBox}" 
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                     x:Name="Search" 
+                     HorizontalAlignment="Right"
+                     Grid.Column="0"
+                     Grid.Row="0"
+                     Height="30"  
+                     FontFamily="Century Gothic"
+                     VerticalAlignment="Top"
+                     HorizontalContentAlignment="Left"
+                     VerticalContentAlignment="Center"
+                     Width="302" 
+                     TextChanged="Search_TextChanged" 
+                     Margin="0,20,20,20" 
+                     TextWrapping="Wrap">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
-
+                        <Setter Property="Padding" Value="10,0,0,0"/>
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <!--<Button Background="Transparent"  HorizontalAlignment="Right" Margin="640,16,30,15" VerticalAlignment="Center" Width="48" Height="20" Click="Search_TextChanged">
+            <Button Background="Transparent"  HorizontalAlignment="Right" Margin="0,20,20,20"  VerticalAlignment="Center" Width="48" Height="20" Click="Search_TextChanged">
                 <Image Height="17" Width="17" Style="{DynamicResource CustomImageSearch}" />
-            </Button>-->
+            </Button>
         </Grid>
 
 
-        <Grid Grid.Row="1">
-            <Border CornerRadius="8,8,0,8">
-                <Border.Effect>
-                    <BlurEffect Radius="50" KernelType="Gaussian"/>
-                </Border.Effect>
-            </Border>
-            <!--   Liste des favoris   -->
-            <ListBox  Style="{DynamicResource CustomListBox}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="ListFav" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="79,20,0,0" >
+        <!--_____________________________________________________________________________________________________-->
+
+
+        <!--Favorite-->
+        <Grid Grid.Row="1" >
+
+            <ListBox
+                BorderBrush="{x:Null}"
+                Grid.Column="1"
+                Grid.Row="1"
+                MinHeight="100"
+                Style="{DynamicResource CustomListBoxFav}" 
+                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                x:Name="ListFav" 
+                Grid.ColumnSpan="5" 
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"  
+                Margin="89,0,15,0" 
+                >
+
+                <!--rectnagele de fond-->
                 <ListBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
-
                     </Style>
                 </ListBox.Resources>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="Padding" Value="10,10,10,10"/>
+                
+                <!--affichage d'un item liste favorite-->
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="true">
-                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-                                        </Trigger>
-                                        <MultiTrigger>
-                                            <MultiTrigger.Conditions>
-                                                <Condition Property="IsSelected" Value="true"/>
-                                                <Condition Property="Selector.IsSelectionActive" Value="false"/>
-                                            </MultiTrigger.Conditions>
-                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
-                                        </MultiTrigger>
-                                        <Trigger Property="IsEnabled" Value="false">
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+                            <!--macro-->
+                            <Border Style="{DynamicResource CustomBorder}" MouseLeftButtonDown="Button_Click_Fav" Grid.Row="0" Width="120" Height="128">
+                                <Border.Background>
+                                    <ImageBrush Stretch="Fill" ImageSource="{Binding ImageWorkflow, FallbackValue=./Resources/bot.jpg }" />
+                                </Border.Background>
+                            </Border>
 
-            </ListBox>
+                            <!--wf name-->
+                            <TextBlock VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Style="{DynamicResource CustomTextBlock}"   
+                                       FontSize="16"
+                                       FontFamily="Century Gothic" 
+                                       Text="{Binding WfName}"
+                                       Grid.Row="1"
+                                       />
 
-        </Grid>
+                            <!--btn supp-->
+                            <Button x:Name="Btn_Fav" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Click="OnClick_Delete_Fav" Visibility="{Binding isEdition.Value, ElementName=MainWindowT, Converter={StaticResource BoolToVis}}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
 
-        <Grid Grid.Row="3">
-            <Border CornerRadius="8,8,0,8" Grid.Column="1">
-                <Border.Effect>
-                    <BlurEffect Radius="500" KernelType="Gaussian" />
-                </Border.Effect>
-            </Border>
-            <!--    List des macros    -->
-            <ListBox x:Name="ListMacro" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{x:Null}" Margin="69,20,0,0" Grid.Column="1"  >
-                <ListBox.Style>
-                    <Style/>
-                </ListBox.Style>
+                                                    <TextBlock  Text="⊝" x:Name="FavB" FontSize="22" Foreground="DarkRed"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="true">
+                                                            <Setter Property="FontSize" Value="32" TargetName="FavB"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <!--pour enlever mouseover bleu-->
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                        <Setter Property="Padding" Value="10,10,10,10"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                    </Border>
+
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Margin="15,0,15,0" />
+
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="true">
-                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-                                        </Trigger>
-                                        <MultiTrigger>
-                                            <MultiTrigger.Conditions>
-                                                <Condition Property="IsSelected" Value="true"/>
-                                                <Condition Property="Selector.IsSelectionActive" Value="false"/>
-                                            </MultiTrigger.Conditions>
-                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
-                                        </MultiTrigger>
-                                        <Trigger Property="IsEnabled" Value="false">
-                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
+
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
-
                     </Style>
                 </ListBox.ItemContainerStyle>
+
+                <!--set wrap panel-->
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel IsItemsHost="True" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
+
+            </ListBox>
+
+
+            <!--affichage texte "favorites" vertical-->
+            <TextBlock HorizontalAlignment="Right" Margin="0,0,0,20" VerticalAlignment="Center" Foreground="Gray" >
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform X="-5.206" Y="1.918"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+                Favorites
+            </TextBlock>
+
+        </Grid>
+
+
+
+
+        <!--_____________________________________________________________________________________________________-->
+
+
+
+        <!--tous les workflows-->
+        <Grid Grid.Row="2" Margin="0,40,0,0">
+
+            <!--affichage texte "your workflows" vertical-->
+            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-99,0" Foreground="Gray">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+                Create your own WorkFlows
+            </TextBlock>
+
+
+            <ListBox x:Name="ListMacro" 
+                    MinHeight="100"
+                    BorderBrush="{x:Null}"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Background="Transparent"
+                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                    Grid.ColumnSpan="5" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"  
+                    Margin="89,0,15,0"
+                    ItemsSource="{Binding Path=WorkFlows}"
+                    Style="{DynamicResource CustomListBox}">
+
+
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <!--macro-->
+                            <Border Style="{DynamicResource CustomBorder}" MouseLeftButtonDown="Button_Click" Width="105" Height="113" Grid.Row="0">
+                                <Border.Background>
+                                    <ImageBrush Stretch="Fill" ImageSource="{Binding ImageWorkflow, FallbackValue=./Resources/bot.jpg }" />
+                                </Border.Background>
+                            </Border>
+
+                            <!--btn croix-->
+                            <Button x:Name="Btn_Delete" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Click="OnClick_DeleteWorkflow" Visibility="{Binding isEdition.Value, ElementName=MainWindowT, Converter={StaticResource BoolToVis}}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+
+                                                    <TextBlock Text="❌" FontSize="12"  Foreground="DarkRed" x:Name="btn_croix" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="true">
+                                                            <Setter Property="FontSize" Value="17" TargetName="btn_croix"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+                            <!--btn coeur-->
+                            <Button x:Name="Btn_Fav" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Click="OnClick_Favorite" Visibility="{Binding isEdition.Value, ElementName=MainWindowT, Converter={StaticResource BoolToVis}}" >
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+
+                                                    <TextBlock FontSize="20" Foreground="DarkRed" Text="♥" x:Name="btn_coeur" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="true">
+                                                            <Setter Property="FontSize" Value="30" TargetName="btn_coeur"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+
+
+                            <!--wf name-->
+                            <TextBlock   VerticalAlignment="Bottom"
+                                         HorizontalAlignment="Center"
+                                         TextWrapping="Wrap"
+                                         Style="{DynamicResource CustomTextBlock}"
+                                         FontSize="16"
+                                         FontFamily="Century Gothic"
+                                         FontStyle="Normal" 
+                                         Text="{Binding WfName}"
+                                         Grid.Row="1"
+                                         />
+                            
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+
+                <!--pour enlever mouseover bleu-->
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      Margin="15,20,15,0" />
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="true">
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <!--pannel avec wrap-->
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            
             </ListBox>
         </Grid>
-        <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="Transparent" Grid.RowSpan="5" >
-            <Border CornerRadius="5,5,5,5" BorderThickness="3,3,3,3" Style="{DynamicResource CustomBorder}" >
-                <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}"  >
-                    <Button Click="ChangeTheme">
-                        <Image Margin="7,10,0,0" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
+
+
+
+
+        <!--_____________________________________________________________________________________________________-->
+
+
+
+
+        <!--pannel de gauche-->
+        <Grid x:Name="panel" HorizontalAlignment="Left" Width="85" Background="Transparent" Grid.RowSpan="5" >
+            
+            <Border CornerRadius="15,15,15,15" BorderThickness="3,3,3,3" >
+                <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}" Margin="-3,-3,7,-3"  >
+                    <Button Click="ChangeTheme" Height="78" Width="58">
+                        <Image Margin="0,30,0,20" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
                     </Button>
-                        
-                    <Button x:Name="ButtonEdit" Click="EditionMode" Margin="10,40,0,10">
+                    <Button x:Name="ButtonEdit" Click="EditionMode" Margin="0,30,0,20">
+
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageRearrange}"/>
                     </Button>
-                    <Button x:Name="Edition" Margin="0,40,0,0" Click="AddWorkFlow" >
+                    <Button x:Name="Edition" Margin="0,30,0,20" Click="AddWorkFlow" >
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageEdit}"/>
                     </Button>
+                    <CheckBox x:Name="AppServer" IsChecked="False" Checked="cbFeature_CheckedChanged" Unchecked="cbFeature_CheckedChanged" Margin="0,40,0,0" Style="{DynamicResource CustomCheckBox}" >
+                        <Image Height="25" Width="25" Style="{DynamicResource CustomImageApp}"/>
+                    </CheckBox>
                 </StackPanel>
             </Border>
-            <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" VerticalAlignment="Bottom" Margin="0,0,0,20" >
+            
+            <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" 
+                        VerticalAlignment="Bottom"
+                        Margin="2,0,10,0" Height="45">
                 <Button Height="25" Width="25"  Click="AboutApp" HorizontalAlignment="Center">
                     <Image Height="25" Width="25" Style="{DynamicResource CustomImageAbout}"/>
                 </Button>
             </StackPanel>
+            
         </Grid>
+
+
+
+        
+        
+        
+        
+        
+        
+        
     </Grid>
 </Window>

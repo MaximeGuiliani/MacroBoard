@@ -12,26 +12,21 @@
         WindowStyle="None"
         >
 
-    <Border BorderThickness="3" BorderBrush="Purple">
-        
+    <Window.Background>
+        <SolidColorBrush Opacity="0"/>
+    </Window.Background>
 
-    <Grid>
+    <Border BorderThickness="3" BorderBrush="Purple" CornerRadius="6" Background="#80FFEBEE" >
+        <Grid>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="13*"/>
-            <ColumnDefinition Width="27*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="13*"/>
+                <ColumnDefinition Width="27*"/>
+            </Grid.ColumnDefinitions>
 
-        <Button Content="Cancel" Background="MediumVioletRed" Height="42" Foreground="FloralWhite" BorderBrush="Purple" VerticalAlignment="Bottom" Grid.Column="0" Margin="5,0,0,5" IsCancel="True"/>
-        <Button Content="Take Screenshot" Background="MediumVioletRed" Height="42" Click="Click_ScreenShot" Foreground="FloralWhite" BorderBrush="Purple" VerticalAlignment="Bottom" Grid.Column="1" Margin="5,0,5,5"/>
-
-        <!--<TextBox Text="x" x:Name="p1x" Grid.Column="1" Width="20" Height="20" Background="Aqua" VerticalAlignment="Top"/>
-        <TextBox Text="y" x:Name="p1y" Grid.Column="1" Width="20" Height="20" Background="Aqua"/>
-
-        <TextBox Text="x" x:Name="p2x" Grid.Column="2" Width="20" Height="20" Background="Aqua" VerticalAlignment="Top"/>
-        <TextBox Text="y" x:Name="p2y" Grid.Column="2" Width="20" Height="20" Background="Aqua"/>-->
-
-    </Grid>
-
+            <Button Content="Cancel" Background="MediumVioletRed" Height="42" Foreground="FloralWhite" BorderBrush="Purple" VerticalAlignment="Bottom" Grid.Column="0" Margin="5,0,0,5" IsCancel="True"/>
+            <Button Content="Take Screenshot" Background="MediumVioletRed" Height="42" Click="Click_ScreenShot" Foreground="FloralWhite" BorderBrush="Purple" VerticalAlignment="Bottom" Grid.Column="1" Margin="5,0,5,5"/>
+            
+        </Grid>
     </Border>
 </Window>

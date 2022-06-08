@@ -22,6 +22,7 @@ class MyTcpListener
     public bool isclientOnline = false;
     public bool isDatasender = true;
     public MyTcpListener()
+
     {
         Thread newThread = new Thread(new ThreadStart(Run));
         newThread.SetApartmentState(ApartmentState.STA);
@@ -30,6 +31,7 @@ class MyTcpListener
 
     public void Run()
     {
+
         try
         {
             // Set the TcpListener on port 13000.
@@ -40,10 +42,10 @@ class MyTcpListener
             server.Start();
 
             // Buffer for reading data
-            Byte[] bytes = new Byte[256];
-            String data = null;
+            byte[] bytes = new byte[256];
 
             // Enter the listening loop.
+
 
             Trace.Write("Waiting for a connection... ");
             TcpClient client = server.AcceptTcpClient();
@@ -60,6 +62,7 @@ class MyTcpListener
 
             InitMobileData(stream);
 
+
             client.Close();
         }
         catch (SocketException e)
@@ -69,16 +72,85 @@ class MyTcpListener
         finally
         {
             server.Stop();
+            Trace.WriteLine("\n Server Stopped...");
+
         }
 
         Trace.WriteLine("\n Server sending fav Closed...");
+
         Console.Read();
         isclientOnline = false;
 
 
     }
 
-    public void InitMobileData(NetworkStream stream)
+    public void RunDataSender()
+    {
+        isDatasender = false;
+
+        try
+        {
+            int port = 14000;
+
+            dataReceiveServer = new TcpListener(port);
+
+            // Start listening for client requests.
+            dataReceiveServer.Start();
+
+            // Buffer for reading data
+            byte[] bytes = new byte[256];
+
+
+            Trace.WriteLine("Waiting for a connection Data Sender... ");
+
+            // Perform a blocking call to accept requests.
+            // You could also use server.AcceptSocket() here.
+            TcpClient client = dataReceiveServer.AcceptTcpClient();
+
+            Trace.WriteLine("Connected!");
+            NetworkStream streamReceiveMobiledata = client.GetStream();
+            GetMobileData(streamReceiveMobiledata);
+
+
+            // Shutdown and end connection
+            client.Close();
+
+        }
+        catch (SocketException e)
+        {
+            Console.WriteLine("SocketException: {0}", e);
+        }
+        finally
+        {
+            // Stop listening for new clients.
+            dataReceiveServer.Stop();
+            Trace.WriteLine("\n Server Stopped...");
+
+        }
+
+        Console.Read();
+    }
+
+
+    private void GetMobileData(NetworkStream streamReceiveMobiledata)
+    {
+        while (true)
+        {
+            // write du client ---------------------------------------------------------------//
+
+            byte[] clientResponseData = new byte[8];
+            streamReceiveMobiledata.Read(clientResponseData, 0, clientResponseData.Length);
+            string ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+
+            Trace.WriteLine("\n"+"Received from Client : " + ClientResponse+"\n");
+
+
+            Serialization.ExecuteFromMobileApp(ClientResponse);
+
+            //write du client end ---------------------------------------------------------------//
+        }
+    }
+    private void InitMobileData(NetworkStream stream)
     {
 
         List<WorkflowView> lwf = Serialization.getFavsFromJson();
@@ -120,6 +192,7 @@ class MyTcpListener
             serverResponse = new byte[50];
             stream.Read(serverResponse, 0, serverResponse.Length);
             Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+
         }
 
     }

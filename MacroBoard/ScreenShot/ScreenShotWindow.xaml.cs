@@ -1,66 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 using static MacroBoard.Utils;
 
 namespace MacroBoard.ScreenShot
 {
-    /// <summary>
-    /// Interaction logic for ScreenShot.xaml
-    /// </summary>
     public partial class ScreenShotWindow : Window
     {
 
-        public string filepath = "";
+        public string filepath;
+        Rectangle screen;
 
 
         public ScreenShotWindow()
         {
+            filepath = "";
+            screen = Screen.FromHandle(getThisHandle()).Bounds;
             InitializeComponent();
         }
 
 
+        /* Pour déplacer la fenetre avec un windows style = None */
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
             this.DragMove();
         }
 
+
         private void Click_ScreenShot(object sender, RoutedEventArgs e)
         {
             this.Opacity = 0;
+            this.screen = Screen.FromHandle(getThisHandle()).Bounds;
             FullCoverWindow w = new FullCoverWindow();
-            if(w.ShowDialog() == true) takeScreenShot(w.p1, w.p2);
-            this.DialogResult = true;
+            w.Top    = screen.Top;
+            w.Left   = screen.Left;
+            w.Width  = screen.Width;
+            w.Height = screen.Height;
+            if (w.ShowDialog() == true)
+            {
+                double ratio = GetDpiForWindow(getThisHandle())/96.0d;
+                takeScreenShot( new System.Windows.Point(w.p1.X*ratio, w.p1.Y*ratio) , new System.Windows.Point(w.p2.X*ratio, w.p2.Y*ratio));
+                this.DialogResult = true;
+            }
+            else
+            {
+                this.DialogResult = false;
+            }
             this.Close();
         }
 
 
         private void takeScreenShot(System.Windows.Point p1, System.Windows.Point p2)
         {
-            System.Drawing.Rectangle screen = Screen.FromHandle(gethWnd()).Bounds;
-            int width = (int)Math.Max((p1.X - p2.X), (p2.X - p1.X));
-            int height = (int)Math.Max((p1.Y - p2.Y), (p2.Y - p1.Y));
+            int width  = (int)Math.Abs(p1.X - p2.X);
+            int height = (int)Math.Abs(p1.Y - p2.Y);
+            int X = screen.X + (int)Math.Min(p1.X, p2.X);
+            int Y = screen.Y + (int)Math.Min(p1.Y, p2.Y);
             Bitmap captureBitmap = new Bitmap(width, height);
             Graphics screenShotGraphics = Graphics.FromImage(captureBitmap);
-            screenShotGraphics.CopyFromScreen(screen.X+(int)(Math.Min(p1.X, p2.X)), screen.Y+(int)(Math.Min(p1.Y, p2.Y)), 0, 0, new System.Drawing.Size(width, height));
+            screenShotGraphics.CopyFromScreen(X, Y, 0, 0, new System.Drawing.Size(width, height));
             save(captureBitmap);
         }
 
 
-        private IntPtr gethWnd()
+        private IntPtr getThisHandle()
         {
             var wih = new System.Windows.Interop.WindowInteropHelper(this);
             return wih.Handle;
@@ -73,7 +80,7 @@ namespace MacroBoard.ScreenShot
             saveFileDialog.AddExtension = true;
             saveFileDialog.FileName = "filename";
             saveFileDialog.Filter = "jpg (*.jpg)|*.jpg" + "|image (*.jpg;*.png;*.jpeg)|*.jpg;*.png;*.jpeg" +"|All files (*.*)|*.*";
-            saveFileDialog.FilterIndex = 2;
+            saveFileDialog.FilterIndex = 0;
             saveFileDialog.RestoreDirectory = true;
 
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
