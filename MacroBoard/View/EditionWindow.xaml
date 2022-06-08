@@ -458,7 +458,7 @@
                                 </Style>
                             </TextBox.Resources>
                         </TextBox>
-                        <Button  BorderBrush="#10001A" x:Name="Btn_WorkFlowImage" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="30" Width="100" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="81,83,0,28" Focusable="False">
+                        <Button  BorderBrush="#10001A" x:Name="Btn_WorkFlowImage" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="30" Width="100" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="81,83,0,20" Focusable="False">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
                                     <Setter Property="Background" Value="Transparent"/>
@@ -484,7 +484,7 @@
                             </Button.Style>
                         </Button>
 
-                        <Button  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Click="onClickSave" Focusable="False" Margin="231,83,0,28" RenderTransformOrigin="0.527,2.4" >
+                        <Button  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Click="onClickSave" Focusable="False" Margin="231,83,0,20" RenderTransformOrigin="0.527,2.4" >
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
 

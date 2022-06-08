@@ -408,7 +408,9 @@
                     <Button x:Name="Edition" Margin="0,30,0,20" Click="AddWorkFlow" >
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageEdit}"/>
                     </Button>
-                    <CheckBox x:Name="AppServer" IsChecked="False" Checked="cbFeature_CheckedChanged" Unchecked="cbFeature_CheckedChanged" Margin="0,40,0,0" Style="{DynamicResource CustomCheckBox}" >App</CheckBox>
+                    <CheckBox x:Name="AppServer" IsChecked="False" Checked="cbFeature_CheckedChanged" Unchecked="cbFeature_CheckedChanged" Margin="0,40,0,0" Style="{DynamicResource CustomCheckBox}" >
+                        <Image Height="25" Width="25" Style="{DynamicResource CustomImageApp}"/>
+                    </CheckBox>
                 </StackPanel>
             </Border>
             

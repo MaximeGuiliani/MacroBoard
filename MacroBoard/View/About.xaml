@@ -5,14 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard.View"
         mc:Ignorable="d"
-        Title="About" Height="450" Width="800"
+        Title="About Us" Height="450" Width="800"
         MinHeight="400"
         MinWidth="500"
         WindowStartupLocation="CenterScreen"
          Style="{DynamicResource CustomWindowStyle}">
     <Grid>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{DynamicResource CustomTextBlock}">
-            Hello 
+        <TextBlock Margin="10" VerticalAlignment="Top"  FontSize="11" FontFamily="Century Gothic" FontStyle="Normal"  HorizontalAlignment="Left"  Style="{DynamicResource CustomTextBlock}">
+           By Heba Abu Rabia<LineBreak />
+               Damien Gazaix <LineBreak />
+               Léo-Paul Musardo <LineBreak />
+               Zineb Moubarik <LineBreak />
+               Maxime Guiliani<LineBreak />
+        </TextBlock>
+
+        <TextBlock Margin="20" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   FontSize="26"
+                   FontFamily="Century Gothic"
+                   FontStyle="Normal" 
+                   Style="{DynamicResource CustomTextBlock}">
+           MacroBoard
+        </TextBlock>
+
+        <TextBlock Margin="50" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   FontSize="16"
+                   FontFamily="Century Gothic"
+                   FontStyle="Normal" 
+                   Style="{DynamicResource CustomTextBlock}">
+           MacroBoard is an application desktop, used for the creation <LineBreak/> 
+            of automated workflows
+        </TextBlock>
+
+        <TextBlock Margin="0,0,500,150" 
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   FontFamily="Century Gothic"
+                   FontStyle="Italic" 
+                   Style="{DynamicResource CustomTextBlock}">
+           How it works
+        </TextBlock>
+        <TextBlock VerticalAlignment="Center"  FontSize="16" FontFamily="Century Gothic" FontStyle="Normal"  HorizontalAlignment="Center" TextWrapping="Wrap" Style="{DynamicResource CustomTextBlock}" Width="674" Height="118">
+           
+            Use MacroBoard to create an original multi-step Workflow, or choose from hundreds of templates, and connect to over 26 blocks (or connectors) to synchronize files, and 
+            receive notifications, and control your computer from a distance. <LineBreak />
+            Tip: If you are unable to find a particular template,try the MacroBoard User Manual.  <LineBreak/>
+
         </TextBlock>
     </Grid>
 </Window>

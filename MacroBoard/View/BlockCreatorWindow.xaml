@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard.View"
         mc:Ignorable="d"
-        Title="Block Creation"
+        Title="Set Block"
         SizeToContent="Height"
         MinHeight="100"
         MaxHeight="500"

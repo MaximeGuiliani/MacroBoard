@@ -221,6 +221,7 @@ namespace MacroBoard.View
         {
             Label blockInst = new Label();
             blockInst.Content = "Press ctrl+c to get the cursor's position";
+            (blockInst).Foreground = new SolidColorBrush(Color.FromRgb(127, 69, 152));
             blockInst.FontSize = 16;
             blockInst.HorizontalAlignment = HorizontalAlignment.Left;
             blockInst.Margin = new Thickness(0, 0, 10, 0);
@@ -305,6 +306,7 @@ namespace MacroBoard.View
             blockTitle.FontWeight = FontWeights.Bold;
             blockTitle.Margin = new Thickness(0, 0, 10, 0);
             //blockTitle.FontStyle
+            (blockTitle).Foreground = new SolidColorBrush(Color.FromRgb(127, 69, 152));
             Controls.Children.Add(blockTitle);
         }
 

@@ -69,6 +69,8 @@
 		<None Remove="Resources\icon_add_dark.png" />
 		<None Remove="Resources\icon_edit.png" />
 		<None Remove="Resources\icon_edit_dark.png" />
+		<None Remove="Resources\icon_phonelink.png" />
+		<None Remove="Resources\icon_phonelink_dark.png" />
 		<None Remove="Resources\icon_plus.png" />
 		<None Remove="Resources\icon_plus_dark.png" />
 		<None Remove="Resources\icon_search.png" />
@@ -258,6 +260,12 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\icon_edit_dark.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_phonelink.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\icon_phonelink_dark.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\icon_search.png">
