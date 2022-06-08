@@ -13,7 +13,8 @@
         MinHeight="600" MinWidth="520"
         ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
-        Style="{DynamicResource CustomWindowStyle}">
+        Style="{DynamicResource CustomWindowStyle}"
+        Closing="DataWindow_Closing">
 
 
    <!--_____________________________________________________________________________________________________-->

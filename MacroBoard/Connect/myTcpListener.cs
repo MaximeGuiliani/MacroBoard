@@ -8,13 +8,21 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
-class myTcpListener
+class MyTcpListener
 {
+
     public TcpListener server;
+
     public TcpListener dataReceiveServer;
+    public TcpClient clientSender;
+    public TcpClient client;
+    public bool isclientSenderOnline = false;
+    public bool isclientOnline = false;
     public bool isDatasender = true;
-    public myTcpListener()
+    public MyTcpListener()
+
     {
         Thread newThread = new Thread(new ThreadStart(Run));
         newThread.SetApartmentState(ApartmentState.STA);
@@ -28,9 +36,6 @@ class myTcpListener
         {
             // Set the TcpListener on port 13000.
             Int32 port = 13000;
-            // IPAddress localAddr = IPAddress.Parse("192.168.43.63");
-
-            // TcpListener server = new TcpListener(port);
             server = new TcpListener(port);
 
             // Start listening for client requests.
@@ -40,26 +45,25 @@ class myTcpListener
             byte[] bytes = new byte[256];
 
             // Enter the listening loop.
-            while (true)
-            {
-                Trace.Write("Waiting for a connection... ");
-
-                // Perform a blocking call to accept requests.
-                // You could also use server.AcceptSocket() here.
-                TcpClient client = server.AcceptTcpClient();
-                Trace.WriteLine("Connected!");
-                Thread newThread = new(new ThreadStart(RunDataSender));
-                newThread.SetApartmentState(ApartmentState.STA);
-                newThread.Start();
-                NetworkStream stream = client.GetStream();
-                
-                InitMobileData(stream);
 
 
+            Trace.Write("Waiting for a connection... ");
+            TcpClient client = server.AcceptTcpClient();
+            Trace.WriteLine("Connected!");
 
-                // Shutdown and end connection
-                client.Close();
-            }
+
+            isclientOnline = true;
+            Thread newThread = new(new ThreadStart(RunDataSender));
+            newThread.SetApartmentState(ApartmentState.STA);
+            newThread.Start();
+
+
+            NetworkStream stream = client.GetStream();
+
+            InitMobileData(stream);
+
+
+            client.Close();
         }
         catch (SocketException e)
         {
@@ -67,18 +71,18 @@ class myTcpListener
         }
         finally
         {
-            // Stop listening for new clients.
             server.Stop();
             Trace.WriteLine("\n Server Stopped...");
 
         }
 
-        Trace.WriteLine("\n Server Closed...");
-        
+        Trace.WriteLine("\n Server sending fav Closed...");
+
         Console.Read();
+        isclientOnline = false;
+
+
     }
-
-
 
     public void RunDataSender()
     {
@@ -149,37 +153,179 @@ class myTcpListener
     private void InitMobileData(NetworkStream stream)
     {
 
-        List<WorkflowView> lw = Serialization.getFavsFromJson();
-        byte[] msg;
-        byte[] clientResponseData;
-        string ClientResponse;
-        int bytes;
-        foreach (WorkflowView wf in lw)
+        List<WorkflowView> lwf = Serialization.getFavsFromJson();
+
+        stream.Write(Encoding.ASCII.GetBytes(lwf.Count.ToString()), 0, 1);
+
+        foreach (WorkflowView wf in lwf)
         {
-            //Send Name Start ---------------------------------------------------------------//
-            byte[] wfNameToSend = Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName);
-            stream.Write(wfNameToSend, 0, wfNameToSend.Length);
-            Trace.WriteLine("Name send : " + wf.CurrentworkFlow.workflowName);
-            // reponse du client
-            clientResponseData = new byte[256];
-            bytes = stream.Read(clientResponseData, 0, clientResponseData.Length);
-            ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-            Trace.WriteLine("Received from Client : " + ClientResponse);
-            stream.Flush();
-            //Send Name end ---------------------------------------------------------------//
+            Bitmap imageBitmap;
+
+            if (wf.CurrentworkFlow.imagePath.Length <= 0)
+                imageBitmap = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\Button_Workflow.png");
+            else
+                imageBitmap = new Bitmap(wf.CurrentworkFlow.imagePath);
+
+            
+            imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
+
+            byte[] imageInBytes = ImageToByte(imageBitmap);
+            byte[] serverResponse = new byte[50];
+
+            stream.Write(Encoding.ASCII.GetBytes(imageInBytes.Length.ToString()), 0, imageInBytes.Length.ToString().Length);
+
+            Trace.WriteLine(imageInBytes.Length);
+
+            stream.Read(serverResponse, 0, serverResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+
+            stream.Write(imageInBytes, 0, imageInBytes.Length);
+
+            serverResponse = new byte[50];
+            stream.Read(serverResponse, 0, serverResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+
+            stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName.Length.ToString()), 0, wf.CurrentworkFlow.workflowName.Length.ToString().Length);
+
+            stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName), 0, wf.CurrentworkFlow.workflowName.Length);
+
+            serverResponse = new byte[50];
+            stream.Read(serverResponse, 0, serverResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+
         }
-        //message to tell the client we finish sending ----------------------------------------//
-        msg = Encoding.ASCII.GetBytes("|");
-        stream.Write(msg, 0, msg.Length);
+
     }
 
-    public byte[] ImageToByteArray(Image imageIn)
+    public static byte[] ImageToByte(Image img)
     {
-        using (var ms = new MemoryStream())
+        ImageConverter converter = new ImageConverter();
+        return (byte[])converter.ConvertTo(img, typeof(byte[]));
+    }
+
+    private static Bitmap resizeImage(Bitmap imgToResize, Size size)
+    {
+        //Get the image current width  
+        int sourceWidth = imgToResize.Width;
+        //Get the image current height  
+        int sourceHeight = imgToResize.Height;
+        float nPercent = 0;
+        float nPercentW = 0;
+        float nPercentH = 0;
+        //Calulate  width with new desired size  
+        nPercentW = ((float)size.Width / (float)sourceWidth);
+        //Calculate height with new desired size  
+        nPercentH = ((float)size.Height / (float)sourceHeight);
+        if (nPercentH < nPercentW)
+            nPercent = nPercentH;
+        else
+            nPercent = nPercentW;
+        //New Width  
+        int destWidth = (int)(sourceWidth * nPercent);
+        //New Height  
+        int destHeight = (int)(sourceHeight * nPercent);
+        Bitmap b = new Bitmap(destWidth, destHeight);
+        Graphics g = Graphics.FromImage((System.Drawing.Image)b);
+        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        // Draw image with new width and height  
+        g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
+        g.Dispose();
+        return b;
+    }
+
+
+
+
+    public void RunDataSender()
+    {
+        isDatasender = false;
+
+        try
         {
-            imageIn.Save(ms, imageIn.RawFormat);
-            return ms.ToArray();
+            int port = 14000;
+
+            dataReceiveServer = new TcpListener(port);
+
+            // Start listening for client requests.
+            dataReceiveServer.Start();
+
+            // Buffer for reading data
+            byte[] bytes = new byte[256];
+
+
+            Trace.WriteLine("Waiting for a connection Data Sender... ");
+
+            // Perform a blocking call to accept requests.
+            // You could also use server.AcceptSocket() here.
+            clientSender = dataReceiveServer.AcceptTcpClient();
+
+            Trace.WriteLine("Connected!");
+            isclientSenderOnline = true;
+            NetworkStream streamReceiveMobiledata = clientSender.GetStream();
+            GetMobileData(streamReceiveMobiledata);
+
+
+            // Shutdown and end connection
+            isclientSenderOnline = false;
+            clientSender.Close();
+
+        }
+        catch (SocketException e)
+        {
+            Console.WriteLine("SocketException: {0}", e);
+        }
+        finally
+        {
+            // Stop listening for new clients.
+            dataReceiveServer.Stop();
+            Trace.WriteLine("\n Server Stopped...");
+
+        }
+
+        Console.Read();
+    }
+
+    private void GetMobileData(NetworkStream streamReceiveMobiledata)
+    {
+        while (true)
+        {
+            try
+            {
+                // write du client ---------------------------------------------------------------//
+                byte[] clientNameSize = new byte[20];
+                streamReceiveMobiledata.Read(clientNameSize, 0, clientNameSize.Length);
+                string ClientResponseNameSize = Encoding.ASCII.GetString(clientNameSize);
+
+
+                Trace.WriteLine("\n" + "Received from Client : " + ClientResponseNameSize + "\n");
+
+                byte[] okSend = Encoding.ASCII.GetBytes("ok");
+                streamReceiveMobiledata.Write(okSend, 0, okSend.Length);
+
+                byte[] clientResponseData = new byte[Int16.Parse(ClientResponseNameSize)];
+                streamReceiveMobiledata.Read(clientResponseData, 0, clientResponseData.Length);
+                string ClientResponse = Encoding.ASCII.GetString(clientResponseData);
+
+
+                Trace.WriteLine("\n" + "Received from Client : " + ClientResponse + "\n");
+
+
+
+                Serialization.ExecuteFromMobileApp(ClientResponse);
+                Trace.WriteLine("");
+                //write du client end ---------------------------------------------------------------//
+            }
+            catch (Exception)
+            {
+
+                Trace.WriteLine("Client was Closed");
+                break;
+            }
+
         }
     }
+
+
+
 }
 

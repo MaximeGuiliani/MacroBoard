@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,7 @@ namespace MacroBoard
     /// </summary>
     public partial class MainWindow : Window , INotifyPropertyChanged
     {
+
         public WorkFlow WorkFlow;       
         public ObservableCollection<WorkflowView> FavoriteWorkFlows { get; set; }
         public ObservableCollection<WorkflowView> WorkFlows { get; set; }
@@ -40,6 +42,7 @@ namespace MacroBoard
 
         public MainWindow()
         {
+
             DataContext = this;
             InitializeComponent();
             InitWorkflows();
@@ -48,10 +51,14 @@ namespace MacroBoard
 
         public MainWindow(string message) : this()
         {
-            //new myTcpListener();
             InitializeComponent();
             InitWorkflows();
             MessageBox.Show(message);
+        }
+
+        void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+            myTcp.server.Stop();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
