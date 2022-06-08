@@ -345,11 +345,13 @@ namespace MacroBoard
 
 
                 WorkFlows.Add(workflowView);
-                //this
+                
                 CreateButton(workflowView, false, WorkFlows.Count - 1 );
 
 
             }
+            ListMacro.ItemsSource = WorkFlows;
+
         }
 
 
@@ -362,7 +364,7 @@ namespace MacroBoard
                 EditionWindow editionWindow = new(wf);
                 editionWindow.ShowDialog();
 
-                ResetWindow();
+                //ResetWindow();
 
                 if (editionWindow.DialogResult == true)
                 {
@@ -425,7 +427,7 @@ namespace MacroBoard
             EditionWindow editionWindow = new(wf);
             editionWindow.ShowDialog();
 
-            ResetWindow();
+            //ResetWindow();
 
             if (editionWindow.DialogResult == true)
             {
@@ -578,13 +580,12 @@ namespace MacroBoard
 
         private void AboutApp(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("about");
+
+            About about = new();
+            about.ShowDialog();
         }
 
-        private void TextBlock_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-
-        }
+        
     }
 
 

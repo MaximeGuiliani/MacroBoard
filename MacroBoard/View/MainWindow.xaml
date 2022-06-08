@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
         Height="600" 
-        Width="700"
+        Width="910"
         mc:Ignorable="d"
         Title="Macroboard Desktop" MinHeight="600" MinWidth="520"
         ResizeMode="CanResizeWithGrip"
@@ -51,9 +51,9 @@
                                                 <TranslateTransform X="0.02" Y="0.3"/>
                                             </TransformGroup>
                                         </RadialGradientBrush.RelativeTransform>
-                                        <GradientStop Offset="1" Color="BlueViolet"
+                                        <GradientStop Offset="1" Color="#FF7F4598"
                                                       />
-                                        <GradientStop Offset="0.3" Color="Gray"/>
+                                        <GradientStop Offset="0.3" Color="#FF7F4591"/>
                                     </RadialGradientBrush>
                                 </Border.Background>
                                 <ContentPresenter HorizontalAlignment="Center"
@@ -111,7 +111,6 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-
             <TextBox Style="{DynamicResource CustomTextBox}" 
                      Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                      x:Name="Search" 
@@ -139,7 +138,8 @@
         </Grid>
 
         <!--Favorite-->
-        <Grid Grid.Row="1" Name="FavGrid">
+        <Grid Grid.Row="1" >
+
             <ListBox
                 BorderBrush="{x:Null}"
                 Grid.Column="1"
@@ -148,13 +148,14 @@
                 Style="{DynamicResource CustomListBoxFav}" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
                 x:Name="ListFav" 
                 Grid.ColumnSpan="5" 
                 HorizontalAlignment="Stretch" 
                 VerticalAlignment="Stretch"  
-                Margin="69,0,15,0" 
+                Margin="89,0,15,0" 
                 ItemsSource="{Binding Path=FavoriteWorkFlows}">
+
                 <ListBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
@@ -162,10 +163,10 @@
                 </ListBox.Resources>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid >
                             <Border Style="{DynamicResource CustomBorder}">
                                 <Border.Clip>
-                                    <RectangleGeometry Rect="10,10,90,90" RadiusX="10" RadiusY="10" />
+                                    <RectangleGeometry Rect="18,18,90,90" RadiusX="10" RadiusY="10" />
                                 </Border.Clip>
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="5"
@@ -184,12 +185,14 @@
                                    VerticalAlignment="Center"/>
                                 </Button>
                             </Border>
-                            <!--<Label Margin="5" FontSize="20" VerticalAlignment="Bottom" FontStyle="Oblique" HorizontalAlignment="Center" Content="{Binding Path=Lbl_Name}" ></Label>-->
-                            <Button x:Name="Btn_Fav" Style="{Binding Btn_Fav}" BorderBrush="Transparent" Background="Transparent" Width="20" Height="20" Margin="80,10,10,80" Click="OnClick_Delete_Fav" >
-                                <TextBlock x:Name="FavB" Foreground="DarkRed" >
-                                     ♥
+                            <Button x:Name="Btn_Fav" Style="{Binding Btn_Fav}" BorderBrush="Transparent" Background="Transparent" Width="30" Height="30" Margin="80,10,10,90" Click="OnClick_Delete_Fav" >
+                                <TextBlock x:Name="FavB" FontSize="20" Foreground="DarkRed" >
+                                     ⊝
                                 </TextBlock>
                             </Button>
+                            <TextBlock   VerticalAlignment="Bottom"  HorizontalAlignment="Center" TextWrapping="Wrap" Style="{DynamicResource CustomTextBlock}"   
+                                         FontSize="16" FontFamily="Century Gothic" 
+                                        Text="{Binding WfName}" />
                         </Grid>
 
                     </DataTemplate>
@@ -234,22 +237,37 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-           </Grid>
+
+            <TextBlock HorizontalAlignment="Right" Margin="0,-20,0,0"  VerticalAlignment="Center" Foreground="Gray">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+                Favorites</TextBlock>
+        </Grid>
 
         <Grid Grid.Row="2">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray"> Create your own WorkFlows</TextBlock>
+            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-99,0" Foreground="Gray">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+                Create your own WorkFlows</TextBlock>
             <ListBox x:Name="ListMacro" 
+                    MinHeight="100"
                     BorderBrush="{x:Null}"
                     Grid.Column="1"
                     Grid.Row="1"
                     Background="Transparent"
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
                     Grid.ColumnSpan="5" 
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch"  
-                    Margin="69,20,15,0" 
+                    Margin="89,0,15,0"
                     ItemsSource="{Binding Path=WorkFlows}"
                     Style="{DynamicResource CustomListBox}">
                 <ListBox.Resources>
@@ -262,7 +280,7 @@
                         <Grid>
                             <Border Style="{DynamicResource CustomBorder}" CornerRadius="25" >
                                 <Border.Clip>
-                                    <RectangleGeometry Rect="10,10,90,90" RadiusX="10" RadiusY="10" />
+                                    <RectangleGeometry Rect="18,18,90,90" RadiusX="10" RadiusY="10" />
                                 </Border.Clip>
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="5"
@@ -272,7 +290,7 @@
                                 <Border.Background>
                                     <ImageBrush Stretch="Fill" />
                                 </Border.Background>
-                                <Button Opacity="1" FontSize="10" Click="Button_Click" Style="{DynamicResource RoundCorner}">
+                                <Button Opacity="1" Margin="13" FontSize="13" Click="Button_Click" Style="{DynamicResource RoundCorner}">
                                     <Image Source="{Binding ImageWorkflow}"
                                    Width="100"
                                    Height="100"
@@ -280,14 +298,20 @@
                                    VerticalAlignment="Center"/>
                                 </Button>
                             </Border>
-                            <Button Style="{Binding Btn_Fav}" BorderBrush="Transparent" Background="Transparent" Width="20" Height="20" Margin="80,10,10,80" Click="OnClick_Favorite" >
-                                <TextBlock Foreground="DarkRed">
+
+                            <Button x:Name="Btn_Fav" Style="{Binding Btn_Fav}" BorderBrush="Transparent" Background="Transparent" Width="30" Height="30" Margin="80,10,20,80" Click="OnClick_Favorite" >
+                                <TextBlock FontSize="20" Foreground="DarkRed">
                                      ♥
                                 </TextBlock>
                             </Button>
-                            <Button Style="{Binding Btn_Delete}" BorderBrush="Transparent" Background="Transparent"  Width="20" Height="20" Margin="0,10,80,80" Click="OnClick_DeleteWorkflow" >
-                                <TextBlock Foreground="DarkRed">  ━</TextBlock>
+                            <Button x:Name="Btn_Delete" Style="{Binding Btn_Delete}" BorderBrush="Transparent" Background="Transparent"  Width="30" Height="30" Margin="10,10,80,80" Click="OnClick_DeleteWorkflow" >
+                                <TextBlock  FontSize="10"  Foreground="DarkRed"> ✖ </TextBlock>
                             </Button>
+
+
+                            <TextBlock   VerticalAlignment="Bottom"  HorizontalAlignment="Center" TextWrapping="Wrap"   Style="{DynamicResource CustomTextBlock}"
+                                         FontSize="16" FontFamily="Century Gothic" FontStyle="Normal" 
+                                         Text="{Binding WfName}" />
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -331,11 +355,12 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
+
         </Grid>
 
 
 
-        <Grid x:Name="panel" HorizontalAlignment="Left" Width="65" Background="Transparent" Grid.RowSpan="5" >
+        <Grid x:Name="panel" HorizontalAlignment="Left" Width="85" Background="Transparent" Grid.RowSpan="5" >
             <Border CornerRadius="15,15,15,15" BorderThickness="3,3,3,3" >
                 <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}" Margin="-3,-3,7,-3"  >
                     <Button Click="ChangeTheme" Height="78" Width="58">
@@ -348,7 +373,7 @@
                     <Button x:Name="Edition" Margin="0,30,0,20" Click="AddWorkFlow" >
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageEdit}"/>
                     </Button>
-                    <CheckBox x:Name="AppServer" IsChecked="False" Checked="cbFeature_CheckedChanged" Unchecked="cbFeature_CheckedChanged" Margin="0,40,0,0" >App</CheckBox>
+                    <CheckBox x:Name="AppServer" IsChecked="False" Checked="cbFeature_CheckedChanged" Unchecked="cbFeature_CheckedChanged" Margin="0,40,0,0" Style="{DynamicResource CustomCheckBox}" >App</CheckBox>
                 </StackPanel>
             </Border>
             <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" 
