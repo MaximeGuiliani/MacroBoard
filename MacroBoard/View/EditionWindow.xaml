@@ -47,6 +47,7 @@
                      VerticalContentAlignment="Center" x:Name="Search"
                      HorizontalAlignment="Left"
                      Height="30"
+                     FontFamily="Century Gothic"
                      VerticalAlignment="Center"
                      Width="180" TextChanged="onTextChangedSearch"
                      Margin="5,0,0,0"
@@ -108,11 +109,11 @@
                     </TextBox.Resources>
                 </TextBox>
 
-                <Button x:Name="expandAll"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickExpandAll"   Margin="0,0,5,0"  Focusable="False">
+                <Button x:Name="expandAll" FontFamily="Century Gothic"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickExpandAll"   Margin="0,0,5,0"  Focusable="False">
                     <Button.Style>
 
                         <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#282828"/>
+                            <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="Foreground" Value="#FF7F4598"/>
                             <Setter Property="BorderBrush" Value="#FF7F4598"/>
                             <Setter Property="Content">
@@ -149,15 +150,15 @@
 
                 </Button>
 
-           
-                
-                <Button x:Name="collapseAll"    HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickCollapseAll" Margin="0,0,35,0"  Focusable="False" >
+
+
+                <Button x:Name="collapseAll"  FontFamily="Century Gothic"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickCollapseAll" Margin="0,0,35,0"  Focusable="False" >
 
                    
                     <Button.Style>
                        
                         <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background" Value="#282828"/>
+                            <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="Foreground" Value="#FF7F4598"/>
                             <Setter Property="BorderBrush" Value="#FF7F4598"/>
                             <Setter Property="Content">
@@ -233,7 +234,7 @@
                                                    Grid.Column="0"
                                                    Margin="10,0,0,0"/>
 
-                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1" Background="Transparent"/>
+                                                <TextBlock Text="{Binding Name}" FontFamily="Century Gothic" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1" Background="Transparent"/>
 
                                             </Grid>
                                         </Border>
@@ -266,7 +267,7 @@
 
                                                     <Expander.Header>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Name}" FontWeight="DemiBold" FontSize="20" VerticalAlignment="Bottom" Foreground="#b560d8"/>
+                                                            <TextBlock Text="{Binding Name}" FontFamily="Century Gothic" FontWeight="DemiBold" FontSize="20" VerticalAlignment="Bottom" Foreground="#b560d8"/>
                                                         </StackPanel>
                                                     </Expander.Header>
                                                     <ItemsPresenter />
@@ -317,14 +318,14 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Button BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,3,0,0" Content="▲" Grid.Column = "0" VerticalAlignment="Top" Width="25" Height="25" Foreground="Black" Background="#6f3d84" FontSize="10" Click="onClickUp"   Focusable="False">
+                                            <Button BorderThickness="2" FontFamily="Century Gothic" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,3,0,0" Content="▲" Grid.Column = "0" VerticalAlignment="Top" Width="25" Height="25" Foreground="Black" Background="#6f3d84" FontSize="10" Click="onClickUp"   Focusable="False">
                                                 <Button.Resources>
                                                     <Style TargetType="Border">
                                                         <Setter Property="CornerRadius" Value="3"/>
                                                     </Style>
                                                 </Button.Resources>
                                             </Button>
-                                            <Button BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,0,0,3" Content="▼" Grid.Column = "0" VerticalAlignment="Bottom" Width="25" Height="25" Foreground="Black" Background="#6f3d84" FontSize="10" Click="onClickDown" Focusable="False">
+                                            <Button BorderThickness="2" FontFamily="Century Gothic" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,0,0,3" Content="▼" Grid.Column = "0" VerticalAlignment="Bottom" Width="25" Height="25" Foreground="Black" Background="#6f3d84" FontSize="10" Click="onClickDown" Focusable="False">
                                                 <Button.Resources>
                                                     <Style TargetType="Border">
                                                         <Setter Property="CornerRadius" Value="3"/>
@@ -340,17 +341,17 @@
                                                HorizontalAlignment="Right"
                                                Grid.Column="0"/>
 
-                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1"/>
+                                            <TextBlock Text="{Binding Name}" FontFamily="Century Gothic" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column = "1"/>
 
 
-                                            <Button Content="EDIT" Name="Edit" BorderThickness="2" BorderBrush="Black" Margin="0,0,10,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column = "2" Foreground="Black" Background="#6f3d84" FontSize="10" Width="25" Height="25" Click="onClickEdit"  Focusable="False">
+                                            <Button Content="EDIT" Name="Edit" FontFamily="Century Gothic" BorderThickness="2" BorderBrush="Black" Margin="0,0,10,3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column = "2" Foreground="Black" Background="#6f3d84" FontSize="10" Width="25" Height="25" Click="onClickEdit"  Focusable="False">
                                                 <Button.Resources>
                                                     <Style TargetType="Border">
                                                         <Setter Property="CornerRadius" Value="3"/>
                                                     </Style>
                                                 </Button.Resources>
                                             </Button>
-                                            <Button Content="-" BorderThickness="2" BorderBrush="Black" Margin="0,3,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column = "2" Foreground="Black" Background="#6f3d84" FontSize="10" Width="25" Height="25" Click="onClickDelete"  Focusable="False">
+                                            <Button Content="-"  FontFamily="Century Gothic" BorderThickness="2" BorderBrush="Black" Margin="0,3,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column = "2" Foreground="Black" Background="#6f3d84" FontSize="10" Width="25" Height="25" Click="onClickDelete"  Focusable="False">
                                                 <Button.Resources>
                                                     <Style TargetType="Border">
                                                         <Setter Property="CornerRadius" Value="3"/>
@@ -402,6 +403,7 @@
                     <Grid Grid.Column="1">
 
                         <TextBox Foreground="Gray"
+                                 FontFamily="Century Gothic"
                      x:Name="TextBox_WorkFlowName"            
                      Background="#D7CFE0"
                      BorderThickness="2"                     
@@ -458,7 +460,7 @@
                                 </Style>
                             </TextBox.Resources>
                         </TextBox>
-                        <Button  BorderBrush="#10001A" x:Name="Btn_WorkFlowImage" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="30" Width="100" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="81,83,0,20" Focusable="False">
+                        <Button  BorderBrush="#10001A" FontFamily="Century Gothic" x:Name="Btn_WorkFlowImage" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="30" Width="100" HorizontalAlignment="Left" Content="Select Image" Click="onClickSelectImage" Margin="81,83,0,20" Focusable="False">
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
                                     <Setter Property="Background" Value="Transparent"/>
@@ -484,7 +486,7 @@
                             </Button.Style>
                         </Button>
 
-                        <Button  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="100" Click="onClickSave" Focusable="False" Margin="231,83,0,20" RenderTransformOrigin="0.527,2.4" >
+                        <Button  x:Name="Btn_Save" Content="Save" HorizontalAlignment="Left" FontFamily="Century Gothic" VerticalAlignment="Top" Height="30" Width="100" Click="onClickSave" Focusable="False" Margin="231,83,0,20" RenderTransformOrigin="0.527,2.4" >
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
 
