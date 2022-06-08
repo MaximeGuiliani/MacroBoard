@@ -27,16 +27,16 @@ namespace MacroBoard
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window , INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
 
-        public WorkFlow WorkFlow;       
+        public WorkFlow WorkFlow;
         public ObservableCollection<WorkflowView> FavoriteWorkFlows { get; set; }
         public ObservableCollection<WorkflowView> WorkFlows { get; set; }
 
         public Observable<bool> isEdition { get; set; } = new(false);
 
-        myTcpListener Server;
+        MyTcpListener Server;
 
 
 
@@ -58,7 +58,7 @@ namespace MacroBoard
 
         void DataWindow_Closing(object sender, CancelEventArgs e)
         {
-            myTcp.server.Stop();
+            Server.server.Stop();
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
@@ -71,14 +71,14 @@ namespace MacroBoard
 
             this.DataContext = this;
 
-            WorkFlows = new ();
+            WorkFlows = new();
             FavoriteWorkFlows = new();
-           
+
 
             WorkFlows = Serialization.getWorkFlowsFromJsonZ();
             FavoriteWorkFlows = Serialization.getFavsFromJsonZ();
 
-           
+
             ListMacro.ItemsSource = WorkFlows;
             ListFav.ItemsSource = FavoriteWorkFlows;
 
@@ -91,7 +91,7 @@ namespace MacroBoard
         {
             if (AppServer.IsChecked == true)
             {
-                Server = new myTcpListener();
+                Server = new MyTcpListener();
             }
             else
             {
@@ -104,7 +104,7 @@ namespace MacroBoard
                 {
                     Server.dataReceiveServer.Stop();
 
-       }
+                }
             }
         }
 
@@ -121,7 +121,7 @@ namespace MacroBoard
                 workflowView.Btn_Delete.Visibility = Visibility.Hidden;
                 workflowView.Btn_Main.Click += Button_Click_Fav;
                 workflowView.Btn_Fav.Click += OnClick_Delete_Fav;
-                
+
 
             }
             else
@@ -139,14 +139,14 @@ namespace MacroBoard
 
 
             }
-            
+
             if (pos != -2)
             {
                 if (isFav) FavoriteWorkFlows[pos] = workflowView;
                 else WorkFlows[pos] = workflowView;
             }
 
-           
+
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
@@ -211,9 +211,9 @@ namespace MacroBoard
         {
             WorkflowView wf = (WorkflowView)((Button)sender).DataContext;
             int currentItemPos = WorkFlows.IndexOf(wf);
-            
+
             AddFavorite(new WorkflowView(WorkFlows[currentItemPos].CurrentworkFlow));
-           
+
         }
 
         private void AddFavorite(WorkflowView newFavorite)
@@ -273,7 +273,7 @@ namespace MacroBoard
             }
 
             ListMacro.ItemsSource = WorkflowsSearchs;
-           
+
 
 
 
@@ -355,8 +355,8 @@ namespace MacroBoard
 
 
                 WorkFlows.Add(workflowView);
-                
-                CreateButton(workflowView, false, WorkFlows.Count - 1 );
+
+                CreateButton(workflowView, false, WorkFlows.Count - 1);
 
 
             }
@@ -518,14 +518,14 @@ namespace MacroBoard
 
             //    for (int i = 0; i < WorkFlows.Count - 1; i++)
             //    {
-                    
+
             //        WorkFlows[i].Btn_Fav.Visibility = Visibility.Hidden;
             //        WorkFlows[i].Btn_Delete.Visibility = Visibility.Hidden;
             //    }
 
             //    for (int i = 0; i < FavoriteWorkFlows.Count; i++)
             //    {
-                    
+
             //        FavoriteWorkFlows[i].Btn_Fav.Visibility = Visibility.Hidden;
             //    }
             //}
@@ -550,7 +550,7 @@ namespace MacroBoard
 
         }
 
-        
+
 
         private void myRectangleLoaded(object sender, RoutedEventArgs e)
         {

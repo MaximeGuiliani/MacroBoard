@@ -84,72 +84,7 @@ class MyTcpListener
 
     }
 
-    public void RunDataSender()
-    {
-        isDatasender = false;
 
-        try
-        {
-            int port = 14000;
-
-            dataReceiveServer = new TcpListener(port);
-
-            // Start listening for client requests.
-            dataReceiveServer.Start();
-
-            // Buffer for reading data
-            byte[] bytes = new byte[256];
-
-
-            Trace.WriteLine("Waiting for a connection Data Sender... ");
-
-            // Perform a blocking call to accept requests.
-            // You could also use server.AcceptSocket() here.
-            TcpClient client = dataReceiveServer.AcceptTcpClient();
-
-            Trace.WriteLine("Connected!");
-            NetworkStream streamReceiveMobiledata = client.GetStream();
-            GetMobileData(streamReceiveMobiledata);
-
-
-            // Shutdown and end connection
-            client.Close();
-
-        }
-        catch (SocketException e)
-        {
-            Console.WriteLine("SocketException: {0}", e);
-        }
-        finally
-        {
-            // Stop listening for new clients.
-            dataReceiveServer.Stop();
-            Trace.WriteLine("\n Server Stopped...");
-
-        }
-
-        Console.Read();
-    }
-
-
-    private void GetMobileData(NetworkStream streamReceiveMobiledata)
-    {
-        while (true)
-        {
-            // write du client ---------------------------------------------------------------//
-
-            byte[] clientResponseData = new byte[8];
-            streamReceiveMobiledata.Read(clientResponseData, 0, clientResponseData.Length);
-            string ClientResponse = Encoding.ASCII.GetString(clientResponseData);
-
-            Trace.WriteLine("\n"+"Received from Client : " + ClientResponse+"\n");
-
-
-            Serialization.ExecuteFromMobileApp(ClientResponse);
-
-            //write du client end ---------------------------------------------------------------//
-        }
-    }
     private void InitMobileData(NetworkStream stream)
     {
 
@@ -166,7 +101,7 @@ class MyTcpListener
             else
                 imageBitmap = new Bitmap(wf.CurrentworkFlow.imagePath);
 
-            
+
             imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
 
             byte[] imageInBytes = ImageToByte(imageBitmap);
