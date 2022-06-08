@@ -73,8 +73,10 @@ StrokeThickness="1" StrokeDashArray="1 2"/>
     </Style>
 
     <Style x:Key="CustomBorder" TargetType="Border">
+        <Setter Property="Background" Value="Red"/>
         <Setter Property="CornerRadius" Value="25"/>
-        <Setter Property="Background" Value="#8c8c8c"/>
+        <Setter Property="BorderThickness" Value=" 0,0,0,8"/>
+        <Setter Property="BorderBrush" Value="Black"/>
     </Style>
 
     <Style x:Key="CustomListBoxFav" TargetType="ListBox">

@@ -32,14 +32,17 @@ namespace MacroBoard
         public ObservableCollection<WorkflowView> FavoriteWorkFlows { get; set; }
         public ObservableCollection<WorkflowView> WorkFlows { get; set; }
 
-        bool isEdition = false;
+        public Observable<bool> isEdition { get; set; } = new(false);
+
         myTcpListener Server;
+
+
 
         public MainWindow()
         {
+            DataContext = this;
             InitializeComponent();
             InitWorkflows();
-            
         }
 
 
@@ -103,7 +106,7 @@ namespace MacroBoard
 
             if (isFav)
             {
-                if (isEdition)
+                if (isEdition.Value)
                 {
                     workflowView.Btn_Fav.Visibility = Visibility.Visible;
 
@@ -271,7 +274,7 @@ namespace MacroBoard
 
         private void ResetWindow()
         {
-            if (isEdition) EditionMode(new(), new());
+            if (isEdition.Value) EditionMode(new(), new());
 
             Search.Text = "";
 
@@ -286,9 +289,9 @@ namespace MacroBoard
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            WorkflowView wf = (WorkflowView)((Button)sender).DataContext;
+            WorkflowView wf = (WorkflowView)((Border)sender).DataContext;
             int currentItemPos = WorkFlows.IndexOf(wf);
-            if (isEdition)
+            if (isEdition.Value)
             {
                 EditWorkflow(WorkFlows[currentItemPos].CurrentworkFlow, currentItemPos);
             }
@@ -304,10 +307,10 @@ namespace MacroBoard
 
         private void Button_Click_Fav(object sender, RoutedEventArgs e)
         {
-            WorkflowView wf = (WorkflowView)((Button)sender).DataContext;
+            WorkflowView wf = (WorkflowView)((Border)sender).DataContext;
             int currentItemPos = FavoriteWorkFlows.IndexOf(wf);
 
-            if (isEdition)
+            if (isEdition.Value)
             {
                 EditWorkflowFav(FavoriteWorkFlows[currentItemPos].CurrentworkFlow, currentItemPos);
             }
@@ -359,7 +362,7 @@ namespace MacroBoard
         private void EditWorkflowFav(WorkFlow wf, int index)
         {
             string toDelete = wf.workflowName;
-            if (isEdition)
+            if (isEdition.Value)
             {
                 EditionWindow editionWindow = new(wf);
                 editionWindow.ShowDialog();
@@ -498,43 +501,45 @@ namespace MacroBoard
         //-----------------------------------------------------------------------------------------------------------------------------//
 
         private void EditionMode(object sender, RoutedEventArgs e)
-        { 
-            if (isEdition)
-            {
-                isEdition = false;
+        {
+            isEdition.Value = !isEdition.Value;
 
-                for (int i = 0; i < WorkFlows.Count - 1; i++)
 
-                {
+            //if (isEdition)
+            //{
+            //    isEdition = false;
+
+            //    for (int i = 0; i < WorkFlows.Count - 1; i++)
+            //    {
                     
-                    WorkFlows[i].Btn_Fav.Visibility = Visibility.Hidden;
-                    WorkFlows[i].Btn_Delete.Visibility = Visibility.Hidden;
-                }
+            //        WorkFlows[i].Btn_Fav.Visibility = Visibility.Hidden;
+            //        WorkFlows[i].Btn_Delete.Visibility = Visibility.Hidden;
+            //    }
 
-                for (int i = 0; i < FavoriteWorkFlows.Count; i++)
-                {
+            //    for (int i = 0; i < FavoriteWorkFlows.Count; i++)
+            //    {
                     
-                    FavoriteWorkFlows[i].Btn_Fav.Visibility = Visibility.Hidden;
-                }
-            }
-            else
-            {
-                isEdition = true;
+            //        FavoriteWorkFlows[i].Btn_Fav.Visibility = Visibility.Hidden;
+            //    }
+            //}
+            //else
+            //{
+            //    isEdition = true;
 
-                for (int i = 0; i < WorkFlows.Count ; i++)
+            //    for (int i = 0; i < WorkFlows.Count ; i++)
 
-                {
-                    WorkFlows[i].Content.MouseEnter += myRectangleLoaded;
-                    WorkFlows[i].Btn_Fav.Visibility = Visibility.Visible;
-                    WorkFlows[i].Btn_Delete.Visibility = Visibility.Visible;
-                }
+            //    {
+            //        WorkFlows[i].Content.MouseEnter += myRectangleLoaded;
+            //        WorkFlows[i].Btn_Fav.Visibility = Visibility.Visible;
+            //        WorkFlows[i].Btn_Delete.Visibility = Visibility.Visible;
+            //    }
 
 
-                for (int i = 0; i < FavoriteWorkFlows.Count ; i++)
-                {
-                    FavoriteWorkFlows[i].Btn_Delete.Visibility = Visibility.Visible;
-                }
-            }
+            //    for (int i = 0; i < FavoriteWorkFlows.Count ; i++)
+            //    {
+            //        FavoriteWorkFlows[i].Btn_Delete.Visibility = Visibility.Visible;
+            //    }
+            //}
 
         }
 
@@ -585,8 +590,43 @@ namespace MacroBoard
             about.ShowDialog();
         }
 
-        
+
+        //---------------------------------------------------------------------------------------
+
+
+
+        public class Observable<T> : INotifyPropertyChanged
+        {
+            public Observable(T initialValue)
+            {
+                this.Value = initialValue;
+            }
+
+            private T _value;
+            public T Value
+            {
+                get { return _value; }
+                set { _value = value; NotifyPropertyChanged("Value"); }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            internal void NotifyPropertyChanged(String propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
     }
-
-
 }
