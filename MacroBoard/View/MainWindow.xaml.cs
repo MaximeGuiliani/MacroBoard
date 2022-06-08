@@ -19,6 +19,8 @@ using MacroBoard.View.Themes;
 using System.Windows.Data;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Net;
+using System.Net.Sockets;
 
 namespace MacroBoard
 
@@ -92,6 +94,9 @@ namespace MacroBoard
             if (AppServer.IsChecked == true)
             {
                 Server = new MyTcpListener();
+
+
+                MessageBox.Show("Please enter this on your phone \n "+ GetLocalIPAddress());
             }
             else
             {
@@ -106,6 +111,19 @@ namespace MacroBoard
 
                 }
             }
+        }
+
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
         private void CreateButton(WorkflowView workflowView, bool isFav, int pos = -2)
