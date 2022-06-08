@@ -87,7 +87,14 @@ class MyTcpListener
 
         foreach (WorkflowView wf in lwf)
         {
-            Bitmap imageBitmap = new Bitmap(wf.CurrentworkFlow.imagePath);
+            Bitmap imageBitmap;
+
+            if (wf.CurrentworkFlow.imagePath.Length <= 0)
+                imageBitmap = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\Button_Workflow.png");
+            else
+                imageBitmap = new Bitmap(wf.CurrentworkFlow.imagePath);
+
+            
             imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
 
             byte[] imageInBytes = ImageToByte(imageBitmap);
