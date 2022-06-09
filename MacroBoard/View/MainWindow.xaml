@@ -17,7 +17,7 @@
         Closing="DataWindow_Closing">
 
 
-   <!--_____________________________________________________________________________________________________-->
+    <!--_____________________________________________________________________________________________________-->
 
 
     <Window.Resources>
@@ -45,12 +45,12 @@
     </Window.Resources>
 
 
-    
-    
-    
+
+
+
     <!--_____________________________________________________________________________________________________-->
 
-    
+
     <!--grille principale-->
     <Grid >
         <Grid.ColumnDefinitions>
@@ -66,12 +66,12 @@
         </Grid.RowDefinitions>
 
 
-        
+
         <!--_____________________________________________________________________________________________________-->
 
 
-        
-        
+
+
         <!--recherche-->
         <Grid Grid.Row="0">
             <TextBox Style="{DynamicResource CustomTextBox}" 
@@ -129,19 +129,19 @@
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </ListBox.Resources>
-                
+
                 <!--affichage d'un item liste favorite-->
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            
+
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
                             <!--macro-->
-                            <Border Style="{DynamicResource CustomBorder}" MouseLeftButtonDown="Button_Click_Fav" Grid.Row="0" Width="120" Height="128">
+                            <Border   Style="{DynamicResource CustomBorder}" MouseLeftButtonUp="Button_Click_Fav" Grid.Row="0" Width="120" Height="128">
                                 <Border.Background>
                                     <ImageBrush Stretch="Fill" ImageSource="{Binding ImageWorkflow, FallbackValue=./Resources/bot.jpg }" />
                                 </Border.Background>
@@ -282,7 +282,7 @@
                             </Grid.RowDefinitions>
 
                             <!--macro-->
-                            <Border Style="{DynamicResource CustomBorder}" MouseLeftButtonDown="Button_Click" Width="105" Height="113" Grid.Row="0">
+                            <Border Style="{DynamicResource CustomBorder}" MouseLeftButtonUp="Button_Click" Width="105" Height="113" Grid.Row="0">
                                 <Border.Background>
                                     <ImageBrush Stretch="Fill" ImageSource="{Binding ImageWorkflow, FallbackValue=./Resources/bot.jpg }" />
                                 </Border.Background>
@@ -320,7 +320,7 @@
                                                 <ControlTemplate TargetType="{x:Type Button}">
 
                                                     <TextBlock FontSize="20" Foreground="DarkRed" Text="♥" x:Name="btn_coeur" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                                    
+
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="true">
                                                             <Setter Property="FontSize" Value="30" TargetName="btn_coeur"/>
@@ -347,7 +347,7 @@
                                          Text="{Binding WfName}"
                                          Grid.Row="1"
                                          />
-                            
+
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -382,7 +382,7 @@
                         <WrapPanel IsItemsHost="True" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
-            
+
             </ListBox>
         </Grid>
 
@@ -396,7 +396,7 @@
 
         <!--pannel de gauche-->
         <Grid x:Name="panel" HorizontalAlignment="Left" Width="85" Background="Transparent" Grid.RowSpan="5" >
-            
+
             <Border CornerRadius="15,15,15,15" BorderThickness="3,3,3,3" >
                 <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}" Margin="-3,-3,7,-3"  >
                     <Button Click="ChangeTheme" Height="78" Width="58">
@@ -414,7 +414,7 @@
                     </CheckBox>
                 </StackPanel>
             </Border>
-            
+
             <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" 
                         VerticalAlignment="Bottom"
                         Margin="2,0,10,0" Height="45">
@@ -422,17 +422,17 @@
                     <Image Height="25" Width="25" Style="{DynamicResource CustomImageAbout}"/>
                 </Button>
             </StackPanel>
-            
+
         </Grid>
 
 
 
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
     </Grid>
 </Window>
