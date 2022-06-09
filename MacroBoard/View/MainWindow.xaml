@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroBoard"
         Height="680" 
-        Width="910"
+        Width="960"
         mc:Ignorable="d"
         x:Name="MainWindowT"
         Title="Macroboard Desktop"
@@ -105,11 +105,11 @@
 
 
         <!--Favorite-->
-        <Grid Grid.Row="1" >
+        <Grid Grid.Row="1"  >
 
             <ListBox
                 BorderBrush="{x:Null}"
-                Grid.Column="1"
+                Grid.Column="0"
                 Grid.Row="1"
                 MinHeight="100"
                 Style="{DynamicResource CustomListBoxFav}" 
@@ -143,7 +143,7 @@
                             <!--macro-->
                             <Border   Style="{DynamicResource CustomBorder}" MouseLeftButtonUp="Button_Click_Fav" Grid.Row="0" Width="120" Height="128">
                                 <Border.Background>
-                                    <ImageBrush Stretch="Fill" ImageSource="{Binding ImageWorkflow, FallbackValue=./Resources/bot.jpg }" />
+                                    <ImageBrush Stretch="Fill"   ImageSource="{Binding ImageWorkflow, FallbackValue=./Resources/workflow.png }" />
                                 </Border.Background>
                             </Border>
 
@@ -218,8 +218,13 @@
             </ListBox>
 
 
+           
+
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
             <!--affichage texte "favorites" vertical-->
-            <TextBlock HorizontalAlignment="Right" Margin="0,0,0,20" VerticalAlignment="Center" Foreground="Gray" >
+            <TextBlock HorizontalAlignment="Right" Margin="20,0,-30,25"  VerticalAlignment="Center" Foreground="Gray" >
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -230,9 +235,7 @@
                 </TextBlock.RenderTransform>
                 Favorites
             </TextBlock>
-
         </Grid>
-
 
 
 
@@ -241,17 +244,8 @@
 
 
         <!--tous les workflows-->
-        <Grid Grid.Row="2" Margin="0,40,0,0">
+        <Grid Grid.Row="2" Margin="0,20,0,0">
 
-            <!--affichage texte "your workflows" vertical-->
-            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-99,0" Foreground="Gray">
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="90"/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-                Create your own WorkFlows
-            </TextBlock>
 
 
             <ListBox x:Name="ListMacro" 
@@ -266,7 +260,7 @@
                     Grid.ColumnSpan="5" 
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch"  
-                    Margin="89,0,15,0"
+                    Margin="89,-20,15,0"
                     ItemsSource="{Binding Path=WorkFlows}"
                     Style="{DynamicResource CustomListBox}">
 
@@ -274,7 +268,7 @@
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Grid.Row="2"  >
 
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -284,7 +278,7 @@
                             <!--macro-->
                             <Border Style="{DynamicResource CustomBorder}" MouseLeftButtonUp="Button_Click" Width="105" Height="113" Grid.Row="0">
                                 <Border.Background>
-                                    <ImageBrush Stretch="Fill" ImageSource="{Binding ImageWorkflow, FallbackValue=./Resources/bot.jpg }" />
+                                    <ImageBrush Stretch="Fill" ImageSource="{Binding ImageWorkflow, FallbackValue=./Resources/workflow.png }" />
                                 </Border.Background>
                             </Border>
 
@@ -386,6 +380,18 @@
             </ListBox>
         </Grid>
 
+        <Grid Grid.Row="2" Grid.Column="1">
+            <!--affichage texte "your workflows" vertical-->
+            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="20,0,-130,25" Foreground="Gray">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="90"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+                Create your own WorkFlows
+            </TextBlock>
+        </Grid>
+        
 
 
 

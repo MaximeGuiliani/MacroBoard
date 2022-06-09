@@ -73,7 +73,12 @@ StrokeThickness="1" StrokeDashArray="1 2"/>
     </Style>
 
     <Style x:Key="CustomBorder" TargetType="Border">
-        <Setter Property="Background" Value="#e2d8e6"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="Gray"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Background" Value="#444444"/>
         <Setter Property="CornerRadius" Value="25"/>
         <Setter Property="BorderThickness" Value=" 0,0,0,8"/>
         <Setter Property="BorderBrush" Value="#c6c6c6"/>
@@ -116,6 +121,10 @@ StrokeThickness="1" StrokeDashArray="1 2"/>
     </Style>
     <Style x:Key="CustomImageThemes" TargetType="Image">
         <Setter Property="Source" Value="../../Resources/icon_themes_dark.png"/>
+    </Style>
+
+    <Style x:Key="CostumImageSave" TargetType="Image">
+        <Setter Property="Source" Value="../../Resources/icon_image.png"/>
     </Style>
 
     <Style x:Key="CustomImageApp" TargetType="Image">

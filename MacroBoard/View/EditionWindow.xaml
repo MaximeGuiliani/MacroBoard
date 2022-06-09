@@ -395,7 +395,7 @@
                                  BorderBrush="#6f3d84" 
 						         BorderThickness="3" >
                             <Border.Background>
-                                <ImageBrush x:Name="Img_WorkFlowImage" Stretch="Fill" ImageSource="../Resources/macro_img.png" />
+                                <ImageBrush x:Name="Img_WorkFlowImage" Stretch="Fill" ImageSource="../Resources/icon_image_dark.png" />
                             </Border.Background>
                         </Border>
                     </Grid>
@@ -416,7 +416,7 @@
                      Margin="81,36,0,0"
                      CaretBrush="#8848a2"
                      BorderBrush="#10001A"
-                     MaxLength="50" PreviewTextInput="OnPreviewTextInput" GotFocus="onGotFocusNameBox">
+                     MaxLength="12" PreviewTextInput="OnPreviewTextInput" GotFocus="onGotFocusNameBox">
 
                             <TextBox.Resources>
                                 <Style TargetType="TextBox">
