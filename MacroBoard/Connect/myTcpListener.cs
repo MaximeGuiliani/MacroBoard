@@ -93,48 +93,58 @@ class MyTcpListener
 
     private void InitMobileData(NetworkStream stream)
     {
-
-        List<WorkflowView> lwf = Serialization.getFavsFromJson();
-
-        stream.Write(Encoding.ASCII.GetBytes(lwf.Count.ToString()), 0, 1);
-
-        foreach (WorkflowView wf in lwf)
+        try
         {
-            Bitmap imageBitmap;
+            List<WorkflowView> lwf = Serialization.getFavsFromJson();
 
-            if (wf.CurrentworkFlow.imagePath.Length <= 0)
-                imageBitmap = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\Button_Workflow.png");
-            else
-                imageBitmap = new Bitmap(wf.CurrentworkFlow.imagePath);
+            stream.Write(Encoding.ASCII.GetBytes(lwf.Count.ToString()), 0, 1);
+
+            foreach (WorkflowView wf in lwf)
+            {
+                Bitmap imageBitmap;
+
+                if (wf.CurrentworkFlow.imagePath.Length <= 0)
+                    imageBitmap = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\Button_Workflow.png");
+                else
+                    imageBitmap = new Bitmap(wf.CurrentworkFlow.imagePath);
 
 
-            imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
+                imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
 
-            byte[] imageInBytes = ImageToByte(imageBitmap);
-            byte[] clientResponse = new byte[50];
+                byte[] imageInBytes = ImageToByte(imageBitmap);
+                byte[] clientResponse = new byte[50];
 
-            stream.Write(Encoding.ASCII.GetBytes(imageInBytes.Length.ToString()), 0, imageInBytes.Length.ToString().Length);
+                stream.Write(Encoding.ASCII.GetBytes(imageInBytes.Length.ToString()), 0, imageInBytes.Length.ToString().Length);
 
-            Trace.WriteLine(imageInBytes.Length);
+                Trace.WriteLine(imageInBytes.Length);
 
-            stream.Read(clientResponse, 0, clientResponse.Length);
-            Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
+                stream.Read(clientResponse, 0, clientResponse.Length);
+                Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
 
-            stream.Write(imageInBytes, 0, imageInBytes.Length);
+                stream.Write(imageInBytes, 0, imageInBytes.Length);
 
-            clientResponse = new byte[50];
-            stream.Read(clientResponse, 0, clientResponse.Length);
-            Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
+                clientResponse = new byte[50];
+                stream.Read(clientResponse, 0, clientResponse.Length);
+                Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
 
-            stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName.Length.ToString()), 0, wf.CurrentworkFlow.workflowName.Length.ToString().Length);
+                stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName.Length.ToString()), 0, wf.CurrentworkFlow.workflowName.Length.ToString().Length);
 
-            stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName), 0, wf.CurrentworkFlow.workflowName.Length);
+                stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName), 0, wf.CurrentworkFlow.workflowName.Length);
 
-            clientResponse = new byte[50];
-            stream.Read(clientResponse, 0, clientResponse.Length);
-            Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
+                clientResponse = new byte[50];
+                stream.Read(clientResponse, 0, clientResponse.Length);
+                Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
 
+            }
         }
+        catch (IOException e)
+        {
+            Console.WriteLine(e.Message);
+            server.Stop();
+            stream.Close();
+            
+        }
+        
 
     }
 
