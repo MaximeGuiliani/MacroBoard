@@ -75,7 +75,6 @@
         <!--recherche-->
         <Grid Grid.Row="0">
             <TextBox Style="{DynamicResource CustomTextBox}" 
-                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
                      x:Name="Search" 
                      HorizontalAlignment="Right"
                      Grid.Column="0"
