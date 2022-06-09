@@ -60,8 +60,16 @@ namespace MacroBoard
 
         void DataWindow_Closing(object sender, CancelEventArgs e)
         {
-            if(Server !=null)
+            if(Server != null)
+            {
                 Server.server.Stop();
+                if (Server.client != null)
+                {
+                    Server.client.Close();
+                    if (Server.client.GetStream() != null)
+                        Server.client.GetStream().Close();
+                }
+            }
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//

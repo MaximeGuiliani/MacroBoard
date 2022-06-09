@@ -34,36 +34,43 @@ class MyTcpListener
 
         try
         {
-            // Set the TcpListener on port 13000.
-            Int32 port = 13000;
-            server = new TcpListener(port);
+            while (true)
+            {
+                // Set the TcpListener on port 13000.
+                server = new TcpListener(13000);
 
-            // Start listening for client requests.
-            server.Start();
+                // Start listening for client requests.
+                server.Start();
 
-            // Buffer for reading data
-            byte[] bytes = new byte[256];
+                // Buffer for reading data
+                byte[] bytes = new byte[256];
 
-            // Enter the listening loop.
+                Trace.Write("Waiting for a connection... ");
+                TcpClient client = server.AcceptTcpClient();
+                Trace.WriteLine("Connected!");
 
+                isclientOnline = true;
+                Thread newThread = new(new ThreadStart(RunDataSender));
+                newThread.SetApartmentState(ApartmentState.STA);
+                newThread.Start();
 
-            Trace.Write("Waiting for a connection... ");
-            TcpClient client = server.AcceptTcpClient();
-            Trace.WriteLine("Connected!");
+                NetworkStream stream = client.GetStream();
 
+                byte[] clientResponse = new byte[50];
 
-            isclientOnline = true;
-            Thread newThread = new(new ThreadStart(RunDataSender));
-            newThread.SetApartmentState(ApartmentState.STA);
-            newThread.Start();
+                while (true)
+                {
+                    stream.Read(clientResponse, 0, clientResponse.Length);
+                    stream.Write(clientResponse, 0, clientResponse.Length);
+                    if (Encoding.ASCII.GetString(clientResponse).Contains("Quit")) break;
+                    InitMobileData(stream);
+                }
 
+                server.Stop();
+                client.Close();
 
-            NetworkStream stream = client.GetStream();
+            }
 
-            InitMobileData(stream);
-
-
-            client.Close();
         }
         catch (SocketException e)
         {
@@ -73,7 +80,6 @@ class MyTcpListener
         {
             server.Stop();
             Trace.WriteLine("\n Server Stopped...");
-
         }
 
         Trace.WriteLine("\n Server sending fav Closed...");
@@ -105,28 +111,28 @@ class MyTcpListener
             imageBitmap = resizeImage(imageBitmap, new Size(128, 128));
 
             byte[] imageInBytes = ImageToByte(imageBitmap);
-            byte[] serverResponse = new byte[50];
+            byte[] clientResponse = new byte[50];
 
             stream.Write(Encoding.ASCII.GetBytes(imageInBytes.Length.ToString()), 0, imageInBytes.Length.ToString().Length);
 
             Trace.WriteLine(imageInBytes.Length);
 
-            stream.Read(serverResponse, 0, serverResponse.Length);
-            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+            stream.Read(clientResponse, 0, clientResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
 
             stream.Write(imageInBytes, 0, imageInBytes.Length);
 
-            serverResponse = new byte[50];
-            stream.Read(serverResponse, 0, serverResponse.Length);
-            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+            clientResponse = new byte[50];
+            stream.Read(clientResponse, 0, clientResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
 
             stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName.Length.ToString()), 0, wf.CurrentworkFlow.workflowName.Length.ToString().Length);
 
             stream.Write(Encoding.ASCII.GetBytes(wf.CurrentworkFlow.workflowName), 0, wf.CurrentworkFlow.workflowName.Length);
 
-            serverResponse = new byte[50];
-            stream.Read(serverResponse, 0, serverResponse.Length);
-            Trace.WriteLine(Encoding.ASCII.GetString(serverResponse));
+            clientResponse = new byte[50];
+            stream.Read(clientResponse, 0, clientResponse.Length);
+            Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
 
         }
 
