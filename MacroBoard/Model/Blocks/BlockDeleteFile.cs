@@ -15,6 +15,7 @@ namespace MacroBoard
             base.Name = "Delete File";
             base.info = "Deletes the specified file.";
             base.category = Categories.Files;
+            this.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockRemoveFile.png";
             this.path = path;
         }
         public override void Execute()

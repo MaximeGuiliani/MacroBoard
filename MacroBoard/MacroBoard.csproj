@@ -81,9 +81,11 @@
 		<None Remove="Resources\Logo_Blocks\Logo_BlockClickR.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockCloseDesiredApplication.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockCopy.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockCopyFolder.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockCreateTextFile.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockCursorPosition.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockDeleteDirectory.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockDownload.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockDownloadFile.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockHibernate.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockInvoke.png" />
@@ -91,9 +93,12 @@
 		<None Remove="Resources\Logo_Blocks\Logo_BlockLaunchEdge.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockLaunchFirefox.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockLock.png" />
-		<None Remove="Resources\Logo_Blocks\Logo_BlockMoveFile.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockMove.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockMoveFolder.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockPopup.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockRecognizeImage.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockRemoveFile.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockRemoveFolder.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockRestart.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockRunApplication.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockRunScript.png" />
@@ -102,6 +107,7 @@
 		<None Remove="Resources\Logo_Blocks\Logo_BlockShortcut.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockShutdown.png" />
 		<None Remove="Resources\Logo_Blocks\Logo_BlockWait.png" />
+		<None Remove="Resources\Logo_Blocks\Logo_BlockWindowStyle.png" />
 		<None Remove="Resources\Logo_Edit_0.png" />
 		<None Remove="Resources\Logo_Edit_1.gif" />
 		<None Remove="Resources\Logo_Edit_2.gif" />
@@ -292,6 +298,9 @@
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockCopy.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockCopyFolder.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockCreateTextFile.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
@@ -299,6 +308,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockDeleteDirectory.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockDownload.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockDownloadFile.png">
@@ -322,13 +334,22 @@
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockLock.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Resources\Logo_Blocks\Logo_BlockMoveFile.png">
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockMove.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockMoveFolder.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockPopup.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockRecognizeImage.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockRemoveFile.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockRemoveFolder.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockRestart.png">
@@ -353,6 +374,9 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Blocks\Logo_BlockWait.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Resources\Logo_Blocks\Logo_BlockWindowStyle.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Resources\Logo_Edit_0.png">

@@ -19,6 +19,8 @@ namespace MacroBoard
             base.info = "Set the style of the foreground window";
             base.category = Categories.Applications;
             this.windowStyle = windowStyle;
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockWindowStyle.png";
+
         }
 
 

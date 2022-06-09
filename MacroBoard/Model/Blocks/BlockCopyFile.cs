@@ -20,6 +20,7 @@ namespace MacroBoard
             base.info = "Copies file to another directory.";
             base.category = Categories.Files;
             this.source = source;
+            this.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCopy.png";
             this.destination = destination;
         }
 

@@ -19,7 +19,7 @@ namespace MacroBoard
 
             base.Name = "Copy Directory";
             base.info = "Copies all the elements of a directory to another directory.";
-            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCopy.png";
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockCopyFolder.png";
 
             this.source = source;
             this.destination = destination;

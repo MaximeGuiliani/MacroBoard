@@ -22,6 +22,7 @@ namespace MacroBoard
             base.category = Categories.Files;
             this.source = source;
             this.destination = destination;
+            base.LogoUrl = "/Resources/Logo_Blocks/Logo_BlockMove.png";
         }
 
 
