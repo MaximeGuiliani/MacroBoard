@@ -23,6 +23,6 @@
 
   "theme": "Light",
 
-  "initExpandersEW": "true"
+  "initExpandersEW": "false"
 }
 // Directory names must end with "\\"
