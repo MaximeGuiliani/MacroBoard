@@ -204,10 +204,12 @@ namespace MacroBoard.View
                     this.Close();
                 }
                 else
-                    MessageBox.Show("Please select a name");
+                    MessageBox.Show("Please select a name", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                
+
             }
             else
-                MessageBox.Show("Please add at least one block");
+                MessageBox.Show("Please add at least one block", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
 

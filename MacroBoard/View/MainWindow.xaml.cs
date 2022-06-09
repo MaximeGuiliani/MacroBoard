@@ -183,9 +183,18 @@ namespace MacroBoard
 
         private void OnClick_DeleteWorkflow(object sender, RoutedEventArgs e)
         {
-            WorkflowView wf = (WorkflowView)((Button)sender).DataContext;
-            int currentItemPos = WorkFlows.IndexOf(wf);
-            RemoveWorkflow(currentItemPos);
+            
+            if (MessageBox.Show("Are you sure you wanna delete this workflow ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes){
+                WorkflowView wf = (WorkflowView)((Button)sender).DataContext;
+                int currentItemPos = WorkFlows.IndexOf(wf);
+                RemoveWorkflow(currentItemPos);
+            }
+            else
+            {
+                ;
+            }
+
+            
 
         }
 
@@ -238,7 +247,7 @@ namespace MacroBoard
         private void AddFavorite(WorkflowView newFavorite)
         {
             WorkFlow wf = newFavorite.CurrentworkFlow;
-            if (FavoriteWorkFlows.Count < 5)
+            if (FavoriteWorkFlows.Count < 6)
             {
                 if (!ListContains(FavoriteWorkFlows, wf))
                 {
