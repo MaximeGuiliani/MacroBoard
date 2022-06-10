@@ -405,7 +405,7 @@
 
             <Border CornerRadius="15,15,15,15" BorderThickness="3,3,3,3" >
                 <StackPanel x:Name="nav" Style="{DynamicResource CustomStackPanel}" Margin="-3,-3,7,-3"  >
-                    <Button Click="ChangeTheme" Height="78" Width="58">
+                    <Button ToolTip="Change theme" Click="ChangeTheme" Height="78" Width="58">
                         <Image Margin="0,30,0,20" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
                     </Button>
                     <Button ToolTip="Edit mode" x:Name="ButtonEdit" Click="EditionMode" Margin="0,30,0,20">

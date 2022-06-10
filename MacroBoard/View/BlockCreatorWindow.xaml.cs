@@ -114,6 +114,14 @@ namespace MacroBoard.View
 
         public void Visit(BlockKeyBoard b)
         {
+            TextBlock blockInst = new TextBlock();
+            blockInst.Text = "Check the manual to learn how to simulate special characters";
+            (blockInst).Foreground = new SolidColorBrush(Color.FromRgb(127, 69, 152));
+            blockInst.FontSize = 16;
+            blockInst.HorizontalAlignment = HorizontalAlignment.Left;
+            blockInst.Margin = new Thickness(0, 0, 10, 0);
+            blockInst.TextWrapping= TextWrapping.Wrap;
+            Controls.Children.Add(blockInst);
             (Label, TextBox) shortcut = fields.newTextBox("Shortcut", b._shortCut);
             newBlock = () => new BlockKeyBoard(shortcut.Item2.Text);
         }
