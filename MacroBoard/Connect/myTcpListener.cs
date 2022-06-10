@@ -35,9 +35,9 @@ class MyTcpListener
     public void Run()
     {
 
-        try
+        while (true)
         {
-            while (true)
+            try
             {
                 // Set the TcpListener on port 13000.
                 server = new TcpListener(13000);
@@ -76,26 +76,28 @@ class MyTcpListener
                         Console.WriteLine(e.Message);
                         break;
                     }
-                    
+
                 }
+                if (client != null)
+                    client.Close();
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("SocketException: {0}", e);
+            }
+            finally
+            {
+                server.Stop();
+
+                Trace.WriteLine("\n Server Stopped...");
             }
 
-        }
-        catch (SocketException e)
-        {
-            Console.WriteLine("SocketException: {0}", e);
-        }
-        finally
-        {
-            server.Stop();
-            client.Close();
-            Trace.WriteLine("\n Server Stopped...");
+            Trace.WriteLine("\n Server sending fav Closed...");
+
+            Console.Read();
+            isclientOnline = false;
         }
 
-        Trace.WriteLine("\n Server sending fav Closed...");
-
-        Console.Read();
-        isclientOnline = false;
 
 
     }
@@ -152,7 +154,7 @@ class MyTcpListener
             server.Stop();
             stream.Close();
         }
-        
+
 
     }
 
