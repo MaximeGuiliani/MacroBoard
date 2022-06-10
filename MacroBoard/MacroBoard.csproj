@@ -117,6 +117,8 @@
 		<None Remove="Resources\loop_light.png" />
 		<None Remove="Resources\macro_img.png" />
 		<None Remove="Resources\WFJSON\init.txt" />
+		<None Remove="Resources\WFJSON\lock.json" />
+		<None Remove="Resources\WFJSON\youtube.json" />
 		<None Remove="Resources\workflow.jpg" />
 		<None Remove="Resources\workflow.png" />
 	</ItemGroup>
@@ -434,6 +436,12 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\macro_img.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\WFJSON\lock.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\WFJSON\youtube.json">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\workflow.png">
