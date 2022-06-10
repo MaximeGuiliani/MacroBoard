@@ -109,7 +109,7 @@
                     </TextBox.Resources>
                 </TextBox>
 
-                <Button x:Name="expandAll" FontFamily="Century Gothic"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickExpandAll"   Margin="0,0,5,0"  Focusable="False">
+                <Button x:Name="expandAll" ToolTip="Expand all" FontFamily="Century Gothic"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickExpandAll"   Margin="0,0,5,0"  Focusable="False">
                     <Button.Style>
 
                         <Style TargetType="{x:Type Button}">
@@ -152,11 +152,11 @@
 
 
 
-                <Button x:Name="collapseAll"  FontFamily="Century Gothic"  HorizontalAlignment="Right" VerticalAlignment="Center" Height="32" Width="20" Click="onClickCollapseAll" Margin="0,0,35,0"  Focusable="False" >
+                <Button ToolTip="Collapse all" x:Name="collapseAll"  FontFamily="Century Gothic"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="20" Click="onClickCollapseAll" Margin="205,0,0,0"  Focusable="False" >
 
-                   
+
                     <Button.Style>
-                       
+
                         <Style TargetType="{x:Type Button}">
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="Foreground" Value="#FF7F4598"/>
@@ -180,13 +180,13 @@
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#FF7F4598"/>
-                                    
+
                                     <Setter Property="Content">
                                         <Setter.Value>
                                             <Image Source="../Resources/collapse_grey.png" />
                                         </Setter.Value>
                                     </Setter>
-                                    
+
 
                                 </Trigger>
                             </Style.Triggers>

@@ -408,14 +408,14 @@
                     <Button Click="ChangeTheme" Height="78" Width="58">
                         <Image Margin="0,30,0,20" HorizontalAlignment="Center" Width="25" Height="25" Style="{DynamicResource CustomImageThemes}"/>
                     </Button>
-                    <Button x:Name="ButtonEdit" Click="EditionMode" Margin="0,30,0,20">
+                    <Button ToolTip="Edit mode" x:Name="ButtonEdit" Click="EditionMode" Margin="0,30,0,20">
 
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageRearrange}"/>
                     </Button>
-                    <Button x:Name="Edition" Margin="0,30,0,20" Click="AddWorkFlow" >
+                    <Button ToolTip="New WorkFlow" x:Name="Edition" Margin="0,30,0,20" Click="AddWorkFlow" >
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageEdit}"/>
                     </Button>
-                    <CheckBox x:Name="AppServer" IsChecked="False" Checked="cbFeature_CheckedChanged" Unchecked="cbFeature_CheckedChanged" Margin="0,40,0,0" Style="{DynamicResource CustomCheckBox}" >
+                    <CheckBox ToolTip="Connect phone" x:Name="AppServer" IsChecked="False" Checked="cbFeature_CheckedChanged" Unchecked="cbFeature_CheckedChanged" Margin="0,40,0,0" Style="{DynamicResource CustomCheckBox}" >
                         <Image Height="25" Width="25" Style="{DynamicResource CustomImageApp}"/>
                     </CheckBox>
                 </StackPanel>
@@ -424,7 +424,7 @@
             <StackPanel x:Name="navi" Style="{DynamicResource CustomStackPanel}" 
                         VerticalAlignment="Bottom"
                         Margin="2,0,10,0" Height="45">
-                <Button Height="25" Width="25"  Click="AboutApp" HorizontalAlignment="Center">
+                <Button ToolTip="About" Height="25" Width="25"  Click="AboutApp" HorizontalAlignment="Center">
                     <Image Height="25" Width="25" Style="{DynamicResource CustomImageAbout}"/>
                 </Button>
             </StackPanel>
