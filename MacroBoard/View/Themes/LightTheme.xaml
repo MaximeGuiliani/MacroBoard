@@ -78,7 +78,7 @@ StrokeThickness="1" StrokeDashArray="1 2"/>
                 <Setter Property="BorderBrush" Value="Gray"/>
             </Trigger>
         </Style.Triggers>
-        <Setter Property="Background" Value="#444444"/>
+        <Setter Property="Background" Value="LightGray"/>
         <Setter Property="CornerRadius" Value="25"/>
         <Setter Property="BorderThickness" Value=" 0,0,0,8"/>
         <Setter Property="BorderBrush" Value="#c6c6c6"/>
