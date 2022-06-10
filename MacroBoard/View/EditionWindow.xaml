@@ -9,8 +9,8 @@
         Title="Edition space"
         Height="620"
         Width="800"
-        MinHeight="500"
-        MinWidth="600"
+        MinHeight="620"
+        MinWidth="780
         Name="bibu"
         FocusManager.FocusedElement="{Binding ElementName=ListBlock_Left_XAML}"
         
