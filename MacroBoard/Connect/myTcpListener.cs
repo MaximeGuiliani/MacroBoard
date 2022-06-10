@@ -14,19 +14,22 @@ class MyTcpListener
 {
 
     public TcpListener server;
+    public Thread mainThread;
+    public NetworkStream stream;
+    public TcpClient client;
 
     public TcpListener dataReceiveServer;
     public TcpClient clientSender;
-    public TcpClient client;
     public bool isclientSenderOnline = false;
     public bool isclientOnline = false;
     public bool isDatasender = true;
     public MyTcpListener()
 
     {
-        Thread newThread = new Thread(new ThreadStart(Run));
-        newThread.SetApartmentState(ApartmentState.STA);
-        newThread.Start();
+        Thread mainThread = new(Run);
+        mainThread.SetApartmentState(ApartmentState.STA);
+        mainThread.Start();
+
     }
 
     public void Run()
@@ -46,7 +49,7 @@ class MyTcpListener
                 byte[] bytes = new byte[256];
 
                 Trace.Write("Waiting for a connection... ");
-                TcpClient client = server.AcceptTcpClient();
+                client = server.AcceptTcpClient();
                 Trace.WriteLine("Connected!");
 
                 isclientOnline = true;
@@ -54,21 +57,27 @@ class MyTcpListener
                 newThread.SetApartmentState(ApartmentState.STA);
                 newThread.Start();
 
-                NetworkStream stream = client.GetStream();
-
-                byte[] clientResponse = new byte[50];
+                stream = client.GetStream();
+                if (stream == null) continue;
 
                 while (true)
                 {
-                    stream.Read(clientResponse, 0, clientResponse.Length);
-                    stream.Write(clientResponse, 0, clientResponse.Length);
-                    if (Encoding.ASCII.GetString(clientResponse).Contains("Quit")) break;
-                    InitMobileData(stream);
+                    try
+                    {
+                        byte[] clientResponse = new byte[50];
+
+                        stream.Read(clientResponse, 0, clientResponse.Length);
+                        stream.Write(clientResponse, 0, clientResponse.Length);
+                        if (Encoding.ASCII.GetString(clientResponse).Contains("Quit")) break;
+                        InitMobileData(stream);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        break;
+                    }
+                    
                 }
-
-                server.Stop();
-                client.Close();
-
             }
 
         }
@@ -79,6 +88,7 @@ class MyTcpListener
         finally
         {
             server.Stop();
+            client.Close();
             Trace.WriteLine("\n Server Stopped...");
         }
 
@@ -134,15 +144,13 @@ class MyTcpListener
                 clientResponse = new byte[50];
                 stream.Read(clientResponse, 0, clientResponse.Length);
                 Trace.WriteLine(Encoding.ASCII.GetString(clientResponse));
-
             }
         }
         catch (IOException e)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine("Exception {0} | {1}", e.Message, "On Run Data Sender");
             server.Stop();
             stream.Close();
-            
         }
         
 
@@ -223,7 +231,7 @@ class MyTcpListener
         }
         catch (SocketException e)
         {
-            Console.WriteLine("SocketException: {0}", e);
+            Console.WriteLine("SocketException: {0} | {1}", e, "On Run Data Sender");
         }
         finally
         {

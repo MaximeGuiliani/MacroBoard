@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Sockets;
+using System.Diagnostics;
 
 namespace MacroBoard
 
@@ -60,16 +61,33 @@ namespace MacroBoard
 
         void DataWindow_Closing(object sender, CancelEventArgs e)
         {
+            Trace.WriteLine("Application Closing");
+
             if(Server != null)
             {
                 Server.server.Stop();
+                if (Server.clientSender != null)
+                {
+                    if (Server.clientSender.GetStream() != null)
+                        Server.clientSender.GetStream().Close();
+
+                    Server.clientSender.Close();
+                }
                 if (Server.client != null)
                 {
-                    Server.client.Close();
                     if (Server.client.GetStream() != null)
                         Server.client.GetStream().Close();
+
+                    Server.client.Close();
                 }
+                if (Server.stream != null)
+                    Server.stream.Close();
+
+                if (Server.mainThread != null)
+                    try{Server.mainThread.Abort();}catch (Exception) { }
+
             }
+
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
@@ -93,8 +111,6 @@ namespace MacroBoard
             ListMacro.ItemsSource = WorkFlows;
             ListFav.ItemsSource = FavoriteWorkFlows;
 
-
-
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------//
@@ -103,21 +119,28 @@ namespace MacroBoard
             if (AppServer.IsChecked == true)
             {
                 Server = new MyTcpListener();
-
-
                 MessageBox.Show("Please enter this on your phone \n "+ GetLocalIPAddress());
             }
             else
             {
-                if (Server.isDatasender)
+                Trace.WriteLine("Server Closing");
+
+                if (Server != null)
                 {
                     Server.server.Stop();
+                    if (Server.clientSender != null)
+                    {
+                        if (Server.clientSender.GetStream() != null)
+                            Server.clientSender.GetStream().Close();
 
-                }
-                else
-                {
-                    Server.dataReceiveServer.Stop();
-
+                        Server.clientSender.Close();
+                    }
+                    if (Server.mainThread != null)
+                        try
+                        {
+                            Server.mainThread.Abort();
+                        }
+                        catch (Exception) { }
                 }
             }
         }
