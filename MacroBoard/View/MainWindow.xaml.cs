@@ -63,20 +63,18 @@ namespace MacroBoard
         {
             Trace.WriteLine("Application Closing");
 
-            if(Server != null)
+            if (Server != null)
             {
-                Server.server.Stop();
+
                 if (Server.clientSender != null)
                 {
-                    if (Server.clientSender.GetStream() != null)
-                        Server.clientSender.GetStream().Close();
+
 
                     Server.clientSender.Close();
                 }
                 if (Server.client != null)
                 {
-                    if (Server.client.GetStream() != null)
-                        Server.client.GetStream().Close();
+
 
                     Server.client.Close();
                 }
@@ -84,7 +82,9 @@ namespace MacroBoard
                     Server.stream.Close();
 
                 if (Server.mainThread != null)
-                    try{Server.mainThread.Abort();}catch (Exception) { }
+                    try { Server.mainThread.Abort(); } catch (Exception) { }
+                Server.server.Stop();
+                new BlockCloseDesiredApplication("MacroBoard", true, true).Execute();
 
             }
 
@@ -119,29 +119,12 @@ namespace MacroBoard
             if (AppServer.IsChecked == true)
             {
                 Server = new MyTcpListener();
-                MessageBox.Show("Please enter this on your phone \n "+ GetLocalIPAddress());
+                MessageBox.Show("Please enter this on your phone \n " + GetLocalIPAddress());
             }
             else
             {
                 Trace.WriteLine("Server Closing");
 
-                if (Server != null)
-                {
-                    Server.server.Stop();
-                    if (Server.clientSender != null)
-                    {
-                        if (Server.clientSender.GetStream() != null)
-                            Server.clientSender.GetStream().Close();
-
-                        Server.clientSender.Close();
-                    }
-                    if (Server.mainThread != null)
-                        try
-                        {
-                            Server.mainThread.Abort();
-                        }
-                        catch (Exception) { }
-                }
             }
         }
 
@@ -214,8 +197,9 @@ namespace MacroBoard
 
         private void OnClick_DeleteWorkflow(object sender, RoutedEventArgs e)
         {
-            
-            if (MessageBox.Show("Are you sure you wanna delete this workflow ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes){
+
+            if (MessageBox.Show("Are you sure you wanna delete this workflow ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
+            {
                 WorkflowView wf = (WorkflowView)((Button)sender).DataContext;
                 int currentItemPos = WorkFlows.IndexOf(wf);
                 RemoveWorkflow(currentItemPos);
@@ -225,7 +209,7 @@ namespace MacroBoard
                 ;
             }
 
-            
+
 
         }
 
